@@ -19,6 +19,15 @@ export default function AseanMap() {
     return true;
   });
 
+  // Calculate ambient glow color based on hovered country regime type
+  const ambientGlowColor = useMemo(() => {
+    if (!hoveredCountry) return null;
+    if (hoveredCountry.regimeType === "Open Transfer") return "rgba(255, 204, 0, 0.25)";
+    if (hoveredCountry.regimeType === "Hybrid") return "rgba(0, 51, 153, 0.25)";
+    if (hoveredCountry.regimeType === "Strict Localization") return "rgba(204, 0, 0, 0.25)";
+    return null;
+  }, [hoveredCountry]);
+
   return (
     <section id="asean-map" className="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-slate-200 dark:border-slate-800 font-sans">
       {/* Section Title */}
@@ -55,11 +64,21 @@ export default function AseanMap() {
         </div>
       </div>
 
-      {/* Map Container */}
-      <div className="rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 shadow-md dark:shadow-xl relative overflow-hidden transition-colors">
+      {/* Map Container with Ambient Radar Glow Lighting & Contextual Crosshair Cursor */}
+      <div className="rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 shadow-md dark:shadow-xl relative overflow-hidden transition-colors cursor-crosshair">
         
+        {/* Ambient Glow Spotlight Layer */}
+        {ambientGlowColor && (
+          <div
+            className="absolute inset-0 pointer-events-none transition-opacity duration-500 blur-3xl opacity-80"
+            style={{
+              background: `radial-gradient(circle at 50% 50%, ${ambientGlowColor} 0%, transparent 70%)`,
+            }}
+          />
+        )}
+
         {/* Map Legend */}
-        <div className="flex flex-wrap items-center gap-6 mb-6 text-xs border-b border-slate-200 dark:border-slate-800 pb-4 font-sans">
+        <div className="flex flex-wrap items-center gap-6 mb-6 text-xs border-b border-slate-200 dark:border-slate-800 pb-4 font-sans relative z-10">
           <span className="font-sans text-slate-500 dark:text-slate-400 text-[11px] uppercase">Classification:</span>
           <div className="flex items-center gap-2">
             <span className="w-3 h-3 rounded-xs bg-asean-yellow border border-asean-yellow"></span>
@@ -76,7 +95,7 @@ export default function AseanMap() {
         </div>
 
         {/* Vector SVG Map Rendering Canvas */}
-        <div className="relative w-full aspect-[16/9] max-h-[460px] flex items-center justify-center font-sans">
+        <div className="relative w-full aspect-[16/9] max-h-[460px] flex items-center justify-center font-sans z-10">
           <svg viewBox="0 0 540 370" className="w-full h-full">
             {filteredCountries.map((country) => {
               const isSelected = selectedCountry?.id === country.id;
@@ -142,7 +161,7 @@ export default function AseanMap() {
 
           {/* Hover Card */}
           {hoveredCountry && !selectedCountry && (
-            <div className="absolute bottom-4 left-4 p-3 rounded-lg bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 shadow-2xl max-w-sm text-xs pointer-events-none font-sans">
+            <div className="absolute bottom-4 left-4 p-3.5 rounded-xl bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border border-slate-300 dark:border-slate-700 shadow-2xl max-w-sm text-xs pointer-events-none font-sans transition-all">
               <div className="flex items-center justify-between gap-2 mb-1 font-sans">
                 <span className="font-bold text-slate-900 dark:text-white font-serif-editorial text-sm">{hoveredCountry.name}</span>
                 <span className="text-[10px] font-sans px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
@@ -160,7 +179,7 @@ export default function AseanMap() {
 
       {/* Country Detail Dossier Modal */}
       {selectedCountry && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 dark:bg-black/80 backdrop-blur-sm font-sans">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 dark:bg-black/80 backdrop-blur-md font-sans">
           <div className="relative w-full max-w-2xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded-xl p-6 shadow-2xl">
             <button
               onClick={() => setSelectedCountry(null)}

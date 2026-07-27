@@ -53,6 +53,36 @@ export const HERO_STORIES: HeroStory[] = [
   },
 ];
 
+// Feature 3: Live Micro-Stats Counter Component
+function AnimatedCounter({ endValue, suffix = "" }: { endValue: number; suffix?: string }) {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    let start = 0;
+    const duration = 1200;
+    const increment = endValue / (duration / 16);
+
+    const timer = setInterval(() => {
+      start += increment;
+      if (start >= endValue) {
+        setCount(endValue);
+        clearInterval(timer);
+      } else {
+        setCount(Math.floor(start));
+      }
+    }, 16);
+
+    return () => clearInterval(timer);
+  }, [endValue]);
+
+  return (
+    <span>
+      <strong>{count}</strong>
+      {suffix}
+    </span>
+  );
+}
+
 export default function Home() {
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
@@ -87,7 +117,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-200 font-sans selection:bg-asean-yellow/30 selection:text-slate-900 transition-colors">
+    <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-200 font-sans selection:bg-asean-yellow/30 selection:text-slate-900 transition-colors bg-dossier-noise">
       {/* Editorial Masthead Header */}
       <Header />
 
@@ -138,30 +168,30 @@ export default function Home() {
               <HeroSearch />
             </div>
 
-            {/* Live Repository Micro-Stats Badges (Neutral Uncolored Lucide Icons) */}
+            {/* Feature 3: Live Micro-Stats Badges with Animated Counter & Uncolored Lucide Icons */}
             <div className="pt-2 flex flex-wrap items-center justify-center gap-2 sm:gap-3 text-xs font-sans text-slate-300">
-              <span className="px-3 py-1 rounded-full bg-slate-800/80 border border-slate-700/80 flex items-center gap-1.5">
+              <span className="px-3 py-1 rounded-full bg-slate-800/80 border border-slate-700/80 flex items-center gap-1.5 shadow-xs">
                 <Globe className="w-3.5 h-3.5 text-slate-400" />
-                <span><strong>11</strong> ASEAN Member States</span>
+                <span><AnimatedCounter endValue={11} /> ASEAN Member States</span>
               </span>
-              <span className="px-3 py-1 rounded-full bg-slate-800/80 border border-slate-700/80 flex items-center gap-1.5">
+              <span className="px-3 py-1 rounded-full bg-slate-800/80 border border-slate-700/80 flex items-center gap-1.5 shadow-xs">
                 <FileText className="w-3.5 h-3.5 text-slate-400" />
-                <span><strong>14</strong> Ingested Decrees</span>
+                <span><AnimatedCounter endValue={14} /> Ingested Decrees</span>
               </span>
-              <span className="px-3 py-1 rounded-full bg-slate-800/80 border border-slate-700/80 flex items-center gap-1.5">
+              <span className="px-3 py-1 rounded-full bg-slate-800/80 border border-slate-700/80 flex items-center gap-1.5 shadow-xs">
                 <ShieldCheck className="w-3.5 h-3.5 text-slate-400" />
-                <span><strong>100%</strong> Primary Source Verified</span>
+                <span><AnimatedCounter endValue={100} suffix="%" /> Primary Source Verified</span>
               </span>
-              <span className="px-3 py-1 rounded-full bg-slate-800/80 border border-slate-700/80 flex items-center gap-1.5">
+              <span className="px-3 py-1 rounded-full bg-slate-800/80 border border-slate-700/80 flex items-center gap-1.5 shadow-xs">
                 <Languages className="w-3.5 h-3.5 text-slate-400" />
-                <span><strong>2</strong> Languages (EN &amp; ID)</span>
+                <span><AnimatedCounter endValue={2} /> Languages (EN &amp; ID)</span>
               </span>
             </div>
 
           </div>
         </section>
 
-        {/* HERO FEATURED STORY CAROUSEL WITH LOCKED HEIGHT (UP TO 4 LINES TITLE & 4 LINES SUMMARY) */}
+        {/* HERO FEATURED STORY CAROUSEL WITH LOCKED HEIGHT (NO KEN BURNS ZOOM/PAN) */}
         <section className="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-b border-slate-200 dark:border-slate-800">
           
           <div
@@ -171,7 +201,7 @@ export default function Home() {
           >
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 items-stretch h-full">
               
-              {/* Left Column: Photo Container with Locked Dimensions & Ken Burns Hover Effect */}
+              {/* Left Column: Photo Container with Stable Image (No Ken Burns Scale/Rotation) */}
               <div className="lg:col-span-7 relative min-h-[280px] lg:min-h-full h-full bg-slate-950 overflow-hidden">
                 <Image
                   key={activeStory.id}
@@ -179,7 +209,7 @@ export default function Home() {
                   alt={activeStory.title}
                   fill
                   priority
-                  className="object-cover transform scale-100 group-hover:scale-110 group-hover:rotate-0.5 transition-transform duration-1000 ease-out"
+                  className="object-cover transition-opacity duration-500"
                 />
 
                 {/* Subtle Image Gradient Overlay */}
@@ -238,7 +268,7 @@ export default function Home() {
             <button
               onClick={handlePrevSlide}
               aria-label="Previous Story"
-              className="absolute left-3 top-1/2 -translate-y-1/2 z-20 p-2.5 rounded-full bg-slate-900/70 hover:bg-slate-900 text-white backdrop-blur-md border border-white/20 opacity-0 group-hover:opacity-100 transition-opacity"
+              className="absolute left-3 top-1/2 -translate-y-1/2 z-20 p-2.5 rounded-full bg-slate-900/70 hover:bg-slate-900 text-white backdrop-blur-md border border-white/20 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
@@ -246,7 +276,7 @@ export default function Home() {
             <button
               onClick={handleNextSlide}
               aria-label="Next Story"
-              className="absolute right-3 top-1/2 -translate-y-1/2 z-20 p-2.5 rounded-full bg-slate-900/70 hover:bg-slate-900 text-white backdrop-blur-md border border-white/20 opacity-0 group-hover:opacity-100 transition-opacity"
+              className="absolute right-3 top-1/2 -translate-y-1/2 z-20 p-2.5 rounded-full bg-slate-900/70 hover:bg-slate-900 text-white backdrop-blur-md border border-white/20 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
             >
               <ChevronRight className="w-5 h-5" />
             </button>
@@ -259,7 +289,7 @@ export default function Home() {
                 key={story.id}
                 onClick={() => setActiveSlideIndex(idx)}
                 aria-label={`Go to slide ${idx + 1}: ${story.title}`}
-                className={`h-1.5 rounded-full transition-all duration-300 ${
+                className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
                   activeSlideIndex === idx
                     ? "w-8 bg-asean-yellow"
                     : "w-2.5 bg-slate-300 dark:bg-slate-700 hover:bg-slate-400 dark:hover:bg-slate-600"
@@ -270,12 +300,12 @@ export default function Home() {
 
         </section>
 
-        {/* SECTION 3: 3-COLUMN EDITORIAL ATELIER GRID */}
+        {/* SECTION 3: 3-COLUMN EDITORIAL ATELIER GRID (FEATURE 2: STAGGERED FADE-UP ANIMATIONS & FEATURE 6: EDITORIAL DROP-CAP) */}
         <section className="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-b border-slate-200 dark:border-slate-800">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             
             {/* COLUMN 1: Lead Analysis & Context (5 cols) */}
-            <div className="lg:col-span-5 space-y-6 lg:border-r lg:border-slate-200 lg:dark:border-slate-800 lg:pr-8">
+            <div className="lg:col-span-5 space-y-6 lg:border-r lg:border-slate-200 lg:dark:border-slate-800 lg:pr-8 animate-fade-up">
               <span className="text-xs font-sans uppercase tracking-widest text-asean-yellow font-bold block">
                 01 • EXECUTIVE INSIGHTS
               </span>
@@ -284,8 +314,12 @@ export default function Home() {
                 The Deregulatory Push Behind Closed-Door Trade Treaties
               </h3>
 
-              <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
-                Projected to expand Southeast Asia’s digital economy to <strong>US$2.0 Trillion by 2030</strong>, the Digital Economy Framework Agreement (DEFA) governs nine core pillars. However, negotiations conducted exclusively behind closed doors leave regional civil society without democratic recourse.
+              {/* Feature 6: Editorial Serif Drop-Cap */}
+              <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed font-sans">
+                <span className="float-left text-4xl sm:text-5xl font-serif-editorial font-extrabold pr-2.5 pt-0.5 text-asean-yellow leading-none select-none">
+                  P
+                </span>
+                rojected to expand Southeast Asia’s digital economy to <strong>US$2.0 Trillion by 2030</strong>, the Digital Economy Framework Agreement (DEFA) governs nine core pillars. However, negotiations conducted exclusively behind closed doors leave regional civil society without democratic recourse.
               </p>
 
               <div className="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-3 shadow-sm dark:shadow-none">
@@ -314,7 +348,7 @@ export default function Home() {
             </div>
 
             {/* COLUMN 2: Secondary Field Dispatches (4 cols) */}
-            <div className="lg:col-span-4 space-y-6 lg:border-r lg:border-slate-200 lg:dark:border-slate-800 lg:pr-8">
+            <div className="lg:col-span-4 space-y-6 lg:border-r lg:border-slate-200 lg:dark:border-slate-800 lg:pr-8 animate-fade-up [animation-delay:150ms]">
               <span className="text-xs font-sans uppercase tracking-widest text-asean-blue font-bold block">
                 02 • FIELD DISPATCHES
               </span>
@@ -326,7 +360,7 @@ export default function Home() {
                     src="/images/vietnam_server.jpg"
                     alt="Vietnam Cloud Data Center"
                     fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="object-cover transition-opacity duration-500"
                   />
                 </div>
                 <span className="text-[10px] font-sans text-asean-yellow font-bold uppercase">
@@ -347,7 +381,7 @@ export default function Home() {
                     src="/images/ai_audit.jpg"
                     alt="AI Governance Code Audit"
                     fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="object-cover transition-opacity duration-500"
                   />
                 </div>
                 <span className="text-[10px] font-sans text-asean-yellow font-bold uppercase">
@@ -363,7 +397,7 @@ export default function Home() {
             </div>
 
             {/* COLUMN 3: Live Policy Radar Stream (3 cols) */}
-            <div className="lg:col-span-3 space-y-6">
+            <div className="lg:col-span-3 space-y-6 animate-fade-up [animation-delay:300ms]">
               <span className="text-xs font-sans uppercase tracking-widest text-asean-blue font-bold block">
                 03 • REGULATORY RADAR
               </span>
@@ -531,7 +565,7 @@ export default function Home() {
               />
               <button
                 type="submit"
-                className="px-6 py-2.5 rounded-lg bg-slate-900 dark:bg-slate-800 hover:bg-slate-800 dark:hover:bg-slate-700 text-white font-sans text-xs font-bold transition-colors whitespace-nowrap"
+                className="px-6 py-2.5 rounded-lg bg-slate-900 dark:bg-slate-800 hover:bg-slate-800 dark:hover:bg-slate-700 text-white font-sans text-xs font-bold transition-colors whitespace-nowrap cursor-pointer"
               >
                 Subscribe Free
               </button>

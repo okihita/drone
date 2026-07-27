@@ -1,106 +1,55 @@
 @import "tailwindcss";
-@variant dark (&:where(.dark, .dark *));
-
-@theme {
-  --color-asean-blue: #003399;
-  --color-asean-blue-hover: #1a52c5;
-  --color-asean-red: #CC0000;
-  --color-asean-red-hover: #e62e2e;
-  --color-asean-yellow: #FFCC00;
-  --color-asean-yellow-hover: #ffd633;
-}
 
 @layer base {
-  /* Official ASEAN Logo Color Tokens */
+  /* Editorial Atelier & Newsreader Typography Setup */
   :root {
-    --bg-main: #f8fafc;
-    --bg-card: #ffffff;
-    --bg-header: #ffffff;
-    --bg-card-subtle: #f1f5f9;
-    --bg-border: #e2e8f0;
-    --text-primary: #0f172a;
-    --text-muted: #64748b;
-    --text-heading: #020617;
-    
-    /* Official ASEAN Palette */
-    --asean-blue: #003399;
-    --asean-red: #CC0000;
-    --asean-yellow: #FFCC00;
-    --asean-white: #ffffff;
-  }
-
-  /* Dark Mode Override */
-  .dark {
-    --bg-main: #0b0f17;
-    --bg-card: #0e1420;
-    --bg-header: #090d16;
-    --bg-card-subtle: #1e293b;
-    --bg-border: #1e293b;
-    --text-primary: #f8fafc;
-    --text-muted: #94a3b8;
-    --text-heading: #ffffff;
-    
-    /* Official ASEAN Palette */
-    --asean-blue: #3b82f6;
-    --asean-red: #ef4444;
-    --asean-yellow: #f59e0b;
-    --asean-white: #ffffff;
-  }
-
-  body {
-    background-color: var(--bg-main);
-    color: var(--text-primary);
-    font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
-    transition: background-color 0.2s ease, color 0.2s ease;
-  }
-
-  h1, h2, h3, .font-serif-editorial {
-    font-family: var(--font-serif), Georgia, Cambria, serif;
-  }
-
-  /* Explicit Guardrail: Monospace fonts forbidden across UI */
-  code, pre, .font-mono-data {
-    font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
+    --font-editorial: 'Newsreader', Georgia, Cambria, 'Times New Roman', Times, serif;
+    --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   }
 }
 
-/* Editorial Research Styling */
-.editorial-card {
-  background: var(--bg-card);
-  border: 1px solid var(--bg-border);
-  transition: border-color 0.2s ease, transform 0.2s ease;
+/* Custom ASEAN Logo Branding Utility Classes */
+@theme {
+  --color-asean-blue: #003399;
+  --color-asean-red: #CC0000;
+  --color-asean-yellow: #FFCC00;
+  --color-asean-white: #FFFFFF;
+  --color-asean-blue-hover: #002673;
+  --color-asean-red-hover: #990000;
+  --color-asean-yellow-hover: #e6b800;
 }
 
-.editorial-card:hover {
-  border-color: var(--asean-blue);
+/* Utility for Serif Editorial Typography */
+.font-serif-editorial {
+  font-family: var(--font-editorial);
 }
 
-.editorial-border {
-  border-color: var(--bg-border);
+/* Tactile Dossier Film-Grain Overlay Pattern */
+.bg-dossier-noise {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
 }
 
-.tag-badge {
-  font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
-  font-size: 0.6875rem;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
+/* Scroll-Driven Fade-Up Animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+.animate-fade-up {
+  animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-::-webkit-scrollbar-track {
-  background: var(--bg-main);
+/* Hide Scrollbar Utilities */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }
-
-::-webkit-scrollbar-thumb {
-  background: var(--bg-border);
-  border-radius: 3px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--asean-blue);
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

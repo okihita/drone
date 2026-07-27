@@ -8,27 +8,43 @@
 
 ## 🔒 Mandatory Project Rules & Design Guardrails
 
-### 1. Hero Story Carousel & Zero Layout Shift (UP TO 4 LINES TITLE & SUBTITLE)
-* **4-LINE TITLE & SUBTITLE BOUNDS**: The carousel title and summary elements allow **up to 4 lines of text** (`line-clamp-4`) with minimum height bounds (`min-h-[5.5rem]`).
-* **LOCKED CAROUSEL HEIGHT**: The hero story carousel container maintains a locked height (`min-h-[500px] lg:h-[500px]`) so switching slides causes **ZERO Cumulative Layout Shift (CLS)**.
-* **KEN BURNS HOVER EFFECT**: The hero cover image MUST feature a smooth Ken Burns scale and subtle rotation zoom-pan effect on card hover (`group-hover:scale-110 group-hover:rotate-0.5 transition-transform duration-1000 ease-out`).
-* **CAROUSEL CONTROLS**: Include left/right arrow buttons (`ChevronLeft`, `ChevronRight`) and clickable navigation progress dots/lines beneath the carousel.
+### 1. Ambient Radar Map Glows (`AseanMap.tsx`)
+* **RADAR AMBIENT LIGHTING**: Hovering over any country on `AseanMap.tsx` projects a soft, blurred radial spotlight background matching the country's regime classification color (ASEAN Gold `#FFCC00`, ASEAN Blue `#003399`, or ASEAN Red `#CC0000`).
+* **CROSSHAIR CURSOR CUES**: The observatory map canvas uses `cursor-crosshair` styling to emphasize the cartographic evaluation theme.
 
 ---
 
-### 2. Neutral Uncolored Lucide Icons (NO Emojis & NO Colored Icons in Hero Badges)
+### 2. Hero Story Carousel & Stable Image (NO Ken Burns Zoom)
+* **FORBIDDEN**: Do NOT use Ken Burns image scale or rotation hover effects (`scale-110`, `rotate-0.5`). Hero carousel cover images must remain static, crisp, and stable on hover.
+* **4-LINE TITLE & SUBTITLE BOUNDS**: The carousel title and summary elements allow **up to 4 lines of text** (`line-clamp-4`) with minimum height bounds (`min-h-[5.5rem]`).
+* **LOCKED CAROUSEL HEIGHT**: The hero story carousel container maintains a locked height (`min-h-[500px] lg:h-[500px]`) so switching slides causes **ZERO Cumulative Layout Shift (CLS)**.
+
+---
+
+### 3. Animated Micro-Stats Counters & Neutral Uncolored Icons (`page.tsx`)
+* **LIVE COUNTING NUMBERS**: Hero micro-statistics (**11** Member States, **14** Ingested Decrees, **100%** Verified) use an animated counting loop on initial page load.
 * **UNCOLORED NEUTRAL ICONS**: Lucide icons inside hero micro-stats badges MUST use neutral text colors (`text-slate-400`). Do NOT color micro-stats icons with custom brand tokens (FORBIDDEN: `text-asean-yellow`, `text-asean-blue`).
 * **FORBIDDEN**: Do NOT use raw emojis (`🌐`, `📊`, `🛡️`, `🗣️`) anywhere in UI badges, hero cards, or stats counters.
 
 ---
 
-### 3. Search Placeholder Rules (Exactly 3 Examples)
+### 4. Tactile Dossier Film-Grain Noise Texture (`globals.css`)
+* **PRINTED DOSSIER TEXTURE**: Dark mode backgrounds use a 3% opacity SVG fractal noise overlay (`bg-dossier-noise`) for an authentic printed intelligence dossier feel.
+
+---
+
+### 5. Editorial Serif Drop-Cap (`page.tsx`)
+* **MAGAZINE DROP-CAP**: The opening paragraph of the Swiss Atelier Executive Insights section uses an oversized, bold *Newsreader* serif drop-cap (`float-left text-4xl sm:text-5xl font-serif-editorial font-extrabold pr-2.5 pt-0.5 text-asean-yellow leading-none`).
+
+---
+
+### 6. Search Placeholder Rules (Exactly 3 Examples)
 * **SEARCH PLACEHOLDER**: `HeroSearch.tsx` search input placeholder MUST use exactly 3 examples ending with Indonesia's PDP Law:
   * `Try "DEFA Chapter 5", "Vietnam Decree 53", "Indonesia PDP Law"`
 
 ---
 
-### 4. Header & Title Branding Rule (DRONE Spelling & Alignment)
+### 7. Header & Title Branding Rule (DRONE Spelling & Alignment)
 * **TITLE SPELLING**: The brand title MUST be written as **`DRONE`** without dots (FORBIDDEN: `D.R.O.N.E.`).
 * **ZERO FONT PADDING & VERTICAL CENTER ALIGNMENT**: `DRONE` and the 2-line subtitle MUST be vertically centered/aligned (`flex items-center`) with `leading-none` and zero line-height padding.
 * **EXACT 2-LINE SUBTITLE**: The subtitle text MUST be split into exactly 2 stacked lines with the ampersand `&` on line 2:
@@ -38,12 +54,12 @@
 
 ---
 
-### 5. Inline Flag Language Switcher Rule (No Dropdown)
+### 8. Inline Flag Language Switcher Rule (No Dropdown)
 * **NO DROPDOWN OVERLAY**: `LanguageSwitcher.tsx` must render simple inline toggle buttons showing flags: `🌐 EN` | `🇮🇩 ID`.
 
 ---
 
-### 6. ASEAN Logo Color Branding Rule & Lint Command
+### 9. ASEAN Logo Color Branding Rule & Lint Command
 * **AUTHORITATIVE PALETTE REFERENCE**: All branding colors must strictly reference `src/lib/colors.ts` and the official ASEAN logo palette:
   * **ASEAN Blue**: `#003399` (`asean-blue`)
   * **ASEAN Red**: `#CC0000` (`asean-red`)
@@ -54,42 +70,42 @@
 
 ---
 
-### 7. Language Restriction Rule: English & Bahasa Indonesia Only
+### 10. Language Restriction Rule: English & Bahasa Indonesia Only
 * **STRICT LANGUAGES**: The application UI only supports 2 languages:
   1. 🌐 **English (`en`)**
   2. 🇮🇩 **Bahasa Indonesia (`id`)**
 
 ---
 
-### 8. Geographic SVG Data Rule: Real Natural Earth GeoJSON Only
+### 11. Geographic SVG Data Rule: Real Natural Earth GeoJSON Only
 * **FORBIDDEN**: Never hand-craft vector SVG path coordinates for maps.
 * **REQUIRED SVG DATA**: All vector map paths (`AseanMap.tsx` and `AseanBlindMap.tsx`) MUST be rendered dynamically via `d3-geo` projection using the real Natural Earth GeoJSON dataset stored in `public/data/southeast-asia.json`.
 
 ---
 
-### 9. Hero Layout & Compact Map Height Rule
+### 12. Hero Layout & Compact Map Height Rule
 * **COMPACT HERO HEIGHT**: The hero section uses a sleek, compact height (`py-10 sm:py-12`) with a subtle 15-25% opacity `AseanBlindMap` background.
 
 ---
 
-### 10. Footer Tech Usage Rule: NO Tech Stack Footers
+### 13. Footer Tech Usage Rule: NO Tech Stack Footers
 * **FORBIDDEN**: Do NOT display `Published with Next.js 16, React 19 & Tailwind CSS v4` or framework badges in the footer.
 
 ---
 
-### 11. Typography Rule: NO Monospace Fonts Across UI
+### 14. Typography Rule: NO Monospace Fonts Across UI
 * **FORBIDDEN**: Do NOT use monospace fonts (`JetBrains Mono`, `font-mono`, `font-mono-data`) anywhere in the UI.
 * **ALLOWED FONTS**: `Newsreader` serif for headlines & `Inter` sans-serif for body/metadata.
 
 ---
 
-### 12. Branding & Attribution Rule: NO "Okihita" Author References
+### 15. Branding & Attribution Rule: NO "Okihita" Author References
 * **REQUIRED ATTRIBUTION**: All author references in the UI and documentation must strictly read:
   * `EngageMedia` or `EngageMedia Research Team`.
 
 ---
 
-### 13. Multi-Page Architecture Rule
+### 16. Multi-Page Architecture Rule
 The application MUST maintain the 5 dedicated sub-page routes:
 1. `src/app/page.tsx` — Our World in Data style hero + Editorial Atelier homepage.
 2. `src/app/investigations/page.tsx` — Editorial long-reads & field reports index.
