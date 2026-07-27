@@ -17,7 +17,7 @@ export default function Header() {
   return (
     <header className="w-full border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 transition-colors sticky top-0 z-50 backdrop-blur-md bg-slate-50/95 dark:bg-slate-950/95 font-sans">
       {/* Main Masthead Header */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 border-b border-slate-200/80 dark:border-slate-800/60 font-sans">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-6 border-b border-slate-200/80 dark:border-slate-800/60 font-sans">
         <div className="grid grid-cols-1 md:grid-cols-3 items-center gap-4">
           
           {/* Left Side: Official EngageMedia Emblem Logo */}
@@ -35,12 +35,12 @@ export default function Header() {
             </Link>
           </div>
 
-          {/* Center Side: Centered DRONE Title & 2-Line Subtitle */}
+          {/* Center Side: Centered DRONE Title & Exact 2-Line Subtitle */}
           <div className="flex items-center justify-center text-center">
             <Link href="/" className="group inline-block">
               <div className="flex items-center gap-3 sm:gap-4">
                 <span className="font-serif-editorial text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white group-hover:text-asean-yellow transition-colors leading-none">
-                  D.R.O.N.E.
+                  DRONE
                 </span>
                 
                 <div className="border-l border-slate-300 dark:border-slate-700 pl-3 sm:pl-4 text-left flex flex-col justify-center text-[10px] sm:text-xs font-sans text-slate-500 dark:text-slate-400 uppercase tracking-wider font-semibold leading-snug">
@@ -51,12 +51,12 @@ export default function Header() {
             </Link>
           </div>
 
-          {/* Right Side: Theme Toggle & Language Switcher */}
+          {/* Right Side: Theme Toggle & Inline Flag Language Switcher */}
           <div className="flex items-center gap-3 justify-end">
             {/* Theme Toggle */}
             <ThemeToggle />
 
-            {/* Language Switcher */}
+            {/* Inline Flag Language Switcher (No Dropdown) */}
             <LanguageSwitcher />
 
             <button

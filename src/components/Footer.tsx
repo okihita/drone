@@ -7,34 +7,34 @@ import { ExternalLink } from "lucide-react";
 export default function Footer() {
   return (
     <footer className="w-full bg-slate-100 dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800 pt-12 pb-8 px-4 sm:px-6 lg:px-8 text-xs text-slate-600 dark:text-slate-400 font-sans transition-colors">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 mb-8 font-sans">
         
         {/* Col 1: Institutional Overview */}
-        <div className="md:col-span-2 space-y-3">
-          <div className="flex items-center gap-2">
+        <div className="md:col-span-2 space-y-3 font-sans">
+          <div className="flex items-center gap-2 font-sans">
             <span className="font-serif-editorial text-xl font-bold text-slate-900 dark:text-white tracking-wider">
-              D.R.O.N.E.
+              DRONE
             </span>
             <span className="text-[10px] font-sans text-slate-500 dark:text-slate-400 border border-slate-300 dark:border-slate-800 px-1.5 py-0.5 rounded bg-white dark:bg-slate-900 uppercase font-semibold">
               ENGAGEMEDIA OBSERVATORY
             </span>
           </div>
 
-          <p className="text-slate-600 dark:text-slate-400 text-xs leading-relaxed max-w-lg">
+          <p className="text-slate-600 dark:text-slate-400 text-xs leading-relaxed max-w-lg font-sans">
             <strong>Digital Rights Oversight &amp; Network Evaluator</strong> is an independent policy intelligence platform developed by <strong>EngageMedia</strong>. It monitors ASEAN digital trade frameworks, legal scrubbing, cross-border data transfer laws, and algorithmic governance threats.
           </p>
 
           <div className="flex items-center gap-3 text-[11px] text-slate-500 dark:text-slate-400 font-sans">
-            <span>Maintained by: <strong className="text-slate-800 dark:text-slate-200">EngageMedia Research Team</strong></span>
+            <span>Maintained by: <strong className="text-slate-800 dark:text-slate-200 font-sans">EngageMedia Research Team</strong></span>
           </div>
         </div>
 
         {/* Col 2: Research Modules */}
-        <div className="space-y-2">
+        <div className="space-y-2 font-sans">
           <h4 className="font-sans text-xs uppercase font-bold text-slate-900 dark:text-white tracking-wider mb-3">
             Research Modules
           </h4>
-          <ul className="space-y-2 text-xs text-slate-600 dark:text-slate-400">
+          <ul className="space-y-2 text-xs text-slate-600 dark:text-slate-400 font-sans">
             <li>
               <Link href="/investigations" className="hover:text-asean-yellow transition-colors">
                 Featured DEFA Investigation
@@ -64,11 +64,11 @@ export default function Footer() {
         </div>
 
         {/* Col 3: Donor Strategic Alignment */}
-        <div className="space-y-2">
+        <div className="space-y-2 font-sans">
           <h4 className="font-sans text-xs uppercase font-bold text-slate-900 dark:text-white tracking-wider mb-3">
             Strategic Donor Partners
           </h4>
-          <ul className="space-y-3 text-xs">
+          <ul className="space-y-3 text-xs font-sans">
             <li>
               <a
                 href="https://luminategroup.com/en"
@@ -79,7 +79,7 @@ export default function Footer() {
                 <span className="font-semibold text-slate-800 dark:text-slate-200">Luminate Group</span>
                 <ExternalLink className="w-3 h-3 text-slate-400 group-hover:text-asean-yellow" />
               </a>
-              <p className="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5">
+              <p className="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5 font-sans">
                 Data &amp; Digital Rights, Algorithmic Oversight &amp; Platform Accountability
               </p>
             </li>
@@ -94,7 +94,7 @@ export default function Footer() {
                 <span className="font-semibold text-slate-800 dark:text-slate-200">Sida (Sweden)</span>
                 <ExternalLink className="w-3 h-3 text-slate-400 group-hover:text-asean-yellow" />
               </a>
-              <p className="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5">
+              <p className="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5 font-sans">
                 Strategy for Regional Cooperation in Asia-Pacific, Defending Online Civic Space
               </p>
             </li>
@@ -106,7 +106,7 @@ export default function Footer() {
       {/* Bottom Bar */}
       <div className="max-w-7xl mx-auto pt-6 border-t border-slate-200 dark:border-slate-900 flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400 font-sans">
         <div>
-          © 2026 EngageMedia • D.R.O.N.E. Project • Released under CC BY 4.0 Human Rights License.
+          © 2026 EngageMedia • DRONE Project • Released under CC BY 4.0 Human Rights License.
         </div>
       </div>
     </footer>

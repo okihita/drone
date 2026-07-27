@@ -1,21 +1,27 @@
-# D.R.O.N.E. Repository Guardrails & Branding Standards
+# DRONE Repository Guardrails & Branding Standards
 
 > **Status**: MANDATORY & LOCKED GUARDRAILS  
 > **Target Audience**: AI Agents (Antigravity, Cursor, Copilot), Developers, Maintainers  
-> **Project**: D.R.O.N.E. (Digital Rights Oversight & Network Evaluator) — EngageMedia  
+> **Project**: DRONE (Digital Rights Oversight & Network Evaluator) — EngageMedia  
 
 ---
 
 ## 🔒 Mandatory Project Rules & Design Guardrails
 
-### 1. Header Layout & Masthead Architecture Rule
-* **LEFT SIDE**: Displays the official EngageMedia emblem SVG logo (`/images/logo-engagemedia-emblem-clarifying-white.svg`).
-* **CENTERED TITLE BLOCK**: The `D.R.O.N.E.` title and its 2-line stacked subtitle (`Digital Rights Oversight &` / `Network Evaluator`) MUST be centered together in the middle column of the masthead.
-* **RIGHT SIDE**: Displays `ThemeToggle` and `LanguageSwitcher` only. Search is handled centrally by `HeroSearch.tsx`.
+### 1. Header & Title Branding Rule (DRONE Spelling & Subtitle)
+* **TITLE SPELLING**: The brand title MUST be written as **`DRONE`** without dots (FORBIDDEN: `D.R.O.N.E.`).
+* **2-LINE SUBTITLE**: The subtitle text `Digital Rights Oversight &` / `Network Evaluator` MUST be split into exactly 2 stacked lines and vertically centered next to `DRONE`.
+* **LEFT ENGAGEMEDIA EMBLEM LOGO**: Header masthead left column renders the EngageMedia emblem SVG (`/images/logo-engagemedia-emblem-clarifying-white.svg`).
 
 ---
 
-### 2. ASEAN Logo Color Branding Rule & Lint Command
+### 2. Inline Flag Language Switcher Rule (No Dropdown)
+* **NO DROPDOWN OVERLAY**: `LanguageSwitcher.tsx` must render simple inline toggle buttons showing flags: `🌐 EN` | `🇮🇩 ID`.
+* **FORBIDDEN**: Do NOT use popup dropdown menus or popovers for language selection.
+
+---
+
+### 3. ASEAN Logo Color Branding Rule & Lint Command
 * **AUTHORITATIVE PALETTE REFERENCE**: All branding colors must strictly reference `src/lib/colors.ts` and the official ASEAN logo palette:
   * **ASEAN Blue**: `#003399` (`asean-blue`)
   * **ASEAN Red**: `#CC0000` (`asean-red`)
@@ -26,42 +32,42 @@
 
 ---
 
-### 3. Language Restriction Rule: English & Bahasa Indonesia Only
+### 4. Language Restriction Rule: English & Bahasa Indonesia Only
 * **STRICT LANGUAGES**: The application UI only supports 2 languages:
   1. 🌐 **English (`en`)**
   2. 🇮🇩 **Bahasa Indonesia (`id`)**
 
 ---
 
-### 4. Geographic SVG Data Rule: Real Natural Earth GeoJSON Only
+### 5. Geographic SVG Data Rule: Real Natural Earth GeoJSON Only
 * **FORBIDDEN**: Never hand-craft vector SVG path coordinates for maps.
 * **REQUIRED SVG DATA**: All vector map paths (`AseanMap.tsx` and `AseanBlindMap.tsx`) MUST be rendered dynamically via `d3-geo` projection using the real Natural Earth GeoJSON dataset stored in `public/data/southeast-asia.json`.
 
 ---
 
-### 5. Hero Layout & Compact Map Height Rule
+### 6. Hero Layout & Compact Map Height Rule
 * **COMPACT HERO HEIGHT**: The hero section uses a sleek, compact height (`py-10 sm:py-12`) with a subtle 15-25% opacity `AseanBlindMap` background.
 
 ---
 
-### 6. Footer Tech Usage Rule: NO Tech Stack Footers
+### 7. Footer Tech Usage Rule: NO Tech Stack Footers
 * **FORBIDDEN**: Do NOT display `Published with Next.js 16, React 19 & Tailwind CSS v4` or framework badges in the footer.
 
 ---
 
-### 7. Typography Rule: NO Monospace Fonts Across UI
+### 8. Typography Rule: NO Monospace Fonts Across UI
 * **FORBIDDEN**: Do NOT use monospace fonts (`JetBrains Mono`, `font-mono`, `font-mono-data`) anywhere in the UI.
 * **ALLOWED FONTS**: `Newsreader` serif for headlines & `Inter` sans-serif for body/metadata.
 
 ---
 
-### 8. Branding & Attribution Rule: NO "Okihita" Author References
+### 9. Branding & Attribution Rule: NO "Okihita" Author References
 * **REQUIRED ATTRIBUTION**: All author references in the UI and documentation must strictly read:
   * `EngageMedia` or `EngageMedia Research Team`.
 
 ---
 
-### 9. Multi-Page Architecture Rule
+### 10. Multi-Page Architecture Rule
 The application MUST maintain the 5 dedicated sub-page routes:
 1. `src/app/page.tsx` — Our World in Data style hero + Editorial Atelier homepage.
 2. `src/app/investigations/page.tsx` — Editorial long-reads & field reports index.
