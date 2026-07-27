@@ -2,12 +2,7 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { createClient } from "@supabase/supabase-js";
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-);
+import { supabase } from "@/lib/supabase";
 
 export default function AdminLoginPage() {
   const [email, setEmail] = useState("");
@@ -21,17 +16,22 @@ export default function AdminLoginPage() {
     setLoading(true);
     setError("");
 
-    const { error: authError } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
+    try {
+      const { error: authError } = await supabase.auth.signInWithPassword({
+        email: email.trim(),
+        password,
+      });
 
-    if (authError) {
-      setError(authError.message);
+      if (authError) {
+        setError(authError.message);
+        setLoading(false);
+      } else {
+        router.push("/admin");
+        router.refresh();
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Login failed. Check your network connection.");
       setLoading(false);
-    } else {
-      router.push("/admin");
-      router.refresh();
     }
   };
 
