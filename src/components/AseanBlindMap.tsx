@@ -19,7 +19,7 @@ export default function AseanBlindMap() {
             fill="currentColor"
             stroke="currentColor"
             strokeWidth="0.5"
-            className="text-amber-400 dark:text-blue-400"
+            className="text-asean-yellow dark:text-asean-blue"
           />
         ))}
       </svg>

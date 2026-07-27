@@ -36,27 +36,27 @@ export default function Footer() {
           </h4>
           <ul className="space-y-2 text-xs text-slate-600 dark:text-slate-400">
             <li>
-              <Link href="/investigations" className="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">
+              <Link href="/investigations" className="hover:text-asean-yellow transition-colors">
                 Featured DEFA Investigation
               </Link>
             </li>
             <li>
-              <Link href="/observatory" className="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">
+              <Link href="/observatory" className="hover:text-asean-yellow transition-colors">
                 ASEAN Jurisdiction Map &amp; Dossiers
               </Link>
             </li>
             <li>
-              <Link href="/ledger" className="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">
+              <Link href="/ledger" className="hover:text-asean-yellow transition-colors">
                 Verified Policy Ledger &amp; Table
               </Link>
             </li>
             <li>
-              <Link href="/threats" className="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">
+              <Link href="/threats" className="hover:text-asean-yellow transition-colors">
                 Civil Society Threat Matrix
               </Link>
             </li>
             <li>
-              <Link href="/intake" className="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">
+              <Link href="/intake" className="hover:text-asean-yellow transition-colors">
                 Encrypted Dossier Intake
               </Link>
             </li>
@@ -74,10 +74,10 @@ export default function Footer() {
                 href="https://luminategroup.com/en"
                 target="_blank"
                 rel="noreferrer"
-                className="hover:text-amber-600 dark:hover:text-amber-400 transition-colors flex items-center justify-between group"
+                className="hover:text-asean-yellow transition-colors flex items-center justify-between group"
               >
                 <span className="font-semibold text-slate-800 dark:text-slate-200">Luminate Group</span>
-                <ExternalLink className="w-3 h-3 text-slate-400 group-hover:text-amber-600 dark:group-hover:text-amber-400" />
+                <ExternalLink className="w-3 h-3 text-slate-400 group-hover:text-asean-yellow" />
               </a>
               <p className="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5">
                 Data &amp; Digital Rights, Algorithmic Oversight &amp; Platform Accountability
@@ -89,10 +89,10 @@ export default function Footer() {
                 href="https://www.sida.se/en"
                 target="_blank"
                 rel="noreferrer"
-                className="hover:text-amber-600 dark:hover:text-amber-400 transition-colors flex items-center justify-between group"
+                className="hover:text-asean-yellow transition-colors flex items-center justify-between group"
               >
                 <span className="font-semibold text-slate-800 dark:text-slate-200">Sida (Sweden)</span>
-                <ExternalLink className="w-3 h-3 text-slate-400 group-hover:text-amber-600 dark:group-hover:text-amber-400" />
+                <ExternalLink className="w-3 h-3 text-slate-400 group-hover:text-asean-yellow" />
               </a>
               <p className="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5">
                 Strategy for Regional Cooperation in Asia-Pacific, Defending Online Civic Space

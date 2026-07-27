@@ -57,7 +57,7 @@ export default function LanguageSwitcher() {
                   <span>{lang.flag}</span>
                   <span>{lang.native}</span>
                 </span>
-                {selectedLang.code === lang.code && <Check className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />}
+                {selectedLang.code === lang.code && <Check className="w-3.5 h-3.5 text-asean-yellow" />}
               </button>
             ))}
           </div>

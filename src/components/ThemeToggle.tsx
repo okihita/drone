@@ -3,17 +3,22 @@
 import React, { useEffect, useState } from "react";
 import { Sun, Moon, Laptop } from "lucide-react";
 
-export type ThemeMode = "light" | "dark" | "system";
+type ThemeMode = "light" | "dark" | "system";
 
 export default function ThemeToggle() {
-  const [theme, setTheme] = useState<ThemeMode>("system");
+  const [theme, setTheme] = useState<ThemeMode>("light");
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
-    const savedTheme = (localStorage.getItem("drone-theme") as ThemeMode) || "system";
-    setTheme(savedTheme);
-    applyTheme(savedTheme);
+    const stored = localStorage.getItem("drone-theme") as ThemeMode | null;
+    if (stored) {
+      setTheme(stored);
+      applyTheme(stored);
+    } else {
+      setTheme("system");
+      applyTheme("system");
+    }
   }, []);
 
   const applyTheme = (mode: ThemeMode) => {
@@ -23,8 +28,9 @@ export default function ThemeToggle() {
     } else if (mode === "light") {
       root.classList.remove("dark");
     } else {
-      // System default
-      if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      // System mode
+      const isSystemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      if (isSystemDark) {
         root.classList.add("dark");
       } else {
         root.classList.remove("dark");
@@ -32,52 +38,51 @@ export default function ThemeToggle() {
     }
   };
 
-  const handleThemeChange = (newMode: ThemeMode) => {
-    setTheme(newMode);
-    localStorage.setItem("drone-theme", newMode);
-    applyTheme(newMode);
+  const handleThemeChange = (mode: ThemeMode) => {
+    setTheme(mode);
+    localStorage.setItem("drone-theme", mode);
+    applyTheme(mode);
   };
 
-  if (!mounted) {
-    return (
-      <div className="w-8 h-8 rounded border border-slate-300 dark:border-slate-800 bg-slate-100 dark:bg-slate-900" />
-    );
-  }
+  if (!mounted) return null;
 
   return (
-    <div className="flex items-center gap-0.5 p-0.5 rounded bg-slate-200/80 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 text-xs">
+    <div className="flex items-center bg-slate-200/80 dark:bg-slate-900/90 p-1 rounded-lg border border-slate-300 dark:border-slate-800 text-xs font-sans">
       <button
         onClick={() => handleThemeChange("light")}
-        title="Light Mode"
-        className={`p-1.5 rounded transition-colors ${
+        className={`p-1.5 rounded-md transition-all flex items-center gap-1 ${
           theme === "light"
-            ? "bg-white text-amber-600 shadow-sm font-bold"
-            : "text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white"
+            ? "bg-white text-asean-yellow shadow-xs font-bold"
+            : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
         }`}
+        title="Light Mode"
+        aria-label="Light Mode"
       >
         <Sun className="w-3.5 h-3.5" />
       </button>
 
       <button
         onClick={() => handleThemeChange("dark")}
-        title="Dark Mode"
-        className={`p-1.5 rounded transition-colors ${
+        className={`p-1.5 rounded-md transition-all flex items-center gap-1 ${
           theme === "dark"
-            ? "bg-slate-800 text-amber-400 shadow-sm font-bold"
-            : "text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white"
+            ? "bg-slate-800 text-asean-yellow shadow-xs font-bold"
+            : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
         }`}
+        title="Dark Mode"
+        aria-label="Dark Mode"
       >
         <Moon className="w-3.5 h-3.5" />
       </button>
 
       <button
         onClick={() => handleThemeChange("system")}
-        title="Follow System Preference"
-        className={`p-1.5 rounded transition-colors ${
+        className={`p-1.5 rounded-md transition-all flex items-center gap-1 ${
           theme === "system"
-            ? "bg-slate-300 dark:bg-slate-800 text-slate-900 dark:text-white font-bold"
-            : "text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white"
+            ? "bg-white dark:bg-slate-800 text-slate-900 dark:text-white shadow-xs font-bold"
+            : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
         }`}
+        title="Follow System Theme"
+        aria-label="Follow System Theme"
       >
         <Laptop className="w-3.5 h-3.5" />
       </button>

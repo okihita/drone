@@ -1,6 +1,10 @@
 /**
- * Color Guardrail Linter Script
- * Enforces rule: NO hardcoded hex color codes outside src/lib/colors.ts and src/app/globals.css.
+ * Strict ASEAN Color Guardrail Linter Script
+ * 
+ * Enforces 2 strict rules:
+ * 1. NO hardcoded hex color codes (#...) outside src/lib/colors.ts & src/app/globals.css.
+ * 2. NO generic default Tailwind color classes (amber-*, emerald-*, green-*, cyan-*, etc.).
+ *    ONLY custom ASEAN theme utility classes (asean-blue, asean-red, asean-yellow, white, black, slate-*) are allowed!
  */
 
 const fs = require("fs");
@@ -13,6 +17,29 @@ const ALLOWED_FILES = [
 ];
 
 const HEX_COLOR_REGEX = /#(?:[0-9a-fA-F]{3}){1,2}\b/g;
+
+// Forbidden non-ASEAN Tailwind color tokens
+const FORBIDDEN_TAILWIND_COLORS = [
+  "amber",
+  "emerald",
+  "green",
+  "cyan",
+  "teal",
+  "indigo",
+  "purple",
+  "violet",
+  "fuchsia",
+  "pink",
+  "rose",
+  "orange",
+  "lime",
+  "sky",
+];
+
+const FORBIDDEN_TW_REGEX = new RegExp(
+  `\\b(?:text|bg|border|ring|fill|stroke)-(?:${FORBIDDEN_TAILWIND_COLORS.join("|")})-(?:\\d{2,3}|\\w+)\\b`,
+  "g"
+);
 
 let violationsCount = 0;
 
@@ -28,25 +55,25 @@ function scanDirectory(dirPath) {
       (entry.name.endsWith(".tsx") || entry.name.endsWith(".ts")) &&
       !ALLOWED_FILES.includes(fullPath)
     ) {
-      checkFileForHardcodedColors(fullPath);
+      checkFileForColorViolations(fullPath);
     }
   }
 }
 
-function checkFileForHardcodedColors(filePath) {
+function checkFileForColorViolations(filePath) {
   const content = fs.readFileSync(filePath, "utf8");
   const lines = content.split("\n");
 
   lines.forEach((line, index) => {
-    // Ignore inline SVG path commands or data URI strings
+    // Ignore inline SVG path commands or data URI strings or linter override comments
     if (line.includes("path") || line.includes("viewBox") || line.includes("// eslint-disable")) {
       return;
     }
 
-    const matches = line.match(HEX_COLOR_REGEX);
-    if (matches) {
-      // Allow standard black/white (#fff, #ffffff, #000, #000000) or SVG path tokens if any
-      const suspiciousColors = matches.filter(
+    // Rule 1: Hardcoded Hex Codes
+    const hexMatches = line.match(HEX_COLOR_REGEX);
+    if (hexMatches) {
+      const suspiciousColors = hexMatches.filter(
         (c) => !["#fff", "#ffffff", "#000", "#000000"].includes(c.toLowerCase())
       );
 
@@ -60,16 +87,28 @@ function checkFileForHardcodedColors(filePath) {
         violationsCount++;
       }
     }
+
+    // Rule 2: Generic Tailwind Palette Classes (amber, emerald, etc.)
+    const twMatches = line.match(FORBIDDEN_TW_REGEX);
+    if (twMatches) {
+      const relativePath = path.relative(path.join(__dirname, ".."), filePath);
+      console.error(
+        `❌ [Color Guardrail Error] ${relativePath}:${index + 1}: Generic Tailwind color utility ${twMatches.join(", ")} found!`
+      );
+      console.error(`   Line content: ${line.trim()}`);
+      console.error(`   👉 Forbidden! Use official ASEAN utility classes: asean-blue, asean-red, or asean-yellow!\n`);
+      violationsCount++;
+    }
   });
 }
 
-console.log("🔍 Scanning D.R.O.N.E. codebase for hardcoded hex color violations...");
+console.log("🔍 Scanning D.R.O.N.E. codebase for forbidden colors and non-ASEAN Tailwind utilities...");
 scanDirectory(SRC_DIR);
 
 if (violationsCount > 0) {
-  console.error(`\n❌ Failed: Found ${violationsCount} hardcoded color violation(s) in src/.`);
+  console.error(`\n❌ Failed: Found ${violationsCount} color violation(s) in src/.`);
   process.exit(1);
 } else {
-  console.log("✅ Success: All branding colors strictly comply with src/lib/colors.ts and ASEAN logo rules!");
+  console.log("✅ Success: All branding colors strictly comply with custom ASEAN theme tokens (asean-blue, asean-red, asean-yellow)!");
   process.exit(0);
 }

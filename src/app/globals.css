@@ -5,12 +5,13 @@
   --color-asean-blue: #003399;
   --color-asean-blue-hover: #1a52c5;
   --color-asean-red: #CC0000;
+  --color-asean-red-hover: #e62e2e;
   --color-asean-yellow: #FFCC00;
-  --color-asean-white: #ffffff;
+  --color-asean-yellow-hover: #ffd633;
 }
 
 @layer base {
-  /* Official ASEAN Logo Color Palette Tokens */
+  /* Official ASEAN Logo Color Tokens */
   :root {
     --bg-main: #f8fafc;
     --bg-card: #ffffff;
@@ -21,7 +22,7 @@
     --text-muted: #64748b;
     --text-heading: #020617;
     
-    /* ASEAN Branding Colors */
+    /* Official ASEAN Palette */
     --asean-blue: #003399;
     --asean-red: #CC0000;
     --asean-yellow: #FFCC00;
@@ -39,7 +40,7 @@
     --text-muted: #94a3b8;
     --text-heading: #ffffff;
     
-    /* ASEAN Branding Colors */
+    /* Official ASEAN Palette */
     --asean-blue: #3b82f6;
     --asean-red: #ef4444;
     --asean-yellow: #f59e0b;

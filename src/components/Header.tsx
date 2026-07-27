@@ -23,7 +23,7 @@ export default function Header() {
           <div>
             <Link href="/" className="group inline-block">
               <div className="flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-4">
-                <span className="font-serif-editorial text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">
+                <span className="font-serif-editorial text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white group-hover:text-asean-yellow transition-colors">
                   D.R.O.N.E.
                 </span>
                 <span className="text-xs sm:text-sm font-sans text-slate-500 dark:text-slate-400 uppercase tracking-widest sm:border-l sm:border-slate-300 sm:dark:border-slate-700 sm:pl-4">
@@ -39,7 +39,7 @@ export default function Header() {
               <input
                 type="text"
                 placeholder="Search stories, policies..."
-                className="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded-lg px-3.5 py-2 pl-9 text-xs text-slate-900 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-amber-500 font-sans shadow-xs"
+                className="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded-lg px-3.5 py-2 pl-9 text-xs text-slate-900 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-asean-yellow font-sans shadow-xs"
               />
               <Search className="w-4 h-4 text-slate-400 dark:text-slate-500 absolute left-3 top-2.5" />
             </div>
@@ -69,11 +69,11 @@ export default function Header() {
             href="/investigations"
             className={`flex items-center gap-1.5 transition-colors ${
               isActive("/investigations")
-                ? "text-amber-600 dark:text-amber-400 font-bold border-b-2 border-amber-500 pb-0.5"
-                : "text-slate-700 dark:text-slate-300 hover:text-amber-600 dark:hover:text-amber-400"
+                ? "text-asean-yellow font-bold border-b-2 border-asean-yellow pb-0.5"
+                : "text-slate-700 dark:text-slate-300 hover:text-asean-yellow"
             }`}
           >
-            <BookOpen className="w-3.5 h-3.5 text-amber-600 dark:text-amber-500" />
+            <BookOpen className="w-3.5 h-3.5 text-asean-yellow" />
             <span>Investigations</span>
           </Link>
 
@@ -81,11 +81,11 @@ export default function Header() {
             href="/observatory"
             className={`flex items-center gap-1.5 transition-colors ${
               isActive("/observatory")
-                ? "text-amber-600 dark:text-amber-400 font-bold border-b-2 border-amber-500 pb-0.5"
-                : "text-slate-700 dark:text-slate-300 hover:text-amber-600 dark:hover:text-amber-400"
+                ? "text-asean-yellow font-bold border-b-2 border-asean-yellow pb-0.5"
+                : "text-slate-700 dark:text-slate-300 hover:text-asean-yellow"
             }`}
           >
-            <Map className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
+            <Map className="w-3.5 h-3.5 text-asean-blue" />
             <span>Cartographic Observatory</span>
           </Link>
 
@@ -93,11 +93,11 @@ export default function Header() {
             href="/ledger"
             className={`flex items-center gap-1.5 transition-colors ${
               isActive("/ledger")
-                ? "text-amber-600 dark:text-amber-400 font-bold border-b-2 border-amber-500 pb-0.5"
-                : "text-slate-700 dark:text-slate-300 hover:text-amber-600 dark:hover:text-amber-400"
+                ? "text-asean-yellow font-bold border-b-2 border-asean-yellow pb-0.5"
+                : "text-slate-700 dark:text-slate-300 hover:text-asean-yellow"
             }`}
           >
-            <Database className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+            <Database className="w-3.5 h-3.5 text-asean-blue" />
             <span>Policy Ledger</span>
           </Link>
 
@@ -105,11 +105,11 @@ export default function Header() {
             href="/threats"
             className={`flex items-center gap-1.5 transition-colors ${
               isActive("/threats")
-                ? "text-amber-600 dark:text-amber-400 font-bold border-b-2 border-amber-500 pb-0.5"
-                : "text-slate-700 dark:text-slate-300 hover:text-amber-600 dark:hover:text-amber-400"
+                ? "text-asean-yellow font-bold border-b-2 border-asean-yellow pb-0.5"
+                : "text-slate-700 dark:text-slate-300 hover:text-asean-yellow"
             }`}
           >
-            <ShieldAlert className="w-3.5 h-3.5 text-red-600 dark:text-red-400" />
+            <ShieldAlert className="w-3.5 h-3.5 text-asean-red" />
             <span>Threat Matrix</span>
           </Link>
 
@@ -117,8 +117,8 @@ export default function Header() {
             href="/intake"
             className={`flex items-center gap-1.5 transition-colors ${
               isActive("/intake")
-                ? "text-amber-600 dark:text-amber-400 font-bold border-b-2 border-amber-500 pb-0.5"
-                : "text-slate-700 dark:text-slate-300 hover:text-amber-600 dark:hover:text-amber-400"
+                ? "text-asean-yellow font-bold border-b-2 border-asean-yellow pb-0.5"
+                : "text-slate-700 dark:text-slate-300 hover:text-asean-yellow"
             }`}
           >
             <Send className="w-3.5 h-3.5 text-slate-500 dark:text-slate-400" />
@@ -130,19 +130,19 @@ export default function Header() {
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
         <div className="md:hidden border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 px-4 py-4 space-y-3 text-xs font-sans">
-          <Link href="/investigations" onClick={() => setMobileMenuOpen(false)} className="block py-1 text-slate-700 dark:text-slate-300 hover:text-amber-600">
+          <Link href="/investigations" onClick={() => setMobileMenuOpen(false)} className="block py-1 text-slate-700 dark:text-slate-300 hover:text-asean-yellow">
             Investigations &amp; Reports
           </Link>
-          <Link href="/observatory" onClick={() => setMobileMenuOpen(false)} className="block py-1 text-slate-700 dark:text-slate-300 hover:text-amber-600">
+          <Link href="/observatory" onClick={() => setMobileMenuOpen(false)} className="block py-1 text-slate-700 dark:text-slate-300 hover:text-asean-yellow">
             Cartographic Observatory
           </Link>
-          <Link href="/ledger" onClick={() => setMobileMenuOpen(false)} className="block py-1 text-slate-700 dark:text-slate-300 hover:text-amber-600">
+          <Link href="/ledger" onClick={() => setMobileMenuOpen(false)} className="block py-1 text-slate-700 dark:text-slate-300 hover:text-asean-yellow">
             Verified Policy Ledger
           </Link>
-          <Link href="/threats" onClick={() => setMobileMenuOpen(false)} className="block py-1 text-slate-700 dark:text-slate-300 hover:text-amber-600">
+          <Link href="/threats" onClick={() => setMobileMenuOpen(false)} className="block py-1 text-slate-700 dark:text-slate-300 hover:text-asean-yellow">
             Civil Society Threat Matrix
           </Link>
-          <Link href="/intake" onClick={() => setMobileMenuOpen(false)} className="block py-1 text-slate-700 dark:text-slate-300 hover:text-amber-600">
+          <Link href="/intake" onClick={() => setMobileMenuOpen(false)} className="block py-1 text-slate-700 dark:text-slate-300 hover:text-asean-yellow">
             Submit Dossier / Alert
           </Link>
         </div>

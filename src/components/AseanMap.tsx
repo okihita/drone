@@ -24,13 +24,13 @@ export default function AseanMap() {
       {/* Section Title */}
       <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
         <div>
-          <span className="text-[11px] font-sans uppercase tracking-wider text-amber-600 dark:text-amber-500 font-bold block mb-1">
+          <span className="text-[11px] font-sans uppercase tracking-wider text-asean-yellow font-bold block mb-1">
             CARTOGRAPHIC POLICY OBSERVATORY
           </span>
           <h2 className="font-serif-editorial text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
             Southeast Asia Jurisdiction Map &amp; Data Regimes
           </h2>
-          <p className="text-slate-600 dark:text-slate-400 text-xs sm:text-sm mt-1 max-w-2xl">
+          <p className="text-slate-600 dark:text-slate-400 text-xs sm:text-sm mt-1 max-w-2xl font-sans">
             Inspect cross-border data transfer laws, legal localization mandates, and active policy decrees across 11 Southeast Asian Member States.
           </p>
         </div>
@@ -59,24 +59,24 @@ export default function AseanMap() {
       <div className="rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 shadow-md dark:shadow-xl relative overflow-hidden transition-colors">
         
         {/* Map Legend */}
-        <div className="flex flex-wrap items-center gap-6 mb-6 text-xs border-b border-slate-200 dark:border-slate-800 pb-4">
+        <div className="flex flex-wrap items-center gap-6 mb-6 text-xs border-b border-slate-200 dark:border-slate-800 pb-4 font-sans">
           <span className="font-sans text-slate-500 dark:text-slate-400 text-[11px] uppercase">Classification:</span>
           <div className="flex items-center gap-2">
-            <span className="w-3 h-3 rounded-xs bg-amber-500 border border-amber-400"></span>
+            <span className="w-3 h-3 rounded-xs bg-asean-yellow border border-asean-yellow"></span>
             <span className="text-slate-700 dark:text-slate-300">Open Transfer Regime (ASEAN Gold)</span>
           </div>
           <div className="flex items-center gap-2">
-            <span className="w-3 h-3 rounded-xs bg-blue-600 border border-blue-400"></span>
+            <span className="w-3 h-3 rounded-xs bg-asean-blue border border-asean-blue"></span>
             <span className="text-slate-700 dark:text-slate-300">Hybrid / Selective Public Localization (ASEAN Blue)</span>
           </div>
           <div className="flex items-center gap-2">
-            <span className="w-3 h-3 rounded-xs bg-red-600 border border-red-400"></span>
+            <span className="w-3 h-3 rounded-xs bg-asean-red border border-asean-red"></span>
             <span className="text-slate-700 dark:text-slate-300">Strict Data Localization (ASEAN Red)</span>
           </div>
         </div>
 
         {/* Vector SVG Map Rendering Canvas */}
-        <div className="relative w-full aspect-[16/9] max-h-[460px] flex items-center justify-center">
+        <div className="relative w-full aspect-[16/9] max-h-[460px] flex items-center justify-center font-sans">
           <svg viewBox="0 0 540 370" className="w-full h-full">
             {filteredCountries.map((country) => {
               const isSelected = selectedCountry?.id === country.id;
@@ -142,15 +142,15 @@ export default function AseanMap() {
 
           {/* Hover Card */}
           {hoveredCountry && !selectedCountry && (
-            <div className="absolute bottom-4 left-4 p-3 rounded-lg bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 shadow-2xl max-w-sm text-xs pointer-events-none">
-              <div className="flex items-center justify-between gap-2 mb-1">
+            <div className="absolute bottom-4 left-4 p-3 rounded-lg bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 shadow-2xl max-w-sm text-xs pointer-events-none font-sans">
+              <div className="flex items-center justify-between gap-2 mb-1 font-sans">
                 <span className="font-bold text-slate-900 dark:text-white font-serif-editorial text-sm">{hoveredCountry.name}</span>
                 <span className="text-[10px] font-sans px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
                   {hoveredCountry.regimeType}
                 </span>
               </div>
-              <p className="text-slate-600 dark:text-slate-400 text-[11px] mb-2">{hoveredCountry.dataFlowPolicy}</p>
-              <div className="text-[10px] font-sans text-amber-600 dark:text-amber-400 font-semibold">
+              <p className="text-slate-600 dark:text-slate-400 text-[11px] mb-2 font-sans">{hoveredCountry.dataFlowPolicy}</p>
+              <div className="text-[10px] font-sans text-asean-yellow font-semibold">
                 Click to inspect full jurisdiction dossier →
               </div>
             </div>
@@ -169,8 +169,8 @@ export default function AseanMap() {
               <X className="w-5 h-5" />
             </button>
 
-            <div className="flex items-center gap-3 mb-4">
-              <MapPin className="w-6 h-6 text-amber-600 dark:text-amber-500" />
+            <div className="flex items-center gap-3 mb-4 font-sans">
+              <MapPin className="w-6 h-6 text-asean-yellow" />
               <div>
                 <h3 className="font-serif-editorial text-2xl font-bold text-slate-900 dark:text-white">{selectedCountry.name}</h3>
                 <span className="text-xs text-slate-500 dark:text-slate-400 font-sans">Capital: {selectedCountry.capital} • ISO: {selectedCountry.code}</span>
@@ -179,29 +179,29 @@ export default function AseanMap() {
 
             <div className="grid grid-cols-3 gap-3 mb-4 text-xs font-sans">
               <div className="p-2.5 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
-                <span className="text-[10px] text-slate-500 block">DATA REGIME</span>
-                <span className="font-bold text-slate-900 dark:text-white">{selectedCountry.regimeType}</span>
+                <span className="text-[10px] text-slate-500 block font-sans">DATA REGIME</span>
+                <span className="font-bold text-slate-900 dark:text-white font-sans">{selectedCountry.regimeType}</span>
               </div>
               <div className="p-2.5 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
-                <span className="text-[10px] text-slate-500 block">THREAT SCORE</span>
-                <span className="font-bold text-amber-600 dark:text-amber-400">{selectedCountry.threatScore} / 5</span>
+                <span className="text-[10px] text-slate-500 block font-sans">THREAT SCORE</span>
+                <span className="font-bold text-asean-yellow font-sans">{selectedCountry.threatScore} / 5</span>
               </div>
               <div className="p-2.5 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
-                <span className="text-[10px] text-slate-500 block">INGESTED DECREES</span>
-                <span className="font-bold text-slate-900 dark:text-white">{selectedCountry.activePoliciesCount} Acts</span>
+                <span className="text-[10px] text-slate-500 block font-sans">INGESTED DECREES</span>
+                <span className="font-bold text-slate-900 dark:text-white font-sans">{selectedCountry.activePoliciesCount} Acts</span>
               </div>
             </div>
 
             <div className="space-y-3 text-xs text-slate-700 dark:text-slate-300 mb-6 font-sans">
               <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
                 <strong className="text-slate-900 dark:text-white block mb-1 font-serif-editorial text-sm">Key Legislative Framework:</strong>
-                <p className="text-slate-800 dark:text-slate-300 font-semibold mb-1">{selectedCountry.keyLegislation}</p>
-                <p className="text-slate-600 dark:text-slate-400 leading-relaxed">{selectedCountry.description}</p>
+                <p className="text-slate-800 dark:text-slate-300 font-semibold mb-1 font-sans">{selectedCountry.keyLegislation}</p>
+                <p className="text-slate-600 dark:text-slate-400 leading-relaxed font-sans">{selectedCountry.description}</p>
               </div>
 
-              <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+              <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 font-sans">
                 <strong className="text-slate-900 dark:text-white block mb-1 font-serif-editorial text-sm">Data Localization Mandate:</strong>
-                <p className="text-slate-600 dark:text-slate-400 leading-relaxed">{selectedCountry.dataFlowPolicy}</p>
+                <p className="text-slate-600 dark:text-slate-400 leading-relaxed font-sans">{selectedCountry.dataFlowPolicy}</p>
               </div>
             </div>
 
@@ -210,7 +210,7 @@ export default function AseanMap() {
                 href={selectedCountry.primaryLink}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-1.5 text-amber-600 dark:text-amber-400 hover:text-amber-700 dark:hover:text-amber-300 font-semibold"
+                className="inline-flex items-center gap-1.5 text-asean-yellow hover:underline font-semibold font-sans"
               >
                 <span>Official Regulatory Portal</span>
                 <ExternalLink className="w-3.5 h-3.5" />
@@ -218,7 +218,7 @@ export default function AseanMap() {
 
               <button
                 onClick={() => setSelectedCountry(null)}
-                className="px-4 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-semibold text-xs"
+                className="px-4 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-semibold text-xs font-sans"
               >
                 Close Profile
               </button>

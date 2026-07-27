@@ -5,7 +5,6 @@ import Image from "next/image";
 import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { ArrowRight, Clock, BookOpen, FileText } from "lucide-react";
 
 export interface InvestigationArticle {
   id: string;
@@ -60,8 +59,8 @@ export default function InvestigationsPage() {
     <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-200 font-sans transition-colors">
       <Header />
       <main className="flex-1 py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto font-sans">
-        <div className="border-b border-slate-200 dark:border-slate-800 pb-6 mb-8">
-          <span className="text-xs font-sans text-amber-600 dark:text-amber-500 font-bold uppercase tracking-wider">
+        <div className="border-b border-slate-200 dark:border-slate-800 pb-6 mb-8 font-sans">
+          <span className="text-xs font-sans text-asean-yellow font-bold uppercase tracking-wider">
             EDITORIAL JOURNALISM CATALOG
           </span>
           <h1 className="font-serif-editorial text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white mt-1">
@@ -90,11 +89,11 @@ export default function InvestigationsPage() {
               <div className="p-6 flex-1 flex flex-col justify-between space-y-4 font-sans">
                 <div className="space-y-2">
                   <div className="flex items-center justify-between text-[10px] font-sans">
-                    <span className="text-amber-600 dark:text-amber-400 font-bold uppercase">{article.category}</span>
-                    <span className="text-slate-400">{article.readTime}</span>
+                    <span className="text-asean-yellow font-bold uppercase">{article.category}</span>
+                    <span className="text-slate-400 font-sans">{article.readTime}</span>
                   </div>
 
-                  <h2 className="font-serif-editorial text-xl font-bold text-slate-900 dark:text-white group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors leading-snug">
+                  <h2 className="font-serif-editorial text-xl font-bold text-slate-900 dark:text-white group-hover:text-asean-yellow transition-colors leading-snug">
                     {article.title}
                   </h2>
 
@@ -105,7 +104,7 @@ export default function InvestigationsPage() {
 
                 <div className="pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs font-sans text-slate-500">
                   <span>By {article.author}</span>
-                  <span className="text-amber-600 dark:text-amber-400 font-bold group-hover:translate-x-1 transition-transform flex items-center gap-1">
+                  <span className="text-asean-yellow font-bold group-hover:translate-x-1 transition-transform flex items-center gap-1 font-sans">
                     Read Report →
                   </span>
                 </div>

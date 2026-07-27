@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Search, Filter, ExternalLink, ShieldAlert, CheckCircle, FileText, ChevronRight } from "lucide-react";
+import { Search, Filter, ExternalLink, ShieldAlert, CheckCircle, FileText } from "lucide-react";
 
 export interface PolicyItem {
   id: string;
@@ -23,7 +23,7 @@ export const POLICIES_DATA: PolicyItem[] = [
     category: "DEFA",
     threatLevel: "High Alert",
     date: "July 15, 2026",
-    summary: "Senior Economic Officials Meeting (SEOM 57) in Manila finalized draft text on Data Free Flow with Trust (DFFT). Civil society watchdogs warn that mandatory data transfer provisions risk preempting national privacy safeguards.",
+    summary: "Senior Economic Officials Meeting (SEOM 57) in Manila finalized draft text on Data Free Flow with Trust (DFFT). Civil society watchdogs warn that mandatory data transfer provisions risk preempting domestic privacy safeguards.",
     primarySourceUrl: "https://asean.org/our-work/digital-economy/",
     sourceAuthority: "ASEAN Secretariat & SEOM 57 Manila Gazette",
   },
@@ -102,7 +102,7 @@ export default function PolicyLedgerTable() {
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
         <div>
-          <span className="text-[11px] font-sans uppercase tracking-wider text-emerald-600 dark:text-emerald-500 font-bold block mb-1">
+          <span className="text-[11px] font-sans uppercase tracking-wider text-asean-yellow dark:text-asean-yellow font-bold block mb-1">
             VERIFIED REGULATORY REPOSITORY
           </span>
           <h2 className="font-serif-editorial text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
@@ -182,19 +182,19 @@ export default function PolicyLedgerTable() {
 
                 <td className="py-4 px-4 align-top whitespace-nowrap">
                   {item.threatLevel === "High Alert" && (
-                    <span className="inline-flex items-center gap-1 text-red-700 dark:text-red-400 bg-red-50 dark:bg-red-950/60 border border-red-200 dark:border-red-800 px-2 py-0.5 rounded text-[10px] font-bold">
+                    <span className="inline-flex items-center gap-1 text-asean-red bg-asean-red/10 border border-asean-red/30 px-2 py-0.5 rounded text-[10px] font-bold">
                       <ShieldAlert className="w-3 h-3" />
                       <span>[High Alert]</span>
                     </span>
                   )}
                   {item.threatLevel === "Medium Risk" && (
-                    <span className="inline-flex items-center gap-1 text-amber-800 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/60 border border-amber-200 dark:border-amber-800 px-2 py-0.5 rounded text-[10px] font-bold">
+                    <span className="inline-flex items-center gap-1 text-asean-yellow bg-asean-yellow/10 border border-asean-yellow/30 px-2 py-0.5 rounded text-[10px] font-bold">
                       <FileText className="w-3 h-3" />
                       <span>[Medium Risk]</span>
                     </span>
                   )}
                   {item.threatLevel === "Rights Verified" && (
-                    <span className="inline-flex items-center gap-1 text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 px-2 py-0.5 rounded text-[10px] font-bold">
+                    <span className="inline-flex items-center gap-1 text-asean-blue bg-asean-blue/10 border border-asean-blue/30 px-2 py-0.5 rounded text-[10px] font-bold">
                       <CheckCircle className="w-3 h-3" />
                       <span>[Verified]</span>
                     </span>
@@ -206,7 +206,7 @@ export default function PolicyLedgerTable() {
                     href={item.primarySourceUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center gap-1 text-amber-600 dark:text-amber-400 hover:underline font-sans text-xs font-semibold"
+                    className="inline-flex items-center gap-1 text-asean-yellow hover:underline font-sans text-xs font-semibold"
                   >
                     <span>{item.sourceAuthority}</span>
                     <ExternalLink className="w-3 h-3" />
