@@ -5,265 +5,290 @@ import Image from "next/image";
 import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { ArrowRight, MapPin, Database, ShieldAlert, Send } from "lucide-react";
+import { ArrowRight, MapPin, Database, ShieldAlert, Send, Clock, Globe, FileText, CheckCircle2 } from "lucide-react";
 
 export default function Home() {
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-[#0b0f17] text-slate-800 dark:text-slate-200 font-sans selection:bg-amber-500/30 selection:text-amber-900 dark:selection:text-amber-200 transition-colors">
-      {/* Header Masthead */}
+    <div className="min-h-screen flex flex-col bg-[#faf9f6] dark:bg-[#0b0f17] text-slate-900 dark:text-slate-200 font-sans selection:bg-amber-500/30 selection:text-amber-900 dark:selection:text-amber-200 transition-colors">
+      {/* Editorial Header */}
       <Header />
 
-      {/* Main Story-Focused Content */}
       <main className="flex-1">
         
-        {/* HERO FEATURED STORY (LEAD INVESTIGATION) */}
-        <section className="py-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-          <div className="rounded-2xl bg-white dark:bg-[#0e1420] border border-slate-200 dark:border-slate-800 overflow-hidden shadow-md dark:shadow-2xl grid grid-cols-1 lg:grid-cols-12 gap-0 transition-colors">
-            
-            {/* Hero Cover Photo */}
-            <div className="lg:col-span-7 relative min-h-[320px] lg:min-h-[460px] bg-slate-100 dark:bg-slate-900">
-              <Image
-                src="/images/defa_lead.jpg"
-                alt="ASEAN DEFA Legal Scrubbing Conference Room in Manila"
-                fill
-                priority
-                className="object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent lg:hidden" />
-            </div>
-
-            {/* Hero Lead Copy */}
-            <div className="lg:col-span-5 p-6 sm:p-8 flex flex-col justify-between space-y-6">
-              <div className="space-y-4">
-                <div className="flex items-center gap-2 text-xs font-sans">
-                  <span className="bg-amber-100 dark:bg-amber-500/20 text-amber-800 dark:text-amber-400 font-bold px-2 py-0.5 rounded border border-amber-300 dark:border-amber-500/30 uppercase">
-                    DEFA SPECIAL REPORT
-                  </span>
-                  <span className="text-slate-400">•</span>
-                  <span className="text-slate-500 dark:text-slate-400">8 min read</span>
-                </div>
-
-                <h1 className="font-serif-editorial text-2xl sm:text-4xl font-extrabold text-slate-900 dark:text-white leading-[1.15] tracking-tight">
-                  ASEAN DEFA Legal Scrubbing: The Quiet Tug-of-War Over Cross-Border Data Privacy
-                </h1>
-
-                <p className="text-slate-600 dark:text-slate-300 text-xs sm:text-sm leading-relaxed font-serif-editorial italic border-l-2 border-amber-600 dark:border-amber-500 pl-3">
-                  As senior economic officials finalize the text of the world’s first region-wide digital trade agreement in Manila, civil society watchdogs warn that mandatory data flow clauses risk preempting domestic privacy safeguards.
-                </p>
-
-                <div className="text-xs text-slate-500 dark:text-slate-400 font-sans">
-                  By <strong className="text-slate-900 dark:text-slate-200">EngageMedia Research Team</strong>
-                </div>
-              </div>
-
-              <div className="pt-4 border-t border-slate-200 dark:border-slate-800 flex flex-wrap items-center gap-3">
-                <Link
-                  href="/investigations"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded bg-slate-900 dark:bg-slate-800 hover:bg-slate-800 dark:hover:bg-slate-700 text-white font-semibold text-xs font-sans transition-colors shadow-sm"
-                >
-                  <span>Read Full Investigation</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </Link>
-
-                <Link
-                  href="/observatory"
-                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded bg-slate-100 dark:bg-slate-900 hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-300 text-xs font-sans transition-colors border border-slate-300 dark:border-slate-800"
-                >
-                  <span>Map Dossier →</span>
-                </Link>
-              </div>
-
-            </div>
-
-          </div>
-        </section>
-
-        {/* SECTION 2: RECENT INVESTIGATIONS GRID */}
-        <section className="py-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-slate-200 dark:border-slate-800">
-          <div className="flex items-center justify-between mb-8">
-            <div>
-              <span className="text-xs font-sans text-amber-600 dark:text-amber-500 font-bold uppercase tracking-wider block mb-1">
-                LATEST DISPATCHES
+        {/* HERO SECTION: SWISS MAGAZINE COVER (OPTION 3: EDITORIAL ATELIER) */}
+        <section className="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-b border-slate-200 dark:border-slate-800">
+          
+          {/* Top Story Header Meta */}
+          <div className="max-w-4xl mx-auto text-center space-y-4 mb-8">
+            <div className="flex items-center justify-center gap-3 text-xs font-sans">
+              <span className="bg-amber-100 dark:bg-amber-500/10 text-amber-900 dark:text-amber-400 font-bold px-2.5 py-0.5 rounded-full border border-amber-300 dark:border-amber-500/30 uppercase tracking-wider">
+                DEFA SPECIAL REPORT
               </span>
-              <h2 className="font-serif-editorial text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-                Featured Field Analyses &amp; Policy Long-Reads
-              </h2>
+              <span className="text-slate-400">•</span>
+              <span className="text-slate-600 dark:text-slate-400 font-medium">July 2026 Edition</span>
+              <span className="text-slate-400">•</span>
+              <span className="text-slate-600 dark:text-slate-400 font-medium">8 min read</span>
             </div>
 
-            <Link
-              href="/investigations"
-              className="hidden sm:inline-flex items-center gap-1.5 text-xs font-sans font-bold text-amber-600 dark:text-amber-400 hover:underline"
-            >
-              <span>View All Reports ({3})</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
+            <h1 className="font-serif-editorial text-3xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-[1.12]">
+              ASEAN DEFA Legal Scrubbing: The Quiet Tug-of-War Over Cross-Border Data Privacy
+            </h1>
+
+            <p className="text-slate-700 dark:text-slate-300 text-base sm:text-xl font-serif-editorial italic max-w-3xl mx-auto leading-relaxed">
+              As senior economic officials finalize the text of the world’s first region-wide digital trade agreement in Manila, civil society watchdogs warn that mandatory data flow clauses risk preempting domestic privacy safeguards.
+            </p>
+
+            <div className="text-xs text-slate-600 dark:text-slate-400 pt-2 font-sans">
+              Investigative Report by <strong className="text-slate-900 dark:text-slate-200">EngageMedia Research Team</strong>
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {/* Widescreen Hero Cover Photograph */}
+          <div className="relative aspect-[21/9] w-full rounded-2xl overflow-hidden shadow-lg dark:shadow-2xl border border-slate-200 dark:border-slate-800 mb-10 bg-slate-100 dark:bg-slate-900">
+            <Image
+              src="/images/defa_lead.jpg"
+              alt="ASEAN DEFA Legal Scrubbing Delegates in Manila"
+              fill
+              priority
+              className="object-cover"
+            />
+            <div className="absolute bottom-3 right-3 bg-slate-900/80 backdrop-blur-md text-white px-3 py-1 rounded text-[10px] font-sans">
+              Photo: Senior Economic Officials Meeting (SEOM 57), Manila
+            </div>
+          </div>
+
+        </section>
+
+        {/* SECTION 2: 3-COLUMN EDITORIAL ATELIER GRID */}
+        <section className="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-b border-slate-200 dark:border-slate-800">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             
-            {/* Story Card 1 */}
-            <article className="rounded-xl bg-white dark:bg-[#0e1420] border border-slate-200 dark:border-slate-800 overflow-hidden flex flex-col sm:flex-row shadow-sm dark:shadow-none hover:border-slate-400 dark:hover:border-slate-700 transition-all group">
-              <div className="sm:w-2/5 relative min-h-[200px] bg-slate-100 dark:bg-slate-900">
-                <Image
-                  src="/images/vietnam_server.jpg"
-                  alt="Vietnam Data Center Server Racks"
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
-                />
+            {/* COLUMN 1: Lead Analysis & Context (5 cols) */}
+            <div className="lg:col-span-5 space-y-6 lg:border-r lg:border-slate-200 lg:dark:border-slate-800 lg:pr-8">
+              <span className="text-xs font-sans uppercase tracking-widest text-amber-600 dark:text-amber-500 font-bold block">
+                01 • EXECUTIVE INSIGHTS
+              </span>
+
+              <h2 className="font-serif-editorial text-2xl font-bold text-slate-900 dark:text-white leading-tight">
+                The Deregulatory Push Behind Closed-Door Trade Treaties
+              </h2>
+
+              <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+                Projected to expand Southeast Asia’s digital economy to <strong>US$2.0 Trillion by 2030</strong>, the Digital Economy Framework Agreement (DEFA) governs nine core pillars. However, negotiations conducted exclusively behind closed doors leave regional civil society without democratic recourse.
+              </p>
+
+              <div className="p-4 rounded-xl bg-white dark:bg-[#0e1420] border border-slate-200 dark:border-slate-800 space-y-3 shadow-sm dark:shadow-none">
+                <h3 className="font-serif-editorial font-bold text-slate-900 dark:text-white text-sm">
+                  Primary Friction Points:
+                </h3>
+                <ul className="space-y-2 text-xs text-slate-600 dark:text-slate-400">
+                  <li className="flex items-start gap-2">
+                    <span className="text-amber-600 dark:text-amber-500 font-bold">•</span>
+                    <span><strong>Data Free Flow (DFFT):</strong> Tension between open transfer regimes (Singapore, Philippines) vs. mandatory localization (Vietnam Decree 53).</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-amber-600 dark:text-amber-500 font-bold">•</span>
+                    <span><strong>Algorithmic Audit Bans:</strong> Big Tech lobbying seeking broad bans on mandatory source code disclosures.</span>
+                  </li>
+                </ul>
               </div>
 
-              <div className="sm:w-3/5 p-5 flex flex-col justify-between space-y-3">
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between text-[10px] font-sans text-slate-500 dark:text-slate-400">
-                    <span className="text-amber-600 dark:text-amber-400 font-bold uppercase">DATA LOCALIZATION</span>
-                    <span>6 min read</span>
+              <Link
+                href="/investigations"
+                className="inline-flex items-center gap-2 text-xs font-sans font-bold text-amber-600 dark:text-amber-400 hover:underline pt-2"
+              >
+                <span>Read Complete Investigation Suite</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
+            </div>
+
+            {/* COLUMN 2: Secondary Field Dispatches (4 cols) */}
+            <div className="lg:col-span-4 space-y-6 lg:border-r lg:border-slate-200 lg:dark:border-slate-800 lg:pr-8">
+              <span className="text-xs font-sans uppercase tracking-widest text-blue-600 dark:text-blue-400 font-bold block">
+                02 • FIELD DISPATCHES
+              </span>
+
+              {/* Story 1 */}
+              <article className="group space-y-3 pb-6 border-b border-slate-200 dark:border-slate-800">
+                <div className="relative aspect-[16/9] w-full rounded-lg overflow-hidden bg-slate-100 dark:bg-slate-900">
+                  <Image
+                    src="/images/vietnam_server.jpg"
+                    alt="Vietnam Cloud Data Center"
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                </div>
+                <span className="text-[10px] font-sans text-amber-600 dark:text-amber-400 font-bold uppercase">
+                  DATA LOCALIZATION
+                </span>
+                <h3 className="font-serif-editorial font-bold text-slate-900 dark:text-white text-base group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors leading-snug">
+                  Vietnam's Decree 53 &amp; Foreign Cloud Mandates: The Local Storage Squeeze
+                </h3>
+                <p className="text-slate-600 dark:text-slate-400 text-xs line-clamp-2 leading-relaxed">
+                  How Ministry of Information notices mandate foreign tech platforms to store user data in Hanoi.
+                </p>
+              </article>
+
+              {/* Story 2 */}
+              <article className="group space-y-3">
+                <div className="relative aspect-[16/9] w-full rounded-lg overflow-hidden bg-slate-100 dark:bg-slate-900">
+                  <Image
+                    src="/images/ai_audit.jpg"
+                    alt="AI Governance Code Audit"
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                </div>
+                <span className="text-[10px] font-sans text-amber-600 dark:text-amber-400 font-bold uppercase">
+                  AI GOVERNANCE
+                </span>
+                <h3 className="font-serif-editorial font-bold text-slate-900 dark:text-white text-base group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors leading-snug">
+                  Banning Algorithmic Audits: How Big Tech Lobbying Targets Treaties
+                </h3>
+                <p className="text-slate-600 dark:text-slate-400 text-xs line-clamp-2 leading-relaxed">
+                  Corporate trade lobbies advocate for broad treaty bans on mandatory source code disclosures.
+                </p>
+              </article>
+            </div>
+
+            {/* COLUMN 3: Live Policy Radar Stream (3 cols) */}
+            <div className="lg:col-span-3 space-y-6">
+              <span className="text-xs font-sans uppercase tracking-widest text-emerald-600 dark:text-emerald-500 font-bold block">
+                03 • REGULATORY RADAR
+              </span>
+
+              <div className="space-y-4">
+                <div className="p-3.5 rounded-lg bg-white dark:bg-[#0e1420] border border-slate-200 dark:border-slate-800 space-y-1.5 shadow-sm dark:shadow-none">
+                  <div className="flex items-center justify-between text-[10px] font-sans">
+                    <span className="font-bold text-slate-900 dark:text-white">ASEAN Regional</span>
+                    <span className="text-red-600 dark:text-red-400 font-bold">High Alert</span>
                   </div>
-
-                  <h3 className="font-serif-editorial text-lg font-bold text-slate-900 dark:text-white group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors leading-tight">
-                    Vietnam's Decree 53 &amp; Foreign Cloud Mandates: The Local Storage Squeeze
-                  </h3>
-
-                  <p className="text-slate-600 dark:text-slate-400 text-xs leading-relaxed line-clamp-3">
-                    How Ministry of Information notices mandate foreign tech platforms and OTT services to store user data in Hanoi under Law No. 24/2018.
-                  </p>
+                  <h4 className="font-serif-editorial font-bold text-xs text-slate-900 dark:text-white leading-snug">
+                    SEOM 57 Manila DEFA Scrubbing
+                  </h4>
+                  <span className="text-[10px] text-slate-500 dark:text-slate-400 block">July 15, 2026</span>
                 </div>
 
-                <div className="pt-3 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between text-[11px] font-sans">
-                  <span className="text-slate-500 dark:text-slate-400">EngageMedia Team</span>
-                  <Link href="/investigations" className="text-amber-600 dark:text-amber-400 font-bold flex items-center gap-1">
-                    <span>Read →</span>
-                  </Link>
-                </div>
-              </div>
-            </article>
-
-            {/* Story Card 2 */}
-            <article className="rounded-xl bg-white dark:bg-[#0e1420] border border-slate-200 dark:border-slate-800 overflow-hidden flex flex-col sm:flex-row shadow-sm dark:shadow-none hover:border-slate-400 dark:hover:border-slate-700 transition-all group">
-              <div className="sm:w-2/5 relative min-h-[200px] bg-slate-100 dark:bg-slate-900">
-                <Image
-                  src="/images/ai_audit.jpg"
-                  alt="AI Algorithmic Code Audit in Jakarta"
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-              </div>
-
-              <div className="sm:w-3/5 p-5 flex flex-col justify-between space-y-3">
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between text-[10px] font-sans text-slate-500 dark:text-slate-400">
-                    <span className="text-amber-600 dark:text-amber-400 font-bold uppercase">AI GOVERNANCE</span>
-                    <span>7 min read</span>
+                <div className="p-3.5 rounded-lg bg-white dark:bg-[#0e1420] border border-slate-200 dark:border-slate-800 space-y-1.5 shadow-sm dark:shadow-none">
+                  <div className="flex items-center justify-between text-[10px] font-sans">
+                    <span className="font-bold text-slate-900 dark:text-white">Indonesia (ID)</span>
+                    <span className="text-red-600 dark:text-red-400 font-bold">High Alert</span>
                   </div>
-
-                  <h3 className="font-serif-editorial text-lg font-bold text-slate-900 dark:text-white group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors leading-tight">
-                    Banning Algorithmic Audits: How Big Tech Lobbying Targets Trade Treaties
-                  </h3>
-
-                  <p className="text-slate-600 dark:text-slate-400 text-xs leading-relaxed line-clamp-3">
-                    Corporate lobbies advocate for broad treaty bans on mandatory source code disclosures—limiting regulators from auditing automated AI engines.
-                  </p>
+                  <h4 className="font-serif-editorial font-bold text-xs text-slate-900 dark:text-white leading-snug">
+                    PDP Law Public Sector Server Storage
+                  </h4>
+                  <span className="text-[10px] text-slate-500 dark:text-slate-400 block">July 08, 2026</span>
                 </div>
 
-                <div className="pt-3 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between text-[11px] font-sans">
-                  <span className="text-slate-500 dark:text-slate-400">EngageMedia Team</span>
-                  <Link href="/investigations" className="text-amber-600 dark:text-amber-400 font-bold flex items-center gap-1">
-                    <span>Read →</span>
-                  </Link>
+                <div className="p-3.5 rounded-lg bg-white dark:bg-[#0e1420] border border-slate-200 dark:border-slate-800 space-y-1.5 shadow-sm dark:shadow-none">
+                  <div className="flex items-center justify-between text-[10px] font-sans">
+                    <span className="font-bold text-slate-900 dark:text-white">Singapore (SG)</span>
+                    <span className="text-emerald-600 dark:text-emerald-400 font-bold">Rights Verified</span>
+                  </div>
+                  <h4 className="font-serif-editorial font-bold text-xs text-slate-900 dark:text-white leading-snug">
+                    IMDA ASEAN MCCs Guidelines
+                  </h4>
+                  <span className="text-[10px] text-slate-500 dark:text-slate-400 block">June 28, 2026</span>
                 </div>
               </div>
-            </article>
+
+              <Link
+                href="/ledger"
+                className="inline-flex items-center gap-1.5 text-xs font-sans font-bold text-emerald-600 dark:text-emerald-400 hover:underline pt-2"
+              >
+                <span>Explore Full Policy Ledger ({6})</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
+            </div>
 
           </div>
         </section>
 
-        {/* SECTION 3: INTELLIGENCE TOOLS SUITE (MEDIA SITE WITH TOOLS) */}
-        <section className="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-slate-200 dark:border-slate-800">
+        {/* SECTION 3: MINIMALIST INTELLIGENCE SUITE (SWISS GRID NUMERALS) */}
+        <section className="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-b border-slate-200 dark:border-slate-800">
           <div className="mb-8">
-            <span className="text-xs font-sans text-blue-600 dark:text-blue-400 font-bold uppercase tracking-wider block mb-1">
-              OBSERVATORY INTELLIGENCE SUITE
+            <span className="text-xs font-sans uppercase tracking-widest text-slate-500 dark:text-slate-400 font-bold block mb-1">
+              SPECIALIZED INTELLIGENCE TOOLS
             </span>
             <h2 className="font-serif-editorial text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-              Interactive Tools &amp; Data Repositories
+              Observatory Modules &amp; Repositories
             </h2>
-            <p className="text-slate-600 dark:text-slate-400 text-xs sm:text-sm mt-1 max-w-2xl">
-              Access D.R.O.N.E.’s specialized policy tools for researchers, activists, and digital rights defenders across Southeast Asia.
-            </p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             
-            {/* Tool Card 1 */}
-            <Link href="/observatory" className="group rounded-xl bg-white dark:bg-[#0e1420] border border-slate-200 dark:border-slate-800 p-6 flex flex-col justify-between hover:border-blue-500 transition-all shadow-sm dark:shadow-none">
+            {/* Module 01 */}
+            <Link href="/observatory" className="group p-6 rounded-xl bg-white dark:bg-[#0e1420] border border-slate-200 dark:border-slate-800 hover:border-blue-500 transition-all flex flex-col justify-between shadow-sm dark:shadow-none">
               <div className="space-y-3">
-                <div className="w-10 h-10 rounded bg-blue-100 dark:bg-blue-950/80 border border-blue-200 dark:border-blue-800 flex items-center justify-center text-blue-700 dark:text-blue-400">
-                  <MapPin className="w-5 h-5" />
-                </div>
+                <span className="font-serif-editorial text-3xl font-extrabold text-slate-300 dark:text-slate-700 group-hover:text-blue-500 transition-colors">
+                  01
+                </span>
                 <h3 className="font-serif-editorial font-bold text-slate-900 dark:text-white text-lg group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                  ASEAN Jurisdiction Map
+                  Cartographic Observatory
                 </h3>
                 <p className="text-slate-600 dark:text-slate-400 text-xs leading-relaxed">
-                  Interactive vector SVG map covering 11 Southeast Asian Member States with data transfer regime filters and country dossiers.
+                  Interactive 11-country SVG ASEAN map documenting legal data localization regimes and country dossiers.
                 </p>
               </div>
-              <div className="pt-4 border-t border-slate-200 dark:border-slate-800 mt-4 flex items-center justify-between text-xs font-sans text-blue-600 dark:text-blue-400 font-semibold">
+              <div className="pt-4 border-t border-slate-100 dark:border-slate-800 mt-4 flex items-center justify-between text-xs font-sans text-blue-600 dark:text-blue-400 font-semibold">
                 <span>Launch Map</span>
                 <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
               </div>
             </Link>
 
-            {/* Tool Card 2 */}
-            <Link href="/ledger" className="group rounded-xl bg-white dark:bg-[#0e1420] border border-slate-200 dark:border-slate-800 p-6 flex flex-col justify-between hover:border-emerald-500 transition-all shadow-sm dark:shadow-none">
+            {/* Module 02 */}
+            <Link href="/ledger" className="group p-6 rounded-xl bg-white dark:bg-[#0e1420] border border-slate-200 dark:border-slate-800 hover:border-emerald-500 transition-all flex flex-col justify-between shadow-sm dark:shadow-none">
               <div className="space-y-3">
-                <div className="w-10 h-10 rounded bg-emerald-100 dark:bg-emerald-950/80 border border-emerald-200 dark:border-emerald-800 flex items-center justify-center text-emerald-700 dark:text-emerald-400">
-                  <Database className="w-5 h-5" />
-                </div>
+                <span className="font-serif-editorial text-3xl font-extrabold text-slate-300 dark:text-slate-700 group-hover:text-emerald-500 transition-colors">
+                  02
+                </span>
                 <h3 className="font-serif-editorial font-bold text-slate-900 dark:text-white text-lg group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
                   Verified Policy Ledger
                 </h3>
                 <p className="text-slate-600 dark:text-slate-400 text-xs leading-relaxed">
-                  Searchable database of ingested digital trade bills, DEFA chapters, and decrees with 100% primary gazette source verification.
+                  Searchable database of ingested digital trade bills &amp; decrees with 100% primary source verification.
                 </p>
               </div>
-              <div className="pt-4 border-t border-slate-200 dark:border-slate-800 mt-4 flex items-center justify-between text-xs font-sans text-emerald-600 dark:text-emerald-400 font-semibold">
+              <div className="pt-4 border-t border-slate-100 dark:border-slate-800 mt-4 flex items-center justify-between text-xs font-sans text-emerald-600 dark:text-emerald-400 font-semibold">
                 <span>Search Ledger</span>
                 <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
               </div>
             </Link>
 
-            {/* Tool Card 3 */}
-            <Link href="/threats" className="group rounded-xl bg-white dark:bg-[#0e1420] border border-slate-200 dark:border-slate-800 p-6 flex flex-col justify-between hover:border-red-500 transition-all shadow-sm dark:shadow-none">
+            {/* Module 03 */}
+            <Link href="/threats" className="group p-6 rounded-xl bg-white dark:bg-[#0e1420] border border-slate-200 dark:border-slate-800 hover:border-red-500 transition-all flex flex-col justify-between shadow-sm dark:shadow-none">
               <div className="space-y-3">
-                <div className="w-10 h-10 rounded bg-red-100 dark:bg-red-950/80 border border-red-200 dark:border-red-800 flex items-center justify-center text-red-700 dark:text-red-400">
-                  <ShieldAlert className="w-5 h-5" />
-                </div>
+                <span className="font-serif-editorial text-3xl font-extrabold text-slate-300 dark:text-slate-700 group-hover:text-red-500 transition-colors">
+                  03
+                </span>
                 <h3 className="font-serif-editorial font-bold text-slate-900 dark:text-white text-lg group-hover:text-red-600 dark:group-hover:text-red-400 transition-colors">
                   Rights Threat Matrix
                 </h3>
                 <p className="text-slate-600 dark:text-slate-400 text-xs leading-relaxed">
-                  4-column structural risk assessment evaluating data sovereignty, AI audit prohibitions, and surveillance weaponization.
+                  4-column structural risk assessment evaluating data sovereignty and algorithmic audit prohibitions.
                 </p>
               </div>
-              <div className="pt-4 border-t border-slate-200 dark:border-slate-800 mt-4 flex items-center justify-between text-xs font-sans text-red-600 dark:text-red-400 font-semibold">
+              <div className="pt-4 border-t border-slate-100 dark:border-slate-800 mt-4 flex items-center justify-between text-xs font-sans text-red-600 dark:text-red-400 font-semibold">
                 <span>View Risk Matrix</span>
                 <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
               </div>
             </Link>
 
-            {/* Tool Card 4 */}
-            <Link href="/intake" className="group rounded-xl bg-white dark:bg-[#0e1420] border border-slate-200 dark:border-slate-800 p-6 flex flex-col justify-between hover:border-amber-500 transition-all shadow-sm dark:shadow-none">
+            {/* Module 04 */}
+            <Link href="/intake" className="group p-6 rounded-xl bg-white dark:bg-[#0e1420] border border-slate-200 dark:border-slate-800 hover:border-amber-500 transition-all flex flex-col justify-between shadow-sm dark:shadow-none">
               <div className="space-y-3">
-                <div className="w-10 h-10 rounded bg-amber-100 dark:bg-amber-950/80 border border-amber-200 dark:border-amber-800 flex items-center justify-center text-amber-800 dark:text-amber-400">
-                  <Send className="w-5 h-5" />
-                </div>
+                <span className="font-serif-editorial text-3xl font-extrabold text-slate-300 dark:text-slate-700 group-hover:text-amber-500 transition-colors">
+                  04
+                </span>
                 <h3 className="font-serif-editorial font-bold text-slate-900 dark:text-white text-lg group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">
-                  Submit Leaked Text / Alert
+                  Submit Leaked Alert
                 </h3>
                 <p className="text-slate-600 dark:text-slate-400 text-xs leading-relaxed">
-                  Encrypted intake portal for regional researchers &amp; activists to submit leaked draft texts with anonymous defender protection.
+                  Encrypted intake portal for regional activists to submit leaked draft texts with anonymous protection.
                 </p>
               </div>
-              <div className="pt-4 border-t border-slate-200 dark:border-slate-800 mt-4 flex items-center justify-between text-xs font-sans text-amber-600 dark:text-amber-400 font-semibold">
-                <span>Submit Alert</span>
+              <div className="pt-4 border-t border-slate-100 dark:border-slate-800 mt-4 flex items-center justify-between text-xs font-sans text-amber-600 dark:text-amber-400 font-semibold">
+                <span>Submit Dossier</span>
                 <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
               </div>
             </Link>
@@ -271,42 +296,35 @@ export default function Home() {
           </div>
         </section>
 
-        {/* SECTION 4: WEEKLY POLICY PULSE NEWSLETTER DISPATCH */}
-        <section className="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-slate-200 dark:border-slate-800">
-          <div className="rounded-2xl bg-white dark:bg-[#0e1420] border border-slate-200 dark:border-slate-800 p-8 sm:p-12 shadow-sm dark:shadow-none grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
-            
-            <div className="md:col-span-7 space-y-3">
-              <span className="text-xs font-sans text-amber-600 dark:text-amber-500 font-bold uppercase tracking-wider">
+        {/* SECTION 4: MINIMALIST NEWSLETTER SUBSCRIPTION */}
+        <section className="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+          <div className="p-8 sm:p-12 rounded-2xl bg-white dark:bg-[#0e1420] border border-slate-200 dark:border-slate-800 shadow-sm dark:shadow-none flex flex-col md:flex-row items-center justify-between gap-8">
+            <div className="space-y-2 max-w-xl">
+              <span className="text-xs font-sans uppercase tracking-widest text-amber-600 dark:text-amber-500 font-bold">
                 WEEKLY POLICY PULSE DISPATCH
               </span>
-              <h2 className="font-serif-editorial text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+              <h2 className="font-serif-editorial text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">
                 Receive Thursday Night Executive Policy Summaries
               </h2>
-              <p className="text-slate-600 dark:text-slate-400 text-xs sm:text-sm leading-relaxed max-w-xl">
-                Get concise, source-verified 3-minute digests covering ASEAN DEFA negotiations, cross-border data transfer decrees, and AI governance updates delivered to your inbox.
+              <p className="text-slate-600 dark:text-slate-400 text-xs sm:text-sm leading-relaxed">
+                Get concise, source-verified 3-minute digests covering ASEAN DEFA negotiations delivered straight to your inbox.
               </p>
             </div>
 
-            <div className="md:col-span-5 space-y-3">
-              <form onSubmit={(e) => { e.preventDefault(); alert("Subscribed to Weekly Policy Pulse Dispatch!"); }} className="flex flex-col sm:flex-row gap-2">
-                <input
-                  type="email"
-                  required
-                  placeholder="Enter work email address..."
-                  className="flex-1 bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded px-3 py-2 text-xs text-slate-900 dark:text-slate-200 focus:outline-none focus:border-amber-500 font-sans"
-                />
-                <button
-                  type="submit"
-                  className="px-5 py-2 rounded bg-slate-900 dark:bg-slate-800 hover:bg-slate-800 dark:hover:bg-slate-700 text-white font-sans text-xs font-bold transition-colors whitespace-nowrap"
-                >
-                  Subscribe Free
-                </button>
-              </form>
-              <span className="text-[10px] text-slate-500 dark:text-slate-400 block font-sans">
-                No spam. Unsubscribe anytime. Maintained by EngageMedia.
-              </span>
-            </div>
-
+            <form onSubmit={(e) => { e.preventDefault(); alert("Subscribed to Weekly Policy Pulse Dispatch!"); }} className="w-full md:w-auto flex flex-col sm:flex-row gap-2">
+              <input
+                type="email"
+                required
+                placeholder="Enter work email address..."
+                className="bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded px-4 py-2.5 text-xs text-slate-900 dark:text-slate-200 focus:outline-none focus:border-amber-500 font-sans min-w-[260px]"
+              />
+              <button
+                type="submit"
+                className="px-6 py-2.5 rounded bg-slate-900 dark:bg-slate-800 hover:bg-slate-800 dark:hover:bg-slate-700 text-white font-sans text-xs font-bold transition-colors whitespace-nowrap"
+              >
+                Subscribe Free
+              </button>
+            </form>
           </div>
         </section>
 
