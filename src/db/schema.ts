@@ -1,4 +1,4 @@
-import { pgTable, uuid, text, integer, timestamp } from "drizzle-orm/pg-core";
+import { pgTable, uuid, text, integer, timestamp, date } from "drizzle-orm/pg-core";
 
 // ── Jurisdictions ─────────────────────────────────────────────────────────────
 
@@ -30,5 +30,20 @@ export const policies = pgTable("policies", {
   summary: text("summary").notNull(),
   primarySourceUrl: text("primary_source_url").notNull(),
   sourceAuthority: text("source_authority").notNull(),
+  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+});
+
+// ── News Items ────────────────────────────────────────────────────────────────
+
+export const newsItems = pgTable("news_items", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  title: text("title").notNull(),
+  jurisdiction: text("jurisdiction").notNull(),        // e.g. "Indonesia (ID)"
+  category: text("category").notNull(),                // "DEFA" | "AI Governance" | "Cybersecurity" | "Cross-Border Data"
+  summary: text("summary").notNull(),
+  sourceUrl: text("source_url").notNull(),
+  sourceName: text("source_name").notNull(),
+  imageUrl: text("image_url"),
+  publishedDate: date("published_date").notNull(),
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
 });
