@@ -8,9 +8,9 @@
 
 ## 🔒 Mandatory Project Rules & Design Guardrails
 
-### 1. Lucide Icons Only (NO Emojis in Hero & Stats UI)
-* **FORBIDDEN**: Do NOT use raw emojis (`🌐`, `📊`, `🛡️`, `🗣️`) in UI badges, hero cards, or stats counters.
-* **REQUIRED ICONS**: Use clean SVG icons from `lucide-react` (`Globe`, `FileText`, `ShieldCheck`, `Languages`, `MapPin`, etc.).
+### 1. Neutral Uncolored Lucide Icons (NO Emojis & NO Colored Icons in Hero Badges)
+* **UNCOLORED NEUTRAL ICONS**: Lucide icons inside hero micro-stats badges MUST use neutral text colors (`text-slate-400`). Do NOT color micro-stats icons with custom brand tokens (FORBIDDEN: `text-asean-yellow`, `text-asean-blue`).
+* **FORBIDDEN**: Do NOT use raw emojis (`🌐`, `📊`, `🛡️`, `🗣️`) anywhere in UI badges, hero cards, or stats counters.
 
 ---
 
