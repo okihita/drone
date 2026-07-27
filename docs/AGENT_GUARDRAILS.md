@@ -8,9 +8,10 @@
 
 ## 🔒 Mandatory Project Rules & Design Guardrails
 
-### 1. Header Layout & Masthead Title Rule
-* **NO SEARCH BAR IN MASTHEAD**: The top masthead bar only displays `ThemeToggle` and `LanguageSwitcher` on the right. Search is handled centrally by `HeroSearch.tsx`.
-* **2-LINE VERTICALLY ALIGNED SUBTITLE**: The subtitle text `Digital Rights Oversight &` / `Network Evaluator` MUST be split into 2 stacked lines and vertically centered/aligned next to the `D.R.O.N.E.` title.
+### 1. Header Layout & Masthead Architecture Rule
+* **LEFT SIDE**: Displays the official EngageMedia emblem SVG logo (`/images/logo-engagemedia-emblem-clarifying-white.svg`).
+* **CENTERED TITLE BLOCK**: The `D.R.O.N.E.` title and its 2-line stacked subtitle (`Digital Rights Oversight &` / `Network Evaluator`) MUST be centered together in the middle column of the masthead.
+* **RIGHT SIDE**: Displays `ThemeToggle` and `LanguageSwitcher` only. Search is handled centrally by `HeroSearch.tsx`.
 
 ---
 
