@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import LanguageSwitcher from "./LanguageSwitcher";
 import ThemeToggle from "./ThemeToggle";
@@ -22,9 +23,11 @@ export default function Header() {
            {/* Left Side: EngageMedia Logo */}
           <div className="flex items-center h-full justify-start">
             <Link href="https://engagemedia.org" target="_blank" rel="noreferrer" className="group flex items-center gap-3">
-              <img
+              <Image
                 src="/images/engagemedia-logo.png"
                 alt="EngageMedia Logo"
+                width={768}
+                height={230}
                 className="h-12 sm:h-14 w-auto transition-opacity group-hover:opacity-85"
               />
             </Link>

@@ -191,8 +191,9 @@ export function getRealAseanCountries(): GeoCountryData[] {
   const result: GeoCountryData[] = [];
 
   // Iterate over GeoJSON features
-  for (const feature of geoData.features as any[]) {
+  for (const feature of geoData.features as GeoJSON.Feature<GeoJSON.Geometry, { name?: string }>[]) {
     const geoName = feature.properties?.name;
+    if (!geoName) continue;
     const meta = COUNTRY_METADATA[geoName];
 
     if (meta) {

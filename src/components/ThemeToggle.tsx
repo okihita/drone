@@ -1,58 +1,72 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useSyncExternalStore, useCallback } from "react";
 import { Sun, Moon, Laptop } from "lucide-react";
 
 type ThemeMode = "light" | "dark" | "system";
 
-export default function ThemeToggle() {
-  const [theme, setTheme] = useState<ThemeMode>("light");
-  const [mounted, setMounted] = useState(false);
+// ── Module-level store for theme persistence ──────────────────────────────────
 
-  const applyTheme = (mode: ThemeMode) => {
-    const root = document.documentElement;
-    if (mode === "dark") {
-      root.classList.add("dark");
-    } else if (mode === "light") {
-      root.classList.remove("dark");
-    } else {
-      // System mode
-      const isSystemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-      if (isSystemDark) {
-        root.classList.add("dark");
-      } else {
-        root.classList.remove("dark");
-      }
-    }
-  };
+const listeners = new Set<() => void>();
 
-  useEffect(() => {
-    setMounted(true);
+function subscribe(callback: () => void) {
+  listeners.add(callback);
+
+  // System theme change listener
+  const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+  const onSystemChange = () => {
     const stored = localStorage.getItem("drone-theme") as ThemeMode | null;
-    const initialMode = stored || "system";
-    setTheme(initialMode);
-    applyTheme(initialMode);
-
-    // System theme change listener
-    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-    const handleSystemChange = () => {
-      const currentStored = localStorage.getItem("drone-theme") as ThemeMode | null;
-      if (!currentStored || currentStored === "system") {
-        applyTheme("system");
-      }
-    };
-
-    mediaQuery.addEventListener("change", handleSystemChange);
-    return () => mediaQuery.removeEventListener("change", handleSystemChange);
-  }, []);
-
-  const handleThemeChange = (mode: ThemeMode) => {
-    setTheme(mode);
-    localStorage.setItem("drone-theme", mode);
-    applyTheme(mode);
+    if (!stored || stored === "system") callback();
   };
+  mediaQuery.addEventListener("change", onSystemChange);
 
-  if (!mounted) return null;
+  // Cross-tab sync
+  const onStorage = (e: StorageEvent) => {
+    if (e.key === "drone-theme") callback();
+  };
+  window.addEventListener("storage", onStorage);
+
+  return () => {
+    listeners.delete(callback);
+    mediaQuery.removeEventListener("change", onSystemChange);
+    window.removeEventListener("storage", onStorage);
+  };
+}
+
+function getSnapshot(): ThemeMode {
+  if (typeof window === "undefined") return "light";
+  return (localStorage.getItem("drone-theme") as ThemeMode) || "system";
+}
+
+function getServerSnapshot(): ThemeMode {
+  return "light";
+}
+
+function notifyListeners() {
+  listeners.forEach((fn) => fn());
+}
+
+function applyThemeClass(mode: ThemeMode) {
+  const root = document.documentElement;
+  if (mode === "dark") {
+    root.classList.add("dark");
+  } else if (mode === "light") {
+    root.classList.remove("dark");
+  } else {
+    root.classList.toggle("dark", window.matchMedia("(prefers-color-scheme: dark)").matches);
+  }
+}
+
+// ── Component ─────────────────────────────────────────────────────────────────
+
+export default function ThemeToggle() {
+  const theme = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+
+  const handleThemeChange = useCallback((mode: ThemeMode) => {
+    localStorage.setItem("drone-theme", mode);
+    applyThemeClass(mode);
+    notifyListeners();
+  }, []);
 
   return (
     <div className="flex items-center bg-slate-200/80 dark:bg-slate-900/90 p-1 rounded-lg border border-slate-300 dark:border-slate-800 text-xs font-sans">
