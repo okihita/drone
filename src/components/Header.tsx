@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import LanguageSwitcher from "./LanguageSwitcher";
 import ThemeToggle from "./ThemeToggle";
-import { Search, Menu, X, BookOpen, Map, Database, ShieldAlert, Send } from "lucide-react";
+import { Menu, X, BookOpen, Map, Database, ShieldAlert, Send } from "lucide-react";
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -16,34 +16,27 @@ export default function Header() {
   return (
     <header className="w-full border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 transition-colors sticky top-0 z-50 backdrop-blur-md bg-slate-50/95 dark:bg-slate-950/95 font-sans">
       {/* Main Masthead Header with Generous Breathing Room */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 border-b border-slate-200/80 dark:border-slate-800/60">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 border-b border-slate-200/80 dark:border-slate-800/60 font-sans">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           
-          {/* Main Title & Acronym */}
+          {/* Main Title & Acronym — Split 2-Line Subtitle Vertically Aligned */}
           <div>
             <Link href="/" className="group inline-block">
-              <div className="flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-4">
-                <span className="font-serif-editorial text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white group-hover:text-asean-yellow transition-colors">
+              <div className="flex items-center gap-3 sm:gap-4">
+                <span className="font-serif-editorial text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white group-hover:text-asean-yellow transition-colors leading-none">
                   D.R.O.N.E.
                 </span>
-                <span className="text-xs sm:text-sm font-sans text-slate-500 dark:text-slate-400 uppercase tracking-widest sm:border-l sm:border-slate-300 sm:dark:border-slate-700 sm:pl-4">
-                  Digital Rights Oversight &amp; Network Evaluator
-                </span>
+                
+                <div className="border-l border-slate-300 dark:border-slate-700 pl-3 sm:pl-4 flex flex-col justify-center text-[10px] sm:text-xs font-sans text-slate-500 dark:text-slate-400 uppercase tracking-wider font-semibold leading-snug">
+                  <span>Digital Rights Oversight &amp;</span>
+                  <span>Network Evaluator</span>
+                </div>
               </div>
             </Link>
           </div>
 
-          {/* Right Tools: Search, Theme Toggle & Language Switcher */}
+          {/* Right Tools: Theme Toggle & Language Switcher Only (No Search Bar) */}
           <div className="flex items-center gap-3 w-full md:w-auto justify-end">
-            <div className="relative hidden sm:block w-52">
-              <input
-                type="text"
-                placeholder="Search stories, policies..."
-                className="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded-lg px-3.5 py-2 pl-9 text-xs text-slate-900 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-asean-yellow font-sans shadow-xs"
-              />
-              <Search className="w-4 h-4 text-slate-400 dark:text-slate-500 absolute left-3 top-2.5" />
-            </div>
-
             {/* Theme Toggle */}
             <ThemeToggle />
 
@@ -63,7 +56,7 @@ export default function Header() {
       </div>
 
       {/* Primary Navigation Bar */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 font-sans">
         <nav className="hidden md:flex items-center gap-8 py-3.5 text-xs font-medium font-sans">
           <Link
             href="/investigations"

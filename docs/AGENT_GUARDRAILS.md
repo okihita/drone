@@ -8,42 +8,38 @@
 
 ## 🔒 Mandatory Project Rules & Design Guardrails
 
-### 1. ASEAN Logo Color Branding Rule & Lint Command
-* **AUTHORITATIVE PALETTE REFERENCE**: All branding colors must strictly reference `src/lib/colors.ts` and the official ASEAN logo palette:
-  * **ASEAN Blue**: `#003399` (Peace & Stability)
-  * **ASEAN Red**: `#CC0000` (Courage & Dynamism)
-  * **ASEAN Yellow / Gold**: `#FFCC00` (Prosperity & Padi Emblem)
-  * **ASEAN White**: `#FFFFFF` (Purity)
-* **FORBIDDEN**: Do NOT use ad-hoc hardcoded hex strings (`#0b0f17`, `#0e1420`, `#faf9f6`, `#10b981`, etc.) inside `.tsx` / `.ts` component files.
-* **COLOR LINT RULE**: Enforce zero hardcoded hex colors via `npm run lint:colors` (`node scripts/check-colors.js`).
+### 1. Header Layout & Masthead Title Rule
+* **NO SEARCH BAR IN MASTHEAD**: The top masthead bar only displays `ThemeToggle` and `LanguageSwitcher` on the right. Search is handled centrally by `HeroSearch.tsx`.
+* **2-LINE VERTICALLY ALIGNED SUBTITLE**: The subtitle text `Digital Rights Oversight &` / `Network Evaluator` MUST be split into 2 stacked lines and vertically centered/aligned next to the `D.R.O.N.E.` title.
 
 ---
 
-### 2. Language Restriction Rule: English & Bahasa Indonesia Only
+### 2. ASEAN Logo Color Branding Rule & Lint Command
+* **AUTHORITATIVE PALETTE REFERENCE**: All branding colors must strictly reference `src/lib/colors.ts` and the official ASEAN logo palette:
+  * **ASEAN Blue**: `#003399` (`asean-blue`)
+  * **ASEAN Red**: `#CC0000` (`asean-red`)
+  * **ASEAN Yellow / Gold**: `#FFCC00` (`asean-yellow`)
+  * **ASEAN White**: `#FFFFFF`
+* **FORBIDDEN**: Do NOT use ad-hoc hardcoded hex strings (`#...`) or generic Tailwind color classes (`amber-*`, `emerald-*`, `cyan-*`, etc.).
+* **COLOR LINT RULE**: Enforce zero hardcoded hex colors or non-ASEAN Tailwind utilities via `npm run lint:colors`.
+
+---
+
+### 3. Language Restriction Rule: English & Bahasa Indonesia Only
 * **STRICT LANGUAGES**: The application UI only supports 2 languages:
   1. 🌐 **English (`en`)**
   2. 🇮🇩 **Bahasa Indonesia (`id`)**
-* **FORBIDDEN**: Do NOT add any other language dropdown items to `LanguageSwitcher.tsx`.
 
 ---
 
-### 3. Geographic SVG Data Rule: Real Natural Earth GeoJSON Only
-* **FORBIDDEN**: Never hand-craft or estimate vector SVG path coordinates for maps.
+### 4. Geographic SVG Data Rule: Real Natural Earth GeoJSON Only
+* **FORBIDDEN**: Never hand-craft vector SVG path coordinates for maps.
 * **REQUIRED SVG DATA**: All vector map paths (`AseanMap.tsx` and `AseanBlindMap.tsx`) MUST be rendered dynamically via `d3-geo` projection using the real Natural Earth GeoJSON dataset stored in `public/data/southeast-asia.json`.
 
 ---
 
-### 4. Hero Layout & Compact Map Height Rule
+### 5. Hero Layout & Compact Map Height Rule
 * **COMPACT HERO HEIGHT**: The hero section uses a sleek, compact height (`py-10 sm:py-12`) with a subtle 15-25% opacity `AseanBlindMap` background.
-* **FORBIDDEN HERO ELEMENTS**:
-  * Do NOT render `ENGAGEMEDIA OBSERVATORY` badges in the hero.
-  * Do NOT render `All free: open access and human rights licensed under CC BY 4.0` micro-captions in the hero.
-
----
-
-### 5. Header Layout & Breathing Room Rule
-* **NO TOP MICRO-BAR**: Do NOT render top micro-bars above the main header masthead.
-* **SPACIOUS MASTHEAD**: Main title & acronym `D.R.O.N.E.` must have generous vertical padding (`py-8 sm:py-10`) for clean editorial breathing room.
 
 ---
 
