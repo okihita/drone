@@ -1,15 +1,62 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import AseanBlindMap from "@/components/AseanBlindMap";
 import HeroSearch from "@/components/HeroSearch";
-import { ArrowRight, Globe, FileText, ShieldCheck, Languages } from "lucide-react";
+import { ArrowRight, Globe, FileText, ShieldCheck, Languages, ChevronLeft, ChevronRight } from "lucide-react";
+
+export interface HeroStory {
+  id: string;
+  category: string;
+  readTime: string;
+  title: string;
+  summary: string;
+  author: string;
+  imageSrc: string;
+  slug: string;
+}
+
+export const HERO_STORIES: HeroStory[] = [
+  {
+    id: "defa-legal-scrubbing",
+    category: "DEFA SPECIAL REPORT",
+    readTime: "8 min read",
+    title: "ASEAN DEFA Legal Scrubbing: The Quiet Tug-of-War Over Cross-Border Data Privacy",
+    summary: "As senior economic officials finalize the text of the world’s first region-wide digital trade agreement in Manila, civil society watchdogs warn that mandatory data flow clauses risk preempting domestic privacy safeguards.",
+    author: "EngageMedia Research Team",
+    imageSrc: "/images/defa_lead.jpg",
+    slug: "/investigations",
+  },
+  {
+    id: "vietnam-decree-53",
+    category: "DATA LOCALIZATION",
+    readTime: "6 min read",
+    title: "Vietnam's Decree 53 & Foreign Cloud Mandates: The Local Storage Squeeze",
+    summary: "How Ministry of Information notices mandate foreign tech platforms to store user data in Hanoi server centers, creating severe compliance pressure on international civil society orgs.",
+    author: "EngageMedia Research Team",
+    imageSrc: "/images/vietnam_server.jpg",
+    slug: "/investigations",
+  },
+  {
+    id: "ai-audit-bans",
+    category: "AI GOVERNANCE",
+    readTime: "7 min read",
+    title: "Banning Algorithmic Audits: How Big Tech Lobbying Targets Treaties",
+    summary: "Corporate trade lobbies advocate for broad treaty bans on mandatory source code disclosures, shielding high-risk automated decision systems from civil society scrutiny.",
+    author: "EngageMedia Research Team",
+    imageSrc: "/images/ai_audit.jpg",
+    slug: "/investigations",
+  },
+];
 
 export default function Home() {
+  const [activeSlideIndex, setActiveSlideIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+
   const POPULAR_TOPICS = [
     { label: "ASEAN DEFA", category: "DEFA" },
     { label: "Cross-Border Data", category: "Cross-Border Data" },
@@ -19,6 +66,25 @@ export default function Home() {
     { label: "Privacy Sovereignty", category: "DEFA" },
     { label: "Source Code Audits", category: "AI Governance" },
   ];
+
+  // Auto-play interval for hero story carousel (6s)
+  useEffect(() => {
+    if (isPaused) return;
+    const interval = setInterval(() => {
+      setActiveSlideIndex((prev) => (prev + 1) % HERO_STORIES.length);
+    }, 6000);
+    return () => clearInterval(interval);
+  }, [isPaused]);
+
+  const activeStory = HERO_STORIES[activeSlideIndex];
+
+  const handlePrevSlide = () => {
+    setActiveSlideIndex((prev) => (prev === 0 ? HERO_STORIES.length - 1 : prev - 1));
+  };
+
+  const handleNextSlide = () => {
+    setActiveSlideIndex((prev) => (prev + 1) % HERO_STORIES.length);
+  };
 
   return (
     <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-200 font-sans selection:bg-asean-yellow/30 selection:text-slate-900 transition-colors">
@@ -95,66 +161,107 @@ export default function Home() {
           </div>
         </section>
 
-        {/* HERO FEATURED STORY (LEAD INVESTIGATION PHOTO COVER) */}
+        {/* HERO FEATURED STORY CAROUSEL WITH KEN BURNS HOVER EFFECT */}
         <section className="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-b border-slate-200 dark:border-slate-800">
           
-          <div className="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm dark:shadow-none grid grid-cols-1 lg:grid-cols-12 gap-0">
-            
-            {/* Hero Cover Photo */}
-            <div className="lg:col-span-7 relative min-h-[300px] lg:min-h-[420px] bg-slate-100 dark:bg-slate-900">
-              <Image
-                src="/images/defa_lead.jpg"
-                alt="ASEAN DEFA Legal Scrubbing Delegates in Manila"
-                fill
-                priority
-                className="object-cover"
-              />
-            </div>
+          <div
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
+            className="group relative rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm dark:shadow-none transition-all duration-300"
+          >
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 items-stretch">
+              
+              {/* Left Column: Photo Container with Ken Burns Hover Zoom & Pan Effect */}
+              <div className="lg:col-span-7 relative min-h-[320px] lg:min-h-[440px] bg-slate-950 overflow-hidden">
+                <Image
+                  key={activeStory.id}
+                  src={activeStory.imageSrc}
+                  alt={activeStory.title}
+                  fill
+                  priority
+                  className="object-cover transform scale-100 group-hover:scale-110 group-hover:rotate-0.5 transition-transform duration-1000 ease-out"
+                />
 
-            {/* Hero Lead Copy */}
-            <div className="lg:col-span-5 p-6 sm:p-8 flex flex-col justify-between space-y-6">
-              <div className="space-y-4">
-                <div className="flex items-center gap-2 text-xs font-sans">
-                  <span className="bg-asean-yellow/20 text-asean-yellow font-bold px-2 py-0.5 rounded border border-asean-yellow/30 uppercase">
-                    DEFA SPECIAL REPORT
+                {/* Subtle Image Gradient Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent lg:hidden" />
+              </div>
+
+              {/* Right Column: Dynamic Slide Content Copy */}
+              <div className="lg:col-span-5 p-6 sm:p-8 flex flex-col justify-between space-y-6">
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between gap-2 text-xs font-sans">
+                    <span className="bg-asean-yellow/20 text-asean-yellow font-bold px-2.5 py-0.5 rounded border border-asean-yellow/30 uppercase tracking-wider">
+                      {activeStory.category}
+                    </span>
+                    <span className="text-slate-500 dark:text-slate-400 font-sans text-xs">{activeStory.readTime}</span>
+                  </div>
+
+                  <h2 className="font-serif-editorial text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white leading-tight">
+                    {activeStory.title}
+                  </h2>
+
+                  <p className="text-slate-600 dark:text-slate-300 text-xs sm:text-sm leading-relaxed font-serif-editorial italic border-l-2 border-asean-yellow pl-3">
+                    {activeStory.summary}
+                  </p>
+
+                  <div className="text-xs text-slate-500 dark:text-slate-400 font-sans">
+                    By <strong className="text-slate-900 dark:text-slate-200">{activeStory.author}</strong>
+                  </div>
+                </div>
+
+                {/* Primary Call to Action Button */}
+                <div className="pt-4 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
+                  <Link
+                    href={activeStory.slug}
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-slate-900 dark:bg-slate-800 hover:bg-slate-800 dark:hover:bg-slate-700 text-white font-semibold text-xs font-sans transition-colors shadow-xs"
+                  >
+                    <span>Read Full Investigation</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
+
+                  <span className="text-[10px] uppercase tracking-wider text-slate-400 font-sans">
+                    Story {activeSlideIndex + 1} of {HERO_STORIES.length}
                   </span>
-                  <span className="text-slate-400">•</span>
-                  <span className="text-slate-500 dark:text-slate-400">8 min read</span>
                 </div>
 
-                <h2 className="font-serif-editorial text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white leading-tight">
-                  ASEAN DEFA Legal Scrubbing: The Quiet Tug-of-War Over Cross-Border Data Privacy
-                </h2>
-
-                <p className="text-slate-600 dark:text-slate-300 text-xs sm:text-sm leading-relaxed font-serif-editorial italic border-l-2 border-asean-yellow pl-3">
-                  As senior economic officials finalize the text of the world’s first region-wide digital trade agreement in Manila, civil society watchdogs warn that mandatory data flow clauses risk preempting domestic privacy safeguards.
-                </p>
-
-                <div className="text-xs text-slate-500 dark:text-slate-400 font-sans">
-                  By <strong className="text-slate-900 dark:text-slate-200">EngageMedia Research Team</strong>
-                </div>
-              </div>
-
-              <div className="pt-4 border-t border-slate-200 dark:border-slate-800 flex flex-wrap items-center gap-3">
-                <Link
-                  href="/investigations"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-slate-900 dark:bg-slate-800 hover:bg-slate-800 dark:hover:bg-slate-700 text-white font-semibold text-xs font-sans transition-colors shadow-xs"
-                >
-                  <span>Read Full Investigation</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </Link>
-
-                <Link
-                  href="/observatory"
-                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-slate-100 dark:bg-slate-900 hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-300 text-xs font-sans transition-colors border border-slate-300 dark:border-slate-800"
-                >
-                  <span>Map Dossier →</span>
-                </Link>
               </div>
 
             </div>
 
+            {/* Left & Right Arrow Navigation Buttons */}
+            <button
+              onClick={handlePrevSlide}
+              aria-label="Previous Story"
+              className="absolute left-3 top-1/2 -translate-y-1/2 z-20 p-2.5 rounded-full bg-slate-900/70 hover:bg-slate-900 text-white backdrop-blur-md border border-white/20 opacity-0 group-hover:opacity-100 transition-opacity"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+
+            <button
+              onClick={handleNextSlide}
+              aria-label="Next Story"
+              className="absolute right-3 top-1/2 -translate-y-1/2 z-20 p-2.5 rounded-full bg-slate-900/70 hover:bg-slate-900 text-white backdrop-blur-md border border-white/20 opacity-0 group-hover:opacity-100 transition-opacity"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
           </div>
+
+          {/* CAROUSEL NAVIGATION DOTS & PROGRESS LINES UNDERNEATH */}
+          <div className="mt-4 flex items-center justify-center gap-2.5 font-sans">
+            {HERO_STORIES.map((story, idx) => (
+              <button
+                key={story.id}
+                onClick={() => setActiveSlideIndex(idx)}
+                aria-label={`Go to slide ${idx + 1}: ${story.title}`}
+                className={`h-1.5 rounded-full transition-all duration-300 ${
+                  activeSlideIndex === idx
+                    ? "w-8 bg-asean-yellow"
+                    : "w-2.5 bg-slate-300 dark:bg-slate-700 hover:bg-slate-400 dark:hover:bg-slate-600"
+                }`}
+              />
+            ))}
+          </div>
+
         </section>
 
         {/* SECTION 3: 3-COLUMN EDITORIAL ATELIER GRID */}
