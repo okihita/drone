@@ -7,11 +7,9 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import AseanBlindMap from "@/components/AseanBlindMap";
 import HeroSearch from "@/components/HeroSearch";
-import { ArrowRight, MapPin, Database, ShieldAlert, Send, CheckCircle2, Globe, FileText, Search } from "lucide-react";
+import { ArrowRight, MapPin, Database, ShieldAlert, Send } from "lucide-react";
 
 export default function Home() {
-  const [selectedTopic, setSelectedTopic] = useState<string | null>(null);
-
   const POPULAR_TOPICS = [
     { label: "ASEAN DEFA", category: "DEFA" },
     { label: "Cross-Border Data", category: "Cross-Border Data" },
@@ -30,7 +28,7 @@ export default function Home() {
       <main className="flex-1">
         
         {/* POPULAR TOPICS PILL BAR (OUR WORLD IN DATA ARCHITECTURE) */}
-        <section className="bg-slate-100 dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800/80 py-2.5 px-4 sm:px-6 lg:px-8 font-sans">
+        <section className="bg-slate-100 dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800/80 py-2 px-4 sm:px-6 lg:px-8 font-sans">
           <div className="max-w-7xl mx-auto flex items-center gap-3 overflow-x-auto no-scrollbar text-xs">
             <span className="font-bold text-slate-600 dark:text-slate-400 uppercase text-[10px] tracking-wider whitespace-nowrap">
               POPULAR TOPICS:
@@ -49,20 +47,16 @@ export default function Home() {
           </div>
         </section>
 
-        {/* HERO SECTION: OUR WORLD IN DATA FULL-WIDTH MAP & SEARCH BANNER */}
-        <section className="relative w-full bg-[#0f172a] dark:bg-[#090d16] text-white py-16 sm:py-20 px-4 sm:px-6 lg:px-8 border-b border-slate-800 overflow-hidden shadow-2xl">
+        {/* HERO SECTION: OUR WORLD IN DATA COMPACT HERO WITH REAL SVG MAP */}
+        <section className="relative w-full bg-[#0f172a] dark:bg-[#090d16] text-white py-10 sm:py-12 px-4 sm:px-6 lg:px-8 border-b border-slate-800 overflow-hidden shadow-xl">
           
-          {/* Full-Width Vector SVG ASEAN Blind Map Background */}
+          {/* Full-Width Vector SVG ASEAN Blind Map Background (Real Natural Earth GeoJSON) */}
           <AseanBlindMap />
 
-          {/* Centered Hero Content */}
-          <div className="relative z-10 max-w-4xl mx-auto text-center space-y-6">
+          {/* Centered Compact Hero Content */}
+          <div className="relative z-10 max-w-4xl mx-auto text-center space-y-4">
             
-            <span className="inline-block bg-amber-500/10 text-amber-400 border border-amber-500/30 px-3 py-1 rounded-full text-xs font-sans uppercase font-bold tracking-wider">
-              ENGAGEMEDIA OBSERVATORY
-            </span>
-
-            <h1 className="font-serif-editorial text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.12]">
+            <h1 className="font-serif-editorial text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-[1.12]">
               Research and data to safeguard digital rights across Southeast Asia.
             </h1>
 
@@ -74,12 +68,12 @@ export default function Home() {
             </p>
 
             {/* High-Visibility Central Search Bar Component */}
-            <div className="pt-2">
+            <div className="pt-1">
               <HeroSearch />
             </div>
 
             {/* Live Repository Micro-Stats Badges */}
-            <div className="pt-4 flex flex-wrap items-center justify-center gap-2 sm:gap-4 text-xs font-sans text-slate-300">
+            <div className="pt-2 flex flex-wrap items-center justify-center gap-2 sm:gap-3 text-xs font-sans text-slate-300">
               <span className="px-3 py-1 rounded-full bg-slate-800/80 border border-slate-700/80">
                 🌐 <strong>11</strong> ASEAN Member States
               </span>
@@ -90,13 +84,9 @@ export default function Home() {
                 🛡️ <strong>100%</strong> Primary Source Verified
               </span>
               <span className="px-3 py-1 rounded-full bg-slate-800/80 border border-slate-700/80">
-                🗣️ <strong>13</strong> Regional Languages
+                🗣️ <strong>2</strong> Languages (EN &amp; ID)
               </span>
             </div>
-
-            <span className="text-[10px] text-slate-400 block font-sans">
-              All free: open access and human rights licensed under CC BY 4.0
-            </span>
 
           </div>
         </section>
