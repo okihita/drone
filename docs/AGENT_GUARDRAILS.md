@@ -10,8 +10,10 @@
 
 ### 1. Header & Title Branding Rule (DRONE Spelling & Subtitle)
 * **TITLE SPELLING**: The brand title MUST be written as **`DRONE`** without dots (FORBIDDEN: `D.R.O.N.E.`).
-* **2-LINE SUBTITLE**: The subtitle text `Digital Rights Oversight &` / `Network Evaluator` MUST be split into exactly 2 stacked lines and vertically centered next to `DRONE`.
-* **LEFT ENGAGEMEDIA EMBLEM LOGO**: Header masthead left column renders the EngageMedia emblem SVG (`/images/logo-engagemedia-emblem-clarifying-white.svg`).
+* **EXACT 2-LINE SUBTITLE**: The subtitle text MUST be split into exactly 2 stacked lines with the ampersand `&` on line 2:
+  * Line 1: `Digital Rights Oversight`
+  * Line 2: `& Network Evaluator`
+* **LEFT ENGAGEMEDIA EMBLEM LOGO**: Header masthead left column renders the EngageMedia emblem SVG (`/images/logo-engagemedia-emblem-clarifying-white.svg`) using standard SVG `<img />` tag.
 
 ---
 

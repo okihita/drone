@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 import LanguageSwitcher from "./LanguageSwitcher";
 import ThemeToggle from "./ThemeToggle";
@@ -20,22 +19,19 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-6 border-b border-slate-200/80 dark:border-slate-800/60 font-sans">
         <div className="grid grid-cols-1 md:grid-cols-3 items-center gap-4">
           
-          {/* Left Side: Official EngageMedia Emblem Logo */}
+          {/* Left Side: Official EngageMedia Emblem SVG Logo */}
           <div className="flex items-center justify-start">
             <Link href="https://engagemedia.org" target="_blank" rel="noreferrer" className="group flex items-center gap-3">
-              <div className="relative w-36 sm:w-44 h-8 transition-opacity group-hover:opacity-85">
-                <Image
-                  src="/images/logo-engagemedia-emblem-clarifying-white.svg"
-                  alt="EngageMedia Logo"
-                  fill
-                  className="object-contain dark:invert-0 invert"
-                  priority
-                />
-              </div>
+              {/* Standard HTML img for SVGcurrentColor rendering */}
+              <img
+                src="/images/logo-engagemedia-emblem-clarifying-white.svg"
+                alt="EngageMedia Logo"
+                className="h-7 sm:h-8 w-auto text-slate-900 dark:text-white transition-opacity group-hover:opacity-85"
+              />
             </Link>
           </div>
 
-          {/* Center Side: Centered DRONE Title & Exact 2-Line Subtitle */}
+          {/* Center Side: Centered DRONE Title & Exact 2-Line Subtitle (Ampersand on Line 2) */}
           <div className="flex items-center justify-center text-center">
             <Link href="/" className="group inline-block">
               <div className="flex items-center gap-3 sm:gap-4">
@@ -44,8 +40,8 @@ export default function Header() {
                 </span>
                 
                 <div className="border-l border-slate-300 dark:border-slate-700 pl-3 sm:pl-4 text-left flex flex-col justify-center text-[10px] sm:text-xs font-sans text-slate-500 dark:text-slate-400 uppercase tracking-wider font-semibold leading-snug">
-                  <span>Digital Rights Oversight &amp;</span>
-                  <span>Network Evaluator</span>
+                  <span>Digital Rights Oversight</span>
+                  <span>&amp; Network Evaluator</span>
                 </div>
               </div>
             </Link>
