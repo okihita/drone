@@ -1,8 +1,16 @@
 @import "tailwindcss";
 @variant dark (&:where(.dark, .dark *));
 
+@theme {
+  --color-asean-blue: #003399;
+  --color-asean-blue-hover: #1a52c5;
+  --color-asean-red: #CC0000;
+  --color-asean-yellow: #FFCC00;
+  --color-asean-white: #ffffff;
+}
+
 @layer base {
-  /* Light Mode by Default (Follows System preference if set) */
+  /* Official ASEAN Logo Color Palette Tokens */
   :root {
     --bg-main: #f8fafc;
     --bg-card: #ffffff;
@@ -12,9 +20,12 @@
     --text-primary: #0f172a;
     --text-muted: #64748b;
     --text-heading: #020617;
-    --accent-amber: #d97706;
-    --accent-blue: #2563eb;
-    --accent-emerald: #059669;
+    
+    /* ASEAN Branding Colors */
+    --asean-blue: #003399;
+    --asean-red: #CC0000;
+    --asean-yellow: #FFCC00;
+    --asean-white: #ffffff;
   }
 
   /* Dark Mode Override */
@@ -27,9 +38,12 @@
     --text-primary: #f8fafc;
     --text-muted: #94a3b8;
     --text-heading: #ffffff;
-    --accent-amber: #f59e0b;
-    --accent-blue: #3b82f6;
-    --accent-emerald: #10b981;
+    
+    /* ASEAN Branding Colors */
+    --asean-blue: #3b82f6;
+    --asean-red: #ef4444;
+    --asean-yellow: #f59e0b;
+    --asean-white: #ffffff;
   }
 
   body {
@@ -57,7 +71,7 @@
 }
 
 .editorial-card:hover {
-  border-color: var(--accent-blue);
+  border-color: var(--asean-blue);
 }
 
 .editorial-border {
@@ -87,5 +101,5 @@
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--accent-blue);
+  background: var(--asean-blue);
 }

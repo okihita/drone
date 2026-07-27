@@ -3,6 +3,7 @@
 import React, { useState, useMemo } from "react";
 import { MapPin, ExternalLink, X, Filter } from "lucide-react";
 import { getRealAseanCountries, GeoCountryData } from "@/lib/aseanGeo";
+import { ASEAN_COLORS } from "@/lib/colors";
 
 export default function AseanMap() {
   const countries = useMemo(() => getRealAseanCountries(), []);
@@ -19,7 +20,7 @@ export default function AseanMap() {
   });
 
   return (
-    <section id="asean-map" className="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-slate-200 dark:border-slate-800">
+    <section id="asean-map" className="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-slate-200 dark:border-slate-800 font-sans">
       {/* Section Title */}
       <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
         <div>
@@ -35,7 +36,7 @@ export default function AseanMap() {
         </div>
 
         {/* Filter Controls */}
-        <div className="flex items-center gap-2 bg-white dark:bg-[#0e1420] p-1.5 rounded-lg border border-slate-300 dark:border-slate-800 text-xs">
+        <div className="flex items-center gap-2 bg-white dark:bg-slate-900 p-1.5 rounded-lg border border-slate-300 dark:border-slate-800 text-xs">
           <Filter className="w-3.5 h-3.5 text-slate-500 dark:text-slate-400 ml-2" />
           <span className="text-slate-600 dark:text-slate-400 font-sans text-[11px] hidden sm:inline-block">Filter Regime:</span>
           {(["ALL", "OPEN", "HYBRID", "STRICT"] as const).map((mode) => (
@@ -55,22 +56,22 @@ export default function AseanMap() {
       </div>
 
       {/* Map Container */}
-      <div className="rounded-xl bg-white dark:bg-[#0e1420] border border-slate-200 dark:border-slate-800 p-6 shadow-md dark:shadow-xl relative overflow-hidden transition-colors">
+      <div className="rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 shadow-md dark:shadow-xl relative overflow-hidden transition-colors">
         
         {/* Map Legend */}
         <div className="flex flex-wrap items-center gap-6 mb-6 text-xs border-b border-slate-200 dark:border-slate-800 pb-4">
           <span className="font-sans text-slate-500 dark:text-slate-400 text-[11px] uppercase">Classification:</span>
           <div className="flex items-center gap-2">
-            <span className="w-3 h-3 rounded-xs bg-emerald-600 border border-emerald-400"></span>
-            <span className="text-slate-700 dark:text-slate-300">Open Transfer Regime</span>
+            <span className="w-3 h-3 rounded-xs bg-amber-500 border border-amber-400"></span>
+            <span className="text-slate-700 dark:text-slate-300">Open Transfer Regime (ASEAN Gold)</span>
           </div>
           <div className="flex items-center gap-2">
-            <span className="w-3 h-3 rounded-xs bg-amber-600 border border-amber-400"></span>
-            <span className="text-slate-700 dark:text-slate-300">Hybrid / Selective Public Localization</span>
+            <span className="w-3 h-3 rounded-xs bg-blue-600 border border-blue-400"></span>
+            <span className="text-slate-700 dark:text-slate-300">Hybrid / Selective Public Localization (ASEAN Blue)</span>
           </div>
           <div className="flex items-center gap-2">
             <span className="w-3 h-3 rounded-xs bg-red-600 border border-red-400"></span>
-            <span className="text-slate-700 dark:text-slate-300">Strict Data Localization</span>
+            <span className="text-slate-700 dark:text-slate-300">Strict Data Localization (ASEAN Red)</span>
           </div>
         </div>
 
@@ -81,18 +82,19 @@ export default function AseanMap() {
               const isSelected = selectedCountry?.id === country.id;
               const isHovered = hoveredCountry?.id === country.id;
 
-              let fillColor = "#cbd5e1";
-              let strokeColor = "#64748b";
+              // ASEAN Logo Brand Colors
+              let fillColor: string = ASEAN_COLORS.textMutedLight;
+              let strokeColor: string = ASEAN_COLORS.borderDark;
 
               if (country.regimeType === "Open Transfer") {
-                fillColor = isHovered || isSelected ? "#059669" : "#10b981";
-                strokeColor = "#047857";
+                fillColor = isHovered || isSelected ? ASEAN_COLORS.yellowDark : ASEAN_COLORS.yellow;
+                strokeColor = ASEAN_COLORS.yellowDark;
               } else if (country.regimeType === "Hybrid") {
-                fillColor = isHovered || isSelected ? "#d97706" : "#f59e0b";
-                strokeColor = "#b45309";
+                fillColor = isHovered || isSelected ? ASEAN_COLORS.blueLight : ASEAN_COLORS.blue;
+                strokeColor = ASEAN_COLORS.blueDark;
               } else if (country.regimeType === "Strict Localization") {
-                fillColor = isHovered || isSelected ? "#dc2626" : "#ef4444";
-                strokeColor = "#b91c1c";
+                fillColor = isHovered || isSelected ? ASEAN_COLORS.redLight : ASEAN_COLORS.red;
+                strokeColor = ASEAN_COLORS.redDark;
               }
 
               return (
@@ -114,7 +116,7 @@ export default function AseanMap() {
                     cx={country.centerPos.x}
                     cy={country.centerPos.y}
                     r={isSelected || isHovered ? "5" : "3.5"}
-                    fill="#ffffff"
+                    fill={ASEAN_COLORS.white}
                     stroke={strokeColor}
                     strokeWidth="1.5"
                     onMouseEnter={() => setHoveredCountry(country)}
@@ -126,7 +128,7 @@ export default function AseanMap() {
                     x={country.centerPos.x}
                     y={country.centerPos.y + 14}
                     textAnchor="middle"
-                    fill="#0f172a"
+                    fill={ASEAN_COLORS.textPrimaryLight}
                     fontSize="9"
                     fontWeight="bold"
                     className="pointer-events-none font-sans uppercase tracking-wider dark:fill-white"
@@ -158,8 +160,8 @@ export default function AseanMap() {
 
       {/* Country Detail Dossier Modal */}
       {selectedCountry && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 dark:bg-black/80 backdrop-blur-sm">
-          <div className="relative w-full max-w-2xl bg-white dark:bg-[#0e1420] border border-slate-300 dark:border-slate-800 rounded-xl p-6 shadow-2xl">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 dark:bg-black/80 backdrop-blur-sm font-sans">
+          <div className="relative w-full max-w-2xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded-xl p-6 shadow-2xl">
             <button
               onClick={() => setSelectedCountry(null)}
               className="absolute top-4 right-4 p-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
@@ -190,7 +192,7 @@ export default function AseanMap() {
               </div>
             </div>
 
-            <div className="space-y-3 text-xs text-slate-700 dark:text-slate-300 mb-6">
+            <div className="space-y-3 text-xs text-slate-700 dark:text-slate-300 mb-6 font-sans">
               <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
                 <strong className="text-slate-900 dark:text-white block mb-1 font-serif-editorial text-sm">Key Legislative Framework:</strong>
                 <p className="text-slate-800 dark:text-slate-300 font-semibold mb-1">{selectedCountry.keyLegislation}</p>
@@ -203,7 +205,7 @@ export default function AseanMap() {
               </div>
             </div>
 
-            <div className="flex items-center justify-between pt-4 border-t border-slate-200 dark:border-slate-800 text-xs">
+            <div className="flex items-center justify-between pt-4 border-t border-slate-200 dark:border-slate-800 text-xs font-sans">
               <a
                 href={selectedCountry.primaryLink}
                 target="_blank"

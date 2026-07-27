@@ -1,13 +1,13 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import AseanBlindMap from "@/components/AseanBlindMap";
 import HeroSearch from "@/components/HeroSearch";
-import { ArrowRight, MapPin, Database, ShieldAlert, Send } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 export default function Home() {
   const POPULAR_TOPICS = [
@@ -21,7 +21,7 @@ export default function Home() {
   ];
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#faf9f6] dark:bg-[#0b0f17] text-slate-900 dark:text-slate-200 font-sans selection:bg-amber-500/30 selection:text-amber-900 dark:selection:text-amber-200 transition-colors">
+    <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-200 font-sans selection:bg-amber-500/30 selection:text-amber-900 dark:selection:text-amber-200 transition-colors">
       {/* Editorial Masthead Header */}
       <Header />
 
@@ -48,7 +48,7 @@ export default function Home() {
         </section>
 
         {/* HERO SECTION: OUR WORLD IN DATA COMPACT HERO WITH REAL SVG MAP */}
-        <section className="relative w-full bg-[#0f172a] dark:bg-[#090d16] text-white py-10 sm:py-12 px-4 sm:px-6 lg:px-8 border-b border-slate-800 overflow-hidden shadow-xl">
+        <section className="relative w-full bg-slate-900 dark:bg-slate-950 text-white py-10 sm:py-12 px-4 sm:px-6 lg:px-8 border-b border-slate-800 overflow-hidden shadow-xl">
           
           {/* Full-Width Vector SVG ASEAN Blind Map Background (Real Natural Earth GeoJSON) */}
           <AseanBlindMap />
@@ -94,7 +94,7 @@ export default function Home() {
         {/* HERO FEATURED STORY (LEAD INVESTIGATION PHOTO COVER) */}
         <section className="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-b border-slate-200 dark:border-slate-800">
           
-          <div className="rounded-2xl bg-white dark:bg-[#0e1420] border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm dark:shadow-none grid grid-cols-1 lg:grid-cols-12 gap-0">
+          <div className="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm dark:shadow-none grid grid-cols-1 lg:grid-cols-12 gap-0">
             
             {/* Hero Cover Photo */}
             <div className="lg:col-span-7 relative min-h-[300px] lg:min-h-[420px] bg-slate-100 dark:bg-slate-900">
@@ -171,11 +171,11 @@ export default function Home() {
                 Projected to expand Southeast Asia’s digital economy to <strong>US$2.0 Trillion by 2030</strong>, the Digital Economy Framework Agreement (DEFA) governs nine core pillars. However, negotiations conducted exclusively behind closed doors leave regional civil society without democratic recourse.
               </p>
 
-              <div className="p-4 rounded-xl bg-white dark:bg-[#0e1420] border border-slate-200 dark:border-slate-800 space-y-3 shadow-sm dark:shadow-none">
+              <div className="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-3 shadow-sm dark:shadow-none">
                 <h4 className="font-serif-editorial font-bold text-slate-900 dark:text-white text-sm">
                   Primary Friction Points:
                 </h4>
-                <ul className="space-y-2 text-xs text-slate-600 dark:text-slate-400">
+                <ul className="space-y-2 text-xs text-slate-600 dark:text-slate-400 font-sans">
                   <li className="flex items-start gap-2">
                     <span className="text-amber-600 dark:text-amber-500 font-bold">•</span>
                     <span><strong>Data Free Flow (DFFT):</strong> Tension between open transfer regimes (Singapore, Philippines) vs. mandatory localization (Vietnam Decree 53).</span>
@@ -218,7 +218,7 @@ export default function Home() {
                 <h4 className="font-serif-editorial font-bold text-slate-900 dark:text-white text-base group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors leading-snug">
                   Vietnam's Decree 53 &amp; Foreign Cloud Mandates: The Local Storage Squeeze
                 </h4>
-                <p className="text-slate-600 dark:text-slate-400 text-xs line-clamp-2 leading-relaxed">
+                <p className="text-slate-600 dark:text-slate-400 text-xs line-clamp-2 leading-relaxed font-sans">
                   How Ministry of Information notices mandate foreign tech platforms to store user data in Hanoi.
                 </p>
               </article>
@@ -239,7 +239,7 @@ export default function Home() {
                 <h4 className="font-serif-editorial font-bold text-slate-900 dark:text-white text-base group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors leading-snug">
                   Banning Algorithmic Audits: How Big Tech Lobbying Targets Treaties
                 </h4>
-                <p className="text-slate-600 dark:text-slate-400 text-xs line-clamp-2 leading-relaxed">
+                <p className="text-slate-600 dark:text-slate-400 text-xs line-clamp-2 leading-relaxed font-sans">
                   Corporate trade lobbies advocate for broad treaty bans on mandatory source code disclosures.
                 </p>
               </article>
@@ -252,7 +252,7 @@ export default function Home() {
               </span>
 
               <div className="space-y-4">
-                <div className="p-3.5 rounded-lg bg-white dark:bg-[#0e1420] border border-slate-200 dark:border-slate-800 space-y-1.5 shadow-sm dark:shadow-none">
+                <div className="p-3.5 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-1.5 shadow-sm dark:shadow-none">
                   <div className="flex items-center justify-between text-[10px] font-sans">
                     <span className="font-bold text-slate-900 dark:text-white">ASEAN Regional</span>
                     <span className="text-red-600 dark:text-red-400 font-bold">High Alert</span>
@@ -260,10 +260,10 @@ export default function Home() {
                   <h4 className="font-serif-editorial font-bold text-xs text-slate-900 dark:text-white leading-snug">
                     SEOM 57 Manila DEFA Scrubbing
                   </h4>
-                  <span className="text-[10px] text-slate-500 dark:text-slate-400 block">July 15, 2026</span>
+                  <span className="text-[10px] text-slate-500 dark:text-slate-400 block font-sans">July 15, 2026</span>
                 </div>
 
-                <div className="p-3.5 rounded-lg bg-white dark:bg-[#0e1420] border border-slate-200 dark:border-slate-800 space-y-1.5 shadow-sm dark:shadow-none">
+                <div className="p-3.5 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-1.5 shadow-sm dark:shadow-none">
                   <div className="flex items-center justify-between text-[10px] font-sans">
                     <span className="font-bold text-slate-900 dark:text-white">Indonesia (ID)</span>
                     <span className="text-red-600 dark:text-red-400 font-bold">High Alert</span>
@@ -271,10 +271,10 @@ export default function Home() {
                   <h4 className="font-serif-editorial font-bold text-xs text-slate-900 dark:text-white leading-snug">
                     PDP Law Public Sector Server Storage
                   </h4>
-                  <span className="text-[10px] text-slate-500 dark:text-slate-400 block">July 08, 2026</span>
+                  <span className="text-[10px] text-slate-500 dark:text-slate-400 block font-sans">July 08, 2026</span>
                 </div>
 
-                <div className="p-3.5 rounded-lg bg-white dark:bg-[#0e1420] border border-slate-200 dark:border-slate-800 space-y-1.5 shadow-sm dark:shadow-none">
+                <div className="p-3.5 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-1.5 shadow-sm dark:shadow-none">
                   <div className="flex items-center justify-between text-[10px] font-sans">
                     <span className="font-bold text-slate-900 dark:text-white">Singapore (SG)</span>
                     <span className="text-emerald-600 dark:text-emerald-400 font-bold">Rights Verified</span>
@@ -282,7 +282,7 @@ export default function Home() {
                   <h4 className="font-serif-editorial font-bold text-xs text-slate-900 dark:text-white leading-snug">
                     IMDA ASEAN MCCs Guidelines
                   </h4>
-                  <span className="text-[10px] text-slate-500 dark:text-slate-400 block">June 28, 2026</span>
+                  <span className="text-[10px] text-slate-500 dark:text-slate-400 block font-sans">June 28, 2026</span>
                 </div>
               </div>
 
@@ -309,10 +309,10 @@ export default function Home() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 font-sans">
             
             {/* Module 01 */}
-            <Link href="/observatory" className="group p-6 rounded-xl bg-white dark:bg-[#0e1420] border border-slate-200 dark:border-slate-800 hover:border-blue-500 transition-all flex flex-col justify-between shadow-sm dark:shadow-none">
+            <Link href="/observatory" className="group p-6 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-blue-500 transition-all flex flex-col justify-between shadow-sm dark:shadow-none">
               <div className="space-y-3">
                 <span className="font-serif-editorial text-3xl font-extrabold text-slate-300 dark:text-slate-700 group-hover:text-blue-500 transition-colors">
                   01
@@ -320,7 +320,7 @@ export default function Home() {
                 <h3 className="font-serif-editorial font-bold text-slate-900 dark:text-white text-lg group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                   Cartographic Observatory
                 </h3>
-                <p className="text-slate-600 dark:text-slate-400 text-xs leading-relaxed">
+                <p className="text-slate-600 dark:text-slate-400 text-xs leading-relaxed font-sans">
                   Interactive 11-country SVG ASEAN map documenting legal data localization regimes and country dossiers.
                 </p>
               </div>
@@ -331,7 +331,7 @@ export default function Home() {
             </Link>
 
             {/* Module 02 */}
-            <Link href="/ledger" className="group p-6 rounded-xl bg-white dark:bg-[#0e1420] border border-slate-200 dark:border-slate-800 hover:border-emerald-500 transition-all flex flex-col justify-between shadow-sm dark:shadow-none">
+            <Link href="/ledger" className="group p-6 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-emerald-500 transition-all flex flex-col justify-between shadow-sm dark:shadow-none">
               <div className="space-y-3">
                 <span className="font-serif-editorial text-3xl font-extrabold text-slate-300 dark:text-slate-700 group-hover:text-emerald-500 transition-colors">
                   02
@@ -339,7 +339,7 @@ export default function Home() {
                 <h3 className="font-serif-editorial font-bold text-slate-900 dark:text-white text-lg group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
                   Verified Policy Ledger
                 </h3>
-                <p className="text-slate-600 dark:text-slate-400 text-xs leading-relaxed">
+                <p className="text-slate-600 dark:text-slate-400 text-xs leading-relaxed font-sans">
                   Searchable database of ingested digital trade bills &amp; decrees with 100% primary source verification.
                 </p>
               </div>
@@ -350,7 +350,7 @@ export default function Home() {
             </Link>
 
             {/* Module 03 */}
-            <Link href="/threats" className="group p-6 rounded-xl bg-white dark:bg-[#0e1420] border border-slate-200 dark:border-slate-800 hover:border-red-500 transition-all flex flex-col justify-between shadow-sm dark:shadow-none">
+            <Link href="/threats" className="group p-6 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-red-500 transition-all flex flex-col justify-between shadow-sm dark:shadow-none">
               <div className="space-y-3">
                 <span className="font-serif-editorial text-3xl font-extrabold text-slate-300 dark:text-slate-700 group-hover:text-red-500 transition-colors">
                   03
@@ -358,7 +358,7 @@ export default function Home() {
                 <h3 className="font-serif-editorial font-bold text-slate-900 dark:text-white text-lg group-hover:text-red-600 dark:group-hover:text-red-400 transition-colors">
                   Rights Threat Matrix
                 </h3>
-                <p className="text-slate-600 dark:text-slate-400 text-xs leading-relaxed">
+                <p className="text-slate-600 dark:text-slate-400 text-xs leading-relaxed font-sans">
                   4-column structural risk assessment evaluating data sovereignty and algorithmic audit prohibitions.
                 </p>
               </div>
@@ -369,7 +369,7 @@ export default function Home() {
             </Link>
 
             {/* Module 04 */}
-            <Link href="/intake" className="group p-6 rounded-xl bg-white dark:bg-[#0e1420] border border-slate-200 dark:border-slate-800 hover:border-amber-500 transition-all flex flex-col justify-between shadow-sm dark:shadow-none">
+            <Link href="/intake" className="group p-6 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-amber-500 transition-all flex flex-col justify-between shadow-sm dark:shadow-none">
               <div className="space-y-3">
                 <span className="font-serif-editorial text-3xl font-extrabold text-slate-300 dark:text-slate-700 group-hover:text-amber-500 transition-colors">
                   04
@@ -377,7 +377,7 @@ export default function Home() {
                 <h3 className="font-serif-editorial font-bold text-slate-900 dark:text-white text-lg group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">
                   Submit Leaked Alert
                 </h3>
-                <p className="text-slate-600 dark:text-slate-400 text-xs leading-relaxed">
+                <p className="text-slate-600 dark:text-slate-400 text-xs leading-relaxed font-sans">
                   Encrypted intake portal for regional activists to submit leaked draft texts with anonymous protection.
                 </p>
               </div>
@@ -392,7 +392,7 @@ export default function Home() {
 
         {/* SECTION 5: MINIMALIST NEWSLETTER SUBSCRIPTION */}
         <section className="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-          <div className="p-8 sm:p-12 rounded-2xl bg-white dark:bg-[#0e1420] border border-slate-200 dark:border-slate-800 shadow-sm dark:shadow-none flex flex-col md:flex-row items-center justify-between gap-8">
+          <div className="p-8 sm:p-12 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm dark:shadow-none flex flex-col md:flex-row items-center justify-between gap-8 font-sans">
             <div className="space-y-2 max-w-xl">
               <span className="text-xs font-sans uppercase tracking-widest text-amber-600 dark:text-amber-500 font-bold">
                 WEEKLY POLICY PULSE DISPATCH
@@ -400,7 +400,7 @@ export default function Home() {
               <h2 className="font-serif-editorial text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">
                 Receive Thursday Night Executive Policy Summaries
               </h2>
-              <p className="text-slate-600 dark:text-slate-400 text-xs sm:text-sm leading-relaxed">
+              <p className="text-slate-600 dark:text-slate-400 text-xs sm:text-sm leading-relaxed font-sans">
                 Get concise, source-verified 3-minute digests covering ASEAN DEFA negotiations delivered straight to your inbox.
               </p>
             </div>

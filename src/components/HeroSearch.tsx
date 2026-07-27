@@ -2,8 +2,8 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Search, ExternalLink, ArrowRight } from "lucide-react";
-import { POLICIES_DATA, PolicyItem } from "./PolicyLedgerTable";
+import { Search, ArrowRight } from "lucide-react";
+import { POLICIES_DATA } from "./PolicyLedgerTable";
 
 export default function HeroSearch() {
   const [query, setQuery] = useState("");
@@ -56,14 +56,14 @@ export default function HeroSearch() {
       {isOpen && (
         <>
           <div className="fixed inset-0 z-10" onClick={() => setIsOpen(false)} />
-          <div className="absolute top-full left-0 right-0 mt-2 rounded-xl bg-white dark:bg-[#0e1420] border border-slate-200 dark:border-slate-800 shadow-2xl z-30 p-3 space-y-2 max-h-80 overflow-y-auto">
+          <div className="absolute top-full left-0 right-0 mt-2 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xl z-30 p-3 space-y-2 max-h-80 overflow-y-auto">
             <div className="flex items-center justify-between text-[10px] uppercase font-bold tracking-wider text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-800 pb-1.5 font-sans">
               <span>Matching Policy Decrees ({results.length})</span>
               <span className="text-amber-600 dark:text-amber-400 font-normal">Press Enter to view all</span>
             </div>
 
             {results.length === 0 ? (
-              <div className="py-4 text-center text-xs text-slate-500 dark:text-slate-400">
+              <div className="py-4 text-center text-xs text-slate-500 dark:text-slate-400 font-sans">
                 No matching legal decrees found for &quot;{query}&quot;.
               </div>
             ) : (
@@ -74,7 +74,7 @@ export default function HeroSearch() {
                     setIsOpen(false);
                     router.push(`/ledger`);
                   }}
-                  className="p-2.5 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-900/60 transition-colors cursor-pointer space-y-1 text-left"
+                  className="p-2.5 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors cursor-pointer space-y-1 text-left"
                 >
                   <div className="flex items-center justify-between gap-2 text-[10px] font-sans">
                     <span className="font-bold text-slate-900 dark:text-slate-200">{item.jurisdiction}</span>
@@ -83,7 +83,7 @@ export default function HeroSearch() {
                   <h4 className="font-serif-editorial font-bold text-xs text-slate-900 dark:text-white leading-snug line-clamp-1">
                     {item.title}
                   </h4>
-                  <p className="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-1">
+                  <p className="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-1 font-sans">
                     {item.summary}
                   </p>
                 </div>

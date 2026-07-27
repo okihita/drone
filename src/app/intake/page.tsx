@@ -14,9 +14,9 @@ export default function IntakePage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-[#0b0f17] text-slate-800 dark:text-slate-200 font-sans transition-colors">
+    <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-200 font-sans transition-colors">
       <Header />
-      <main className="flex-1 py-12 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto w-full">
+      <main className="flex-1 py-12 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto w-full font-sans">
         <div className="border-b border-slate-200 dark:border-slate-800 pb-6 mb-8 text-center">
           <span className="text-xs font-sans text-amber-600 dark:text-amber-500 font-bold uppercase tracking-wider">
             ENCRYPTED DEFENDER INTAKE PORTAL
@@ -24,18 +24,18 @@ export default function IntakePage() {
           <h1 className="font-serif-editorial text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white mt-1">
             Submit a Policy Alert or Leaked Draft Text
           </h1>
-          <p className="text-slate-600 dark:text-slate-400 text-xs sm:text-sm mt-2 max-w-xl mx-auto leading-relaxed">
+          <p className="text-slate-600 dark:text-slate-400 text-xs sm:text-sm mt-2 max-w-xl mx-auto leading-relaxed font-sans">
             EngageMedia invites regional researchers, activists, and human rights defenders to securely submit draft legislative texts, leak notices, or local policy alerts.
           </p>
         </div>
 
         {submitted ? (
-          <div className="rounded-xl bg-white dark:bg-[#0e1420] border border-emerald-300 dark:border-emerald-800 p-8 text-center space-y-4">
+          <div className="rounded-xl bg-white dark:bg-slate-900 border border-emerald-300 dark:border-emerald-800 p-8 text-center space-y-4 font-sans">
             <CheckCircle2 className="w-12 h-12 text-emerald-600 dark:text-emerald-400 mx-auto" />
             <h2 className="font-serif-editorial text-2xl font-bold text-slate-900 dark:text-white">
               Dossier Received Securely
             </h2>
-            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 max-w-md mx-auto">
+            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 max-w-md mx-auto font-sans">
               Your submission has been safely encrypted and routed to EngageMedia’s senior policy editorial team.
             </p>
             <button
@@ -46,7 +46,7 @@ export default function IntakePage() {
             </button>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="rounded-xl bg-white dark:bg-[#0e1420] border border-slate-200 dark:border-slate-800 p-6 sm:p-8 space-y-6 shadow-sm dark:shadow-none font-sans">
+          <form onSubmit={handleSubmit} className="rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 sm:p-8 space-y-6 shadow-sm dark:shadow-none font-sans">
             <div className="space-y-1">
               <label className="block text-xs font-sans font-bold uppercase text-slate-700 dark:text-slate-300">
                 Document / Alert Title *
@@ -59,7 +59,7 @@ export default function IntakePage() {
               />
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 font-sans">
               <div className="space-y-1">
                 <label className="block text-xs font-sans font-bold uppercase text-slate-700 dark:text-slate-300">
                   Target Jurisdiction *
@@ -92,7 +92,7 @@ export default function IntakePage() {
               </div>
             </div>
 
-            <div className="space-y-1">
+            <div className="space-y-1 font-sans">
               <label className="block text-xs font-sans font-bold uppercase text-slate-700 dark:text-slate-300">
                 Summary &amp; Human Rights Context *
               </label>
@@ -104,7 +104,7 @@ export default function IntakePage() {
               />
             </div>
 
-            <div className="space-y-1">
+            <div className="space-y-1 font-sans">
               <label className="block text-xs font-sans font-bold uppercase text-slate-700 dark:text-slate-300">
                 Attach File (PDF, DOCX, Leaked Text)
               </label>

@@ -35,7 +35,7 @@ export default function LanguageSwitcher() {
       {isOpen && (
         <>
           <div className="fixed inset-0 z-40" onClick={() => setIsOpen(false)} />
-          <div className="absolute right-0 mt-2 w-48 rounded-lg bg-white dark:bg-[#0e1420] border border-slate-300 dark:border-slate-800 shadow-xl z-50 p-1.5 font-sans">
+          <div className="absolute right-0 mt-2 w-48 rounded-lg bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 shadow-xl z-50 p-1.5 font-sans">
             <div className="px-2 py-1.5 text-[10px] uppercase font-bold tracking-wider text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-800 mb-1">
               Select Language
             </div>
