@@ -1,9 +1,13 @@
-"use client";
-
+import type { Metadata } from "next";
 import React from "react";
 import Header from "@/components/Header";
 import PolicyLedgerTable from "@/components/PolicyLedgerTable";
 import Footer from "@/components/Footer";
+
+export const metadata: Metadata = {
+  title: "Policy Ledger — DRONE",
+  description: "Searchable, 100% source-verified database of ingested digital trade bills, cross-border data decrees, and AI governance guidelines.",
+};
 
 export default function LedgerPage() {
   return (

@@ -1,9 +1,13 @@
-"use client";
-
+import type { Metadata } from "next";
 import React from "react";
 import Header from "@/components/Header";
 import AseanMap from "@/components/AseanMap";
 import Footer from "@/components/Footer";
+
+export const metadata: Metadata = {
+  title: "Cartographic Observatory — DRONE",
+  description: "Interactive SVG map documenting data localization mandates and cross-border data transfer regimes across 11 ASEAN nations.",
+};
 
 export default function ObservatoryPage() {
   return (

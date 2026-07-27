@@ -20,7 +20,7 @@ export const ASEAN_COLORS = {
 
   yellow: "#FFCC00",
   yellowLight: "#ffd633",
-  yellowDark: "#cc00",
+  yellowDark: "#cca300",
 
   white: "#FFFFFF",
 

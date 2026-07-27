@@ -73,7 +73,7 @@ export default function Footer() {
               <a
                 href="https://luminategroup.com/en"
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="hover:text-asean-yellow transition-colors flex items-center justify-between group"
               >
                 <span className="font-semibold text-slate-800 dark:text-slate-200">Luminate Group</span>
@@ -88,7 +88,7 @@ export default function Footer() {
               <a
                 href="https://www.sida.se/en"
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="hover:text-asean-yellow transition-colors flex items-center justify-between group"
               >
                 <span className="font-semibold text-slate-800 dark:text-slate-200">Sida (Sweden)</span>

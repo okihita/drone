@@ -22,7 +22,7 @@ export default function Header() {
           
            {/* Left Side: EngageMedia Logo */}
           <div className="flex items-center h-full justify-start">
-            <Link href="https://engagemedia.org" target="_blank" rel="noreferrer" className="group flex items-center gap-3">
+            <Link href="https://engagemedia.org" target="_blank" rel="noopener noreferrer" className="group flex items-center gap-3">
               <Image
                 src="/images/engagemedia-logo.png"
                 alt="EngageMedia Logo"

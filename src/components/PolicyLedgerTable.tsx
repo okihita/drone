@@ -205,7 +205,7 @@ export default function PolicyLedgerTable() {
                   <a
                     href={item.primarySourceUrl}
                     target="_blank"
-                    rel="noreferrer"
+                    rel="noopener noreferrer"
                     className="inline-flex items-center gap-1 text-asean-yellow hover:underline font-sans text-xs font-semibold"
                   >
                     <span>{item.sourceAuthority}</span>

@@ -1,5 +1,4 @@
-"use client";
-
+import type { Metadata } from "next";
 import React from "react";
 import Image from "next/image";
 import Header from "@/components/Header";
@@ -52,6 +51,11 @@ export const ARTICLES: InvestigationArticle[] = [
     imageSrc: "/images/ai_audit.jpg",
   },
 ];
+
+export const metadata: Metadata = {
+  title: "Investigations — DRONE",
+  description: "Independent, source-verified investigative reporting on ASEAN digital trade treaties, data localization decrees, and AI governance policies.",
+};
 
 export default function InvestigationsPage() {
   return (

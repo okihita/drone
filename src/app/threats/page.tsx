@@ -1,8 +1,12 @@
-"use client";
-
+import type { Metadata } from "next";
 import React from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+
+export const metadata: Metadata = {
+  title: "Threat Matrix — DRONE",
+  description: "Structural human rights risk assessment evaluating data sovereignty erosion, algorithmic audit bans, and surveillance weaponization across ASEAN.",
+};
 
 export default function ThreatsPage() {
   return (
