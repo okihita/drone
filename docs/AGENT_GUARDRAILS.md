@@ -8,21 +8,21 @@
 
 ## 🔒 Mandatory Project Rules & Design Guardrails
 
-### 1. Ambient Radar Map Glows (`AseanMap.tsx`)
-* **RADAR AMBIENT LIGHTING**: Hovering over any country on `AseanMap.tsx` projects a soft, blurred radial spotlight background matching the country's regime classification color (ASEAN Gold `#FFCC00`, ASEAN Blue `#003399`, or ASEAN Red `#CC0000`).
-* **CROSSHAIR CURSOR CUES**: The observatory map canvas uses `cursor-crosshair` styling to emphasize the cartographic evaluation theme.
-
----
-
-### 2. Hero Story Carousel & Stable Image (NO Ken Burns Zoom)
-* **FORBIDDEN**: Do NOT use Ken Burns image scale or rotation hover effects (`scale-110`, `rotate-0.5`). Hero carousel cover images must remain static, crisp, and stable on hover.
+### 1. Hero Story Carousel & Crossfade Slideshow
+* **SMOOTH IMAGE CROSSFADE**: Slideshow images use absolute positioning and opacity transitions (`transition-opacity duration-700 ease-in-out`) to crossfade smoothly without jump cuts or layout shifts.
+* **STATIC MICRO-STATS**: Hero micro-statistics (**11** Member States, **14** Ingested Decrees, **100%** Verified) display as static, immediate text. Do NOT use counting loop animations.
 * **4-LINE TITLE & SUBTITLE BOUNDS**: The carousel title and summary elements allow **up to 4 lines of text** (`line-clamp-4`) with minimum height bounds (`min-h-[5.5rem]`).
 * **LOCKED CAROUSEL HEIGHT**: The hero story carousel container maintains a locked height (`min-h-[500px] lg:h-[500px]`) so switching slides causes **ZERO Cumulative Layout Shift (CLS)**.
 
 ---
 
-### 3. Animated Micro-Stats Counters & Neutral Uncolored Icons (`page.tsx`)
-* **LIVE COUNTING NUMBERS**: Hero micro-statistics (**11** Member States, **14** Ingested Decrees, **100%** Verified) use an animated counting loop on initial page load.
+### 2. Ambient Radar Map Glows (`AseanMap.tsx`)
+* **RADAR AMBIENT LIGHTING**: Hovering over any country on `AseanMap.tsx` projects a soft, blurred radial spotlight background matching the country's regime classification color (ASEAN Gold `#FFCC00`, ASEAN Blue `#003399`, or ASEAN Red `#CC0000`).
+* **CROSSHAIR CURSOR CUES**: The observatory map canvas uses `cursor-crosshair` styling to emphasize the cartographic evaluation theme.
+
+---
+
+### 3. Neutral Uncolored Lucide Icons (NO Emojis & NO Colored Icons in Hero Badges)
 * **UNCOLORED NEUTRAL ICONS**: Lucide icons inside hero micro-stats badges MUST use neutral text colors (`text-slate-400`). Do NOT color micro-stats icons with custom brand tokens (FORBIDDEN: `text-asean-yellow`, `text-asean-blue`).
 * **FORBIDDEN**: Do NOT use raw emojis (`🌐`, `📊`, `🛡️`, `🗣️`) anywhere in UI badges, hero cards, or stats counters.
 

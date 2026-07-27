@@ -53,36 +53,6 @@ export const HERO_STORIES: HeroStory[] = [
   },
 ];
 
-// Feature 3: Live Micro-Stats Counter Component
-function AnimatedCounter({ endValue, suffix = "" }: { endValue: number; suffix?: string }) {
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    let start = 0;
-    const duration = 1200;
-    const increment = endValue / (duration / 16);
-
-    const timer = setInterval(() => {
-      start += increment;
-      if (start >= endValue) {
-        setCount(endValue);
-        clearInterval(timer);
-      } else {
-        setCount(Math.floor(start));
-      }
-    }, 16);
-
-    return () => clearInterval(timer);
-  }, [endValue]);
-
-  return (
-    <span>
-      <strong>{count}</strong>
-      {suffix}
-    </span>
-  );
-}
-
 export default function Home() {
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
@@ -168,30 +138,30 @@ export default function Home() {
               <HeroSearch />
             </div>
 
-            {/* Feature 3: Live Micro-Stats Badges with Animated Counter & Uncolored Lucide Icons */}
+            {/* Static Micro-Stats Badges with Neutral Uncolored Lucide Icons */}
             <div className="pt-2 flex flex-wrap items-center justify-center gap-2 sm:gap-3 text-xs font-sans text-slate-300">
               <span className="px-3 py-1 rounded-full bg-slate-800/80 border border-slate-700/80 flex items-center gap-1.5 shadow-xs">
                 <Globe className="w-3.5 h-3.5 text-slate-400" />
-                <span><AnimatedCounter endValue={11} /> ASEAN Member States</span>
+                <span><strong>11</strong> ASEAN Member States</span>
               </span>
               <span className="px-3 py-1 rounded-full bg-slate-800/80 border border-slate-700/80 flex items-center gap-1.5 shadow-xs">
                 <FileText className="w-3.5 h-3.5 text-slate-400" />
-                <span><AnimatedCounter endValue={14} /> Ingested Decrees</span>
+                <span><strong>14</strong> Ingested Decrees</span>
               </span>
               <span className="px-3 py-1 rounded-full bg-slate-800/80 border border-slate-700/80 flex items-center gap-1.5 shadow-xs">
                 <ShieldCheck className="w-3.5 h-3.5 text-slate-400" />
-                <span><AnimatedCounter endValue={100} suffix="%" /> Primary Source Verified</span>
+                <span><strong>100%</strong> Primary Source Verified</span>
               </span>
               <span className="px-3 py-1 rounded-full bg-slate-800/80 border border-slate-700/80 flex items-center gap-1.5 shadow-xs">
                 <Languages className="w-3.5 h-3.5 text-slate-400" />
-                <span><AnimatedCounter endValue={2} /> Languages (EN &amp; ID)</span>
+                <span><strong>2</strong> Languages (EN &amp; ID)</span>
               </span>
             </div>
 
           </div>
         </section>
 
-        {/* HERO FEATURED STORY CAROUSEL WITH LOCKED HEIGHT (NO KEN BURNS ZOOM/PAN) */}
+        {/* HERO FEATURED STORY CAROUSEL WITH CROSSFADE SLIDESHOW & LOCKED HEIGHT */}
         <section className="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-b border-slate-200 dark:border-slate-800">
           
           <div
@@ -201,23 +171,31 @@ export default function Home() {
           >
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 items-stretch h-full">
               
-              {/* Left Column: Photo Container with Stable Image (No Ken Burns Scale/Rotation) */}
+              {/* Left Column: Photo Container with Smooth Image Crossfade */}
               <div className="lg:col-span-7 relative min-h-[280px] lg:min-h-full h-full bg-slate-950 overflow-hidden">
-                <Image
-                  key={activeStory.id}
-                  src={activeStory.imageSrc}
-                  alt={activeStory.title}
-                  fill
-                  priority
-                  className="object-cover transition-opacity duration-500"
-                />
+                {HERO_STORIES.map((story, idx) => (
+                  <div
+                    key={story.id}
+                    className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
+                      activeSlideIndex === idx ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"
+                    }`}
+                  >
+                    <Image
+                      src={story.imageSrc}
+                      alt={story.title}
+                      fill
+                      priority={idx === 0}
+                      className="object-cover"
+                    />
+                  </div>
+                ))}
 
                 {/* Subtle Image Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent lg:hidden" />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent lg:hidden z-20" />
               </div>
 
               {/* Right Column: Dynamic Slide Content Copy (Up to 4 Lines Title & 4 Lines Subtitle) */}
-              <div className="lg:col-span-5 p-6 sm:p-8 flex flex-col justify-between h-full space-y-4">
+              <div className="lg:col-span-5 p-6 sm:p-8 flex flex-col justify-between h-full space-y-4 relative z-20">
                 <div className="space-y-4 flex-1 flex flex-col justify-center">
                   <div className="flex items-center justify-between gap-2 text-xs font-sans">
                     <span className="bg-asean-yellow/20 text-asean-yellow font-bold px-2.5 py-0.5 rounded border border-asean-yellow/30 uppercase tracking-wider">
@@ -228,14 +206,14 @@ export default function Home() {
 
                   {/* Title Container: Up to 4 Lines */}
                   <div className="min-h-[5.5rem] flex items-center">
-                    <h2 className="font-serif-editorial text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white leading-snug line-clamp-4">
+                    <h2 className="font-serif-editorial text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white leading-snug line-clamp-4 transition-all duration-300">
                       {activeStory.title}
                     </h2>
                   </div>
 
                   {/* Subtitle / Summary Container: Up to 4 Lines */}
                   <div className="min-h-[5.5rem] flex items-center">
-                    <p className="text-slate-600 dark:text-slate-300 text-xs sm:text-sm leading-relaxed font-serif-editorial italic border-l-2 border-asean-yellow pl-3 line-clamp-4">
+                    <p className="text-slate-600 dark:text-slate-300 text-xs sm:text-sm leading-relaxed font-serif-editorial italic border-l-2 border-asean-yellow pl-3 line-clamp-4 transition-all duration-300">
                       {activeStory.summary}
                     </p>
                   </div>
@@ -268,7 +246,7 @@ export default function Home() {
             <button
               onClick={handlePrevSlide}
               aria-label="Previous Story"
-              className="absolute left-3 top-1/2 -translate-y-1/2 z-20 p-2.5 rounded-full bg-slate-900/70 hover:bg-slate-900 text-white backdrop-blur-md border border-white/20 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
+              className="absolute left-3 top-1/2 -translate-y-1/2 z-30 p-2.5 rounded-full bg-slate-900/70 hover:bg-slate-900 text-white backdrop-blur-md border border-white/20 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
@@ -276,7 +254,7 @@ export default function Home() {
             <button
               onClick={handleNextSlide}
               aria-label="Next Story"
-              className="absolute right-3 top-1/2 -translate-y-1/2 z-20 p-2.5 rounded-full bg-slate-900/70 hover:bg-slate-900 text-white backdrop-blur-md border border-white/20 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
+              className="absolute right-3 top-1/2 -translate-y-1/2 z-30 p-2.5 rounded-full bg-slate-900/70 hover:bg-slate-900 text-white backdrop-blur-md border border-white/20 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
             >
               <ChevronRight className="w-5 h-5" />
             </button>
