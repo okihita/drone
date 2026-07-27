@@ -161,18 +161,18 @@ export default function Home() {
           </div>
         </section>
 
-        {/* HERO FEATURED STORY CAROUSEL WITH KEN BURNS HOVER EFFECT */}
+        {/* HERO FEATURED STORY CAROUSEL WITH LOCKED HEIGHT (ZERO LAYOUT SHIFT) */}
         <section className="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-b border-slate-200 dark:border-slate-800">
           
           <div
             onMouseEnter={() => setIsPaused(true)}
             onMouseLeave={() => setIsPaused(false)}
-            className="group relative rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm dark:shadow-none transition-all duration-300"
+            className="group relative rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm dark:shadow-none transition-all duration-300 min-h-[460px] lg:h-[460px]"
           >
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 items-stretch">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 items-stretch h-full">
               
-              {/* Left Column: Photo Container with Ken Burns Hover Zoom & Pan Effect */}
-              <div className="lg:col-span-7 relative min-h-[320px] lg:min-h-[440px] bg-slate-950 overflow-hidden">
+              {/* Left Column: Photo Container with Locked Dimensions & Ken Burns Hover Effect */}
+              <div className="lg:col-span-7 relative min-h-[260px] lg:min-h-full h-full bg-slate-950 overflow-hidden">
                 <Image
                   key={activeStory.id}
                   src={activeStory.imageSrc}
@@ -186,9 +186,9 @@ export default function Home() {
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent lg:hidden" />
               </div>
 
-              {/* Right Column: Dynamic Slide Content Copy */}
-              <div className="lg:col-span-5 p-6 sm:p-8 flex flex-col justify-between space-y-6">
-                <div className="space-y-4">
+              {/* Right Column: Dynamic Slide Content Copy with Locked Element Heights */}
+              <div className="lg:col-span-5 p-6 sm:p-8 flex flex-col justify-between h-full space-y-4">
+                <div className="space-y-4 flex-1 flex flex-col justify-center">
                   <div className="flex items-center justify-between gap-2 text-xs font-sans">
                     <span className="bg-asean-yellow/20 text-asean-yellow font-bold px-2.5 py-0.5 rounded border border-asean-yellow/30 uppercase tracking-wider">
                       {activeStory.category}
@@ -196,21 +196,27 @@ export default function Home() {
                     <span className="text-slate-500 dark:text-slate-400 font-sans text-xs">{activeStory.readTime}</span>
                   </div>
 
-                  <h2 className="font-serif-editorial text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white leading-tight">
-                    {activeStory.title}
-                  </h2>
+                  {/* Fixed Height Title Container to Prevent Layout Shift */}
+                  <div className="h-[4.5rem] flex items-center">
+                    <h2 className="font-serif-editorial text-xl sm:text-2xl lg:text-3xl font-extrabold text-slate-900 dark:text-white leading-snug line-clamp-2">
+                      {activeStory.title}
+                    </h2>
+                  </div>
 
-                  <p className="text-slate-600 dark:text-slate-300 text-xs sm:text-sm leading-relaxed font-serif-editorial italic border-l-2 border-asean-yellow pl-3">
-                    {activeStory.summary}
-                  </p>
+                  {/* Fixed Height Summary Container to Prevent Layout Shift */}
+                  <div className="h-[4.5rem] flex items-center">
+                    <p className="text-slate-600 dark:text-slate-300 text-xs sm:text-sm leading-relaxed font-serif-editorial italic border-l-2 border-asean-yellow pl-3 line-clamp-3">
+                      {activeStory.summary}
+                    </p>
+                  </div>
 
-                  <div className="text-xs text-slate-500 dark:text-slate-400 font-sans">
+                  <div className="text-xs text-slate-500 dark:text-slate-400 font-sans pt-1">
                     By <strong className="text-slate-900 dark:text-slate-200">{activeStory.author}</strong>
                   </div>
                 </div>
 
                 {/* Primary Call to Action Button */}
-                <div className="pt-4 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
+                <div className="pt-4 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between mt-auto">
                   <Link
                     href={activeStory.slug}
                     className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-slate-900 dark:bg-slate-800 hover:bg-slate-800 dark:hover:bg-slate-700 text-white font-semibold text-xs font-sans transition-colors shadow-xs"
@@ -219,7 +225,7 @@ export default function Home() {
                     <ArrowRight className="w-3.5 h-3.5" />
                   </Link>
 
-                  <span className="text-[10px] uppercase tracking-wider text-slate-400 font-sans">
+                  <span className="text-[10px] uppercase tracking-wider text-slate-400 font-sans font-semibold">
                     Story {activeSlideIndex + 1} of {HERO_STORIES.length}
                   </span>
                 </div>
