@@ -1,16 +1,34 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Search, ArrowRight } from "lucide-react";
-import { POLICIES_DATA } from "./PolicyLedgerTable";
+import { supabase } from "@/lib/supabase";
+
+interface PolicyItem {
+  id: string;
+  title: string;
+  jurisdiction: string;
+  category: string;
+  summary: string;
+}
 
 export default function HeroSearch() {
   const [query, setQuery] = useState("");
   const [isOpen, setIsOpen] = useState(false);
+  const [policies, setPolicies] = useState<PolicyItem[]>([]);
   const router = useRouter();
 
-  const results = POLICIES_DATA.filter(
+  useEffect(() => {
+    supabase
+      .from("policies")
+      .select("id, title, jurisdiction, category, summary")
+      .then(({ data }) => {
+        if (data) setPolicies(data as PolicyItem[]);
+      });
+  }, []);
+
+  const results = policies.filter(
     (item) =>
       item.title.toLowerCase().includes(query.toLowerCase()) ||
       item.jurisdiction.toLowerCase().includes(query.toLowerCase()) ||
@@ -52,7 +70,6 @@ export default function HeroSearch() {
         </button>
       </form>
 
-      {/* Autocomplete Dropdown */}
       {isOpen && (
         <>
           <div className="fixed inset-0 z-10" onClick={() => setIsOpen(false)} />

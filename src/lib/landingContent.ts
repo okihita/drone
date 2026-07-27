@@ -1,47 +1,3 @@
-export interface HeroStory {
-  id: string;
-  category: string;
-  readTime: string;
-  title: string;
-  summary: string;
-  author: string;
-  imageSrc: string;
-  slug: string;
-}
-
-export const HERO_STORIES: HeroStory[] = [
-  {
-    id: "defa-legal-scrubbing",
-    category: "DEFA SPECIAL REPORT",
-    readTime: "8 min read",
-    title: "ASEAN DEFA Legal Scrubbing: The Quiet Tug-of-War Over Cross-Border Data Privacy",
-    summary: "As senior economic officials finalize the text of the world's first region-wide digital trade agreement in Manila, civil society watchdogs warn that mandatory data flow clauses risk preempting domestic privacy safeguards.",
-    author: "EngageMedia Research Team",
-    imageSrc: "/images/defa_lead.jpg",
-    slug: "/investigations",
-  },
-  {
-    id: "vietnam-decree-53",
-    category: "DATA LOCALIZATION",
-    readTime: "6 min read",
-    title: "Vietnam's Decree 53 & Foreign Cloud Mandates: The Local Storage Squeeze",
-    summary: "How Ministry of Information notices mandate foreign tech platforms to store user data in Hanoi server centers, creating severe compliance pressure on international civil society orgs.",
-    author: "EngageMedia Research Team",
-    imageSrc: "/images/vietnam_server.jpg",
-    slug: "/investigations",
-  },
-  {
-    id: "ai-audit-bans",
-    category: "AI GOVERNANCE",
-    readTime: "7 min read",
-    title: "Banning Algorithmic Audits: How Big Tech Lobbying Targets Treaties",
-    summary: "Corporate trade lobbies advocate for broad treaty bans on mandatory source code disclosures, shielding high-risk automated decision systems from civil society scrutiny.",
-    author: "EngageMedia Research Team",
-    imageSrc: "/images/ai_audit.jpg",
-    slug: "/investigations",
-  },
-];
-
 export interface TopicPill {
   label: string;
   href: string;
@@ -96,59 +52,6 @@ export const EXECUTIVE_INSIGHTS: ExecutiveInsightsData = {
   ctaLabel: "Read Complete Investigation Suite",
   ctaHref: "/investigations",
 };
-
-export interface FieldDispatch {
-  imageSrc: string;
-  imageAlt: string;
-  category: string;
-  title: string;
-  summary: string;
-}
-
-export const FIELD_DISPATCHES: FieldDispatch[] = [
-  {
-    imageSrc: "/images/vietnam_server.jpg",
-    imageAlt: "Vietnam Cloud Data Center",
-    category: "DATA LOCALIZATION",
-    title: "Vietnam\u2019s Decree 53 & Foreign Cloud Mandates: The Local Storage Squeeze",
-    summary: "How Ministry of Information notices mandate foreign tech platforms to store user data in Hanoi.",
-  },
-  {
-    imageSrc: "/images/ai_audit.jpg",
-    imageAlt: "AI Governance Code Audit",
-    category: "AI GOVERNANCE",
-    title: "Banning Algorithmic Audits: How Big Tech Lobbying Targets Treaties",
-    summary: "Corporate trade lobbies advocate for broad treaty bans on mandatory source code disclosures.",
-  },
-];
-
-export interface RegulatoryRadarEntry {
-  jurisdiction: string;
-  alertLevel: "High Alert" | "Rights Verified";
-  title: string;
-  date: string;
-}
-
-export const REGULATORY_RADAR: RegulatoryRadarEntry[] = [
-  {
-    jurisdiction: "ASEAN Regional",
-    alertLevel: "High Alert",
-    title: "SEOM 57 Manila DEFA Scrubbing",
-    date: "July 15, 2026",
-  },
-  {
-    jurisdiction: "Indonesia (ID)",
-    alertLevel: "High Alert",
-    title: "PDP Law Public Sector Server Storage",
-    date: "July 08, 2026",
-  },
-  {
-    jurisdiction: "Singapore (SG)",
-    alertLevel: "Rights Verified",
-    title: "IMDA ASEAN MCCs Guidelines",
-    date: "June 28, 2026",
-  },
-];
 
 // ── Section 4: Intelligence Suite ─────────────────────────────────────────────
 

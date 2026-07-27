@@ -228,7 +228,7 @@ export default function AseanMap() {
               <a
                 href={selectedCountry.primaryLink}
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 text-asean-yellow hover:underline font-semibold font-sans"
               >
                 <span>Official Regulatory Portal</span>
