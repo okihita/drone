@@ -1,21 +1,41 @@
 @import "tailwindcss";
 
 @layer base {
+  /* Light Mode by Default (Follows System preference if set) */
   :root {
-    --bg-main: #0b0f17;
-    --bg-card: #0e1420;
-    --bg-border: #1e293b;
-    --text-primary: #f1f5f9;
-    --text-muted: #94a3b8;
+    --bg-main: #f8fafc;
+    --bg-card: #ffffff;
+    --bg-header: #ffffff;
+    --bg-card-subtle: #f1f5f9;
+    --bg-border: #e2e8f0;
+    --text-primary: #0f172a;
+    --text-muted: #64748b;
+    --text-heading: #020617;
     --accent-amber: #d97706;
     --accent-blue: #2563eb;
     --accent-emerald: #059669;
+  }
+
+  /* Dark Mode Override */
+  .dark {
+    --bg-main: #0b0f17;
+    --bg-card: #0e1420;
+    --bg-header: #090d16;
+    --bg-card-subtle: #1e293b;
+    --bg-border: #1e293b;
+    --text-primary: #f8fafc;
+    --text-muted: #94a3b8;
+    --text-heading: #ffffff;
+    --accent-amber: #f59e0b;
+    --accent-blue: #3b82f6;
+    --accent-emerald: #10b981;
   }
 
   body {
     background-color: var(--bg-main);
     color: var(--text-primary);
     font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
+    transition: background-color 0.2s ease, color 0.2s ease;
   }
 
   h1, h2, h3, .font-serif-editorial {
@@ -35,7 +55,7 @@
 }
 
 .editorial-card:hover {
-  border-color: #3b82f6;
+  border-color: var(--accent-blue);
 }
 
 .editorial-border {
@@ -56,14 +76,14 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #0b0f17;
+  background: var(--bg-main);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1e293b;
+  background: var(--bg-border);
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #3b82f6;
+  background: var(--accent-blue);
 }

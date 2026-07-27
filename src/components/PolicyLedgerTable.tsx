@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Search, ExternalLink, Filter, ShieldAlert, CheckCircle2, FileText, Calendar } from "lucide-react";
+import { Search, ExternalLink, Filter } from "lucide-react";
 
 export interface PolicyItem {
   id: string;
@@ -98,22 +98,22 @@ export default function PolicyLedgerTable() {
   });
 
   return (
-    <section id="policy-ledger" className="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-slate-800">
+    <section id="policy-ledger" className="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-slate-200 dark:border-slate-800">
       {/* Section Header */}
       <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
         <div>
-          <span className="text-[11px] font-mono-data uppercase tracking-wider text-emerald-500 font-bold block mb-1">
+          <span className="text-[11px] font-mono-data uppercase tracking-wider text-emerald-600 dark:text-emerald-500 font-bold block mb-1">
             VERIFIED REGULATORY LEDGER
           </span>
-          <h2 className="font-serif-editorial text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+          <h2 className="font-serif-editorial text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
             ASEAN Policy Ledger &amp; Primary Text Registry
           </h2>
-          <p className="text-slate-400 text-xs sm:text-sm mt-1 max-w-2xl">
+          <p className="text-slate-600 dark:text-slate-400 text-xs sm:text-sm mt-1 max-w-2xl">
             A scannable, source-verified database of pending digital trade bills, cross-border data decrees, and AI governance guidelines.
           </p>
         </div>
 
-        {/* Filter & Search Bar */}
+        {/* Search Bar */}
         <div className="flex flex-wrap items-center gap-3">
           <div className="relative w-full sm:w-64">
             <input
@@ -121,23 +121,23 @@ export default function PolicyLedgerTable() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search ledger by keyword or country..."
-              className="w-full bg-[#0e1420] border border-slate-800 rounded px-3 py-1.5 pl-8 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-slate-600"
+              className="w-full bg-white dark:bg-[#0e1420] border border-slate-300 dark:border-slate-800 rounded px-3 py-1.5 pl-8 text-xs text-slate-900 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-slate-500"
             />
-            <Search className="w-3.5 h-3.5 text-slate-500 absolute left-2.5 top-2.5" />
+            <Search className="w-3.5 h-3.5 text-slate-400 dark:text-slate-500 absolute left-2.5 top-2.5" />
           </div>
         </div>
       </div>
 
       {/* Category Tabs */}
-      <div className="flex flex-wrap items-center gap-2 mb-6 border-b border-slate-800 pb-3">
+      <div className="flex flex-wrap items-center gap-2 mb-6 border-b border-slate-200 dark:border-slate-800 pb-3">
         {(["ALL", "DEFA", "Cross-Border Data", "AI Governance", "Cybersecurity"] as const).map((cat) => (
           <button
             key={cat}
             onClick={() => setSelectedCategory(cat)}
             className={`px-3 py-1 rounded text-xs font-mono-data transition-colors ${
               selectedCategory === cat
-                ? "bg-slate-800 text-white font-semibold border border-slate-700"
-                : "text-slate-400 hover:text-white hover:bg-slate-900"
+                ? "bg-slate-800 text-white dark:bg-slate-800 font-semibold border border-slate-700"
+                : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-900"
             }`}
           >
             {cat}
@@ -146,9 +146,9 @@ export default function PolicyLedgerTable() {
       </div>
 
       {/* Structured Policy Data Table */}
-      <div className="rounded-xl bg-[#0e1420] border border-slate-800 overflow-x-auto shadow-xl">
-        <table className="w-full text-left text-xs text-slate-300">
-          <thead className="bg-slate-900/90 border-b border-slate-800 text-[11px] font-mono-data text-slate-400 uppercase tracking-wider">
+      <div className="rounded-xl bg-white dark:bg-[#0e1420] border border-slate-200 dark:border-slate-800 overflow-x-auto shadow-md dark:shadow-xl transition-colors">
+        <table className="w-full text-left text-xs text-slate-700 dark:text-slate-300">
+          <thead className="bg-slate-50 dark:bg-slate-900/90 border-b border-slate-200 dark:border-slate-800 text-[11px] font-mono-data text-slate-600 dark:text-slate-400 uppercase tracking-wider">
             <tr>
               <th className="py-3 px-4">Jurisdiction</th>
               <th className="py-3 px-4">Category</th>
@@ -158,7 +158,7 @@ export default function PolicyLedgerTable() {
               <th className="py-3 px-4 text-right">Primary Source</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-800/60 font-sans">
+          <tbody className="divide-y divide-slate-200 dark:divide-slate-800/60 font-sans">
             {filteredData.length === 0 ? (
               <tr>
                 <td colSpan={6} className="py-8 text-center text-slate-500 font-mono-data">
@@ -167,18 +167,18 @@ export default function PolicyLedgerTable() {
               </tr>
             ) : (
               filteredData.map((item) => (
-                <tr key={item.id} className="hover:bg-slate-900/50 transition-colors">
-                  <td className="py-3.5 px-4 font-mono-data font-semibold text-slate-200 whitespace-nowrap">
+                <tr key={item.id} className="hover:bg-slate-50 dark:hover:bg-slate-900/50 transition-colors">
+                  <td className="py-3.5 px-4 font-mono-data font-semibold text-slate-900 dark:text-slate-200 whitespace-nowrap">
                     {item.jurisdiction}
                   </td>
-                  <td className="py-3.5 px-4 font-mono-data text-slate-400 whitespace-nowrap">
+                  <td className="py-3.5 px-4 font-mono-data text-slate-500 dark:text-slate-400 whitespace-nowrap">
                     {item.category}
                   </td>
                   <td className="py-3.5 px-4 max-w-md">
-                    <strong className="text-white block font-serif-editorial text-sm leading-snug mb-1">
+                    <strong className="text-slate-900 dark:text-white block font-serif-editorial text-sm leading-snug mb-1">
                       {item.title}
                     </strong>
-                    <p className="text-slate-400 text-[11px] line-clamp-2 leading-relaxed">
+                    <p className="text-slate-600 dark:text-slate-400 text-[11px] line-clamp-2 leading-relaxed">
                       {item.summary}
                     </p>
                   </td>
@@ -186,16 +186,16 @@ export default function PolicyLedgerTable() {
                     <span
                       className={`inline-block px-2 py-0.5 rounded text-[10px] font-bold ${
                         item.threatLevel === "High Alert"
-                          ? "bg-red-950/80 text-red-400 border border-red-800"
+                          ? "bg-red-100 text-red-700 dark:bg-red-950/80 dark:text-red-400 border border-red-200 dark:border-red-800"
                           : item.threatLevel === "Medium Risk"
-                          ? "bg-amber-950/80 text-amber-400 border border-amber-800"
-                          : "bg-emerald-950/80 text-emerald-400 border border-emerald-800"
+                          ? "bg-amber-100 text-amber-800 dark:bg-amber-950/80 dark:text-amber-400 border border-amber-200 dark:border-amber-800"
+                          : "bg-emerald-100 text-emerald-800 dark:bg-emerald-950/80 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800"
                       }`}
                     >
                       {item.threatLevel}
                     </span>
                   </td>
-                  <td className="py-3.5 px-4 font-mono-data text-slate-400 whitespace-nowrap">
+                  <td className="py-3.5 px-4 font-mono-data text-slate-500 dark:text-slate-400 whitespace-nowrap">
                     {item.date}
                   </td>
                   <td className="py-3.5 px-4 text-right whitespace-nowrap">
@@ -203,7 +203,7 @@ export default function PolicyLedgerTable() {
                       href={item.sourceUrl}
                       target="_blank"
                       rel="noreferrer"
-                      className="inline-flex items-center gap-1 text-amber-400 hover:text-amber-300 font-semibold"
+                      className="inline-flex items-center gap-1 text-amber-600 dark:text-amber-400 hover:underline font-semibold"
                     >
                       <span>{item.primarySource}</span>
                       <ExternalLink className="w-3 h-3" />
