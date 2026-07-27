@@ -9,18 +9,6 @@ export default function ThemeToggle() {
   const [theme, setTheme] = useState<ThemeMode>("light");
   const [mounted, setMounted] = useState(false);
 
-  useEffect(() => {
-    setMounted(true);
-    const stored = localStorage.getItem("drone-theme") as ThemeMode | null;
-    if (stored) {
-      setTheme(stored);
-      applyTheme(stored);
-    } else {
-      setTheme("system");
-      applyTheme("system");
-    }
-  }, []);
-
   const applyTheme = (mode: ThemeMode) => {
     const root = document.documentElement;
     if (mode === "dark") {
@@ -38,6 +26,26 @@ export default function ThemeToggle() {
     }
   };
 
+  useEffect(() => {
+    setMounted(true);
+    const stored = localStorage.getItem("drone-theme") as ThemeMode | null;
+    const initialMode = stored || "system";
+    setTheme(initialMode);
+    applyTheme(initialMode);
+
+    // System theme change listener
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    const handleSystemChange = () => {
+      const currentStored = localStorage.getItem("drone-theme") as ThemeMode | null;
+      if (!currentStored || currentStored === "system") {
+        applyTheme("system");
+      }
+    };
+
+    mediaQuery.addEventListener("change", handleSystemChange);
+    return () => mediaQuery.removeEventListener("change", handleSystemChange);
+  }, []);
+
   const handleThemeChange = (mode: ThemeMode) => {
     setTheme(mode);
     localStorage.setItem("drone-theme", mode);
@@ -50,7 +58,7 @@ export default function ThemeToggle() {
     <div className="flex items-center bg-slate-200/80 dark:bg-slate-900/90 p-1 rounded-lg border border-slate-300 dark:border-slate-800 text-xs font-sans">
       <button
         onClick={() => handleThemeChange("light")}
-        className={`p-1.5 rounded-md transition-all flex items-center gap-1 ${
+        className={`p-1.5 rounded-md transition-all flex items-center gap-1 cursor-pointer ${
           theme === "light"
             ? "bg-white text-asean-yellow shadow-xs font-bold"
             : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
@@ -63,7 +71,7 @@ export default function ThemeToggle() {
 
       <button
         onClick={() => handleThemeChange("dark")}
-        className={`p-1.5 rounded-md transition-all flex items-center gap-1 ${
+        className={`p-1.5 rounded-md transition-all flex items-center gap-1 cursor-pointer ${
           theme === "dark"
             ? "bg-slate-800 text-asean-yellow shadow-xs font-bold"
             : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
@@ -76,7 +84,7 @@ export default function ThemeToggle() {
 
       <button
         onClick={() => handleThemeChange("system")}
-        className={`p-1.5 rounded-md transition-all flex items-center gap-1 ${
+        className={`p-1.5 rounded-md transition-all flex items-center gap-1 cursor-pointer ${
           theme === "system"
             ? "bg-white dark:bg-slate-800 text-slate-900 dark:text-white shadow-xs font-bold"
             : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
