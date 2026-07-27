@@ -4,32 +4,54 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
-import { HERO_STORIES, type HeroStory } from "@/lib/landingContent";
+import { supabase } from "@/lib/supabase";
 
-const STORIES: HeroStory[] = HERO_STORIES;
+interface NewsItem {
+  id: string;
+  title: string;
+  category: string;
+  read_time: string | null;
+  summary: string;
+  author: string | null;
+  image_url: string | null;
+}
 
 export default function FeaturedCarousel() {
+  const [stories, setStories] = useState<NewsItem[]>([]);
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
 
+  useEffect(() => {
+    supabase
+      .from("news_items")
+      .select("id, title, category, read_time, summary, author, image_url")
+      .order("published_date", { ascending: false })
+      .limit(3)
+      .then(({ data }) => {
+        if (data) setStories(data as NewsItem[]);
+      });
+  }, []);
+
   // Auto-play every 6s
   useEffect(() => {
-    if (isPaused) return;
+    if (isPaused || stories.length === 0) return;
     const interval = setInterval(() => {
-      setActiveSlideIndex((prev) => (prev + 1) % STORIES.length);
+      setActiveSlideIndex((prev) => (prev + 1) % stories.length);
     }, 6000);
     return () => clearInterval(interval);
-  }, [isPaused]);
+  }, [isPaused, stories.length]);
 
-  const activeStory = STORIES[activeSlideIndex];
+  const activeStory = stories[activeSlideIndex];
 
   const handlePrevSlide = () => {
-    setActiveSlideIndex((prev) => (prev === 0 ? STORIES.length - 1 : prev - 1));
+    setActiveSlideIndex((prev) => (prev === 0 ? stories.length - 1 : prev - 1));
   };
 
   const handleNextSlide = () => {
-    setActiveSlideIndex((prev) => (prev + 1) % STORIES.length);
+    setActiveSlideIndex((prev) => (prev + 1) % stories.length);
   };
+
+  if (stories.length === 0) return null;
 
   return (
     <section className="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-b border-slate-200 dark:border-slate-800">
@@ -41,7 +63,7 @@ export default function FeaturedCarousel() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 items-stretch h-full">
           {/* Left: Crossfading Image Slideshow */}
           <div className="lg:col-span-7 relative min-h-[280px] lg:min-h-full h-full bg-slate-950 overflow-hidden">
-            {STORIES.map((story, idx) => (
+            {stories.map((story, idx) => (
               <div
                 key={story.id}
                 className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
@@ -49,7 +71,7 @@ export default function FeaturedCarousel() {
                 }`}
               >
                 <Image
-                  src={story.imageSrc}
+                  src={story.image_url || ""}
                   alt={story.title}
                   fill
                   sizes="(max-width: 1023px) 100vw, 50vw"
@@ -71,7 +93,7 @@ export default function FeaturedCarousel() {
                   {activeStory.category}
                 </span>
                 <span className="text-slate-500 dark:text-slate-400 font-sans text-xs">
-                  {activeStory.readTime}
+                  {activeStory.read_time}
                 </span>
               </div>
 
@@ -95,7 +117,7 @@ export default function FeaturedCarousel() {
             {/* CTA Footer */}
             <div className="pt-4 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between mt-auto">
               <Link
-                href={activeStory.slug}
+                href="/investigations"
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-slate-900 dark:bg-slate-800 hover:bg-slate-800 dark:hover:bg-slate-700 text-white font-semibold text-xs font-sans transition-colors shadow-xs"
               >
                 <span>Read Full Investigation</span>
@@ -103,7 +125,7 @@ export default function FeaturedCarousel() {
               </Link>
 
               <span className="text-[10px] uppercase tracking-wider text-slate-400 font-sans font-semibold">
-                Story {activeSlideIndex + 1} of {STORIES.length}
+                Story {activeSlideIndex + 1} of {stories.length}
               </span>
             </div>
           </div>
@@ -129,7 +151,7 @@ export default function FeaturedCarousel() {
 
       {/* Dot Navigation */}
       <div className="mt-4 flex items-center justify-center gap-2.5 font-sans">
-        {STORIES.map((story, idx) => (
+        {stories.map((story, idx) => (
           <button
             key={story.id}
             onClick={() => setActiveSlideIndex(idx)}
