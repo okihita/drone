@@ -3,7 +3,6 @@
 import React from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { ShieldAlert, AlertTriangle, Lock, Eye, FileText } from "lucide-react";
 
 export default function ThreatsPage() {
   return (
@@ -11,7 +10,7 @@ export default function ThreatsPage() {
       <Header />
       <main className="flex-1 py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div className="border-b border-slate-200 dark:border-slate-800 pb-6 mb-8">
-          <span className="text-xs font-mono-data text-red-600 dark:text-red-400 font-bold uppercase tracking-wider">
+          <span className="text-xs font-sans text-red-600 dark:text-red-400 font-bold uppercase tracking-wider">
             RISK ASSESSMENT MATRIX
           </span>
           <h1 className="font-serif-editorial text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white mt-1">
@@ -26,7 +25,7 @@ export default function ThreatsPage() {
           
           <div className="rounded-xl bg-white dark:bg-[#0e1420] border border-slate-200 dark:border-slate-800 p-6 space-y-4 shadow-sm dark:shadow-none">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded bg-red-100 dark:bg-red-950/80 border border-red-200 dark:border-red-800 flex items-center justify-center text-red-700 dark:text-red-400 font-mono-data font-bold text-sm">
+              <div className="w-10 h-10 rounded bg-red-100 dark:bg-red-950/80 border border-red-200 dark:border-red-800 flex items-center justify-center text-red-700 dark:text-red-400 font-sans font-bold text-sm">
                 01
               </div>
               <h2 className="font-serif-editorial font-bold text-slate-900 dark:text-white text-xl">
@@ -40,7 +39,7 @@ export default function ThreatsPage() {
 
           <div className="rounded-xl bg-white dark:bg-[#0e1420] border border-slate-200 dark:border-slate-800 p-6 space-y-4 shadow-sm dark:shadow-none">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded bg-amber-100 dark:bg-amber-950/80 border border-amber-200 dark:border-amber-800 flex items-center justify-center text-amber-800 dark:text-amber-400 font-mono-data font-bold text-sm">
+              <div className="w-10 h-10 rounded bg-amber-100 dark:bg-amber-950/80 border border-amber-200 dark:border-amber-800 flex items-center justify-center text-amber-800 dark:text-amber-400 font-sans font-bold text-sm">
                 02
               </div>
               <h2 className="font-serif-editorial font-bold text-slate-900 dark:text-white text-xl">
@@ -54,7 +53,7 @@ export default function ThreatsPage() {
 
           <div className="rounded-xl bg-white dark:bg-[#0e1420] border border-slate-200 dark:border-slate-800 p-6 space-y-4 shadow-sm dark:shadow-none">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded bg-amber-100 dark:bg-amber-950/80 border border-amber-200 dark:border-amber-800 flex items-center justify-center text-amber-800 dark:text-amber-400 font-mono-data font-bold text-sm">
+              <div className="w-10 h-10 rounded bg-amber-100 dark:bg-amber-950/80 border border-amber-200 dark:border-amber-800 flex items-center justify-center text-amber-800 dark:text-amber-400 font-sans font-bold text-sm">
                 03
               </div>
               <h2 className="font-serif-editorial font-bold text-slate-900 dark:text-white text-xl">
@@ -68,7 +67,7 @@ export default function ThreatsPage() {
 
           <div className="rounded-xl bg-white dark:bg-[#0e1420] border border-slate-200 dark:border-slate-800 p-6 space-y-4 shadow-sm dark:shadow-none">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-700 dark:text-slate-300 font-mono-data font-bold text-sm">
+              <div className="w-10 h-10 rounded bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-700 dark:text-slate-300 font-sans font-bold text-sm">
                 04
               </div>
               <h2 className="font-serif-editorial font-bold text-slate-900 dark:text-white text-xl">

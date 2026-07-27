@@ -5,7 +5,6 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, BookOpen, Clock, Tag } from "lucide-react";
 
 export interface InvestigationArticle {
   id: string;
@@ -25,7 +24,7 @@ export const ARTICLES: InvestigationArticle[] = [
     slug: "asean-defa-legal-scrubbing",
     title: "ASEAN DEFA Legal Scrubbing: The Quiet Tug-of-War Over Cross-Border Data Privacy",
     category: "DEFA SPECIAL REPORT",
-    author: "Okihita (EngageMedia)",
+    author: "EngageMedia Research Team",
     date: "July 2026",
     readTime: "8 min read",
     summary: "As senior economic officials finalize the text of the world’s first region-wide digital trade agreement in Manila, civil society watchdogs warn that mandatory data flow clauses risk preempting domestic privacy safeguards.",
@@ -47,7 +46,7 @@ export const ARTICLES: InvestigationArticle[] = [
     slug: "banning-algorithmic-audits",
     title: "Banning Algorithmic Audits: How Big Tech Lobbying Targets Regional Treaties",
     category: "AI GOVERNANCE",
-    author: "Okihita (EngageMedia)",
+    author: "EngageMedia Research Team",
     date: "May 2026",
     readTime: "7 min read",
     summary: "Corporate trade lobbies advocate for broad treaty bans on mandatory source code disclosures—limiting regulators from auditing automated AI decision engines for discrimination.",
@@ -61,7 +60,7 @@ export default function InvestigationsPage() {
       <Header />
       <main className="flex-1 py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div className="border-b border-slate-200 dark:border-slate-800 pb-6 mb-10">
-          <span className="text-xs font-mono-data text-amber-600 dark:text-amber-500 font-bold uppercase tracking-wider">
+          <span className="text-xs font-sans text-amber-600 dark:text-amber-500 font-bold uppercase tracking-wider">
             EDITORIAL DESK
           </span>
           <h1 className="font-serif-editorial text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white mt-1">
@@ -89,7 +88,7 @@ export default function InvestigationsPage() {
 
               <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
                 <div className="space-y-2">
-                  <div className="flex items-center justify-between text-[10px] font-mono-data text-slate-500 dark:text-slate-400">
+                  <div className="flex items-center justify-between text-[10px] font-sans text-slate-500 dark:text-slate-400">
                     <span className="text-amber-600 dark:text-amber-400 font-bold uppercase">{article.category}</span>
                     <span>{article.readTime}</span>
                   </div>
@@ -103,7 +102,7 @@ export default function InvestigationsPage() {
                   </p>
                 </div>
 
-                <div className="pt-4 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between text-[11px] font-mono-data">
+                <div className="pt-4 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between text-[11px] font-sans">
                   <span className="text-slate-700 dark:text-slate-300 font-semibold">{article.author}</span>
                   <span className="text-amber-600 dark:text-amber-400 font-bold flex items-center gap-1 group-hover:translate-x-1 transition-transform">
                     Read Article →

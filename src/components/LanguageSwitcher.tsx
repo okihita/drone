@@ -35,7 +35,7 @@ export default function LanguageSwitcher() {
       <button
         id="language-switcher-btn"
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 px-3 py-1.5 rounded bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 hover:border-slate-400 dark:hover:border-slate-700 text-slate-800 dark:text-slate-300 text-xs font-medium transition-colors"
+        className="flex items-center gap-2 px-3 py-1.5 rounded bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 hover:border-slate-400 dark:hover:border-slate-700 text-slate-800 dark:text-slate-300 text-xs font-medium font-sans transition-colors"
         aria-label="Select Language"
       >
         <Globe className="w-3.5 h-3.5 text-slate-500 dark:text-slate-400" />
@@ -46,8 +46,8 @@ export default function LanguageSwitcher() {
       {isOpen && (
         <>
           <div className="fixed inset-0 z-40" onClick={() => setIsOpen(false)} />
-          <div className="absolute right-0 mt-2 w-56 max-h-72 overflow-y-auto rounded-lg bg-white dark:bg-[#0e1420] border border-slate-300 dark:border-slate-800 shadow-xl z-50 p-1.5">
-            <div className="px-2 py-1.5 text-[10px] uppercase font-bold tracking-wider text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-800 mb-1 font-mono-data">
+          <div className="absolute right-0 mt-2 w-56 max-h-72 overflow-y-auto rounded-lg bg-white dark:bg-[#0e1420] border border-slate-300 dark:border-slate-800 shadow-xl z-50 p-1.5 font-sans">
+            <div className="px-2 py-1.5 text-[10px] uppercase font-bold tracking-wider text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-800 mb-1">
               Regional Language (13 Languages)
             </div>
             {LANGUAGES.map((lang) => (

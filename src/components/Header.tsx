@@ -16,7 +16,7 @@ export default function Header() {
   return (
     <header className="w-full border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-[#090d16] transition-colors sticky top-0 z-50 backdrop-blur-md bg-white/95 dark:bg-[#090d16]/95">
       {/* Top Editorial Masthead Bar */}
-      <div className="border-b border-slate-200 dark:border-slate-800/80 bg-slate-50 dark:bg-slate-950 px-4 py-1.5 text-[11px] text-slate-600 dark:text-slate-400 font-mono-data">
+      <div className="border-b border-slate-200 dark:border-slate-800/80 bg-slate-50 dark:bg-slate-950 px-4 py-1.5 text-[11px] text-slate-600 dark:text-slate-400 font-sans">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
           <div className="flex items-center gap-3">
             <span className="font-bold text-amber-600 dark:text-amber-500 uppercase tracking-wider">
@@ -28,8 +28,6 @@ export default function Header() {
 
           <div className="flex items-center gap-4 text-slate-600 dark:text-slate-400">
             <span>Donors: <strong className="text-slate-900 dark:text-slate-200">Luminate Group</strong> &amp; <strong className="text-slate-900 dark:text-slate-200">Sida</strong></span>
-            <span className="text-slate-300 dark:text-slate-700">|</span>
-            <span>Issue: <strong className="text-slate-900 dark:text-slate-200">July 2026 Edition</strong></span>
           </div>
         </div>
       </div>
@@ -45,7 +43,7 @@ export default function Header() {
                 <span className="font-serif-editorial text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">
                   D.R.O.N.E.
                 </span>
-                <span className="text-xs font-mono-data text-slate-500 dark:text-slate-400 uppercase tracking-widest border-l border-slate-300 dark:border-slate-700 pl-3">
+                <span className="text-xs font-sans text-slate-500 dark:text-slate-400 uppercase tracking-widest border-l border-slate-300 dark:border-slate-700 pl-3">
                   Digital Rights Oversight &amp; Network Evaluator
                 </span>
               </div>
@@ -58,7 +56,7 @@ export default function Header() {
               <input
                 type="text"
                 placeholder="Search stories, policies..."
-                className="w-full bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded px-3 py-1.5 pl-8 text-xs text-slate-900 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-slate-400 dark:focus:border-slate-600"
+                className="w-full bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded px-3 py-1.5 pl-8 text-xs text-slate-900 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-slate-400 dark:focus:border-slate-600 font-sans"
               />
               <Search className="w-3.5 h-3.5 text-slate-400 dark:text-slate-500 absolute left-2.5 top-2.5" />
             </div>
@@ -83,7 +81,7 @@ export default function Header() {
 
       {/* Primary Navigation Bar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <nav className="hidden md:flex items-center gap-8 py-2.5 text-xs font-medium font-mono-data">
+        <nav className="hidden md:flex items-center gap-8 py-2.5 text-xs font-medium font-sans">
           <Link
             href="/investigations"
             className={`flex items-center gap-1.5 transition-colors ${
@@ -148,7 +146,7 @@ export default function Header() {
 
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 px-4 py-4 space-y-3 text-xs font-mono-data">
+        <div className="md:hidden border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 px-4 py-4 space-y-3 text-xs font-sans">
           <Link href="/investigations" onClick={() => setMobileMenuOpen(false)} className="block py-1 text-slate-700 dark:text-slate-300 hover:text-amber-600">
             Investigations &amp; Reports
           </Link>

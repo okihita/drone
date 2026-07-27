@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Newsreader, Inter, JetBrains_Mono } from "next/font/google";
+import { Newsreader, Inter } from "next/font/google";
 import "./globals.css";
 
 const newsreader = Newsreader({
@@ -13,16 +13,11 @@ const inter = Inter({
   subsets: ["latin"],
 });
 
-const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-mono",
-  subsets: ["latin"],
-});
-
 export const metadata: Metadata = {
   title: "D.R.O.N.E. — ASEAN Digital Rights Oversight & Network Evaluator",
   description: "Independent policy research portal and data observatory tracking digital trade treaties, cross-border data governance, and AI rights across Southeast Asia.",
   keywords: ["ASEAN Policy", "Digital Rights", "DEFA", "Southeast Asia", "EngageMedia", "AI Governance", "Data Privacy"],
-  authors: [{ name: "Okihita" }, { name: "EngageMedia" }],
+  authors: [{ name: "EngageMedia Research Team" }, { name: "EngageMedia" }],
 };
 
 export default function RootLayout({
@@ -33,7 +28,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${newsreader.variable} ${inter.variable} ${jetbrainsMono.variable} h-full antialiased`}
+      className={`${newsreader.variable} ${inter.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <head>

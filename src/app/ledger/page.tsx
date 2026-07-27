@@ -12,7 +12,7 @@ export default function LedgerPage() {
       <main className="flex-1 py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6">
           <div className="border-b border-slate-200 dark:border-slate-800 pb-4">
-            <span className="text-xs font-mono-data text-emerald-600 dark:text-emerald-500 font-bold uppercase tracking-wider">
+            <span className="text-xs font-sans text-emerald-600 dark:text-emerald-500 font-bold uppercase tracking-wider">
               D.R.O.N.E. SPECIAL TOOL MODULE
             </span>
             <h1 className="font-serif-editorial text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white mt-1">

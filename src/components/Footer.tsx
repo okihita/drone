@@ -15,7 +15,7 @@ export default function Footer() {
             <span className="font-serif-editorial text-xl font-bold text-slate-900 dark:text-white tracking-wider">
               D.R.O.N.E.
             </span>
-            <span className="text-[10px] font-mono-data text-slate-500 dark:text-slate-400 border border-slate-300 dark:border-slate-800 px-1.5 py-0.5 rounded bg-white dark:bg-slate-900">
+            <span className="text-[10px] font-sans text-slate-500 dark:text-slate-400 border border-slate-300 dark:border-slate-800 px-1.5 py-0.5 rounded bg-white dark:bg-slate-900 uppercase font-semibold">
               ENGAGEMEDIA OBSERVATORY
             </span>
           </div>
@@ -24,42 +24,40 @@ export default function Footer() {
             <strong>Digital Rights Oversight &amp; Network Evaluator</strong> is an independent policy intelligence platform developed by <strong>EngageMedia</strong>. It monitors ASEAN digital trade frameworks, legal scrubbing, cross-border data transfer laws, and algorithmic governance threats.
           </p>
 
-          <div className="flex items-center gap-3 text-[11px] text-slate-500 dark:text-slate-400 font-mono-data">
-            <span>Author: <strong className="text-slate-800 dark:text-slate-200">Okihita</strong></span>
-            <span>•</span>
-            <span>Client: <strong className="text-slate-800 dark:text-slate-200">EngageMedia</strong></span>
+          <div className="flex items-center gap-3 text-[11px] text-slate-500 dark:text-slate-400 font-sans">
+            <span>Maintained by: <strong className="text-slate-800 dark:text-slate-200">EngageMedia Research Team</strong></span>
           </div>
         </div>
 
         {/* Col 2: Research Modules */}
         <div className="space-y-2">
-          <h4 className="font-mono-data text-xs uppercase font-bold text-slate-900 dark:text-white tracking-wider mb-3">
+          <h4 className="font-sans text-xs uppercase font-bold text-slate-900 dark:text-white tracking-wider mb-3">
             Research Modules
           </h4>
           <ul className="space-y-2 text-xs text-slate-600 dark:text-slate-400">
             <li>
-              <Link href="#featured-analysis" className="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">
+              <Link href="/investigations" className="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">
                 Featured DEFA Investigation
               </Link>
             </li>
             <li>
-              <Link href="#asean-map" className="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">
+              <Link href="/observatory" className="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">
                 ASEAN Jurisdiction Map &amp; Dossiers
               </Link>
             </li>
             <li>
-              <Link href="#policy-ledger" className="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">
+              <Link href="/ledger" className="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">
                 Verified Policy Ledger &amp; Table
               </Link>
             </li>
             <li>
-              <Link href="#defa-monitor" className="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">
-                DEFA Negotiation Milestone Monitor
+              <Link href="/threats" className="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">
+                Civil Society Threat Matrix
               </Link>
             </li>
             <li>
-              <Link href="#threat-matrix" className="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">
-                Civil Society Threat Matrix
+              <Link href="/intake" className="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">
+                Encrypted Dossier Intake
               </Link>
             </li>
           </ul>
@@ -67,7 +65,7 @@ export default function Footer() {
 
         {/* Col 3: Donor Strategic Alignment */}
         <div className="space-y-2">
-          <h4 className="font-mono-data text-xs uppercase font-bold text-slate-900 dark:text-white tracking-wider mb-3">
+          <h4 className="font-sans text-xs uppercase font-bold text-slate-900 dark:text-white tracking-wider mb-3">
             Strategic Donor Partners
           </h4>
           <ul className="space-y-3 text-xs">
@@ -106,7 +104,7 @@ export default function Footer() {
       </div>
 
       {/* Bottom Bar */}
-      <div className="max-w-7xl mx-auto pt-6 border-t border-slate-200 dark:border-slate-900 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-500 dark:text-slate-400 font-mono-data">
+      <div className="max-w-7xl mx-auto pt-6 border-t border-slate-200 dark:border-slate-900 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-500 dark:text-slate-400 font-sans">
         <div>
           © 2026 EngageMedia • D.R.O.N.E. Project • Released under CC BY 4.0 Human Rights License.
         </div>
