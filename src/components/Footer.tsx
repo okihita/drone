@@ -104,12 +104,9 @@ export default function Footer() {
       </div>
 
       {/* Bottom Bar */}
-      <div className="max-w-7xl mx-auto pt-6 border-t border-slate-200 dark:border-slate-900 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-500 dark:text-slate-400 font-sans">
+      <div className="max-w-7xl mx-auto pt-6 border-t border-slate-200 dark:border-slate-900 flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400 font-sans">
         <div>
           © 2026 EngageMedia • D.R.O.N.E. Project • Released under CC BY 4.0 Human Rights License.
-        </div>
-        <div>
-          Published with Next.js 16, React 19 &amp; Tailwind CSS v4
         </div>
       </div>
     </footer>
