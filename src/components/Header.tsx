@@ -19,21 +19,21 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-6 border-b border-slate-200/80 dark:border-slate-800/60 font-sans">
         <div className="grid grid-cols-1 md:grid-cols-3 items-center gap-4">
           
-          {/* Left Side: Official EngageMedia Emblem SVG Logo */}
-          <div className="flex items-center justify-start">
+           {/* Left Side: EngageMedia Logo */}
+          <div className="flex items-center h-full justify-start">
             <Link href="https://engagemedia.org" target="_blank" rel="noreferrer" className="group flex items-center gap-3">
               <img
-                src="/images/logo-engagemedia-emblem-clarifying-white.svg"
+                src="/images/engagemedia-logo.png"
                 alt="EngageMedia Logo"
-                className="h-7 sm:h-8 w-auto dark:invert-0 invert transition-opacity group-hover:opacity-85"
+                className="h-12 sm:h-14 w-auto transition-opacity group-hover:opacity-85"
               />
             </Link>
           </div>
 
-          {/* Center Side: Perfectly Vertically Centered DRONE Title & 2-Line Subtitle (Zero Font Padding) */}
-          <div className="flex items-center justify-center text-center">
-            <Link href="/" className="group inline-block">
-              <div className="flex items-center gap-3 sm:gap-4 my-auto">
+          {/* Center Side: DRONE Title & Subtitle */}
+          <div className="flex items-center h-full justify-center text-center">
+            <Link href="/" className="group block">
+              <div className="flex items-center gap-3 sm:gap-4">
                 <span className="font-serif-editorial text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white group-hover:text-asean-yellow transition-colors leading-none m-0 p-0 select-none">
                   DRONE
                 </span>
@@ -47,7 +47,7 @@ export default function Header() {
           </div>
 
           {/* Right Side: Theme Toggle & Inline Flag Language Switcher */}
-          <div className="flex items-center gap-3 justify-end">
+          <div className="flex items-center h-full gap-3 justify-end">
             {/* Theme Toggle */}
             <ThemeToggle />
 

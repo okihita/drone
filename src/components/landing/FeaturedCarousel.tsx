@@ -52,6 +52,7 @@ export default function FeaturedCarousel() {
                   src={story.imageSrc}
                   alt={story.title}
                   fill
+                  sizes="(max-width: 1023px) 100vw, 50vw"
                   priority={idx === 0}
                   className="object-cover"
                 />

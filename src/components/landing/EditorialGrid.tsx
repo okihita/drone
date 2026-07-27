@@ -75,6 +75,7 @@ export default function EditorialGrid() {
                   src={dispatch.imageSrc}
                   alt={dispatch.imageAlt}
                   fill
+                  sizes="(max-width: 1023px) 100vw, 33vw"
                   className="object-cover transition-opacity duration-500"
                 />
               </div>
