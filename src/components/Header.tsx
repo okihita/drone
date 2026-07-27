@@ -30,17 +30,17 @@ export default function Header() {
             </Link>
           </div>
 
-          {/* Center Side: Centered DRONE Title & Exact 2-Line Subtitle (Ampersand on Line 2) */}
+          {/* Center Side: Perfectly Vertically Centered DRONE Title & 2-Line Subtitle (Zero Font Padding) */}
           <div className="flex items-center justify-center text-center">
             <Link href="/" className="group inline-block">
-              <div className="flex items-center gap-3 sm:gap-4">
-                <span className="font-serif-editorial text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white group-hover:text-asean-yellow transition-colors leading-none">
+              <div className="flex items-center gap-3 sm:gap-4 my-auto">
+                <span className="font-serif-editorial text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white group-hover:text-asean-yellow transition-colors leading-none m-0 p-0 select-none">
                   DRONE
                 </span>
                 
-                <div className="border-l border-slate-300 dark:border-slate-700 pl-3 sm:pl-4 text-left flex flex-col justify-center text-[10px] sm:text-xs font-sans text-slate-500 dark:text-slate-400 uppercase tracking-wider font-semibold leading-snug">
-                  <span>Digital Rights Oversight</span>
-                  <span>&amp; Network Evaluator</span>
+                <div className="border-l border-slate-300 dark:border-slate-700 pl-3 sm:pl-4 text-left flex flex-col justify-center text-[10px] sm:text-xs font-sans text-slate-500 dark:text-slate-400 uppercase tracking-wider font-semibold leading-none py-0.5 space-y-1">
+                  <span className="leading-none block">Digital Rights Oversight</span>
+                  <span className="leading-none block">&amp; Network Evaluator</span>
                 </div>
               </div>
             </Link>

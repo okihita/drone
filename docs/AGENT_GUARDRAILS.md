@@ -8,8 +8,9 @@
 
 ## 🔒 Mandatory Project Rules & Design Guardrails
 
-### 1. Header & Title Branding Rule (DRONE Spelling & Subtitle)
+### 1. Header & Title Branding Rule (DRONE Spelling & Alignment)
 * **TITLE SPELLING**: The brand title MUST be written as **`DRONE`** without dots (FORBIDDEN: `D.R.O.N.E.`).
+* **ZERO FONT PADDING & VERTICAL CENTER ALIGNMENT**: `DRONE` and the 2-line subtitle MUST be vertically centered/aligned (`flex items-center`) with `leading-none` and zero line-height padding.
 * **EXACT 2-LINE SUBTITLE**: The subtitle text MUST be split into exactly 2 stacked lines with the ampersand `&` on line 2:
   * Line 1: `Digital Rights Oversight`
   * Line 2: `& Network Evaluator`
