@@ -161,18 +161,18 @@ export default function Home() {
           </div>
         </section>
 
-        {/* HERO FEATURED STORY CAROUSEL WITH LOCKED HEIGHT (ZERO LAYOUT SHIFT) */}
+        {/* HERO FEATURED STORY CAROUSEL WITH LOCKED HEIGHT (UP TO 4 LINES TITLE & 4 LINES SUMMARY) */}
         <section className="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-b border-slate-200 dark:border-slate-800">
           
           <div
             onMouseEnter={() => setIsPaused(true)}
             onMouseLeave={() => setIsPaused(false)}
-            className="group relative rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm dark:shadow-none transition-all duration-300 min-h-[460px] lg:h-[460px]"
+            className="group relative rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm dark:shadow-none transition-all duration-300 min-h-[500px] lg:h-[500px]"
           >
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 items-stretch h-full">
               
               {/* Left Column: Photo Container with Locked Dimensions & Ken Burns Hover Effect */}
-              <div className="lg:col-span-7 relative min-h-[260px] lg:min-h-full h-full bg-slate-950 overflow-hidden">
+              <div className="lg:col-span-7 relative min-h-[280px] lg:min-h-full h-full bg-slate-950 overflow-hidden">
                 <Image
                   key={activeStory.id}
                   src={activeStory.imageSrc}
@@ -186,7 +186,7 @@ export default function Home() {
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent lg:hidden" />
               </div>
 
-              {/* Right Column: Dynamic Slide Content Copy with Locked Element Heights */}
+              {/* Right Column: Dynamic Slide Content Copy (Up to 4 Lines Title & 4 Lines Subtitle) */}
               <div className="lg:col-span-5 p-6 sm:p-8 flex flex-col justify-between h-full space-y-4">
                 <div className="space-y-4 flex-1 flex flex-col justify-center">
                   <div className="flex items-center justify-between gap-2 text-xs font-sans">
@@ -196,16 +196,16 @@ export default function Home() {
                     <span className="text-slate-500 dark:text-slate-400 font-sans text-xs">{activeStory.readTime}</span>
                   </div>
 
-                  {/* Fixed Height Title Container to Prevent Layout Shift */}
-                  <div className="h-[4.5rem] flex items-center">
-                    <h2 className="font-serif-editorial text-xl sm:text-2xl lg:text-3xl font-extrabold text-slate-900 dark:text-white leading-snug line-clamp-2">
+                  {/* Title Container: Up to 4 Lines */}
+                  <div className="min-h-[5.5rem] flex items-center">
+                    <h2 className="font-serif-editorial text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white leading-snug line-clamp-4">
                       {activeStory.title}
                     </h2>
                   </div>
 
-                  {/* Fixed Height Summary Container to Prevent Layout Shift */}
-                  <div className="h-[4.5rem] flex items-center">
-                    <p className="text-slate-600 dark:text-slate-300 text-xs sm:text-sm leading-relaxed font-serif-editorial italic border-l-2 border-asean-yellow pl-3 line-clamp-3">
+                  {/* Subtitle / Summary Container: Up to 4 Lines */}
+                  <div className="min-h-[5.5rem] flex items-center">
+                    <p className="text-slate-600 dark:text-slate-300 text-xs sm:text-sm leading-relaxed font-serif-editorial italic border-l-2 border-asean-yellow pl-3 line-clamp-4">
                       {activeStory.summary}
                     </p>
                   </div>

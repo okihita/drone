@@ -8,8 +8,9 @@
 
 ## 🔒 Mandatory Project Rules & Design Guardrails
 
-### 1. Hero Story Carousel & Zero Layout Shift (LOCKED HEIGHT)
-* **LOCKED CAROUSEL HEIGHT**: The hero story carousel container MUST maintain a fixed height (`min-h-[460px] lg:h-[460px]`) and fixed title/summary element containers (`h-[4.5rem]`) so switching slides causes **ZERO Cumulative Layout Shift (CLS)**.
+### 1. Hero Story Carousel & Zero Layout Shift (UP TO 4 LINES TITLE & SUBTITLE)
+* **4-LINE TITLE & SUBTITLE BOUNDS**: The carousel title and summary elements allow **up to 4 lines of text** (`line-clamp-4`) with minimum height bounds (`min-h-[5.5rem]`).
+* **LOCKED CAROUSEL HEIGHT**: The hero story carousel container maintains a locked height (`min-h-[500px] lg:h-[500px]`) so switching slides causes **ZERO Cumulative Layout Shift (CLS)**.
 * **KEN BURNS HOVER EFFECT**: The hero cover image MUST feature a smooth Ken Burns scale and subtle rotation zoom-pan effect on card hover (`group-hover:scale-110 group-hover:rotate-0.5 transition-transform duration-1000 ease-out`).
 * **CAROUSEL CONTROLS**: Include left/right arrow buttons (`ChevronLeft`, `ChevronRight`) and clickable navigation progress dots/lines beneath the carousel.
 
