@@ -8,7 +8,19 @@
 
 ## 🔒 Mandatory Project Rules & Design Guardrails
 
-### 1. Header & Title Branding Rule (DRONE Spelling & Alignment)
+### 1. Lucide Icons Only (NO Emojis in Hero & Stats UI)
+* **FORBIDDEN**: Do NOT use raw emojis (`🌐`, `📊`, `🛡️`, `🗣️`) in UI badges, hero cards, or stats counters.
+* **REQUIRED ICONS**: Use clean SVG icons from `lucide-react` (`Globe`, `FileText`, `ShieldCheck`, `Languages`, `MapPin`, etc.).
+
+---
+
+### 2. Search Placeholder Rules (Exactly 3 Examples)
+* **SEARCH PLACEHOLDER**: `HeroSearch.tsx` search input placeholder MUST use exactly 3 examples ending with Indonesia's PDP Law:
+  * `Try "DEFA Chapter 5", "Vietnam Decree 53", "Indonesia PDP Law"`
+
+---
+
+### 3. Header & Title Branding Rule (DRONE Spelling & Alignment)
 * **TITLE SPELLING**: The brand title MUST be written as **`DRONE`** without dots (FORBIDDEN: `D.R.O.N.E.`).
 * **ZERO FONT PADDING & VERTICAL CENTER ALIGNMENT**: `DRONE` and the 2-line subtitle MUST be vertically centered/aligned (`flex items-center`) with `leading-none` and zero line-height padding.
 * **EXACT 2-LINE SUBTITLE**: The subtitle text MUST be split into exactly 2 stacked lines with the ampersand `&` on line 2:
@@ -18,13 +30,12 @@
 
 ---
 
-### 2. Inline Flag Language Switcher Rule (No Dropdown)
+### 4. Inline Flag Language Switcher Rule (No Dropdown)
 * **NO DROPDOWN OVERLAY**: `LanguageSwitcher.tsx` must render simple inline toggle buttons showing flags: `🌐 EN` | `🇮🇩 ID`.
-* **FORBIDDEN**: Do NOT use popup dropdown menus or popovers for language selection.
 
 ---
 
-### 3. ASEAN Logo Color Branding Rule & Lint Command
+### 5. ASEAN Logo Color Branding Rule & Lint Command
 * **AUTHORITATIVE PALETTE REFERENCE**: All branding colors must strictly reference `src/lib/colors.ts` and the official ASEAN logo palette:
   * **ASEAN Blue**: `#003399` (`asean-blue`)
   * **ASEAN Red**: `#CC0000` (`asean-red`)
@@ -35,42 +46,42 @@
 
 ---
 
-### 4. Language Restriction Rule: English & Bahasa Indonesia Only
+### 6. Language Restriction Rule: English & Bahasa Indonesia Only
 * **STRICT LANGUAGES**: The application UI only supports 2 languages:
   1. 🌐 **English (`en`)**
   2. 🇮🇩 **Bahasa Indonesia (`id`)**
 
 ---
 
-### 5. Geographic SVG Data Rule: Real Natural Earth GeoJSON Only
+### 7. Geographic SVG Data Rule: Real Natural Earth GeoJSON Only
 * **FORBIDDEN**: Never hand-craft vector SVG path coordinates for maps.
 * **REQUIRED SVG DATA**: All vector map paths (`AseanMap.tsx` and `AseanBlindMap.tsx`) MUST be rendered dynamically via `d3-geo` projection using the real Natural Earth GeoJSON dataset stored in `public/data/southeast-asia.json`.
 
 ---
 
-### 6. Hero Layout & Compact Map Height Rule
+### 8. Hero Layout & Compact Map Height Rule
 * **COMPACT HERO HEIGHT**: The hero section uses a sleek, compact height (`py-10 sm:py-12`) with a subtle 15-25% opacity `AseanBlindMap` background.
 
 ---
 
-### 7. Footer Tech Usage Rule: NO Tech Stack Footers
+### 9. Footer Tech Usage Rule: NO Tech Stack Footers
 * **FORBIDDEN**: Do NOT display `Published with Next.js 16, React 19 & Tailwind CSS v4` or framework badges in the footer.
 
 ---
 
-### 8. Typography Rule: NO Monospace Fonts Across UI
+### 10. Typography Rule: NO Monospace Fonts Across UI
 * **FORBIDDEN**: Do NOT use monospace fonts (`JetBrains Mono`, `font-mono`, `font-mono-data`) anywhere in the UI.
 * **ALLOWED FONTS**: `Newsreader` serif for headlines & `Inter` sans-serif for body/metadata.
 
 ---
 
-### 9. Branding & Attribution Rule: NO "Okihita" Author References
+### 11. Branding & Attribution Rule: NO "Okihita" Author References
 * **REQUIRED ATTRIBUTION**: All author references in the UI and documentation must strictly read:
   * `EngageMedia` or `EngageMedia Research Team`.
 
 ---
 
-### 10. Multi-Page Architecture Rule
+### 12. Multi-Page Architecture Rule
 The application MUST maintain the 5 dedicated sub-page routes:
 1. `src/app/page.tsx` — Our World in Data style hero + Editorial Atelier homepage.
 2. `src/app/investigations/page.tsx` — Editorial long-reads & field reports index.

@@ -38,7 +38,7 @@ export default function HeroSearch() {
           onFocus={() => {
             if (query.trim().length > 0) setIsOpen(true);
           }}
-          placeholder='Try "DEFA Chapter 5", "Vietnam Decree 53", "Indonesia PDP Law", "Singapore MCCs"...'
+          placeholder='Try "DEFA Chapter 5", "Vietnam Decree 53", "Indonesia PDP Law"'
           className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3.5 pl-11 pr-24 text-xs sm:text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 shadow-xl focus:outline-none focus:ring-2 focus:ring-asean-yellow font-sans transition-all"
         />
         <Search className="w-5 h-5 text-slate-400 dark:text-slate-500 absolute left-3.5 top-3.5" />

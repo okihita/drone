@@ -7,7 +7,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import AseanBlindMap from "@/components/AseanBlindMap";
 import HeroSearch from "@/components/HeroSearch";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Globe, FileText, ShieldCheck, Languages } from "lucide-react";
 
 export default function Home() {
   const POPULAR_TOPICS = [
@@ -72,19 +72,23 @@ export default function Home() {
               <HeroSearch />
             </div>
 
-            {/* Live Repository Micro-Stats Badges */}
+            {/* Live Repository Micro-Stats Badges (Lucide Icons, Zero Emojis) */}
             <div className="pt-2 flex flex-wrap items-center justify-center gap-2 sm:gap-3 text-xs font-sans text-slate-300">
-              <span className="px-3 py-1 rounded-full bg-slate-800/80 border border-slate-700/80">
-                🌐 <strong>11</strong> ASEAN Member States
+              <span className="px-3 py-1 rounded-full bg-slate-800/80 border border-slate-700/80 flex items-center gap-1.5">
+                <Globe className="w-3.5 h-3.5 text-asean-yellow" />
+                <span><strong>11</strong> ASEAN Member States</span>
               </span>
-              <span className="px-3 py-1 rounded-full bg-slate-800/80 border border-slate-700/80">
-                📊 <strong>14</strong> Ingested Decrees
+              <span className="px-3 py-1 rounded-full bg-slate-800/80 border border-slate-700/80 flex items-center gap-1.5">
+                <FileText className="w-3.5 h-3.5 text-asean-blue" />
+                <span><strong>14</strong> Ingested Decrees</span>
               </span>
-              <span className="px-3 py-1 rounded-full bg-slate-800/80 border border-slate-700/80">
-                🛡️ <strong>100%</strong> Primary Source Verified
+              <span className="px-3 py-1 rounded-full bg-slate-800/80 border border-slate-700/80 flex items-center gap-1.5">
+                <ShieldCheck className="w-3.5 h-3.5 text-asean-yellow" />
+                <span><strong>100%</strong> Primary Source Verified</span>
               </span>
-              <span className="px-3 py-1 rounded-full bg-slate-800/80 border border-slate-700/80">
-                🗣️ <strong>2</strong> Languages (EN &amp; ID)
+              <span className="px-3 py-1 rounded-full bg-slate-800/80 border border-slate-700/80 flex items-center gap-1.5">
+                <Languages className="w-3.5 h-3.5 text-slate-400" />
+                <span><strong>2</strong> Languages (EN &amp; ID)</span>
               </span>
             </div>
 
