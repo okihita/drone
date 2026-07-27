@@ -22,11 +22,10 @@ export default function Header() {
           {/* Left Side: Official EngageMedia Emblem SVG Logo */}
           <div className="flex items-center justify-start">
             <Link href="https://engagemedia.org" target="_blank" rel="noreferrer" className="group flex items-center gap-3">
-              {/* Standard HTML img for SVGcurrentColor rendering */}
               <img
                 src="/images/logo-engagemedia-emblem-clarifying-white.svg"
                 alt="EngageMedia Logo"
-                className="h-7 sm:h-8 w-auto text-slate-900 dark:text-white transition-opacity group-hover:opacity-85"
+                className="h-7 sm:h-8 w-auto dark:invert-0 invert transition-opacity group-hover:opacity-85"
               />
             </Link>
           </div>
