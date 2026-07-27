@@ -26,8 +26,7 @@ export default function AdminLoginPage() {
         setError(authError.message);
         setLoading(false);
       } else {
-        router.push("/admin");
-        router.refresh();
+        window.location.href = "/admin";
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : "Login failed. Check your network connection.");
