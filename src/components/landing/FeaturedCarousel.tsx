@@ -1,0 +1,146 @@
+"use client";
+
+import React, { useState, useEffect } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { HERO_STORIES, type HeroStory } from "@/lib/landingContent";
+
+const STORIES: HeroStory[] = HERO_STORIES;
+
+export default function FeaturedCarousel() {
+  const [activeSlideIndex, setActiveSlideIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+
+  // Auto-play every 6s
+  useEffect(() => {
+    if (isPaused) return;
+    const interval = setInterval(() => {
+      setActiveSlideIndex((prev) => (prev + 1) % STORIES.length);
+    }, 6000);
+    return () => clearInterval(interval);
+  }, [isPaused]);
+
+  const activeStory = STORIES[activeSlideIndex];
+
+  const handlePrevSlide = () => {
+    setActiveSlideIndex((prev) => (prev === 0 ? STORIES.length - 1 : prev - 1));
+  };
+
+  const handleNextSlide = () => {
+    setActiveSlideIndex((prev) => (prev + 1) % STORIES.length);
+  };
+
+  return (
+    <section className="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-b border-slate-200 dark:border-slate-800">
+      <div
+        onMouseEnter={() => setIsPaused(true)}
+        onMouseLeave={() => setIsPaused(false)}
+        className="group relative rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm dark:shadow-none transition-all duration-300 min-h-[500px] lg:h-[500px]"
+      >
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 items-stretch h-full">
+          {/* Left: Crossfading Image Slideshow */}
+          <div className="lg:col-span-7 relative min-h-[280px] lg:min-h-full h-full bg-slate-950 overflow-hidden">
+            {STORIES.map((story, idx) => (
+              <div
+                key={story.id}
+                className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
+                  activeSlideIndex === idx ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"
+                }`}
+              >
+                <Image
+                  src={story.imageSrc}
+                  alt={story.title}
+                  fill
+                  priority={idx === 0}
+                  className="object-cover"
+                />
+              </div>
+            ))}
+
+            {/* Gradient overlay on mobile */}
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent lg:hidden z-20" />
+          </div>
+
+          {/* Right: Dynamic Slide Content */}
+          <div className="lg:col-span-5 p-6 sm:p-8 flex flex-col justify-between h-full space-y-4 relative z-20">
+            <div className="space-y-4 flex-1 flex flex-col justify-center">
+              <div className="flex items-center justify-between gap-2 text-xs font-sans">
+                <span className="bg-asean-yellow/20 text-asean-yellow font-bold px-2.5 py-0.5 rounded border border-asean-yellow/30 uppercase tracking-wider">
+                  {activeStory.category}
+                </span>
+                <span className="text-slate-500 dark:text-slate-400 font-sans text-xs">
+                  {activeStory.readTime}
+                </span>
+              </div>
+
+              <div className="min-h-[5.5rem] flex items-center">
+                <h2 className="font-serif-editorial text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white leading-snug line-clamp-4 transition-all duration-300">
+                  {activeStory.title}
+                </h2>
+              </div>
+
+              <div className="min-h-[5.5rem] flex items-center">
+                <p className="text-slate-600 dark:text-slate-300 text-xs sm:text-sm leading-relaxed font-serif-editorial italic border-l-2 border-asean-yellow pl-3 line-clamp-4 transition-all duration-300">
+                  {activeStory.summary}
+                </p>
+              </div>
+
+              <div className="text-xs text-slate-500 dark:text-slate-400 font-sans pt-1">
+                By <strong className="text-slate-900 dark:text-slate-200">{activeStory.author}</strong>
+              </div>
+            </div>
+
+            {/* CTA Footer */}
+            <div className="pt-4 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between mt-auto">
+              <Link
+                href={activeStory.slug}
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-slate-900 dark:bg-slate-800 hover:bg-slate-800 dark:hover:bg-slate-700 text-white font-semibold text-xs font-sans transition-colors shadow-xs"
+              >
+                <span>Read Full Investigation</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
+
+              <span className="text-[10px] uppercase tracking-wider text-slate-400 font-sans font-semibold">
+                Story {activeSlideIndex + 1} of {STORIES.length}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* Left/Right Navigation */}
+        <button
+          onClick={handlePrevSlide}
+          aria-label="Previous Story"
+          className="absolute left-3 top-1/2 -translate-y-1/2 z-30 p-2.5 rounded-full bg-slate-900/70 hover:bg-slate-900 text-white backdrop-blur-md border border-white/20 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
+        >
+          <ChevronLeft className="w-5 h-5" />
+        </button>
+
+        <button
+          onClick={handleNextSlide}
+          aria-label="Next Story"
+          className="absolute right-3 top-1/2 -translate-y-1/2 z-30 p-2.5 rounded-full bg-slate-900/70 hover:bg-slate-900 text-white backdrop-blur-md border border-white/20 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
+        >
+          <ChevronRight className="w-5 h-5" />
+        </button>
+      </div>
+
+      {/* Dot Navigation */}
+      <div className="mt-4 flex items-center justify-center gap-2.5 font-sans">
+        {STORIES.map((story, idx) => (
+          <button
+            key={story.id}
+            onClick={() => setActiveSlideIndex(idx)}
+            aria-label={`Go to slide ${idx + 1}: ${story.title}`}
+            className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
+              activeSlideIndex === idx
+                ? "w-8 bg-asean-yellow"
+                : "w-2.5 bg-slate-300 dark:bg-slate-700 hover:bg-slate-400 dark:hover:bg-slate-600"
+            }`}
+          />
+        ))}
+      </div>
+    </section>
+  );
+}

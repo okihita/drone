@@ -13,6 +13,12 @@ const eslintConfig = defineConfig([
     "build/**",
     "next-env.d.ts",
   ]),
+  // Enforce 300-line file size limit (blank lines and comments excluded).
+  {
+    rules: {
+      "max-lines": ["error", { max: 300, skipBlankLines: true, skipComments: true }],
+    },
+  },
 ]);
 
 export default eslintConfig;
