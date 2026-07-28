@@ -6,33 +6,19 @@ import { usePathname } from "next/navigation";
 import { getBrowserClient } from "@/lib/supabase";
 import { ShieldCheck, LogOut, LayoutDashboard, Pencil } from "lucide-react";
 
+/**
+ * Client component — receives session from the server (AdminBarLoader).
+ * Handles: sign-out, article ID detection (SPA navigation), real-time session sync.
+ * Absolutely positioned — never causes layout shift.
+ */
 export default function AdminBar() {
-  const [session, setSession] = useState(false);
-  const [mounted, setMounted] = useState(false);
   const [articleId, setArticleId] = useState<string | null>(null);
   const pathname = usePathname();
 
+  // Detect article ID from investigation page on SPA navigations
   useEffect(() => {
-    setMounted(true);
-    const client = getBrowserClient();
-    client.auth.getSession().then(({ data }) => {
-      setSession(!!data.session);
-    });
-
-    const { data: listener } = client.auth.onAuthStateChange((_event, s) => {
-      setSession(!!s);
-    });
-    return () => listener.subscription.unsubscribe();
-  }, []);
-
-  // Re-scan for article ID on every SPA navigation (pathname change)
-  useEffect(() => {
-    // Small delay to let the new page's DOM settle after navigation
-    const timer = setTimeout(() => {
-      const el = document.getElementById("drone-article-meta");
-      setArticleId(el?.dataset.articleId ?? null);
-    }, 0);
-    return () => clearTimeout(timer);
+    const el = document.getElementById("drone-article-meta");
+    setArticleId(el?.dataset.articleId ?? null);
   }, [pathname]);
 
   const handleSignOut = async () => {
@@ -40,10 +26,8 @@ export default function AdminBar() {
     window.location.reload();
   };
 
-  if (!mounted || !session) return null;
-
   return (
-    <div className="w-full bg-slate-900 dark:bg-black border-b border-slate-700 text-white">
+    <div className="fixed top-0 left-0 right-0 z-50 w-full bg-slate-900/95 dark:bg-black/95 backdrop-blur-sm border-b border-slate-700 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-10">
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-1.5 text-xs font-sans font-bold text-asean-yellow tracking-wide">

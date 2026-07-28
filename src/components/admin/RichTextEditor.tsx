@@ -6,7 +6,7 @@ import StarterKit from "@tiptap/starter-kit";
 import LinkExtension from "@tiptap/extension-link";
 import ImageExtension from "@tiptap/extension-image";
 import Placeholder from "@tiptap/extension-placeholder";
-import { supabase } from "@/lib/supabase";
+import { getBrowserClient } from "@/lib/supabase";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import {
@@ -186,7 +186,7 @@ export default function RichTextEditor({ content, onChange, placeholder }: RichT
     setUploading(true);
     try {
       const path = `news-content/${Date.now()}-${file.name}`;
-      const { data, error } = await supabase.storage
+      const { data, error } = await getBrowserClient().storage
         .from("news")
         .upload(path, file, { upsert: true });
       if (error) throw error;

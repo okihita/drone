@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import {
   FileText, Newspaper, Globe, LogOut, LayoutDashboard,
   Menu, X, PanelLeftClose, PanelLeft,
@@ -20,13 +20,12 @@ const nav = [
 
 export default function AdminDashboardLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
 
   const handleLogout = async () => {
     await getBrowserClient().auth.signOut();
-    router.push("/admin/login");
+    window.location.href = "/admin/login";
   };
 
   const NavLink = ({ href, label, icon: Icon }: { href: string; label: string; icon: React.ComponentType<{ className?: string }> }) => {
