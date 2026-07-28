@@ -12,6 +12,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import RichTextEditor from "@/components/admin/RichTextEditor";
 import DOMPurify from "dompurify";
+import { calculateReadTime } from "@/lib/text";
 import type { NewsItem } from "@/types";
 
 type NewsFormValues = Omit<NewsItem, "id" | "created_at">;
@@ -56,7 +57,11 @@ export default function NewNewsItem() {
     setSaving(true);
     setError("");
     try {
-      const sanitized = { ...form, summary: DOMPurify.sanitize(form.summary || "") };
+      const sanitized = {
+        ...form,
+        summary: DOMPurify.sanitize(form.summary || ""),
+        read_time: form.read_time || calculateReadTime(form.summary || ""),
+      };
       await createNewsItem(sanitized, getBrowserClient());
       router.push("/admin/news");
     } catch (err) {

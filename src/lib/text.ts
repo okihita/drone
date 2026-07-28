@@ -19,3 +19,17 @@ export function generateSlug(title: string): string {
     .substring(0, 80)               // cap length
     .replace(/-$/, "");             // no trailing hyphen
 }
+
+/**
+ * Calculate estimated read time from HTML content.
+ * Strips tags, counts words, divides by average reading speed (225 wpm).
+ * Returns formatted string like "4 min read" or "1 min read".
+ * Never returns "0 min read" — floors at 1.
+ */
+export function calculateReadTime(html: string): string {
+  const text = html.replace(/<[^>]*>/g, "").trim();
+  if (!text) return "1 min read";
+  const words = text.split(/\s+/).filter(Boolean).length;
+  const minutes = Math.max(1, Math.round(words / 225));
+  return `${minutes} min read`;
+}

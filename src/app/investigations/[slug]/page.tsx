@@ -2,7 +2,7 @@ import { notFound, redirect } from "next/navigation";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { getNewsBySlug, getNewsById, listStories } from "@/services/news";
-import { generateSlug } from "@/lib/slug";
+import { generateSlug } from "@/lib/text";
 import DOMPurify from "isomorphic-dompurify";
 
 interface Props {

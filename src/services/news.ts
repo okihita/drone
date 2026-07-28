@@ -1,6 +1,6 @@
 import { supabase } from "@/lib/supabase";
 import type { SupabaseClient } from "@supabase/supabase-js";
-import { generateSlug } from "@/lib/slug";
+import { generateSlug } from "@/lib/text";
 import type { NewsItem, NewsListItem, NewsCardItem, NewsDispatchItem } from "@/types";
 
 // ── Helpers ──────────────────────────────────────────────────────────────────

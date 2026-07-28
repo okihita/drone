@@ -11,8 +11,9 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import {
   Bold, Italic, List, ListOrdered, Quote, Undo, Redo,
-  Link as LinkIcon, Heading2, ImageIcon, Eye, EyeOff,
+  Link as LinkIcon, Heading2, ImageIcon, Eye, EyeOff, Clock,
 } from "lucide-react";
+import { calculateReadTime } from "@/lib/text";
 
 // ── Custom Node: Image with Caption ──────────────────────────────────────────
 
@@ -206,6 +207,11 @@ export default function RichTextEditor({ content, onChange, placeholder }: RichT
           </ToolbarButton>
 
           <div className="flex-1" />
+
+          <span className="text-[10px] text-slate-400 dark:text-slate-500 font-sans flex items-center gap-1 px-2">
+            <Clock className="w-3 h-3" />
+            {calculateReadTime(editor.getHTML())}
+          </span>
 
           <Button
             variant={previewOpen ? "secondary" : "ghost"}

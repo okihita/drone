@@ -13,6 +13,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import RichTextEditor from "@/components/admin/RichTextEditor";
 import DOMPurify from "dompurify";
+import { calculateReadTime } from "@/lib/text";
 import type { NewsItem } from "@/types";
 
 type NewsFormValues = Omit<NewsItem, "id" | "created_at">;
@@ -75,7 +76,11 @@ export default function EditNewsItem() {
     setSaving(true);
     setError("");
     try {
-      const sanitized = { ...form, summary: DOMPurify.sanitize(form.summary || "") };
+      const sanitized = {
+        ...form,
+        summary: DOMPurify.sanitize(form.summary || ""),
+        read_time: form.read_time || calculateReadTime(form.summary || ""),
+      };
       await updateNewsItem(id, sanitized, getBrowserClient());
       router.push("/admin/news");
     } catch (err) {
