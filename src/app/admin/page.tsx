@@ -7,8 +7,9 @@ import AdminDashboardLayout from "@/components/admin/Sidebar";
 import { supabase } from "@/lib/supabase";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Newspaper, FileText, Globe } from "lucide-react";
+import { Newspaper, FileText, Globe, Pencil, Eye } from "lucide-react";
 
 interface Policy {
   id: string; title: string; jurisdiction: string; category: string; threat_level: string; date: string;
@@ -59,14 +60,20 @@ export default function AdminDashboard() {
             {loading ? (
               Array.from({ length: 3 }).map((_, i) => <Skeleton key={i} className="h-14 w-full" />)
             ) : policies.map(p => (
-              <Link key={p.id} href={`/admin/policies/${p.id}`} className="block p-3 rounded-lg border hover:bg-muted/50 transition-colors">
-                <p className="text-sm font-medium truncate">{p.title}</p>
-                <div className="flex items-center gap-2 mt-1">
-                  <span className="text-xs text-muted-foreground">{p.jurisdiction}</span>
-                  <Badge variant="outline" className="text-[10px]">{p.category}</Badge>
-                  <span className={`text-[10px] px-1.5 py-0.5 rounded font-medium ${threatColor(p.threat_level)}`}>{p.threat_level}</span>
+              <div key={p.id} className="flex items-center justify-between p-3 rounded-lg border hover:bg-muted/30 transition-colors">
+                <div className="min-w-0 flex-1">
+                  <p className="text-sm font-medium truncate">{p.title}</p>
+                  <div className="flex items-center gap-2 mt-1">
+                    <span className="text-xs text-muted-foreground">{p.jurisdiction}</span>
+                    <Badge variant="outline" className="text-[10px]">{p.category}</Badge>
+                    <span className={`text-[10px] px-1.5 py-0.5 rounded font-medium ${threatColor(p.threat_level)}`}>{p.threat_level}</span>
+                  </div>
                 </div>
-              </Link>
+                <div className="flex gap-0.5 shrink-0 ml-2">
+                  <Link href={`/admin/policies/${p.id}`}><Button variant="ghost" size="icon" className="h-7 w-7"><Pencil className="w-3 h-3" /></Button></Link>
+                  <Link href="/ledger"><Button variant="ghost" size="icon" className="h-7 w-7"><Eye className="w-3 h-3" /></Button></Link>
+                </div>
+              </div>
             ))}
           </CardContent>
         </Card>
@@ -81,20 +88,24 @@ export default function AdminDashboard() {
             {loading ? (
               Array.from({ length: 2 }).map((_, i) => <Skeleton key={i} className="h-20 w-full" />)
             ) : news.map(n => (
-              <Link key={n.id} href={`/admin/news/${n.id}`} className="flex gap-3 p-3 rounded-lg border hover:bg-muted/50 transition-colors">
+              <div key={n.id} className="flex gap-3 p-3 rounded-lg border hover:bg-muted/30 transition-colors">
                 {n.image_url ? (
                   <Image src={n.image_url} alt={n.title} width={64} height={48} className="rounded object-cover w-16 h-12 shrink-0" />
                 ) : (
                   <div className="w-16 h-12 rounded bg-muted shrink-0 flex items-center justify-center"><Newspaper className="w-4 h-4 text-muted-foreground" /></div>
                 )}
-                <div className="min-w-0">
+                <div className="min-w-0 flex-1">
                   <p className="text-sm font-medium truncate">{n.title}</p>
                   <div className="flex items-center gap-1.5 mt-1">
                     <span className="text-xs text-muted-foreground">{n.jurisdiction}</span>
                     <Badge variant="secondary" className="text-[10px]">{n.category}</Badge>
                   </div>
                 </div>
-              </Link>
+                <div className="flex gap-0.5 shrink-0 ml-2">
+                  <Link href={`/admin/news/${n.id}`}><Button variant="ghost" size="icon" className="h-7 w-7"><Pencil className="w-3 h-3" /></Button></Link>
+                  <Link href="/investigations"><Button variant="ghost" size="icon" className="h-7 w-7"><Eye className="w-3 h-3" /></Button></Link>
+                </div>
+              </div>
             ))}
           </CardContent>
         </Card>
@@ -119,6 +130,10 @@ export default function AdminDashboard() {
                   <span className={`text-xs font-bold ${j.threat_score >= 4 ? "text-red-600" : j.threat_score >= 3 ? "text-yellow-600" : "text-blue-600"}`}>
                     {j.threat_score}/5
                   </span>
+                  <div className="flex gap-0.5 ml-1">
+                    <Link href={`/admin/jurisdictions`}><Button variant="ghost" size="icon" className="h-7 w-7"><Pencil className="w-3 h-3" /></Button></Link>
+                    <Link href="/observatory"><Button variant="ghost" size="icon" className="h-7 w-7"><Eye className="w-3 h-3" /></Button></Link>
+                  </div>
                 </div>
               </div>
             ))}
