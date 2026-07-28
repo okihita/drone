@@ -10,8 +10,14 @@ import { supabase } from "@/lib/supabase";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import {
-  Bold, Italic, List, ListOrdered, Quote, Undo, Redo,
-  Link as LinkIcon, Heading2, ImageIcon, Eye, EyeOff, Clock,
+  Bold, Italic, Strikethrough, Code,
+  List, ListOrdered, Quote,
+  Heading1, Heading2, Heading3, Heading4,
+  Minus,
+  Undo, Redo,
+  Link as LinkIcon, ImageIcon,
+  Eye, EyeOff, Clock,
+  RemoveFormatting,
 } from "lucide-react";
 import { calculateReadTime } from "@/lib/text";
 
@@ -58,16 +64,18 @@ const ImageCaption = Node.create({
   },
 });
 
-// ── Toolbar Button ───────────────────────────────────────────────────────────
+// ── Toolbar ──────────────────────────────────────────────────────────────────
 
 function ToolbarButton({
   active,
   onClick,
   children,
+  title,
 }: {
   active?: boolean;
   onClick: () => void;
   children: React.ReactNode;
+  title?: string;
 }) {
   return (
     <Button
@@ -76,9 +84,58 @@ function ToolbarButton({
       className="h-8 w-8"
       onClick={(e) => { e.preventDefault(); onClick(); }}
       type="button"
+      title={title}
     >
       {children}
     </Button>
+  );
+}
+
+function ToolbarSelect({
+  active,
+  options,
+}: {
+  active?: boolean;
+  options: { label: string; action: () => void; isActive: boolean }[];
+}) {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <div className="relative">
+      <Button
+        variant={active ? "secondary" : "ghost"}
+        size="sm"
+        className="h-8 text-xs font-sans gap-1"
+        onClick={(e) => { e.preventDefault(); setOpen(!open); }}
+        type="button"
+      >
+        <span>Heading</span>
+        <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <path d="M6 9l6 6 6-6" />
+        </svg>
+      </Button>
+      {open && (
+        <>
+          <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} />
+          <div className="absolute top-full left-0 mt-1 z-50 bg-white dark:bg-slate-900 border rounded-lg shadow-xl p-1 min-w-[120px]">
+            {options.map((opt) => (
+              <button
+                key={opt.label}
+                onClick={(e) => { e.preventDefault(); opt.action(); setOpen(false); }}
+                className={`w-full text-left px-3 py-1.5 text-xs font-sans rounded ${
+                  opt.isActive
+                    ? "bg-slate-100 dark:bg-slate-800 font-bold"
+                    : "hover:bg-slate-50 dark:hover:bg-slate-800"
+                }`}
+                type="button"
+              >
+                {opt.label}
+              </button>
+            ))}
+          </div>
+        </>
+      )}
+    </div>
   );
 }
 
@@ -97,7 +154,9 @@ export default function RichTextEditor({ content, onChange, placeholder }: RichT
 
   const editor = useEditor({
     extensions: [
-      StarterKit,
+      StarterKit.configure({
+        heading: { levels: [1, 2, 3, 4] },
+      }),
       LinkExtension.configure({ openOnClick: false }),
       ImageExtension,
       ImageCaption,
@@ -131,7 +190,6 @@ export default function RichTextEditor({ content, onChange, placeholder }: RichT
         .upload(path, file, { upsert: true });
       if (error) throw error;
       const url = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/news/${data.path}`;
-      // Insert as captioned image
       (editor.commands as any).setImageCaption({ src: url, alt: file.name });
     } catch (err) {
       console.error("Image upload failed:", err);
@@ -147,72 +205,105 @@ export default function RichTextEditor({ content, onChange, placeholder }: RichT
 
   const setLink = useCallback(() => {
     if (!editor) return;
-    const url = window.prompt("URL:");
-    if (url) editor.chain().focus().setLink({ href: url }).run();
+    const existing = editor.getAttributes("link").href;
+    const url = window.prompt("URL:", existing || "https://");
+    if (url === null) return; // cancelled
+    if (url === "") {
+      editor.chain().focus().unsetLink().run();
+    } else {
+      editor.chain().focus().setLink({ href: url }).run();
+    }
   }, [editor]);
 
   if (!editor) return null;
+
+  const headingLevels = [
+    { label: "Heading 1", action: () => editor.chain().focus().toggleHeading({ level: 1 }).run(), isActive: editor.isActive("heading", { level: 1 }) },
+    { label: "Heading 2", action: () => editor.chain().focus().toggleHeading({ level: 2 }).run(), isActive: editor.isActive("heading", { level: 2 }) },
+    { label: "Heading 3", action: () => editor.chain().focus().toggleHeading({ level: 3 }).run(), isActive: editor.isActive("heading", { level: 3 }) },
+    { label: "Heading 4", action: () => editor.chain().focus().toggleHeading({ level: 4 }).run(), isActive: editor.isActive("heading", { level: 4 }) },
+    { label: "Paragraph", action: () => editor.chain().focus().setParagraph().run(), isActive: editor.isActive("paragraph") },
+  ];
+
+  const anyHeadingActive = editor.isActive("heading");
 
   const previewHtml = editor.getHTML();
 
   return (
     <>
-      {/* Hidden file input for image uploads */}
-      <input
-        ref={fileInputRef}
-        type="file"
-        accept="image/*"
-        className="hidden"
-        onChange={handleImageUpload}
-      />
+      <input ref={fileInputRef} type="file" accept="image/*" className="hidden" onChange={handleImageUpload} />
 
-      {/* Editor */}
       <div className="rounded-lg border bg-white dark:bg-slate-900 overflow-hidden">
+        {/* Toolbar */}
         <div className="flex items-center gap-0.5 px-2 py-1.5 border-b bg-slate-50 dark:bg-slate-800 flex-wrap">
-          <ToolbarButton onClick={() => editor.chain().focus().toggleBold().run()} active={editor.isActive("bold")}>
+
+          {/* Text formatting */}
+          <ToolbarButton onClick={() => editor.chain().focus().toggleBold().run()} active={editor.isActive("bold")} title="Bold">
             <Bold className="w-4 h-4" />
           </ToolbarButton>
-          <ToolbarButton onClick={() => editor.chain().focus().toggleItalic().run()} active={editor.isActive("italic")}>
+          <ToolbarButton onClick={() => editor.chain().focus().toggleItalic().run()} active={editor.isActive("italic")} title="Italic">
             <Italic className="w-4 h-4" />
           </ToolbarButton>
-          <ToolbarButton onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()} active={editor.isActive("heading", { level: 2 })}>
-            <Heading2 className="w-4 h-4" />
+          <ToolbarButton onClick={() => editor.chain().focus().toggleStrike().run()} active={editor.isActive("strike")} title="Strikethrough">
+            <Strikethrough className="w-4 h-4" />
           </ToolbarButton>
-          <Separator orientation="vertical" className="h-6 mx-0.5" />
+          <ToolbarButton onClick={() => editor.chain().focus().toggleCode().run()} active={editor.isActive("code")} title="Inline code">
+            <Code className="w-4 h-4" />
+          </ToolbarButton>
 
-          <ToolbarButton onClick={() => editor.chain().focus().toggleBulletList().run()} active={editor.isActive("bulletList")}>
+          <Separator orientation="vertical" className="h-6 mx-1" />
+
+          {/* Heading dropdown */}
+          <ToolbarSelect active={anyHeadingActive} options={headingLevels} />
+
+          <Separator orientation="vertical" className="h-6 mx-1" />
+
+          {/* Lists & block */}
+          <ToolbarButton onClick={() => editor.chain().focus().toggleBulletList().run()} active={editor.isActive("bulletList")} title="Bullet list">
             <List className="w-4 h-4" />
           </ToolbarButton>
-          <ToolbarButton onClick={() => editor.chain().focus().toggleOrderedList().run()} active={editor.isActive("orderedList")}>
+          <ToolbarButton onClick={() => editor.chain().focus().toggleOrderedList().run()} active={editor.isActive("orderedList")} title="Numbered list">
             <ListOrdered className="w-4 h-4" />
           </ToolbarButton>
-          <ToolbarButton onClick={() => editor.chain().focus().toggleBlockquote().run()} active={editor.isActive("blockquote")}>
+          <ToolbarButton onClick={() => editor.chain().focus().toggleBlockquote().run()} active={editor.isActive("blockquote")} title="Blockquote">
             <Quote className="w-4 h-4" />
           </ToolbarButton>
-          <Separator orientation="vertical" className="h-6 mx-0.5" />
+          <ToolbarButton onClick={() => editor.chain().focus().setHorizontalRule().run()} title="Horizontal rule">
+            <Minus className="w-4 h-4" />
+          </ToolbarButton>
 
-          <ToolbarButton onClick={setLink} active={editor.isActive("link")}>
+          <Separator orientation="vertical" className="h-6 mx-1" />
+
+          {/* Insert */}
+          <ToolbarButton onClick={setLink} active={editor.isActive("link")} title="Insert link">
             <LinkIcon className="w-4 h-4" />
           </ToolbarButton>
-          <ToolbarButton onClick={openFilePicker}>
+          <ToolbarButton onClick={openFilePicker} title="Insert image with caption">
             <ImageIcon className="w-4 h-4" />
           </ToolbarButton>
-          <Separator orientation="vertical" className="h-6 mx-0.5" />
 
-          <ToolbarButton onClick={() => editor.chain().focus().undo().run()}>
+          <Separator orientation="vertical" className="h-6 mx-1" />
+
+          {/* History + clear */}
+          <ToolbarButton onClick={() => editor.chain().focus().undo().run()} title="Undo">
             <Undo className="w-4 h-4" />
           </ToolbarButton>
-          <ToolbarButton onClick={() => editor.chain().focus().redo().run()}>
+          <ToolbarButton onClick={() => editor.chain().focus().redo().run()} title="Redo">
             <Redo className="w-4 h-4" />
+          </ToolbarButton>
+          <ToolbarButton onClick={() => editor.chain().focus().clearNodes().unsetAllMarks().run()} title="Clear formatting">
+            <RemoveFormatting className="w-4 h-4" />
           </ToolbarButton>
 
           <div className="flex-1" />
 
+          {/* Read time indicator */}
           <span className="text-[10px] text-slate-400 dark:text-slate-500 font-sans flex items-center gap-1 px-2">
             <Clock className="w-3 h-3" />
             {calculateReadTime(editor.getHTML())}
           </span>
 
+          {/* Preview toggle */}
           <Button
             variant={previewOpen ? "secondary" : "ghost"}
             size="sm"
