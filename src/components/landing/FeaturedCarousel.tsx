@@ -79,6 +79,7 @@ export default function FeaturedCarousel({
                     alt={story.title}
                     fill
                     sizes="(max-width: 1023px) 100vw, 50vw"
+                    loading={idx === 0 ? "eager" : "lazy"}
                     priority={idx === 0}
                     className="object-cover"
                   />

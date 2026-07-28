@@ -39,12 +39,13 @@ export default function InvestigationsList() {
               className="rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-hidden flex flex-col shadow-sm dark:shadow-none hover:border-slate-400 dark:hover:border-slate-700 transition-all group font-sans"
             >
               <div className="relative aspect-[16/9] w-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
-                <Image
-                  src={article.image_url || ""}
-                  alt={article.title}
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
-                />
+                  <Image
+                    src={article.image_url || ""}
+                    alt={article.title}
+                    fill
+                    sizes="(max-width: 767px) 100vw, 33vw"
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
               </div>
               <div className="p-6 flex-1 flex flex-col justify-between space-y-4 font-sans">
                 <div className="space-y-2">
