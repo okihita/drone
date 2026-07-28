@@ -38,6 +38,10 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# IDE / Editor
+.idea/
+.vscode/
+
 # opencode
 .opencode/
 .vercel
