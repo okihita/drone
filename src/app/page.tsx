@@ -2,6 +2,9 @@ import { unstable_cache } from "next/cache";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import HeroSection from "@/components/landing/HeroSection";
+import DefaChapterTracker from "@/components/landing/DefaChapterTracker";
+import JurisdictionComparator from "@/components/landing/JurisdictionComparator";
+import PolicyMatrixFeed from "@/components/landing/PolicyMatrixFeed";
 import FeaturedCarousel from "@/components/landing/FeaturedCarousel";
 import EditorialGrid from "@/components/landing/EditorialGrid";
 import IntelligenceSuite from "@/components/landing/IntelligenceSuite";
@@ -31,6 +34,9 @@ export default async function Home() {
       <Header />
       <main className="flex-1">
         <HeroSection leadStory={stories[0] ?? null} />
+        <DefaChapterTracker />
+        <JurisdictionComparator />
+        <PolicyMatrixFeed />
         <FeaturedCarousel stories={stories} />
         <EditorialGrid dispatches={dispatches} radar={radar} />
         <IntelligenceSuite />
