@@ -190,9 +190,9 @@ export function getRealAseanCountries(): GeoCountryData[] {
   const height = 370;
 
   const projection = geoMercator()
-    .center([115, 4.5])
-    .scale(600)
-    .translate([width / 2, height / 2]);
+    .center([115, 6.5])
+    .scale(620)
+    .translate([width / 2, height / 2 + 66.7]);
 
   const pathGenerator = geoPath().projection(projection).digits(4);
 

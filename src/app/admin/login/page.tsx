@@ -21,7 +21,7 @@ export default function AdminLoginPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-slate-100 dark:bg-slate-950 font-sans">
-      <div className="w-full max-w-sm p-8 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-lg">
+      <div className="w-full max-w-sm p-8 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
         <h1 className="font-serif-editorial text-2xl font-extrabold text-slate-900 dark:text-white mb-1">DRONE Admin</h1>
         <p className="text-xs text-slate-500 dark:text-slate-400 mb-6">EngageMedia editorial dashboard</p>
 

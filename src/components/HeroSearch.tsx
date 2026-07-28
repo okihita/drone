@@ -51,7 +51,7 @@ export default function HeroSearch() {
             if (query.trim().length > 0) setIsOpen(true);
           }}
           placeholder='Try "DEFA Chapter 5", "Vietnam Decree 53", "Indonesia PDP Law"'
-          className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3.5 pl-11 pr-24 text-xs sm:text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 shadow-xl focus:outline-none focus:ring-2 focus:ring-asean-yellow font-sans transition-all"
+          className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3.5 pl-11 pr-24 text-xs sm:text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 shadow-sm focus:outline-none focus:ring-2 focus:ring-asean-yellow font-sans transition-all"
         />
         <Search className="w-5 h-5 text-slate-400 dark:text-slate-500 absolute left-3.5 top-3.5" />
         <button
@@ -66,7 +66,7 @@ export default function HeroSearch() {
       {isOpen && (
         <>
           <div className="fixed inset-0 z-10" onClick={() => setIsOpen(false)} />
-          <div className="absolute top-full left-0 right-0 mt-2 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xl z-30 p-3 space-y-2 max-h-80 overflow-y-auto">
+          <div className="absolute top-full left-0 right-0 mt-2 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm z-30 p-3 space-y-2 max-h-80 overflow-y-auto">
             <div className="flex items-center justify-between text-[10px] uppercase font-bold tracking-wider text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-800 pb-1.5 font-sans">
               <span>Matching Policy Decrees ({results.length})</span>
               <span className="text-asean-yellow dark:text-asean-yellow font-normal">Press Enter to view all</span>

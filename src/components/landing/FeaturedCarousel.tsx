@@ -47,14 +47,14 @@ export default function FeaturedCarousel({
         <button
           onClick={handlePrevSlide}
           aria-label="Previous Story"
-          className="absolute left-0 top-1/2 -translate-y-1/2 z-30 p-2.5 rounded-full bg-white dark:bg-slate-800 shadow-lg border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors cursor-pointer hidden lg:block"
+          className="absolute left-0 top-1/2 -translate-y-1/2 z-30 p-2.5 rounded-full bg-white dark:bg-slate-800 shadow-xs border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors cursor-pointer hidden lg:block"
         >
           <ChevronLeft className="w-5 h-5" />
         </button>
         <button
           onClick={handleNextSlide}
           aria-label="Next Story"
-          className="absolute right-0 top-1/2 -translate-y-1/2 z-30 p-2.5 rounded-full bg-white dark:bg-slate-800 shadow-lg border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors cursor-pointer hidden lg:block"
+          className="absolute right-0 top-1/2 -translate-y-1/2 z-30 p-2.5 rounded-full bg-white dark:bg-slate-800 shadow-xs border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors cursor-pointer hidden lg:block"
         >
           <ChevronRight className="w-5 h-5" />
         </button>

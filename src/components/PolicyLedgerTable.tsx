@@ -86,7 +86,7 @@ export default function PolicyLedgerTable() {
         </div>
       </div>
 
-      <div className="rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-x-auto shadow-md dark:shadow-xl transition-colors">
+      <div className="rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-x-auto shadow-sm transition-colors">
         {error && (
           <div className="p-12 text-center text-xs text-red-600">
             Failed to load policies.

@@ -17,8 +17,11 @@ export default function AdminBar() {
 
   // Detect article ID from investigation page on SPA navigations
   useEffect(() => {
-    const el = document.getElementById("drone-article-meta");
-    setArticleId(el?.dataset.articleId ?? null);
+    const handle = requestAnimationFrame(() => {
+      const el = document.getElementById("drone-article-meta");
+      setArticleId(el?.dataset.articleId ?? null);
+    });
+    return () => cancelAnimationFrame(handle);
   }, [pathname]);
 
   // Set CSS variable so sticky elements offset below the admin bar
