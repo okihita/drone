@@ -29,7 +29,6 @@ export default function HeroSection({ leadStory }: HeroSectionProps) {
   const countries = useMemo(() => getRealAseanCountries(), []);
 
   const [selectedCountry, setSelectedCountry] = useState<GeoCountryData | null>(null);
-  const [hoveredCountry, setHoveredCountry] = useState<GeoCountryData | null>(null);
   const [activeLayer, setActiveLayer] = useState<MapLayerMode>("arcs");
   const [activeTab, setActiveTab] = useState<"story" | "dossier">("story");
 
@@ -42,8 +41,6 @@ export default function HeroSection({ leadStory }: HeroSectionProps) {
       setActiveTab("dossier");
     }
   };
-
-  const displayCountry = hoveredCountry || selectedCountry;
 
   return (
     <section
@@ -115,11 +112,8 @@ export default function HeroSection({ leadStory }: HeroSectionProps) {
 
       {/* Living Map Canvas */}
       <HeroMapCanvas
-        containerRef={sectionRef}
         activeCountry={selectedCountry}
-        hoveredCountry={hoveredCountry}
         onSelectCountry={handleSelectCountry}
-        onHoverCountry={setHoveredCountry}
         activeLayer={activeLayer}
       />
 
@@ -165,7 +159,7 @@ export default function HeroSection({ leadStory }: HeroSectionProps) {
                   </button>
                 </div>
 
-                {displayCountry && activeTab === "dossier" && (
+                {selectedCountry && activeTab === "dossier" && (
                   <button
                     onClick={() => {
                       setSelectedCountry(null);
@@ -248,11 +242,11 @@ export default function HeroSection({ leadStory }: HeroSectionProps) {
               {/* Tab 2: Jurisdiction Dossier */}
               {activeTab === "dossier" && (
                 <div>
-                  {displayCountry ? (
-                    <HeroCountryDossier country={displayCountry} />
+                  {selectedCountry ? (
+                    <HeroCountryDossier country={selectedCountry} />
                   ) : (
                     <div className="py-8 text-center font-sans text-xs text-slate-400">
-                      Hover over or click any country on the map to inspect its jurisdiction dossier.
+                      Click any country on the map or nation strip below to inspect its jurisdiction dossier.
                     </div>
                   )}
                 </div>
@@ -267,27 +261,23 @@ export default function HeroSection({ leadStory }: HeroSectionProps) {
         <div className="mt-6 pt-4 border-t border-white/10">
           <div className="flex items-center justify-between mb-2">
             <span className="font-sans text-[10px] font-bold uppercase tracking-widest text-slate-400">
-              Hotspot Jurisdiction Selector — Select Nation to Focus Map
+              Interactive Jurisdiction Selector — Click Nation to Focus &amp; Inspect
             </span>
             <span className="hidden sm:inline-block font-sans text-[10px] text-slate-500">
-              Interactive D3 Vector Cartography
+              High-Precision Natural Earth Cartography
             </span>
           </div>
 
           <div className="flex items-center gap-1.5 overflow-x-auto pb-1 no-scrollbar font-sans">
             {countries.map((c) => {
               const isSelected = selectedCountry?.id === c.id;
-              const isHovered = hoveredCountry?.id === c.id;
-              const isFocused = isSelected || isHovered;
 
               return (
                 <button
                   key={c.id}
                   onClick={() => handleSelectCountry(c)}
-                  onMouseEnter={() => setHoveredCountry(c)}
-                  onMouseLeave={() => setHoveredCountry(null)}
                   className={`flex shrink-0 items-center gap-1.5 rounded-lg border px-2.5 py-1.5 text-xs font-bold transition-all ${
-                    isFocused
+                    isSelected
                       ? "border-asean-yellow bg-asean-yellow/20 text-asean-yellow shadow-lg shadow-asean-yellow/10"
                       : "border-white/10 bg-slate-900/70 text-slate-300 hover:border-white/25 hover:bg-white/10 hover:text-white"
                   }`}
