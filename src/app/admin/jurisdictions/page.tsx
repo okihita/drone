@@ -3,6 +3,8 @@
 import React, { useEffect, useState } from "react";
 import AdminDashboardLayout from "@/components/admin/Sidebar";
 import { listJurisdictions, updateJurisdiction } from "@/services/jurisdictions";
+import { revalidateAfterMutation } from "@/lib/revalidate";
+import { CACHE_TAGS } from "@/lib/cache";
 import { REGIME_TYPES } from "@/lib/constants";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -37,6 +39,7 @@ export default function JurisdictionsEditor() {
     if (!editing) return;
     try {
       await updateJurisdiction(editing, form);
+      revalidateAfterMutation(CACHE_TAGS.jurisdictions, CACHE_TAGS.homepage);
       setEditing(null);
       const updated = await listJurisdictions();
       setItems(updated);

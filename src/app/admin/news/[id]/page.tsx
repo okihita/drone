@@ -4,6 +4,8 @@ import React, { useState, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
 import AdminDashboardLayout from "@/components/admin/Sidebar";
 import { getNewsById, updateNewsItem, uploadNewsImage } from "@/services/news";
+import { revalidateAfterMutation } from "@/lib/revalidate";
+import { CACHE_TAGS } from "@/lib/cache";
 import { NEWS_CATEGORIES } from "@/lib/constants";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -81,6 +83,7 @@ export default function EditNewsItem() {
         read_time: form.read_time || calculateReadTime(form.summary || ""),
       };
       await updateNewsItem(id, sanitized);
+      revalidateAfterMutation(CACHE_TAGS.news, CACHE_TAGS.stories, CACHE_TAGS.dispatches, CACHE_TAGS.homepage);
       router.push("/admin/news");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Save failed");

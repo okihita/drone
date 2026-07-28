@@ -4,6 +4,8 @@ import React, { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 import AdminDashboardLayout from "@/components/admin/Sidebar";
 import { listPolicies, deletePolicy } from "@/services/policies";
+import { revalidateAfterMutation } from "@/lib/revalidate";
+import { CACHE_TAGS } from "@/lib/cache";
 import { THREAT_BADGE_CLASSES } from "@/lib/constants";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -33,6 +35,7 @@ export default function PoliciesList() {
     if (!confirm("Delete this policy?")) return;
     try {
       await deletePolicy(id);
+      revalidateAfterMutation(CACHE_TAGS.policies, CACHE_TAGS.radar, CACHE_TAGS.homepage);
       fetch();
     } catch (e) {
       setError(e instanceof Error ? e.message : "Delete failed");

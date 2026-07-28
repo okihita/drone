@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import useSWR from "swr";
 import { Search, Filter, ExternalLink, ShieldAlert, CheckCircle, FileText } from "lucide-react";
 import { listPolicies } from "@/services/policies";
 import { POLICY_CATEGORIES, THREAT_ACCENT_COLORS, THREAT_BADGE_CONTAINER_CLASSES } from "@/lib/constants";
@@ -12,19 +13,18 @@ const THREAT_ICON_MAP: Record<string, React.ComponentType<{ className?: string }
   "Rights Verified": CheckCircle,
 };
 
+const fetcher = () => listPolicies();
+const EMPTY_POLICIES: PolicyListItem[] = [];
+
 export default function PolicyLedgerTable() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("ALL");
-  const [policies, setPolicies] = useState<PolicyListItem[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
 
-  useEffect(() => {
-    listPolicies()
-      .then(setPolicies)
-      .catch((e) => setError(e.message))
-      .finally(() => setLoading(false));
-  }, []);
+  const { data: policies = [], error, isLoading } = useSWR("policies-list", fetcher, {
+    revalidateOnFocus: false,
+    dedupingInterval: 60_000,
+    fallbackData: EMPTY_POLICIES,
+  });
 
   const filtered = policies.filter((item) => {
     const matchesSearch =
@@ -88,9 +88,11 @@ export default function PolicyLedgerTable() {
 
       <div className="rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-x-auto shadow-md dark:shadow-xl transition-colors">
         {error && (
-          <div className="p-12 text-center text-xs text-red-600">{error}</div>
+          <div className="p-12 text-center text-xs text-red-600">
+            Failed to load policies.
+          </div>
         )}
-        {loading ? (
+        {isLoading && policies.length === 0 ? (
           <div className="p-12 text-center text-xs text-slate-500">
             Loading policy ledger...
           </div>
@@ -99,9 +101,7 @@ export default function PolicyLedgerTable() {
             <thead className="bg-slate-50 dark:bg-slate-900/80 border-b border-slate-200 dark:border-slate-800 text-[10px] uppercase tracking-wider text-slate-600 dark:text-slate-400">
               <tr>
                 <th className="py-3 px-4 font-bold">Jurisdiction</th>
-                <th className="py-3 px-4 font-bold">
-                  Title &amp; Key Decree Summary
-                </th>
+                <th className="py-3 px-4 font-bold">Title &amp; Key Decree Summary</th>
                 <th className="py-3 px-4 font-bold">Category</th>
                 <th className="py-3 px-4 font-bold">Threat Status</th>
               </tr>
@@ -111,32 +111,19 @@ export default function PolicyLedgerTable() {
                 const Icon = THREAT_ICON_MAP[item.threat_level] ?? FileText;
                 const accent = THREAT_ACCENT_COLORS[item.threat_level] ?? "text-slate-500";
                 return (
-                  <tr
-                    key={item.id}
-                    className="hover:bg-slate-50 dark:hover:bg-slate-900/50 transition-colors"
-                  >
+                  <tr key={item.id} className="hover:bg-slate-50 dark:hover:bg-slate-900/50 transition-colors">
                     <td className="py-4 px-4 align-top whitespace-nowrap">
-                      <span className="font-bold text-slate-900 dark:text-white font-sans text-xs">
-                        {item.jurisdiction}
-                      </span>
-                      <span className="text-[10px] text-slate-500 dark:text-slate-400 block mt-0.5">
-                        {item.date}
-                      </span>
+                      <span className="font-bold text-slate-900 dark:text-white font-sans text-xs">{item.jurisdiction}</span>
+                      <span className="text-[10px] text-slate-500 dark:text-slate-400 block mt-0.5">{item.date}</span>
                     </td>
                     <td className="py-4 px-4 align-top max-w-md">
-                      <h3 className="font-serif-editorial font-bold text-slate-900 dark:text-white text-sm leading-snug mb-1">
-                        {item.title}
-                      </h3>
+                      <h3 className="font-serif-editorial font-bold text-slate-900 dark:text-white text-sm leading-snug mb-1">{item.title}</h3>
                     </td>
                     <td className="py-4 px-4 align-top whitespace-nowrap">
-                      <span className="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-[10px] font-sans font-semibold border border-slate-200 dark:border-slate-700">
-                        {item.category}
-                      </span>
+                      <span className="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-[10px] font-sans font-semibold border border-slate-200 dark:border-slate-700">{item.category}</span>
                     </td>
                     <td className="py-4 px-4 align-top whitespace-nowrap">
-                      <span
-                        className={`inline-flex items-center gap-1 ${accent} px-2 py-0.5 rounded text-[10px] font-bold border ${THREAT_BADGE_CONTAINER_CLASSES[item.threat_level] ?? ""}`}
-                      >
+                      <span className={`inline-flex items-center gap-1 ${accent} px-2 py-0.5 rounded text-[10px] font-bold border ${THREAT_BADGE_CONTAINER_CLASSES[item.threat_level] ?? ""}`}>
                         <Icon className="w-3 h-3" />
                         <span>[{item.threat_level === "Rights Verified" ? "Verified" : item.threat_level}]</span>
                       </span>

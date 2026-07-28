@@ -8,7 +8,12 @@ export async function GET(request: NextRequest) {
 
   try {
     const data = await searchPoliciesServer({ q, category });
-    return NextResponse.json(data);
+    return NextResponse.json(data, {
+      headers: {
+        "Cache-Control": "s-maxage=300, stale-while-revalidate=60",
+        "Server-Timing": "cache;desc=MISS",
+      },
+    });
   } catch (error) {
     return NextResponse.json(
       { error: error instanceof Error ? error.message : "Unknown error" },

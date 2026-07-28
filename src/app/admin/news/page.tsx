@@ -5,6 +5,8 @@ import Link from "next/link";
 import Image from "next/image";
 import AdminDashboardLayout from "@/components/admin/Sidebar";
 import { listNews, deleteNewsItem } from "@/services/news";
+import { revalidateAfterMutation } from "@/lib/revalidate";
+import { CACHE_TAGS } from "@/lib/cache";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -33,6 +35,7 @@ export default function NewsList() {
     if (!confirm("Delete this article?")) return;
     try {
       await deleteNewsItem(id);
+      revalidateAfterMutation(CACHE_TAGS.news, CACHE_TAGS.stories, CACHE_TAGS.dispatches, CACHE_TAGS.homepage);
       fetch();
     } catch (e) {
       setError(e instanceof Error ? e.message : "Delete failed");
