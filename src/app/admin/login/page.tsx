@@ -8,6 +8,7 @@ export default function AdminLoginPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -16,18 +17,23 @@ export default function AdminLoginPage() {
     setError("");
 
     try {
-      const { error: authError } = await supabase.auth.signInWithPassword({
+      console.log("[login] attempting signInWithPassword...");
+      const { data, error: authError } = await supabase.auth.signInWithPassword({
         email: email.trim(),
         password,
       });
+      console.log("[login] response:", { user: !!data.user, error: authError?.message });
 
       if (authError) {
         setError(authError.message);
         setLoading(false);
       } else {
-        window.location.href = "/admin";
+        console.log("[login] success, redirecting to /admin");
+        setSuccess(true);
+        setTimeout(() => { window.location.href = "/admin"; }, 150);
       }
     } catch (err) {
+      console.error("[login] exception:", err);
       setError(err instanceof Error ? err.message : "Login failed. Check your network connection.");
       setLoading(false);
     }
@@ -69,10 +75,10 @@ export default function AdminLoginPage() {
 
           <button
             type="submit"
-            disabled={loading}
+            disabled={loading || success}
             className="w-full py-2.5 rounded-lg bg-asean-yellow hover:bg-asean-yellow-hover text-slate-950 font-bold text-sm font-sans transition-colors disabled:opacity-50"
           >
-            {loading ? "Signing in..." : "Sign In"}
+            {success ? "Redirecting..." : loading ? "Signing in..." : "Sign In"}
           </button>
         </form>
       </div>
