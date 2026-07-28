@@ -114,7 +114,7 @@ export default function FeaturedCarousel({
 
               <div className="pt-4 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between mt-auto">
                 <Link
-                  href="/investigations"
+                  href={`/investigations/${activeStory.id}`}
                   className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-slate-900 dark:bg-slate-800 hover:bg-slate-800 dark:hover:bg-slate-700 text-white font-semibold text-xs font-sans transition-colors shadow-xs"
                 >
                   <span>Read Full Investigation</span>

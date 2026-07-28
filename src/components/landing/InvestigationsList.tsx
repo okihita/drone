@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { listStories } from "@/services/news";
 import type { NewsCardItem } from "@/types";
 
@@ -34,7 +35,8 @@ export default function InvestigationsList() {
             </div>
           ))
         : articles.map((article) => (
-            <article
+            <Link
+              href={`/investigations/${article.id}`}
               key={article.id}
               className="rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-hidden flex flex-col shadow-sm dark:shadow-none hover:border-slate-400 dark:hover:border-slate-700 transition-all group font-sans"
             >
@@ -71,7 +73,7 @@ export default function InvestigationsList() {
                   </span>
                 </div>
               </div>
-            </article>
+              </Link>
           ))}
     </div>
   );
