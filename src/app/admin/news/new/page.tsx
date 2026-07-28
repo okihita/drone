@@ -6,15 +6,21 @@ import AdminDashboardLayout from "@/components/admin/Sidebar";
 import { supabase } from "@/lib/supabase";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import RichTextEditor from "@/components/admin/RichTextEditor";
+import DOMPurify from "dompurify";
 
 export default function NewNewsItem() {
   const router = useRouter();
-  const [form, setForm] = useState<Record<string, string>>({ title: "", jurisdiction: "", category: "DEFA", summary: "", source_url: "", source_name: "", author: "", read_time: "", image_url: "", published_date: new Date().toISOString().split("T")[0] });
+  const [form, setForm] = useState<Record<string, string>>({
+    title: "", jurisdiction: "", category: "DEFA", summary: "",
+    source_url: "", source_name: "", author: "", read_time: "",
+    image_url: "", published_date: new Date().toISOString().split("T")[0],
+  });
   const [saving, setSaving] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [error, setError] = useState("");
 
   const update = (key: string, value: string) => setForm(f => ({ ...f, [key]: value }));
 
@@ -26,30 +32,53 @@ export default function NewNewsItem() {
     setUploading(false);
   };
 
-  const handleSubmit = async (e: React.FormEvent) => { e.preventDefault(); setSaving(true); await supabase.from("news_items").insert(form); router.push("/admin/news"); };
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault(); setSaving(true); setError("");
+    const sanitized = { ...form, summary: DOMPurify.sanitize(form.summary || "") };
+    const { error: insertError } = await supabase.from("news_items").insert(sanitized);
+    if (insertError) { setError(insertError.message); setSaving(false); return; }
+    router.push("/admin/news");
+  };
 
-  const fields = [{ label: "Title", key: "title" }, { label: "Jurisdiction", key: "jurisdiction", placeholder: "e.g. Indonesia (ID)" }, { label: "Summary", key: "summary", textarea: true }, { label: "Source URL", key: "source_url" }, { label: "Source Name", key: "source_name" }, { label: "Author", key: "author" }, { label: "Read Time", key: "read_time", placeholder: "e.g. 5 min read" }];
+  const fields = [
+    { label: "Title", key: "title" },
+    { label: "Jurisdiction", key: "jurisdiction", placeholder: "e.g. Indonesia (ID)" },
+    { label: "Source URL", key: "source_url" },
+    { label: "Source Name", key: "source_name" },
+    { label: "Author", key: "author" },
+    { label: "Read Time", key: "read_time", placeholder: "e.g. 5 min read" },
+  ];
 
   return (
     <AdminDashboardLayout>
       <h1 className="font-serif-editorial text-2xl font-extrabold mb-6">New Article</h1>
-      <Card className="max-w-2xl">
+      <Card className="max-w-3xl">
         <CardHeader><CardTitle>Article Details</CardTitle></CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
-            {fields.map(({ label, key, placeholder, textarea }) => (
+            {fields.map(({ label, key, placeholder }) => (
               <div key={key}>
                 <label className="text-sm font-medium mb-1 block">{label}</label>
-                {textarea ? <Textarea rows={3} value={form[key] || ""} onChange={e => update(key, e.target.value)} />
-                  : <Input value={form[key] || ""} placeholder={placeholder} onChange={e => update(key, e.target.value)} />}
+                <Input value={form[key] || ""} placeholder={placeholder} onChange={e => update(key, e.target.value)} />
               </div>
             ))}
+
             <div>
-              <label className="text-sm font-medium mb-1 block">Image</label>
+              <label className="text-sm font-medium mb-2 block">Content</label>
+              <RichTextEditor
+                content={form.summary || ""}
+                onChange={(html) => update("summary", html)}
+                placeholder="Write your investigative article..."
+              />
+            </div>
+
+            <div>
+              <label className="text-sm font-medium mb-1 block">Featured Image</label>
               <Input type="file" accept="image/*" onChange={handleUpload} />
               {uploading && <p className="text-xs text-muted-foreground mt-1">Uploading...</p>}
               {form.image_url && <p className="text-xs text-green-600 mt-1">Uploaded</p>}
             </div>
+
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <label className="text-sm font-medium mb-1 block">Category</label>
@@ -65,7 +94,9 @@ export default function NewNewsItem() {
                 <Input type="date" value={form.published_date} onChange={e => update("published_date", e.target.value)} />
               </div>
             </div>
+
             <Button type="submit" disabled={saving}>{saving ? "Saving..." : "Publish Article"}</Button>
+            {error && <p className="text-sm text-red-600">{error}</p>}
           </form>
         </CardContent>
       </Card>

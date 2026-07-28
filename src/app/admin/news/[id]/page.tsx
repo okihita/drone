@@ -6,10 +6,11 @@ import AdminDashboardLayout from "@/components/admin/Sidebar";
 import { supabase } from "@/lib/supabase";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
+import RichTextEditor from "@/components/admin/RichTextEditor";
+import DOMPurify from "dompurify";
 
 export default function EditNewsItem() {
   const router = useRouter();
@@ -18,12 +19,15 @@ export default function EditNewsItem() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    supabase.from("news_items").select("*").eq("id", id).single().then(({ data }: { data: unknown }) => {
+    (async () => {
+      const { data, error: fetchErr } = await supabase.from("news_items").select("*").eq("id", id).single();
+      if (fetchErr) { setError(fetchErr.message); setLoading(false); return; }
       if (data) { const d = data as Record<string, string>; setForm({ ...d, published_date: d.published_date ? new Date(d.published_date).toISOString().split("T")[0] : "" }); }
       setLoading(false);
-    });
+    })();
   }, [id]);
 
   const update = (key: string, value: string) => setForm(f => ({ ...f, [key]: value }));
@@ -36,7 +40,13 @@ export default function EditNewsItem() {
     setUploading(false);
   };
 
-  const handleSubmit = async (e: React.FormEvent) => { e.preventDefault(); setSaving(true); await supabase.from("news_items").update(form).eq("id", id); router.push("/admin/news"); };
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault(); setSaving(true); setError("");
+    const sanitized = { ...form, summary: DOMPurify.sanitize(form.summary || "") };
+    const { error: updateErr } = await supabase.from("news_items").update(sanitized).eq("id", id);
+    if (updateErr) { setError(updateErr.message); setSaving(false); return; }
+    router.push("/admin/news");
+  };
 
   if (loading) return <AdminDashboardLayout><Skeleton className="h-96 w-full max-w-2xl" /></AdminDashboardLayout>;
 
@@ -47,13 +57,20 @@ export default function EditNewsItem() {
         <CardHeader><CardTitle>Article Details</CardTitle></CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
-            {["title", "jurisdiction", "summary", "source_url", "source_name", "author", "read_time"].map(key => (
+            {["title", "jurisdiction", "source_url", "source_name", "author", "read_time"].map(key => (
               <div key={key}>
                 <label className="text-sm font-medium mb-1 block capitalize">{key.replace(/_/g, " ")}</label>
-                {key === "summary" ? <Textarea rows={3} value={form[key] || ""} onChange={e => update(key, e.target.value)} />
-                  : <Input value={form[key] || ""} onChange={e => update(key, e.target.value)} />}
+                <Input value={form[key] || ""} onChange={e => update(key, e.target.value)} />
               </div>
             ))}
+
+            <div>
+              <label className="text-sm font-medium mb-2 block">Content</label>
+              <RichTextEditor
+                content={form.summary || ""}
+                onChange={(html) => update("summary", html)}
+              />
+            </div>
             <div>
               <label className="text-sm font-medium mb-1 block">Image</label>
               {form.image_url && <p className="text-xs text-muted-foreground mb-1 truncate">{form.image_url}</p>}
@@ -76,6 +93,7 @@ export default function EditNewsItem() {
               </div>
             </div>
             <Button type="submit" disabled={saving}>{saving ? "Saving..." : "Save Changes"}</Button>
+            {error && <p className="text-sm text-red-600">{error}</p>}
           </form>
         </CardContent>
       </Card>

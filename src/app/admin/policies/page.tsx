@@ -17,17 +17,23 @@ interface Policy {
 export default function PoliciesList() {
   const [policies, setPolicies] = useState<Policy[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   const fetch = useCallback(() => {
-    supabase.from("policies").select("id,title,jurisdiction,category,threat_level,date").order("date", { ascending: false })
-      .then(({ data }: { data: unknown }) => { if (data) setPolicies(data as Policy[]); setLoading(false); });
+    (async () => {
+      const { data, error: fetchErr } = await supabase.from("policies").select("id,title,jurisdiction,category,threat_level,date").order("date", { ascending: false });
+      if (fetchErr) { setError(fetchErr.message); setLoading(false); return; }
+      if (data) setPolicies(data as Policy[]);
+      setLoading(false);
+    })();
   }, []);
 
   useEffect(() => { fetch(); }, [fetch]);
 
   const handleDelete = async (id: string) => {
     if (!confirm("Delete this policy?")) return;
-    await supabase.from("policies").delete().eq("id", id);
+    const { error: delErr } = await supabase.from("policies").delete().eq("id", id);
+    if (delErr) { setError(delErr.message); return; }
     fetch();
   };
 
@@ -40,6 +46,7 @@ export default function PoliciesList() {
         <h1 className="font-serif-editorial text-2xl font-extrabold">Policies</h1>
         <Link href="/admin/policies/new"><Button size="sm"><Plus className="w-4 h-4 mr-1" /> New Policy</Button></Link>
       </div>
+      {error && <p className="text-sm text-red-600 mb-4">{error}</p>}
 
       <div className="rounded-lg border bg-white dark:bg-slate-900">
         <Table>

@@ -6,36 +6,38 @@ import { supabase } from "@/lib/supabase";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Pencil, Save, X } from "lucide-react";
 
-interface Jurisdiction {
-  id: string; code: string; name: string; regime_type: string; threat_score: number;
-  data_flow_policy: string; key_legislation: string; description: string; primary_link: string;
-}
+interface Jurisdiction { id: string; code: string; name: string; regime_type: string; threat_score: number; data_flow_policy: string; key_legislation: string; description: string; primary_link: string; }
 
 export default function JurisdictionsEditor() {
   const [items, setItems] = useState<Jurisdiction[]>([]);
   const [loading, setLoading] = useState(true);
   const [editing, setEditing] = useState<string | null>(null);
   const [form, setForm] = useState<Partial<Jurisdiction>>({});
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    supabase.from("jurisdictions").select("*").order("code").then(({ data }: { data: unknown }) => {
+    (async () => {
+      const { data, error: fetchErr } = await supabase.from("jurisdictions").select("*").order("code");
+      if (fetchErr) { setError(fetchErr.message); setLoading(false); return; }
       if (data) setItems(data as Jurisdiction[]);
       setLoading(false);
-    });
+    })();
   }, []);
 
   const startEdit = (j: Jurisdiction) => { setEditing(j.id); setForm(j); };
 
   const save = async () => {
     if (!editing) return;
-    await supabase.from("jurisdictions").update(form).eq("id", editing);
+    const { error: updErr } = await supabase.from("jurisdictions").update(form).eq("id", editing);
+    if (updErr) { setError(updErr.message); return; }
     setEditing(null);
-    const { data } = await supabase.from("jurisdictions").select("*").order("code");
+    const { data, error: refetchErr } = await supabase.from("jurisdictions").select("*").order("code");
+    if (refetchErr) { setError(refetchErr.message); return; }
     if (data) setItems(data as Jurisdiction[]);
   };
 
@@ -46,6 +48,7 @@ export default function JurisdictionsEditor() {
   return (
     <AdminDashboardLayout>
       <h1 className="font-serif-editorial text-2xl font-extrabold mb-6">Jurisdictions</h1>
+      {error && <p className="text-sm text-red-600 mb-4">{error}</p>}
       <div className="grid gap-4">
         {items.map(j => (
           <Card key={j.id}>
@@ -72,8 +75,7 @@ export default function JurisdictionsEditor() {
               <CardContent className="flex items-start justify-between py-4">
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="font-bold">{j.name}</span>
-                    <Badge variant="outline" className="text-xs">{j.code}</Badge>
+                    <span className="font-bold">{j.name}</span><Badge variant="outline" className="text-xs">{j.code}</Badge>
                     <Badge variant="secondary" className="text-xs">{j.regime_type}</Badge>
                     <span className={`text-xs font-bold ${threatColor(j.threat_score)}`}>Threat: {j.threat_score}/5</span>
                   </div>

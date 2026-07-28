@@ -20,8 +20,8 @@ async function createClient() {
             cookiesToSet.forEach(({ name, value, options }) =>
               cookieStore.set(name, value, options),
             );
-          } catch {
-            // Ignore in Server Components
+          } catch (err) {
+            console.error("[login] cookie set error:", err);
           }
         },
       },
@@ -30,17 +30,31 @@ async function createClient() {
 }
 
 export async function signOutAction() {
-  const supabase = await createClient();
-  await supabase.auth.signOut();
+  try {
+    const supabase = await createClient();
+    await supabase.auth.signOut();
+  } catch (err) {
+    console.error("[login] signOut failed:", err);
+  }
 }
 
 export async function loginAction(_prevState: { error: string }, formData: FormData): Promise<{ error: string }> {
+  const email = formData.get("email");
+  const password = formData.get("password");
+
+  if (!email || typeof email !== "string" || !email.trim()) {
+    return { error: "Email is required." };
+  }
+  if (!password || typeof password !== "string" || !password.trim()) {
+    return { error: "Password is required." };
+  }
+
   const supabase = await createClient();
 
-  const email = formData.get("email") as string;
-  const password = formData.get("password") as string;
-
-  const { error } = await supabase.auth.signInWithPassword({ email, password });
+  const { error } = await supabase.auth.signInWithPassword({
+    email: email.trim(),
+    password,
+  });
 
   if (error) {
     return { error: error.message };

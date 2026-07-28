@@ -17,18 +17,22 @@ export default function EditPolicy() {
   const [form, setForm] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    supabase.from("policies").select("*").eq("id", id).single().then(({ data }: { data: unknown }) => {
+    (async () => {
+      const { data, error: fetchErr } = await supabase.from("policies").select("*").eq("id", id).single();
+      if (fetchErr) { setError(fetchErr.message); setLoading(false); return; }
       if (data) { const d = data as Record<string, string>; const p = new Date(d.date); setForm({ ...d, date: isNaN(p.getTime()) ? "" : p.toISOString().split("T")[0] }); }
       setLoading(false);
-    });
+    })();
   }, [id]);
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault(); setSaving(true);
+    e.preventDefault(); setSaving(true); setError("");
     const displayDate = new Date(form.date || "").toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
-    await supabase.from("policies").update({ ...form, date: displayDate }).eq("id", id);
+    const { error: updErr } = await supabase.from("policies").update({ ...form, date: displayDate }).eq("id", id);
+    if (updErr) { setError(updErr.message); setSaving(false); return; }
     router.push("/admin/policies");
   };
 
@@ -44,37 +48,15 @@ export default function EditPolicy() {
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
             {["title", "jurisdiction", "summary", "primary_source_url", "source_authority"].map(key => (
-              <div key={key}>
-                <label className="text-sm font-medium mb-1 block capitalize">{key.replace(/_/g, " ")}</label>
-                {key === "summary" ? <Textarea rows={3} value={form[key] || ""} onChange={e => update(key, e.target.value)} />
-                  : <Input value={form[key] || ""} onChange={e => update(key, e.target.value)} />}
-              </div>
+              <div key={key}><label className="text-sm font-medium mb-1 block capitalize">{key.replace(/_/g, " ")}</label>{key === "summary" ? <Textarea rows={3} value={form[key] || ""} onChange={e => update(key, e.target.value)} /> : <Input value={form[key] || ""} onChange={e => update(key, e.target.value)} />}</div>
             ))}
             <div className="grid grid-cols-3 gap-3">
-              <div>
-                <label className="text-sm font-medium mb-1 block">Category</label>
-                <Select value={form.category || "DEFA"} onValueChange={(v) => update("category", v || "")}>
-                  <SelectTrigger><SelectValue /></SelectTrigger>
-                  <SelectContent>
-                    {["DEFA", "Cross-Border Data", "AI Governance", "Cybersecurity"].map(c => <SelectItem key={c} value={c}>{c}</SelectItem>)}
-                  </SelectContent>
-                </Select>
-              </div>
-              <div>
-                <label className="text-sm font-medium mb-1 block">Threat Level</label>
-                <Select value={form.threat_level || "Medium Risk"} onValueChange={(v) => update("threat_level", v || "")}>
-                  <SelectTrigger><SelectValue /></SelectTrigger>
-                  <SelectContent>
-                    {["High Alert", "Medium Risk", "Rights Verified"].map(t => <SelectItem key={t} value={t}>{t}</SelectItem>)}
-                  </SelectContent>
-                </Select>
-              </div>
-              <div>
-                <label className="text-sm font-medium mb-1 block">Date</label>
-                <Input type="date" value={form.date || ""} onChange={e => update("date", e.target.value)} />
-              </div>
+              <div><label className="text-sm font-medium mb-1 block">Category</label><Select value={form.category || "DEFA"} onValueChange={(v) => update("category", v || "")}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent>{["DEFA", "Cross-Border Data", "AI Governance", "Cybersecurity"].map(c => <SelectItem key={c} value={c}>{c}</SelectItem>)}</SelectContent></Select></div>
+              <div><label className="text-sm font-medium mb-1 block">Threat Level</label><Select value={form.threat_level || "Medium Risk"} onValueChange={(v) => update("threat_level", v || "")}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent>{["High Alert", "Medium Risk", "Rights Verified"].map(t => <SelectItem key={t} value={t}>{t}</SelectItem>)}</SelectContent></Select></div>
+              <div><label className="text-sm font-medium mb-1 block">Date</label><Input type="date" value={form.date || ""} onChange={e => update("date", e.target.value)} /></div>
             </div>
             <Button type="submit" disabled={saving}>{saving ? "Saving..." : "Save Changes"}</Button>
+            {error && <p className="text-sm text-red-600">{error}</p>}
           </form>
         </CardContent>
       </Card>
