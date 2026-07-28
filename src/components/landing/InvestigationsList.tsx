@@ -16,18 +16,34 @@ interface Article {
 
 export default function InvestigationsList() {
   const [articles, setArticles] = useState<Article[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    supabase
-      .from("news_items")
-      .select("id, title, category, read_time, summary, author, image_url")
-      .order("published_date", { ascending: false })
-      .then(({ data }) => { if (data) setArticles(data as Article[]); });
+    (async () => {
+      const { data } = await supabase
+        .from("news_items")
+        .select("id, title, category, read_time, summary, author, image_url")
+        .order("published_date", { ascending: false });
+      if (data) setArticles(data as Article[]);
+      setLoading(false);
+    })();
   }, []);
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12 font-sans">
-      {articles.map((article) => (
+      {loading
+        ? Array.from({ length: 3 }).map((_, i) => (
+            <div key={i} className="rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-hidden animate-pulse">
+              <div className="aspect-[16/9] bg-slate-200 dark:bg-slate-800" />
+              <div className="p-6 space-y-3">
+                <div className="h-3 bg-slate-200 dark:bg-slate-800 rounded w-1/3" />
+                <div className="h-5 bg-slate-200 dark:bg-slate-800 rounded w-full" />
+                <div className="h-4 bg-slate-200 dark:bg-slate-800 rounded w-2/3" />
+                <div className="h-4 bg-slate-200 dark:bg-slate-800 rounded w-1/2" />
+              </div>
+            </div>
+          ))
+        : articles.map((article) => (
         <article
           key={article.id}
           className="rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-hidden flex flex-col shadow-sm dark:shadow-none hover:border-slate-400 dark:hover:border-slate-700 transition-all group font-sans"

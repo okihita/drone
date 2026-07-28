@@ -51,7 +51,23 @@ export default function FeaturedCarousel() {
     setActiveSlideIndex((prev) => (prev + 1) % stories.length);
   };
 
-  if (stories.length === 0) return null;
+  if (stories.length === 0) {
+    return (
+      <section className="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-b border-slate-200 dark:border-slate-800">
+        <div className="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-hidden min-h-[500px] lg:h-[500px] animate-pulse">
+          <div className="grid grid-cols-1 lg:grid-cols-12 h-full">
+            <div className="lg:col-span-7 bg-slate-200 dark:bg-slate-800" />
+            <div className="lg:col-span-5 p-8 space-y-4">
+              <div className="h-5 bg-slate-200 dark:bg-slate-800 rounded w-1/3" />
+              <div className="h-8 bg-slate-200 dark:bg-slate-800 rounded w-full" />
+              <div className="h-4 bg-slate-200 dark:bg-slate-800 rounded w-full" />
+              <div className="h-4 bg-slate-200 dark:bg-slate-800 rounded w-2/3" />
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-b border-slate-200 dark:border-slate-800">

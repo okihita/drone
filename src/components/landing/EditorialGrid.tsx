@@ -27,23 +27,31 @@ export default function EditorialGrid() {
   const insights = EXECUTIVE_INSIGHTS;
   const [dispatches, setDispatches] = useState<FieldDispatch[]>([]);
   const [radar, setRadar] = useState<RadarEntry[]>([]);
+  const [dispLoading, setDispLoading] = useState(true);
+  const [radarLoading, setRadarLoading] = useState(true);
 
   useEffect(() => {
-    supabase
-      .from("news_items")
-      .select("id, title, category, summary, image_url")
-      .order("published_date", { ascending: false })
-      .limit(2)
-      .then(({ data }) => { if (data) setDispatches(data as FieldDispatch[]); });
+    (async () => {
+      const { data } = await supabase
+        .from("news_items")
+        .select("id, title, category, summary, image_url")
+        .order("published_date", { ascending: false })
+        .limit(2);
+      if (data) setDispatches(data as FieldDispatch[]);
+      setDispLoading(false);
+    })();
   }, []);
 
   useEffect(() => {
-    supabase
-      .from("policies")
-      .select("id, jurisdiction, title, threat_level, date")
-      .order("date", { ascending: false })
-      .limit(3)
-      .then(({ data }) => { if (data) setRadar(data as RadarEntry[]); });
+    (async () => {
+      const { data } = await supabase
+        .from("policies")
+        .select("id, jurisdiction, title, threat_level, date")
+        .order("date", { ascending: false })
+        .limit(3);
+      if (data) setRadar(data as RadarEntry[]);
+      setRadarLoading(false);
+    })();
   }, []);
 
   return (
@@ -89,7 +97,16 @@ export default function EditorialGrid() {
           <span className="text-xs font-sans uppercase tracking-widest text-asean-blue font-bold block">
             02 \u2022 FIELD DISPATCHES
           </span>
-          {dispatches.map((d, idx) => (
+          {dispLoading
+            ? Array.from({ length: 2 }).map((_, i) => (
+                <div key={i} className="space-y-3 pb-6 border-b border-slate-200 dark:border-slate-800 animate-pulse">
+                  <div className="aspect-[16/9] rounded-lg bg-slate-200 dark:bg-slate-800" />
+                  <div className="h-3 bg-slate-200 dark:bg-slate-800 rounded w-1/3" />
+                  <div className="h-5 bg-slate-200 dark:bg-slate-800 rounded w-full" />
+                  <div className="h-4 bg-slate-200 dark:bg-slate-800 rounded w-2/3" />
+                </div>
+              ))
+            : dispatches.map((d, idx) => (
             <article key={d.id} className={`group space-y-3 ${idx < dispatches.length - 1 ? "pb-6 border-b border-slate-200 dark:border-slate-800" : ""}`}>
               <div className="relative aspect-[16/9] w-full rounded-lg overflow-hidden bg-slate-100 dark:bg-slate-900">
                 <Image
@@ -113,7 +130,15 @@ export default function EditorialGrid() {
             03 \u2022 REGULATORY RADAR
           </span>
           <div className="space-y-4 font-sans">
-            {radar.map((entry) => {
+            {radarLoading
+              ? Array.from({ length: 3 }).map((_, i) => (
+                  <div key={i} className="p-3.5 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-1.5 animate-pulse">
+                    <div className="flex justify-between"><div className="h-3 bg-slate-200 dark:bg-slate-800 rounded w-1/3" /><div className="h-3 bg-slate-200 dark:bg-slate-800 rounded w-1/4" /></div>
+                    <div className="h-4 bg-slate-200 dark:bg-slate-800 rounded w-full" />
+                    <div className="h-3 bg-slate-200 dark:bg-slate-800 rounded w-1/4" />
+                  </div>
+                ))
+              : radar.map((entry) => {
               const alert = entry.threat_level === "High Alert" ? "text-asean-red" : entry.threat_level === "Medium Risk" ? "text-asean-yellow" : "text-asean-blue";
               return (
                 <div key={entry.id} className="p-3.5 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-1.5 shadow-sm dark:shadow-none">
