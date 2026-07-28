@@ -3,7 +3,10 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { FileText, Newspaper, Globe, LogOut, LayoutDashboard, Menu, X } from "lucide-react";
+import {
+  FileText, Newspaper, Globe, LogOut, LayoutDashboard,
+  Menu, X, PanelLeftClose, PanelLeft,
+} from "lucide-react";
 import { getBrowserClient } from "@/lib/supabase";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -19,26 +22,28 @@ export default function AdminDashboardLayout({ children }: { children: React.Rea
   const pathname = usePathname();
   const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [collapsed, setCollapsed] = useState(false);
 
   const handleLogout = async () => {
     await getBrowserClient().auth.signOut();
     router.push("/admin/login");
   };
 
-  const NavLink = ({ href, label, icon: Icon, collapsed = false }: { href: string; label: string; icon: React.ComponentType<{ className?: string }>; collapsed?: boolean }) => {
+  const NavLink = ({ href, label, icon: Icon }: { href: string; label: string; icon: React.ComponentType<{ className?: string }> }) => {
     const active = pathname === href || (href !== "/admin" && pathname.startsWith(href));
     return (
       <Link
         href={href}
         onClick={() => setSidebarOpen(false)}
+        title={collapsed ? label : undefined}
         className={`flex items-center gap-2.5 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
           active
             ? "bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white"
             : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800"
-        }`}
+        } ${collapsed ? "lg:justify-center lg:px-2" : ""}`}
       >
         <Icon className="w-4 h-4 shrink-0" />
-        {!collapsed && <span>{label}</span>}
+        <span className={collapsed ? "lg:hidden" : ""}>{label}</span>
       </Link>
     );
   };
@@ -53,43 +58,68 @@ export default function AdminDashboardLayout({ children }: { children: React.Rea
         />
       )}
 
-      {/* Sidebar — hidden on mobile, collapsible on tablet, full on desktop */}
+      {/* Sidebar */}
       <aside
         className={`
           fixed lg:sticky top-0 left-0 z-50 h-full
           bg-white dark:bg-slate-900 border-r
-          flex flex-col transition-transform duration-200
-          w-56 p-4
+          flex flex-col transition-all duration-200
+          w-56 ${collapsed ? "lg:w-14" : ""}
+          p-4 ${collapsed ? "lg:p-2" : ""}
           max-lg:${sidebarOpen ? "translate-x-0" : "-translate-x-full"}
           lg:translate-x-0
         `}
       >
-        <div className="flex items-center justify-between mb-6">
-          <Link href="/admin" className="font-serif-editorial text-xl font-extrabold text-slate-900 dark:text-white">
+        {/* Header */}
+        <div className={`flex items-center justify-between ${collapsed ? "lg:justify-center" : ""} mb-4`}>
+          <Link
+            href="/admin"
+            className={`font-serif-editorial text-xl font-extrabold text-slate-900 dark:text-white ${collapsed ? "lg:hidden" : ""}`}
+          >
             DRONE
           </Link>
-          <button
-            onClick={() => setSidebarOpen(false)}
-            className="lg:hidden p-1 rounded hover:bg-slate-100 dark:hover:bg-slate-800"
-          >
-            <X className="w-4 h-4" />
-          </button>
+          <div className="flex items-center gap-1">
+            <button
+              onClick={() => setCollapsed(!collapsed)}
+              className="hidden lg:flex p-1 rounded hover:bg-slate-100 dark:hover:bg-slate-800"
+              title={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+            >
+              {collapsed ? <PanelLeft className="w-4 h-4" /> : <PanelLeftClose className="w-4 h-4" />}
+            </button>
+            <button
+              onClick={() => setSidebarOpen(false)}
+              className="lg:hidden p-1 rounded hover:bg-slate-100 dark:hover:bg-slate-800"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
         </div>
 
-        <nav className="flex-1 space-y-1">
+        {/* Nav */}
+        <nav className={`flex-1 space-y-1 ${collapsed ? "lg:mt-2" : ""}`}>
           {nav.map((item) => (
             <NavLink key={item.href} {...item} />
           ))}
         </nav>
+
         <Separator className="my-3" />
-        <Button variant="ghost" size="sm" onClick={handleLogout} className="justify-start text-slate-500 hover:text-red-600">
-          <LogOut className="w-4 h-4 mr-2" /> Sign Out
+
+        {/* Logout */}
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={handleLogout}
+          className={`${collapsed ? "lg:justify-center lg:px-2" : ""} justify-start text-slate-500 hover:text-red-600`}
+          title="Sign Out"
+        >
+          <LogOut className="w-4 h-4" />
+          <span className={`ml-2 ${collapsed ? "lg:hidden" : ""}`}>Sign Out</span>
         </Button>
       </aside>
 
-      {/* Main content */}
+      {/* Main */}
       <main className="flex-1 min-w-0">
-        {/* Mobile header bar */}
+        {/* Mobile header */}
         <div className="lg:hidden flex items-center gap-3 px-4 py-3 border-b bg-white dark:bg-slate-900 sticky top-0 z-30">
           <button
             onClick={() => setSidebarOpen(true)}
