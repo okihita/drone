@@ -19,32 +19,29 @@ export default function PoliciesList() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  useEffect(() => {
-    let active = true;
+  const fetchPolicies = useCallback(() => {
+    setLoading(true);
     listPolicies()
       .then((data) => {
-        if (active) {
-          setPolicies(data);
-          setLoading(false);
-        }
+        setPolicies(data);
+        setLoading(false);
       })
       .catch((e) => {
-        if (active) {
-          setError(e.message);
-          setLoading(false);
-        }
+        setError(e.message);
+        setLoading(false);
       });
-    return () => {
-      active = false;
-    };
   }, []);
+
+  useEffect(() => {
+    fetchPolicies();
+  }, [fetchPolicies]);
 
   const handleDelete = async (id: string) => {
     if (!confirm("Delete this policy?")) return;
     try {
       await deletePolicy(id);
       revalidateAfterMutation(CACHE_TAGS.policies, CACHE_TAGS.radar, CACHE_TAGS.homepage);
-      fetch();
+      fetchPolicies();
     } catch (e) {
       setError(e instanceof Error ? e.message : "Delete failed");
     }

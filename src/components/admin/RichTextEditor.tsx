@@ -161,7 +161,6 @@ export default function RichTextEditor({ content, onChange, placeholder }: RichT
       }),
       LinkExtension.configure({ openOnClick: false }),
       ImageExtension,
-      ImageCaption,
       Placeholder.configure({ placeholder: placeholder || "Write your article..." }),
     ],
     content,

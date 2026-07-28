@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import AdminDashboardLayout from "@/components/admin/Sidebar";
@@ -19,32 +19,29 @@ export default function NewsList() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  useEffect(() => {
-    let active = true;
+  const fetchItems = useCallback(() => {
+    setLoading(true);
     listNews()
       .then((data) => {
-        if (active) {
-          setItems(data);
-          setLoading(false);
-        }
+        setItems(data);
+        setLoading(false);
       })
       .catch((e) => {
-        if (active) {
-          setError(e.message);
-          setLoading(false);
-        }
+        setError(e.message);
+        setLoading(false);
       });
-    return () => {
-      active = false;
-    };
   }, []);
+
+  useEffect(() => {
+    fetchItems();
+  }, [fetchItems]);
 
   const handleDelete = async (id: string) => {
     if (!confirm("Delete this article?")) return;
     try {
       await deleteNewsItem(id);
       revalidateAfterMutation(CACHE_TAGS.news, CACHE_TAGS.stories, CACHE_TAGS.dispatches, CACHE_TAGS.homepage);
-      fetch();
+      fetchItems();
     } catch (e) {
       setError(e instanceof Error ? e.message : "Delete failed");
     }
