@@ -9,7 +9,6 @@ import {
 } from "lucide-react";
 import HeroMapCanvas, { type MapLayerMode } from "./HeroMapCanvas";
 import HeroCountryDossier from "./HeroCountryDossier";
-import SignalTicker from "./SignalTicker";
 import type { NewsCardItem } from "@/types";
 import { getRealAseanCountries, type GeoCountryData } from "@/lib/aseanGeo";
 import { getExcerpt } from "@/lib/text";
@@ -190,11 +189,6 @@ export default function HeroSection({ leadStory }: HeroSectionProps) {
           </div>
 
         </div>
-      </div>
-
-      {/* ===== Bottom Live Signal Ticker ===== */}
-      <div className="relative z-20">
-        <SignalTicker />
       </div>
     </section>
   );
