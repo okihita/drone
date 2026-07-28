@@ -1,4 +1,5 @@
 import { supabase } from "@/lib/supabase";
+import type { SupabaseClient } from "@supabase/supabase-js";
 import type { Jurisdiction, JurisdictionSummary } from "@/types";
 
 // ── Queries ──────────────────────────────────────────────────────────────────
@@ -44,8 +45,9 @@ export async function getJurisdictionByCode(
 export async function updateJurisdiction(
   id: string,
   patch: Partial<Jurisdiction>,
+  client: SupabaseClient = supabase,
 ): Promise<void> {
-  const { error } = await supabase
+  const { error } = await client
     .from("jurisdictions")
     .update(patch)
     .eq("id", id);

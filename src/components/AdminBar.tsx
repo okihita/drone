@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { getBrowserClient } from "@/lib/supabase";
 import { ShieldCheck, LogOut, LayoutDashboard, Pencil } from "lucide-react";
 
@@ -9,6 +10,7 @@ export default function AdminBar() {
   const [session, setSession] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [articleId, setArticleId] = useState<string | null>(null);
+  const pathname = usePathname();
 
   useEffect(() => {
     setMounted(true);
@@ -23,15 +25,15 @@ export default function AdminBar() {
     return () => listener.subscription.unsubscribe();
   }, []);
 
-  // Detect if we're on an investigation detail page with an article ID
+  // Re-scan for article ID on every SPA navigation (pathname change)
   useEffect(() => {
-    const el = document.getElementById("drone-article-meta");
-    if (el) {
-      setArticleId(el.dataset.articleId ?? null);
-      // Remove the meta element after reading to keep DOM clean
-      el.remove();
-    }
-  }, []);
+    // Small delay to let the new page's DOM settle after navigation
+    const timer = setTimeout(() => {
+      const el = document.getElementById("drone-article-meta");
+      setArticleId(el?.dataset.articleId ?? null);
+    }, 0);
+    return () => clearTimeout(timer);
+  }, [pathname]);
 
   const handleSignOut = async () => {
     await getBrowserClient().auth.signOut();

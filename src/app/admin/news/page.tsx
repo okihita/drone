@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import AdminDashboardLayout from "@/components/admin/Sidebar";
 import { listNews, deleteNewsItem } from "@/services/news";
+import { getBrowserClient } from "@/lib/supabase";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -32,7 +33,7 @@ export default function NewsList() {
   const handleDelete = async (id: string) => {
     if (!confirm("Delete this article?")) return;
     try {
-      await deleteNewsItem(id);
+      await deleteNewsItem(id, getBrowserClient());
       fetch();
     } catch (e) {
       setError(e instanceof Error ? e.message : "Delete failed");

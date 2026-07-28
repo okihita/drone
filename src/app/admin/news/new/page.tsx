@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import AdminDashboardLayout from "@/components/admin/Sidebar";
 import { createNewsItem, uploadNewsImage } from "@/services/news";
+import { getBrowserClient } from "@/lib/supabase";
 import { NEWS_CATEGORIES } from "@/lib/constants";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -56,7 +57,7 @@ export default function NewNewsItem() {
     setError("");
     try {
       const sanitized = { ...form, summary: DOMPurify.sanitize(form.summary || "") };
-      await createNewsItem(sanitized);
+      await createNewsItem(sanitized, getBrowserClient());
       router.push("/admin/news");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Save failed");

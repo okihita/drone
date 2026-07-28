@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import AdminDashboardLayout from "@/components/admin/Sidebar";
 import { listJurisdictions, updateJurisdiction } from "@/services/jurisdictions";
+import { getBrowserClient } from "@/lib/supabase";
 import { REGIME_TYPES } from "@/lib/constants";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -36,7 +37,7 @@ export default function JurisdictionsEditor() {
   const save = async () => {
     if (!editing) return;
     try {
-      await updateJurisdiction(editing, form);
+      await updateJurisdiction(editing, form, getBrowserClient());
       setEditing(null);
       const updated = await listJurisdictions();
       setItems(updated);

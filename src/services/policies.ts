@@ -1,4 +1,5 @@
 import { supabase, getServiceClient } from "@/lib/supabase";
+import type { SupabaseClient } from "@supabase/supabase-js";
 import type { Policy, PolicyListItem, PolicySearchItem, PolicyRadarEntry } from "@/types";
 import type { PolicyCategory, ThreatLevel } from "@/types";
 
@@ -78,12 +79,13 @@ export async function searchPoliciesServer(params: {
   return (data as Policy[]) ?? [];
 }
 
-// ── Mutations ────────────────────────────────────────────────────────────────
+// ── Mutations (pass an authenticated client from admin pages) ───────────────
 
 export async function createPolicy(
   input: Omit<Policy, "id" | "created_at">,
+  client: SupabaseClient = supabase,
 ): Promise<Policy> {
-  const { data, error } = await supabase
+  const { data, error } = await client
     .from("policies")
     .insert(input)
     .select()
@@ -96,8 +98,9 @@ export async function createPolicy(
 export async function updatePolicy(
   id: string,
   patch: Partial<Policy>,
+  client: SupabaseClient = supabase,
 ): Promise<void> {
-  const { error } = await supabase
+  const { error } = await client
     .from("policies")
     .update(patch)
     .eq("id", id);
@@ -105,8 +108,11 @@ export async function updatePolicy(
   if (error) throw new Error(error.message);
 }
 
-export async function deletePolicy(id: string): Promise<void> {
-  const { error } = await supabase.from("policies").delete().eq("id", id);
+export async function deletePolicy(
+  id: string,
+  client: SupabaseClient = supabase,
+): Promise<void> {
+  const { error } = await client.from("policies").delete().eq("id", id);
   if (error) throw new Error(error.message);
 }
 

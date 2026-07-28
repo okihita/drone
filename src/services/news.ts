@@ -1,4 +1,5 @@
 import { supabase } from "@/lib/supabase";
+import type { SupabaseClient } from "@supabase/supabase-js";
 import { generateSlug } from "@/lib/slug";
 import type { NewsItem, NewsListItem, NewsCardItem, NewsDispatchItem } from "@/types";
 
@@ -119,6 +120,7 @@ export async function uploadNewsImage(file: File): Promise<string> {
 
 export async function createNewsItem(
   input: Omit<NewsItem, "id" | "created_at">,
+  client: SupabaseClient = supabase,
 ): Promise<NewsItem> {
   const payload = { ...input };
   try {
@@ -127,7 +129,7 @@ export async function createNewsItem(
   } catch {
     // slug column doesn't exist — it'll be added by migration later
   }
-  const { data, error } = await supabase
+  const { data, error } = await client
     .from("news_items")
     .insert(payload)
     .select()
@@ -137,7 +139,7 @@ export async function createNewsItem(
     // If insert fails because slug column doesn't exist, retry without slug
     if ((error as { code?: string }).code === "42703") {
       const { slug: _s, ...rest } = payload as Record<string, unknown>;
-      const { data: d2, error: e2 } = await supabase
+      const { data: d2, error: e2 } = await client
         .from("news_items")
         .insert(rest)
         .select()
@@ -153,12 +155,13 @@ export async function createNewsItem(
 export async function updateNewsItem(
   id: string,
   patch: Partial<NewsItem>,
+  client: SupabaseClient = supabase,
 ): Promise<void> {
   const payload = { ...patch };
   if (patch.title && !patch.slug) {
     (payload as Record<string, unknown>).slug = generateSlug(patch.title);
   }
-  const { error } = await supabase
+  const { error } = await client
     .from("news_items")
     .update(payload)
     .eq("id", id);
@@ -166,8 +169,11 @@ export async function updateNewsItem(
   if (error) throw new Error(error.message);
 }
 
-export async function deleteNewsItem(id: string): Promise<void> {
-  const { error } = await supabase.from("news_items").delete().eq("id", id);
+export async function deleteNewsItem(
+  id: string,
+  client: SupabaseClient = supabase,
+): Promise<void> {
+  const { error } = await client.from("news_items").delete().eq("id", id);
   if (error) throw new Error(error.message);
 }
 

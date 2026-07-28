@@ -198,15 +198,6 @@ export default function AseanMap() {
     return REGIME_FILL_COLORS[hoveredCountry.regimeType]?.glow ?? null;
   }, [hoveredCountry]);
 
-  // Map regime type filter mode to filter predicate
-  const regimeFilterPredicate = (mode: MapFilterMode) => (c: GeoCountryData) => {
-    if (mode === "ALL") return true;
-    if (mode === "OPEN") return c.regimeType === "Open Transfer";
-    if (mode === "HYBRID") return c.regimeType === "Hybrid";
-    if (mode === "STRICT") return c.regimeType === "Strict Localization";
-    return true;
-  };
-
   return (
     <section
       id="asean-map"

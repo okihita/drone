@@ -31,7 +31,7 @@ export async function proxy(request: NextRequest) {
 
   const { data: { user } } = await supabase.auth.getUser();
 
-  // Protect /admin/* except /admin/login (exact match including trailing slash)
+  // Protect /admin/* except /admin/login
   const pathname = request.nextUrl.pathname;
   const isLoginPage = pathname === "/admin/login" || pathname === "/admin/login/";
 
