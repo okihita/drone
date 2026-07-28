@@ -122,6 +122,7 @@ export default function AdminDashboard() {
                           alt={n.title}
                           width={56}
                           height={42}
+                          unoptimized
                           className="rounded object-cover w-14 h-[42px] shrink-0"
                         />
                       ) : (

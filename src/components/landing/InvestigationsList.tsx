@@ -45,6 +45,7 @@ export default function InvestigationsList() {
                     src={article.image_url || ""}
                     alt={article.title}
                     fill
+                    unoptimized
                     sizes="(max-width: 767px) 100vw, 33vw"
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
                   />

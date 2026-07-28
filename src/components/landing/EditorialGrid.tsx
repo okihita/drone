@@ -79,6 +79,7 @@ export default function EditorialGrid({
                   src={d.image_url || ""}
                   alt={d.title}
                   fill
+                  unoptimized
                   sizes="(max-width: 1023px) 100vw, 33vw"
                   className="object-cover transition-opacity duration-500"
                 />

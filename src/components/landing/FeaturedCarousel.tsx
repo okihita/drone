@@ -73,6 +73,7 @@ export default function FeaturedCarousel({
                   src={stories[activeSlideIndex]?.image_url || ""}
                   alt={stories[activeSlideIndex]?.title || ""}
                   fill
+                  unoptimized
                   sizes="(max-width: 1023px) 100vw, 50vw"
                   priority
                   className="object-cover"
