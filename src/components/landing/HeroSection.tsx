@@ -4,9 +4,7 @@ import React, { useState, useMemo } from "react";
 import Link from "next/link";
 import {
   ArrowRight,
-  Globe,
   Map,
-  Activity,
   RefreshCw,
 } from "lucide-react";
 import HeroMapCanvas, { type MapLayerMode } from "./HeroMapCanvas";
@@ -41,29 +39,6 @@ export default function HeroSection({ leadStory }: HeroSectionProps) {
     <section
       className="relative flex w-full flex-col overflow-hidden border-b border-slate-200 bg-slate-50 text-slate-900 selection:bg-asean-yellow/30 dark:border-slate-800 dark:bg-slate-950 dark:text-white"
     >
-      {/* ===== Top Command Center HUD Bar ===== */}
-      <div className="relative z-30 flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 bg-white/90 px-4 py-2.5 backdrop-blur-md dark:border-white/10 dark:bg-slate-950/90 sm:px-8">
-        <div className="flex items-center gap-3 text-[11px] font-sans">
-          <span className="flex items-center gap-1.5 font-bold uppercase tracking-widest text-asean-yellow">
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-asean-yellow opacity-75" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-asean-yellow" />
-            </span>
-            <span>Cartographic Observatory</span>
-          </span>
-          <span className="hidden text-slate-300 dark:text-slate-700 sm:inline">|</span>
-          <span className="hidden items-center gap-1 text-slate-600 dark:text-slate-400 sm:flex">
-            <Globe className="h-3 w-3 text-slate-500" />
-            <span>11 Member States</span>
-          </span>
-          <span className="hidden text-slate-300 dark:text-slate-700 md:inline">|</span>
-          <span className="hidden items-center gap-1 text-slate-600 dark:text-slate-400 md:flex">
-            <Activity className="h-3 w-3 text-asean-yellow" />
-            <span>DEFA Status: <strong className="text-slate-900 dark:text-white">Active Negotiations</strong></span>
-          </span>
-        </div>
-      </div>
-
       {/* ===== Main Command Center Grid: Side-by-Side (Map Unobstructed) ===== */}
       <div className="relative z-20 flex-1 px-4 py-6 sm:px-8 lg:px-12 lg:py-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
