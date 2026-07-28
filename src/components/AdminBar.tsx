@@ -24,7 +24,7 @@ export default function AdminBar() {
   // Set CSS variable so sticky elements offset below the admin bar
   useEffect(() => {
     document.documentElement.style.setProperty("--drone-admin-bar-h", "40px");
-    return () => document.documentElement.style.removeProperty("--drone-admin-bar-h");
+    return () => { document.documentElement.style.removeProperty("--drone-admin-bar-h"); };
   }, []);
 
   const handleSignOut = async () => {

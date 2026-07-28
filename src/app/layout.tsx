@@ -49,7 +49,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="min-h-full flex flex-col font-sans transition-colors duration-200">
+      <body className="min-h-full flex flex-col font-sans transition-colors duration-200 pt-[var(--drone-admin-bar-h,0px)]">
         <Suspense fallback={null}>
           <AdminBarLoader />
         </Suspense>

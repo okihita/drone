@@ -60,7 +60,7 @@ export default function AdminDashboardLayout({ children }: { children: React.Rea
       {/* Sidebar */}
       <aside
         className={`
-          fixed lg:sticky top-0 left-0 z-50 h-full
+          fixed lg:sticky top-[var(--drone-admin-bar-h,0px)] left-0 z-50 h-[calc(100vh-var(--drone-admin-bar-h,0px))]
           bg-white dark:bg-slate-900 border-r
           flex flex-col transition-all duration-200
           w-56 ${collapsed ? "lg:w-14" : ""}
@@ -119,7 +119,7 @@ export default function AdminDashboardLayout({ children }: { children: React.Rea
       {/* Main */}
       <main className="flex-1 min-w-0">
         {/* Mobile header */}
-        <div className="lg:hidden flex items-center gap-3 px-4 py-3 border-b bg-white dark:bg-slate-900 sticky top-0 z-30">
+        <div className="lg:hidden flex items-center gap-3 px-4 py-3 border-b bg-white dark:bg-slate-900 sticky top-[var(--drone-admin-bar-h,0px)] z-30">
           <button
             onClick={() => setSidebarOpen(true)}
             className="p-1.5 rounded hover:bg-slate-100 dark:hover:bg-slate-800"
