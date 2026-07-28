@@ -71,7 +71,7 @@ export default async function InvestigationPage({ params }: Props) {
         </div>
 
         <article
-          className="prose prose-slate dark:prose-invert prose-sm sm:prose-base max-w-none font-sans"
+          className="prose-content font-sans"
           dangerouslySetInnerHTML={{ __html: sanitized }}
         />
 

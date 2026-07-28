@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Newsreader, Geist } from "next/font/google";
+import AdminBar from "@/components/AdminBar";
 import "./globals.css";
 
 const newsreader = Newsreader({
@@ -48,6 +49,7 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full flex flex-col font-sans transition-colors duration-200">
+        <AdminBar />
         {children}
       </body>
     </html>
