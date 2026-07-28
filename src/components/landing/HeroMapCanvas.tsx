@@ -3,7 +3,7 @@
 import React, { useMemo, useState, useRef, useCallback } from "react";
 import { getRealAseanCountries, type GeoCountryData } from "@/lib/aseanGeo";
 import { REGIME_FILL_COLORS } from "@/lib/constants";
-import { Plus, Minus, RotateCcw, Hand } from "lucide-react";
+import { Plus, Minus, RotateCcw, Hand, Zap, AlertTriangle, ShieldCheck, Layers } from "lucide-react";
 
 const FLOW_ARCS: ReadonlyArray<readonly [string, string, string]> = [
   ["MY", "VN", "Cross-Border Cloud Directive"],
@@ -40,6 +40,7 @@ interface HeroMapCanvasProps {
   activeCountry: GeoCountryData | null;
   onSelectCountry: (country: GeoCountryData) => void;
   activeLayer: MapLayerMode;
+  onSelectLayer?: (layer: MapLayerMode) => void;
 }
 
 const DEFAULT_VIEW = { x: 0, y: 0, zoom: 1 };
@@ -48,6 +49,7 @@ export default function HeroMapCanvas({
   activeCountry,
   onSelectCountry,
   activeLayer,
+  onSelectLayer,
 }: HeroMapCanvasProps) {
   const countries = useMemo(() => getRealAseanCountries(), []);
   const byCode = useMemo(() => new Map(countries.map((c) => [c.code, c])), [countries]);
@@ -298,7 +300,7 @@ export default function HeroMapCanvas({
 
       {/* ===== Radar Sweep Background Spotlight ===== */}
       <div
-        className="animate-hero-sweep pointer-events-none absolute left-[56%] top-[50%] aspect-square w-[140%] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-50"
+        className="animate-hero-sweep pointer-events-none absolute left-[56%] top-[50%] aspect-square w-[140%] rounded-full opacity-50"
         style={{
           background: "conic-gradient(from 0deg, rgba(255,204,0,0.08) 0deg, rgba(255,204,0,0.02) 28deg, transparent 70deg)",
         }}
@@ -328,6 +330,48 @@ export default function HeroMapCanvas({
           <RotateCcw className="h-3.5 w-3.5" />
         </button>
       </div>
+
+      {/* ===== Floating Layer Switcher in the Sea (East of Philippines / Above Papua) ===== */}
+      {onSelectLayer && (
+        <div className="absolute right-4 top-4 z-30 flex items-center gap-1 rounded-xl border border-white/20 bg-slate-950/85 p-1 font-sans text-xs shadow-2xl backdrop-blur-md sm:right-6 sm:top-6">
+          <span className="hidden items-center gap-1 px-2 text-[10px] font-bold uppercase tracking-wider text-slate-400 md:flex">
+            <Layers className="h-3 w-3 text-slate-400" /> Layer:
+          </span>
+          <button
+            onClick={() => onSelectLayer("arcs")}
+            className={`flex items-center gap-1 rounded-lg px-2 py-1 text-[10px] sm:px-2.5 sm:py-1 sm:text-[11px] font-bold transition-all ${
+              activeLayer === "arcs"
+                ? "bg-asean-yellow text-slate-950 shadow-md shadow-asean-yellow/20"
+                : "text-slate-300 hover:bg-white/10 hover:text-white"
+            }`}
+          >
+            <Zap className="h-3 w-3" />
+            <span>Arcs</span>
+          </button>
+          <button
+            onClick={() => onSelectLayer("threat")}
+            className={`flex items-center gap-1 rounded-lg px-2 py-1 text-[10px] sm:px-2.5 sm:py-1 sm:text-[11px] font-bold transition-all ${
+              activeLayer === "threat"
+                ? "bg-asean-red text-white shadow-md shadow-asean-red/20"
+                : "text-slate-300 hover:bg-white/10 hover:text-white"
+            }`}
+          >
+            <AlertTriangle className="h-3 w-3" />
+            <span>Threats</span>
+          </button>
+          <button
+            onClick={() => onSelectLayer("regime")}
+            className={`flex items-center gap-1 rounded-lg px-2 py-1 text-[10px] sm:px-2.5 sm:py-1 sm:text-[11px] font-bold transition-all ${
+              activeLayer === "regime"
+                ? "bg-blue-600 text-white shadow-md shadow-blue-600/20"
+                : "text-slate-300 hover:bg-white/10 hover:text-white"
+            }`}
+          >
+            <ShieldCheck className="h-3 w-3" />
+            <span>Regimes</span>
+          </button>
+        </div>
+      )}
 
       {/* Watermark & Drag Instruction */}
       <div className="pointer-events-none absolute left-4 top-4 font-mono text-[9px] uppercase tracking-widest text-slate-500/80 sm:left-6 sm:top-6">

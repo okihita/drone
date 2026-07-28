@@ -68,46 +68,6 @@ export default function HeroSection({ leadStory }: HeroSectionProps) {
             <span>DEFA Status: <strong className="text-white">Active Negotiations</strong></span>
           </span>
         </div>
-
-        {/* Map Layer Switcher */}
-        <div className="flex items-center gap-1 rounded-lg border border-white/10 bg-slate-900/90 p-1 font-sans text-xs">
-          <span className="hidden items-center gap-1 px-2 text-[10px] uppercase tracking-wider text-slate-400 lg:flex">
-            <Layers className="h-3 w-3 text-slate-500" /> Layer:
-          </span>
-          <button
-            onClick={() => setActiveLayer("arcs")}
-            className={`flex items-center gap-1.5 rounded px-2.5 py-1 text-[11px] font-semibold transition-all ${
-              activeLayer === "arcs"
-                ? "bg-asean-yellow text-slate-950 shadow-md shadow-asean-yellow/20"
-                : "text-slate-400 hover:bg-white/5 hover:text-white"
-            }`}
-          >
-            <Zap className="h-3 w-3" />
-            <span>Data Flow Arcs</span>
-          </button>
-          <button
-            onClick={() => setActiveLayer("threat")}
-            className={`flex items-center gap-1.5 rounded px-2.5 py-1 text-[11px] font-semibold transition-all ${
-              activeLayer === "threat"
-                ? "bg-asean-red text-white shadow-md shadow-asean-red/20"
-                : "text-slate-400 hover:bg-white/5 hover:text-white"
-            }`}
-          >
-            <AlertTriangle className="h-3 w-3" />
-            <span>Threat Matrix</span>
-          </button>
-          <button
-            onClick={() => setActiveLayer("regime")}
-            className={`flex items-center gap-1.5 rounded px-2.5 py-1 text-[11px] font-semibold transition-all ${
-              activeLayer === "regime"
-                ? "bg-blue-600 text-white shadow-md shadow-blue-600/20"
-                : "text-slate-400 hover:bg-white/5 hover:text-white"
-            }`}
-          >
-            <ShieldCheck className="h-3 w-3" />
-            <span>Regimes</span>
-          </button>
-        </div>
       </div>
 
       {/* ===== Main Command Center Grid: Side-by-Side (Map Unobstructed) ===== */}
@@ -256,6 +216,7 @@ export default function HeroSection({ leadStory }: HeroSectionProps) {
               activeCountry={selectedCountry}
               onSelectCountry={handleSelectCountry}
               activeLayer={activeLayer}
+              onSelectLayer={setActiveLayer}
             />
           </div>
 
