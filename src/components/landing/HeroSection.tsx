@@ -39,10 +39,10 @@ export default function HeroSection({ leadStory }: HeroSectionProps) {
 
   return (
     <section
-      className="relative flex w-full flex-col overflow-hidden border-b border-slate-800 bg-slate-950 text-white selection:bg-asean-yellow/30"
+      className="relative flex w-full flex-col overflow-hidden border-b border-slate-200 bg-slate-50 text-slate-900 selection:bg-asean-yellow/30 dark:border-slate-800 dark:bg-slate-950 dark:text-white"
     >
       {/* ===== Top Command Center HUD Bar ===== */}
-      <div className="relative z-30 flex flex-wrap items-center justify-between gap-3 border-b border-white/10 bg-slate-950/90 px-4 py-2.5 backdrop-blur-md sm:px-8">
+      <div className="relative z-30 flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 bg-white/90 px-4 py-2.5 backdrop-blur-md dark:border-white/10 dark:bg-slate-950/90 sm:px-8">
         <div className="flex items-center gap-3 text-[11px] font-sans">
           <span className="flex items-center gap-1.5 font-bold uppercase tracking-widest text-asean-yellow">
             <span className="relative flex h-2 w-2">
@@ -51,15 +51,15 @@ export default function HeroSection({ leadStory }: HeroSectionProps) {
             </span>
             <span>Cartographic Observatory</span>
           </span>
-          <span className="hidden text-slate-700 sm:inline">|</span>
-          <span className="hidden items-center gap-1 text-slate-400 sm:flex">
+          <span className="hidden text-slate-300 dark:text-slate-700 sm:inline">|</span>
+          <span className="hidden items-center gap-1 text-slate-600 dark:text-slate-400 sm:flex">
             <Globe className="h-3 w-3 text-slate-500" />
             <span>11 Member States</span>
           </span>
-          <span className="hidden text-slate-700 md:inline">|</span>
-          <span className="hidden items-center gap-1 text-slate-400 md:flex">
+          <span className="hidden text-slate-300 dark:text-slate-700 md:inline">|</span>
+          <span className="hidden items-center gap-1 text-slate-600 dark:text-slate-400 md:flex">
             <Activity className="h-3 w-3 text-asean-yellow" />
-            <span>DEFA Status: <strong className="text-white">Active Negotiations</strong></span>
+            <span>DEFA Status: <strong className="text-slate-900 dark:text-white">Active Negotiations</strong></span>
           </span>
         </div>
       </div>
@@ -70,17 +70,17 @@ export default function HeroSection({ leadStory }: HeroSectionProps) {
           
           {/* LEFT COLUMN: Intelligence Brief & Jurisdiction Dossier Card (lg:col-span-6) */}
           <div className="lg:col-span-6 xl:col-span-6 flex flex-col">
-            <div className="w-full h-full rounded-2xl border border-white/15 bg-slate-950/80 p-6 shadow-2xl backdrop-blur-xl sm:p-8 flex flex-col justify-between">
+            <div className="w-full h-full rounded-2xl border border-slate-200 bg-white/90 p-6 shadow-xl backdrop-blur-xl dark:border-white/15 dark:bg-slate-950/80 dark:shadow-2xl sm:p-8 flex flex-col justify-between">
               <div>
                 {/* Header Tabs */}
-                <div className="mb-4 flex items-center justify-between border-b border-white/10 pb-3">
+                <div className="mb-4 flex items-center justify-between border-b border-slate-200 pb-3 dark:border-white/10">
                   <div className="flex items-center gap-2">
                     <button
                       onClick={() => setActiveTab("story")}
                       className={`rounded-lg px-3 py-1.5 font-sans text-xs font-bold transition-all ${
                         activeTab === "story"
-                          ? "bg-white/10 text-white border border-white/20"
-                          : "text-slate-400 hover:text-slate-200"
+                          ? "bg-slate-100 text-slate-900 border border-slate-300 dark:bg-white/10 dark:text-white dark:border-white/20"
+                          : "text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200"
                       }`}
                     >
                       Featured Lead Story
@@ -93,7 +93,7 @@ export default function HeroSection({ leadStory }: HeroSectionProps) {
                       className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 font-sans text-xs font-bold transition-all ${
                         activeTab === "dossier"
                           ? "bg-asean-yellow/20 text-asean-yellow border border-asean-yellow/40"
-                          : "text-slate-400 hover:text-slate-200"
+                          : "text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200"
                       }`}
                     >
                       <span>Jurisdiction Brief</span>
@@ -111,7 +111,7 @@ export default function HeroSection({ leadStory }: HeroSectionProps) {
                         setSelectedCountry(null);
                         setActiveTab("story");
                       }}
-                      className="flex items-center gap-1 text-[11px] text-slate-400 hover:text-white"
+                      className="flex items-center gap-1 text-[11px] text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white"
                     >
                       <RefreshCw className="h-3 w-3" />
                       <span>Reset</span>
@@ -129,29 +129,29 @@ export default function HeroSection({ leadStory }: HeroSectionProps) {
                       <span className="text-xs text-slate-500 font-sans">Primary Source Verified</span>
                     </div>
 
-                    <h1 className="font-serif-editorial text-2xl font-extrabold leading-tight text-white sm:text-3xl lg:text-4xl">
+                    <h1 className="font-serif-editorial text-2xl font-extrabold leading-tight text-slate-900 dark:text-white sm:text-3xl lg:text-4xl">
                       {leadStory?.title ?? "Research and data to safeguard digital rights across Southeast Asia."}
                     </h1>
 
                     {leadStory ? (
                       <div className="space-y-2 font-sans">
-                        <div className="flex items-center gap-2 text-xs text-slate-400">
+                        <div className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-400">
                           <span className="font-bold uppercase text-asean-yellow">{leadStory.category}</span>
                           <span>·</span>
                           <span>{leadStory.read_time}</span>
                           {leadStory.author && (
                             <>
                               <span>·</span>
-                              <span>By <strong className="text-slate-200">{leadStory.author}</strong></span>
+                              <span>By <strong className="text-slate-800 dark:text-slate-200">{leadStory.author}</strong></span>
                             </>
                           )}
                         </div>
-                        <p className="border-l-2 border-asean-red/60 pl-3 font-serif-editorial text-sm italic text-slate-300 sm:text-base">
+                        <p className="border-l-2 border-asean-red/60 pl-3 font-serif-editorial text-sm italic text-slate-700 dark:text-slate-300 sm:text-base">
                           {getExcerpt(leadStory.summary, 220)}
                         </p>
                       </div>
                     ) : (
-                      <p className="border-l-2 border-asean-red/60 pl-3 font-serif-editorial text-sm italic text-slate-300 sm:text-base">
+                      <p className="border-l-2 border-asean-red/60 pl-3 font-serif-editorial text-sm italic text-slate-700 dark:text-slate-300 sm:text-base">
                         Independent, source-verified investigative reporting translating dense digital trade negotiations, data localization decrees, and AI governance policies across 11 Southeast Asian nations.
                       </p>
                     )}
@@ -164,7 +164,7 @@ export default function HeroSection({ leadStory }: HeroSectionProps) {
                     {selectedCountry ? (
                       <HeroCountryDossier country={selectedCountry} />
                     ) : (
-                      <div className="py-8 text-center font-sans text-xs text-slate-400">
+                      <div className="py-8 text-center font-sans text-xs text-slate-500 dark:text-slate-400">
                         Click any country on the map to inspect its jurisdiction dossier.
                       </div>
                     )}
@@ -174,7 +174,7 @@ export default function HeroSection({ leadStory }: HeroSectionProps) {
 
               {/* Action buttons at bottom of card */}
               {activeTab === "story" && (
-                <div className="flex flex-wrap items-center gap-3 pt-4 border-t border-white/10 mt-6">
+                <div className="flex flex-wrap items-center gap-3 pt-4 border-t border-slate-200 dark:border-white/10 mt-6">
                   {leadStory ? (
                     <Link
                       href={leadStory.slug ? `/investigations/${leadStory.slug}` : `/investigations/id/${leadStory.id}`}
@@ -194,7 +194,7 @@ export default function HeroSection({ leadStory }: HeroSectionProps) {
                   )}
                   <Link
                     href="/observatory"
-                    className="inline-flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/5 px-3 py-2 font-sans text-xs font-semibold text-slate-300 transition-colors hover:border-white/20 hover:text-white"
+                    className="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-slate-100 px-3 py-2 font-sans text-xs font-semibold text-slate-700 transition-colors hover:border-slate-300 hover:text-slate-900 dark:border-white/10 dark:bg-white/5 dark:text-slate-300 dark:hover:border-white/20 dark:hover:text-white"
                   >
                     <Map className="h-3.5 w-3.5 text-asean-yellow" />
                     <span>Observatory Map →</span>
@@ -205,7 +205,7 @@ export default function HeroSection({ leadStory }: HeroSectionProps) {
           </div>
 
           {/* RIGHT COLUMN: Dedicated Unobstructed Interactive Map Viewport (lg:col-span-6) */}
-          <div className="relative min-h-[540px] sm:min-h-[620px] lg:min-h-[700px] xl:min-h-[760px] lg:col-span-6 xl:col-span-6 rounded-2xl border border-white/15 bg-slate-950/90 shadow-2xl overflow-hidden">
+          <div className="relative min-h-[540px] sm:min-h-[620px] lg:min-h-[700px] xl:min-h-[760px] lg:col-span-6 xl:col-span-6 rounded-2xl border border-slate-200 bg-slate-100 shadow-xl dark:border-white/15 dark:bg-slate-950/90 dark:shadow-2xl overflow-hidden">
             <HeroMapCanvas
               activeCountry={selectedCountry}
               onSelectCountry={handleSelectCountry}

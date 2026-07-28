@@ -78,12 +78,12 @@ export default function HeroMapCanvas({
 
   return (
     <div
-      className="absolute inset-0 z-0 overflow-hidden bg-slate-950 select-none"
+      className="absolute inset-0 z-0 overflow-hidden bg-slate-100 text-slate-900 select-none dark:bg-slate-950 dark:text-white"
       aria-label="Interactive Cartographic Map"
     >
       {/* ===== Tactical Grid Background ===== */}
-      <div className="absolute inset-0 bg-hud-grid pointer-events-none opacity-35" />
-      <div className="absolute inset-0 bg-hud-scanlines pointer-events-none opacity-25" />
+      <div className="absolute inset-0 bg-hud-grid pointer-events-none opacity-15 dark:opacity-35" />
+      <div className="absolute inset-0 bg-hud-scanlines pointer-events-none opacity-10 dark:opacity-25" />
 
       {/* Dynamic ambient backdrop glow for active country */}
       <div
@@ -159,7 +159,7 @@ export default function HeroMapCanvas({
                   fillOpacity={fillOpacity}
                   stroke={isSelected ? ASEAN_COLORS.yellow : strokeColor}
                   strokeWidth={isSelected ? 2 : 1}
-                  className="transition-all duration-300 hover:fill-opacity-90 hover:stroke-white"
+                  className="transition-all duration-300 hover:fill-opacity-90 hover:stroke-slate-900 dark:hover:stroke-white"
                   onClick={() => onSelectCountry(country)}
                 />
 
@@ -170,10 +170,10 @@ export default function HeroMapCanvas({
                   textAnchor="middle"
                   dominantBaseline="central"
                   className={`pointer-events-none font-mono text-[10px] font-bold tracking-wider transition-all duration-300 ${
-                    isSelected ? "fill-asean-yellow text-xs" : "fill-slate-300"
+                    isSelected ? "fill-asean-yellow text-xs" : "fill-slate-700 dark:fill-slate-300"
                   }`}
                   style={{
-                    textShadow: "0 1px 3px rgba(0,0,0,0.9)",
+                    textShadow: "0 1px 3px rgba(0,0,0,0.7)",
                   }}
                 >
                   {country.code}
@@ -258,13 +258,13 @@ export default function HeroMapCanvas({
 
       {/* ===== Top-Right HUD: Monitored Corridors, Regime Posture & Vertically Stacked Layers (South China Sea) ===== */}
       <div className="absolute right-4 top-4 z-30 flex flex-col items-end gap-2 font-sans text-xs sm:right-6 sm:top-6">
-        <span className="hidden sm:inline-block text-[9px] font-mono uppercase tracking-widest text-slate-400/90 pr-1">
+        <span className="hidden sm:inline-block text-[9px] font-mono uppercase tracking-widest text-slate-500 dark:text-slate-400/90 pr-1">
           8 Data Flow Corridors Monitored
         </span>
 
         {/* ASEAN Regime Posture Card (Positioned Above Layers) */}
-        <div className="hidden sm:flex flex-col items-stretch gap-1 rounded-xl border border-white/20 bg-slate-950/85 p-2 font-sans text-xs shadow-2xl backdrop-blur-md min-w-[130px]">
-          <span className="text-[9px] font-mono uppercase tracking-widest text-slate-400 font-bold px-0.5">
+        <div className="hidden sm:flex flex-col items-stretch gap-1 rounded-xl border border-slate-200 bg-white/90 p-2 font-sans text-xs shadow-lg backdrop-blur-md min-w-[130px] dark:border-white/20 dark:bg-slate-950/85 dark:shadow-2xl">
+          <span className="text-[9px] font-mono uppercase tracking-widest text-slate-500 dark:text-slate-400 font-bold px-0.5">
             ASEAN Regime Posture
           </span>
           <div className="flex items-center justify-between gap-1 text-[10px] font-sans font-bold pt-0.5">
@@ -272,12 +272,12 @@ export default function HeroMapCanvas({
               <span className="h-1.5 w-1.5 rounded-full bg-asean-red" />
               2 Strict
             </span>
-            <span className="text-slate-600">·</span>
-            <span className="flex items-center gap-1 text-blue-400">
-              <span className="h-1.5 w-1.5 rounded-full bg-blue-400" />
+            <span className="text-slate-400 dark:text-slate-600">·</span>
+            <span className="flex items-center gap-1 text-blue-500 dark:text-blue-400">
+              <span className="h-1.5 w-1.5 rounded-full bg-blue-500 dark:bg-blue-400" />
               5 Hybrid
             </span>
-            <span className="text-slate-600">·</span>
+            <span className="text-slate-400 dark:text-slate-600">·</span>
             <span className="flex items-center gap-1 text-asean-yellow">
               <span className="h-1.5 w-1.5 rounded-full bg-asean-yellow" />
               4 Open
@@ -286,8 +286,8 @@ export default function HeroMapCanvas({
         </div>
 
         {onSelectLayer && (
-          <div className="flex flex-col items-stretch gap-1 rounded-xl border border-white/20 bg-slate-950/85 p-1.5 shadow-2xl backdrop-blur-md min-w-[130px]">
-            <span className="flex items-center gap-1 px-2 py-0.5 text-[9px] font-mono font-bold uppercase tracking-wider text-slate-400">
+          <div className="flex flex-col items-stretch gap-1 rounded-xl border border-slate-200 bg-white/90 p-1.5 shadow-lg backdrop-blur-md min-w-[130px] dark:border-white/20 dark:bg-slate-950/85 dark:shadow-2xl">
+            <span className="flex items-center gap-1 px-2 py-0.5 text-[9px] font-mono font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
               <Layers className="h-3 w-3 text-slate-400" /> Layer
             </span>
             <button
@@ -295,7 +295,7 @@ export default function HeroMapCanvas({
               className={`flex flex-col items-start gap-0.5 rounded-lg px-2.5 py-1.5 font-bold transition-all text-left ${
                 activeLayer === "arcs"
                   ? "bg-asean-yellow text-slate-950 shadow-md shadow-asean-yellow/20"
-                  : "text-slate-300 hover:bg-white/10 hover:text-white"
+                  : "text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-white/10 dark:hover:text-white"
               }`}
             >
               <div className="flex items-center gap-1.5 text-[11px]">
@@ -304,7 +304,7 @@ export default function HeroMapCanvas({
               </div>
               <span
                 className={`text-[9px] font-normal leading-tight ${
-                  activeLayer === "arcs" ? "text-slate-900/80" : "text-slate-400"
+                  activeLayer === "arcs" ? "text-slate-900/80" : "text-slate-500 dark:text-slate-400"
                 }`}
               >
                 Cross-Border Flows
@@ -316,7 +316,7 @@ export default function HeroMapCanvas({
               className={`flex flex-col items-start gap-0.5 rounded-lg px-2.5 py-1.5 font-bold transition-all text-left ${
                 activeLayer === "threat"
                   ? "bg-asean-red text-white shadow-md shadow-asean-red/20"
-                  : "text-slate-300 hover:bg-white/10 hover:text-white"
+                  : "text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-white/10 dark:hover:text-white"
               }`}
             >
               <div className="flex items-center gap-1.5 text-[11px]">
@@ -325,7 +325,7 @@ export default function HeroMapCanvas({
               </div>
               <span
                 className={`text-[9px] font-normal leading-tight ${
-                  activeLayer === "threat" ? "text-white/85" : "text-slate-400"
+                  activeLayer === "threat" ? "text-white/85" : "text-slate-500 dark:text-slate-400"
                 }`}
               >
                 Digital Risk Ratings
@@ -337,7 +337,7 @@ export default function HeroMapCanvas({
               className={`flex flex-col items-start gap-0.5 rounded-lg px-2.5 py-1.5 font-bold transition-all text-left ${
                 activeLayer === "regime"
                   ? "bg-blue-600 text-white shadow-md shadow-blue-600/20"
-                  : "text-slate-300 hover:bg-white/10 hover:text-white"
+                  : "text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-white/10 dark:hover:text-white"
               }`}
             >
               <div className="flex items-center gap-1.5 text-[11px]">
@@ -346,7 +346,7 @@ export default function HeroMapCanvas({
               </div>
               <span
                 className={`text-[9px] font-normal leading-tight ${
-                  activeLayer === "regime" ? "text-white/85" : "text-slate-400"
+                  activeLayer === "regime" ? "text-white/85" : "text-slate-500 dark:text-slate-400"
                 }`}
               >
                 Governance Postures
@@ -358,7 +358,7 @@ export default function HeroMapCanvas({
 
       {/* ===== Bottom Floating Glass Dock Bar (Pacific Sea) ===== */}
       <div className="absolute bottom-2.5 right-3 left-3 sm:left-56 z-30 flex items-center justify-center font-sans">
-        <div className="flex items-center gap-1 sm:gap-1.5 overflow-x-auto no-scrollbar rounded-xl border border-white/20 bg-slate-950/85 p-1.5 shadow-2xl backdrop-blur-md max-w-full">
+        <div className="flex items-center gap-1 sm:gap-1.5 overflow-x-auto no-scrollbar rounded-xl border border-slate-200 bg-white/90 p-1.5 shadow-lg backdrop-blur-md max-w-full dark:border-white/20 dark:bg-slate-950/85 dark:shadow-2xl">
           {countries.map((c) => {
             const isSelected = activeCountry?.id === c.id;
             const FlagIcon = FLAG_COMPONENTS[c.code];
@@ -371,7 +371,7 @@ export default function HeroMapCanvas({
                 className={`flex shrink-0 items-center gap-1.5 rounded-lg border px-2 py-1 text-[11px] font-bold transition-all ${
                   isSelected
                     ? "border-asean-yellow bg-asean-yellow/25 text-asean-yellow shadow-md shadow-asean-yellow/20"
-                    : "border-white/10 bg-slate-900/60 text-slate-300 hover:border-white/25 hover:bg-white/15 hover:text-white"
+                    : "border-slate-200 bg-slate-100/80 text-slate-700 hover:border-slate-300 hover:bg-slate-200 hover:text-slate-900 dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-300 dark:hover:border-white/25 dark:hover:bg-white/15 dark:hover:text-white"
                 }`}
               >
                 {FlagIcon ? (
@@ -390,12 +390,12 @@ export default function HeroMapCanvas({
       </div>
 
       {/* ===== Bottom Left Map Status (Indian Ocean) ===== */}
-      <div className="pointer-events-none absolute left-4 bottom-3 z-20 font-mono text-[9px] uppercase tracking-widest text-slate-500/80 sm:left-6 sm:bottom-3.5 space-y-0.5">
-        <div className="text-asean-yellow/90 font-bold">
+      <div className="pointer-events-none absolute left-4 bottom-3 z-20 font-mono text-[9px] uppercase tracking-widest text-slate-500/90 dark:text-slate-500/80 sm:left-6 sm:bottom-3.5 space-y-0.5">
+        <div className="text-asean-yellow font-bold">
           11 ASEAN Member States
         </div>
-        <div className="text-slate-400">LAT: 04°30′N</div>
-        <div className="text-slate-400">LON: 115°00′E</div>
+        <div className="text-slate-600 dark:text-slate-400">LAT: 04°30′N</div>
+        <div className="text-slate-600 dark:text-slate-400">LON: 115°00′E</div>
       </div>
     </div>
   );

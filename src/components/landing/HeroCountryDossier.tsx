@@ -14,11 +14,11 @@ export default function HeroCountryDossier({ country }: HeroCountryDossierProps)
     <div className="space-y-4 animate-fadeIn">
       <div className="flex items-center justify-between">
         <div>
-          <div className="flex items-center gap-2 font-sans text-xs text-slate-400">
+          <div className="flex items-center gap-2 font-sans text-xs text-slate-500 dark:text-slate-400">
             <span className="font-mono text-asean-yellow font-bold">[{country.code}]</span>
             <span>Capital: <strong>{country.capital}</strong></span>
           </div>
-          <h2 className="font-serif-editorial text-3xl font-extrabold text-white">
+          <h2 className="font-serif-editorial text-3xl font-extrabold text-slate-900 dark:text-white">
             {country.name}
           </h2>
         </div>
@@ -37,22 +37,22 @@ export default function HeroCountryDossier({ country }: HeroCountryDossierProps)
 
       {/* Mini Stats Bar */}
       <div className="grid grid-cols-3 gap-2 font-sans text-xs">
-        <div className="rounded-lg border border-white/10 bg-white/5 p-2.5">
-          <span className="block text-[10px] text-slate-400 uppercase">Threat Level</span>
+        <div className="rounded-lg border border-slate-200 bg-slate-100 p-2.5 dark:border-white/10 dark:bg-white/5">
+          <span className="block text-[10px] text-slate-500 dark:text-slate-400 uppercase">Threat Level</span>
           <span className="font-bold text-asean-yellow flex items-center gap-1">
             <AlertTriangle className="h-3 w-3" />
             {country.threatScore} / 5
           </span>
         </div>
-        <div className="rounded-lg border border-white/10 bg-white/5 p-2.5">
-          <span className="block text-[10px] text-slate-400 uppercase">Active Policies</span>
-          <span className="font-bold text-white">
+        <div className="rounded-lg border border-slate-200 bg-slate-100 p-2.5 dark:border-white/10 dark:bg-white/5">
+          <span className="block text-[10px] text-slate-500 dark:text-slate-400 uppercase">Active Policies</span>
+          <span className="font-bold text-slate-900 dark:text-white">
             {country.activePoliciesCount} Ingested
           </span>
         </div>
-        <div className="rounded-lg border border-white/10 bg-white/5 p-2.5">
-          <span className="block text-[10px] text-slate-400 uppercase">Activity</span>
-          <span className="font-bold text-slate-200">
+        <div className="rounded-lg border border-slate-200 bg-slate-100 p-2.5 dark:border-white/10 dark:bg-white/5">
+          <span className="block text-[10px] text-slate-500 dark:text-slate-400 uppercase">Activity</span>
+          <span className="font-bold text-slate-800 dark:text-slate-200">
             {country.activityLevel}
           </span>
         </div>
@@ -60,14 +60,14 @@ export default function HeroCountryDossier({ country }: HeroCountryDossierProps)
 
       {/* Legislative breakdown */}
       <div className="space-y-2 font-sans text-xs">
-        <div className="rounded-lg border border-white/10 bg-slate-900/60 p-3">
+        <div className="rounded-lg border border-slate-200 bg-slate-50 p-3 dark:border-white/10 dark:bg-slate-900/60">
           <strong className="block text-asean-yellow mb-0.5">Key Legislation:</strong>
-          <p className="font-semibold text-slate-200">{country.keyLegislation}</p>
-          <p className="mt-1 text-slate-300 leading-relaxed">{country.description}</p>
+          <p className="font-semibold text-slate-800 dark:text-slate-200">{country.keyLegislation}</p>
+          <p className="mt-1 text-slate-700 dark:text-slate-300 leading-relaxed">{country.description}</p>
         </div>
-        <div className="rounded-lg border border-white/10 bg-slate-900/60 p-3">
-          <strong className="block text-slate-300 mb-0.5">Data Transfer Regime:</strong>
-          <p className="text-slate-400">{country.dataFlowPolicy}</p>
+        <div className="rounded-lg border border-slate-200 bg-slate-50 p-3 dark:border-white/10 dark:bg-slate-900/60">
+          <strong className="block text-slate-800 dark:text-slate-300 mb-0.5">Data Transfer Regime:</strong>
+          <p className="text-slate-600 dark:text-slate-400">{country.dataFlowPolicy}</p>
         </div>
       </div>
 
