@@ -4,8 +4,6 @@ import Footer from "@/components/Footer";
 import HeroSection from "@/components/landing/HeroSection";
 import FeaturedCarousel from "@/components/landing/FeaturedCarousel";
 import EditorialGrid from "@/components/landing/EditorialGrid";
-import IntelligenceSuite from "@/components/landing/IntelligenceSuite";
-import NewsletterCTA from "@/components/landing/NewsletterCTA";
 import { listStories, listDispatches } from "@/services/news";
 import { listPolicyRadar } from "@/services/policies";
 import { CACHE_TAGS } from "@/lib/cache";
@@ -33,8 +31,6 @@ export default async function Home() {
         <HeroSection leadStory={stories[0] ?? null} />
         <FeaturedCarousel stories={stories} />
         <EditorialGrid dispatches={dispatches} radar={radar} />
-        <IntelligenceSuite />
-        <NewsletterCTA />
       </main>
       <Footer />
     </div>
