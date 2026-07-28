@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { listStories } from "@/services/news";
 import type { NewsCardItem } from "@/types";
+import { getExcerpt } from "@/lib/text";
 
 export default function InvestigationsList() {
   const [articles, setArticles] = useState<NewsCardItem[]>([]);
@@ -64,7 +65,7 @@ export default function InvestigationsList() {
                     {article.title}
                   </h2>
                   <p className="text-slate-600 dark:text-slate-400 text-xs line-clamp-3 leading-relaxed font-sans">
-                    {article.summary}
+                    {getExcerpt(article.summary, 180)}
                   </p>
                 </div>
                 <div className="pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs font-sans text-slate-500">

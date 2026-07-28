@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import type { NewsCardItem } from "@/types";
+import { getExcerpt } from "@/lib/text";
 
 export default function FeaturedCarousel({
   stories,
@@ -101,7 +102,7 @@ export default function FeaturedCarousel({
 
                 <div className="min-h-[5.5rem] flex items-center">
                   <p className="text-slate-600 dark:text-slate-300 text-xs sm:text-sm leading-relaxed font-serif-editorial italic border-l-2 border-asean-yellow pl-3 line-clamp-4 transition-all duration-300">
-                    {activeStory.summary}
+                    {getExcerpt(activeStory.summary, 180)}
                   </p>
                 </div>
 

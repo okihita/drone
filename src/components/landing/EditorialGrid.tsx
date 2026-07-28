@@ -3,10 +3,11 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ShieldCheck, MapPin } from "lucide-react";
 import { EXECUTIVE_INSIGHTS } from "@/lib/landingContent";
 import { THREAT_ACCENT_COLORS } from "@/lib/constants";
 import type { NewsDispatchItem, PolicyRadarEntry } from "@/types";
+import { getExcerpt } from "@/lib/text";
 
 export default function EditorialGrid({
   dispatches,
@@ -91,7 +92,7 @@ export default function EditorialGrid({
                 {d.title}
               </h4>
               <p className="text-slate-600 dark:text-slate-400 text-xs line-clamp-2 leading-relaxed font-sans">
-                {d.summary}
+                {getExcerpt(d.summary, 140)}
               </p>
             </article>
           ))}

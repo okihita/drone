@@ -1,13 +1,5 @@
 /**
  * Generate a URL-safe slug from a title string.
- *
- * Strategy (Our World in Data-inspired):
- *   - Strip special characters, keep alphanumeric + hyphens
- *   - Collapse whitespace into single hyphens
- *   - Trim to max 80 characters at word boundary
- *   - Never end with a hyphen
- *
- * Admin can override the auto-generated slug before publishing.
  */
 export function generateSlug(title: string): string {
   return title
@@ -21,13 +13,31 @@ export function generateSlug(title: string): string {
 }
 
 /**
+ * Strip all HTML tags from a string and collapse whitespace.
+ */
+export function stripHtml(html: string | null | undefined): string {
+  if (!html) return "";
+  return html.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
+}
+
+/**
+ * Extract a clean, tag-free plain text excerpt from HTML content.
+ */
+export function getExcerpt(html: string | null | undefined, maxLength = 180): string {
+  const plainText = stripHtml(html);
+  if (!plainText) return "";
+  if (plainText.length <= maxLength) return plainText;
+  return plainText.substring(0, maxLength).trim() + "…";
+}
+
+/**
  * Calculate estimated read time from HTML content.
  * Strips tags, counts words, divides by average reading speed (225 wpm).
  * Returns formatted string like "4 min read" or "1 min read".
  * Never returns "0 min read" — floors at 1.
  */
 export function calculateReadTime(html: string): string {
-  const text = html.replace(/<[^>]*>/g, "").trim();
+  const text = stripHtml(html);
   if (!text) return "1 min read";
   const words = text.split(/\s+/).filter(Boolean).length;
   const minutes = Math.max(1, Math.round(words / 225));

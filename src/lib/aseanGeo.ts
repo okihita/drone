@@ -18,9 +18,9 @@ export interface GeoCountryData {
   centerPos: { x: number; y: number };
 }
 
-// Map GeoJSON feature names to country metadata
-const COUNTRY_METADATA: Record<string, Omit<GeoCountryData, "pathD" | "centerPos">> = {
-  "Indonesia": {
+// Map GeoJSON feature names / codes to country metadata
+const COUNTRY_METADATA_LIST: Omit<GeoCountryData, "pathD" | "centerPos">[] = [
+  {
     id: "ID",
     name: "Indonesia",
     code: "ID",
@@ -34,7 +34,7 @@ const COUNTRY_METADATA: Record<string, Omit<GeoCountryData, "pathD" | "centerPos
     description: "Public electronic system operators must store data domestically. Private operators can transfer data abroad under contractual safeguards. MR5 mandates 24-hour content removal for emergency compliance requests.",
     primaryLink: "https://kominfo.go.id",
   },
-  "Malaysia": {
+  {
     id: "MY",
     name: "Malaysia",
     code: "MY",
@@ -48,7 +48,7 @@ const COUNTRY_METADATA: Record<string, Omit<GeoCountryData, "pathD" | "centerPos
     description: "Supports open cross-border data flows within ASEAN DEFA negotiations. Active proponent of paperless e-customs and cross-border QR payment linkages with Singapore and Indonesia.",
     primaryLink: "https://pdp.gov.my",
   },
-  "Singapore": {
+  {
     id: "SG",
     name: "Singapore",
     code: "SG",
@@ -62,7 +62,7 @@ const COUNTRY_METADATA: Record<string, Omit<GeoCountryData, "pathD" | "centerPos
     description: "Leads ASEAN DEFA digital trade negotiations. Strongly advocates banning mandatory data localization, mandatory source code disclosures, and digital service customs duties.",
     primaryLink: "https://imda.gov.sg",
   },
-  "Philippines": {
+  {
     id: "PH",
     name: "Philippines",
     code: "PH",
@@ -76,7 +76,7 @@ const COUNTRY_METADATA: Record<string, Omit<GeoCountryData, "pathD" | "centerPos
     description: "Host of May 2026 57th SEOM DEFA conclusion in Manila. Champions cross-border data interoperability while preserving National Privacy Commission enforcement mechanisms.",
     primaryLink: "https://privacy.gov.ph",
   },
-  "Thailand": {
+  {
     id: "TH",
     name: "Thailand",
     code: "TH",
@@ -90,7 +90,7 @@ const COUNTRY_METADATA: Record<string, Omit<GeoCountryData, "pathD" | "centerPos
     description: "Cross-border data transfers allowed to jurisdictions with adequate protection or via standard contractual clauses. Active platform governance regulations.",
     primaryLink: "https://etda.or.th",
   },
-  "Vietnam": {
+  {
     id: "VN",
     name: "Vietnam",
     code: "VN",
@@ -104,7 +104,7 @@ const COUNTRY_METADATA: Record<string, Omit<GeoCountryData, "pathD" | "centerPos
     description: "Mandates foreign tech firms (cloud, social networks, OTT telecommunications) to store user data in Vietnam and establish branch offices upon police request.",
     primaryLink: "https://mic.gov.vn",
   },
-  "Cambodia": {
+  {
     id: "KH",
     name: "Cambodia",
     code: "KH",
@@ -118,7 +118,7 @@ const COUNTRY_METADATA: Record<string, Omit<GeoCountryData, "pathD" | "centerPos
     description: "Pending National Internet Gateway framework creates centralized internet traffic inspection concerns. Receiving regional technical assistance for DEFA compliance.",
     primaryLink: "https://mptc.gov.kh",
   },
-  "Lao PDR": {
+  {
     id: "LA",
     name: "Laos",
     code: "LA",
@@ -132,7 +132,7 @@ const COUNTRY_METADATA: Record<string, Omit<GeoCountryData, "pathD" | "centerPos
     description: "Developing digital economy infrastructure; aligning national regulations with the ASEAN Digital Masterplan 2025.",
     primaryLink: "https://mpt.gov.la",
   },
-  "Myanmar": {
+  {
     id: "MM",
     name: "Myanmar",
     code: "MM",
@@ -146,7 +146,7 @@ const COUNTRY_METADATA: Record<string, Omit<GeoCountryData, "pathD" | "centerPos
     description: "Severe digital rights restrictions, frequent internet shutdowns, mandatory VPN restrictions, and unconstrained police access to user data.",
     primaryLink: "https://motc.gov.mm",
   },
-  "Brunei Darussalam": {
+  {
     id: "BN",
     name: "Brunei",
     code: "BN",
@@ -160,7 +160,7 @@ const COUNTRY_METADATA: Record<string, Omit<GeoCountryData, "pathD" | "centerPos
     description: "Harmonizing national digital trade rules with ASEAN DEFA frameworks; focus on paperless e-customs and e-invoicing.",
     primaryLink: "https://aiti.gov.bn",
   },
-  "East Timor": {
+  {
     id: "TL",
     name: "Timor-Leste",
     code: "TL",
@@ -174,14 +174,17 @@ const COUNTRY_METADATA: Record<string, Omit<GeoCountryData, "pathD" | "centerPos
     description: "Preparing full accession to ASEAN; aligning national telecommunication framework with ASEAN Digital Integration Index.",
     primaryLink: "https://tic.gov.tl",
   },
-};
+];
+
+const BY_CODE = new Map(COUNTRY_METADATA_LIST.map((c) => [c.code, c]));
+const BY_NAME = new Map(COUNTRY_METADATA_LIST.map((c) => [c.name.toLowerCase(), c]));
 
 // Round projection coordinates to avoid server/client floating-point mismatch
 function r(v: number): number {
   return Math.round(v * 10000) / 10000;
 }
 
-// Generate real SVG path strings using Mercator projection over 540x370 viewBox
+// Generate high-precision SVG path strings using Mercator projection over 540x370 viewBox
 export function getRealAseanCountries(): GeoCountryData[] {
   const width = 540;
   const height = 370;
@@ -194,14 +197,20 @@ export function getRealAseanCountries(): GeoCountryData[] {
   const pathGenerator = geoPath().projection(projection).digits(4);
 
   const result: GeoCountryData[] = [];
+  const processedCodes = new Set<string>();
 
   // Iterate over GeoJSON features
-  for (const feature of geoData.features as GeoJSON.Feature<GeoJSON.Geometry, { name?: string }>[]) {
-    const geoName = feature.properties?.name;
-    if (!geoName) continue;
-    const meta = COUNTRY_METADATA[geoName];
+  for (const feature of geoData.features as GeoJSON.Feature<
+    GeoJSON.Geometry,
+    { name?: string; code?: string; iso?: string }
+  >[]) {
+    const code = feature.properties?.code || feature.properties?.iso;
+    const geoName = (feature.properties?.name || "").toLowerCase();
 
-    if (meta) {
+    const meta = (code ? BY_CODE.get(code) : null) || BY_NAME.get(geoName);
+
+    if (meta && !processedCodes.has(meta.code)) {
+      processedCodes.add(meta.code);
       const pathD = pathGenerator(feature) || "";
       const centroid = pathGenerator.centroid(feature);
 

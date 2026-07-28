@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Search, ArrowRight } from "lucide-react";
+import { getExcerpt } from "@/lib/text";
 import useSWR from "swr";
 import { listPoliciesForSearch } from "@/services/policies";
 import type { PolicySearchItem } from "@/types";
@@ -84,7 +85,7 @@ export default function HeroSearch() {
                     <span className="text-asean-yellow dark:text-asean-yellow font-semibold">{item.category}</span>
                   </div>
                   <h4 className="font-serif-editorial font-bold text-xs text-slate-900 dark:text-white leading-snug line-clamp-1">{item.title}</h4>
-                  <p className="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-1 font-sans">{item.summary}</p>
+                  <p className="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-1 font-sans">{getExcerpt(item.summary, 100)}</p>
                 </div>
               ))
             )}
