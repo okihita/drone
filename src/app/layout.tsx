@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import { Newsreader, Inter } from "next/font/google";
+import { Newsreader, Inter, Geist } from "next/font/google";
 import "./globals.css";
+import { cn } from "@/lib/utils";
 
 const newsreader = Newsreader({
   variable: "--font-serif",
@@ -8,10 +9,7 @@ const newsreader = Newsreader({
   style: ["normal", "italic"],
 });
 
-const inter = Inter({
-  variable: "--font-sans",
-  subsets: ["latin"],
-});
+const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 export const metadata: Metadata = {
   title: "D.R.O.N.E. — ASEAN Digital Rights Oversight & Network Evaluator",
@@ -28,7 +26,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${newsreader.variable} ${inter.variable} h-full antialiased`}
+      className={cn("h-full", "antialiased", newsreader.variable, "font-sans", geist.variable)}
       suppressHydrationWarning
     >
       <head>

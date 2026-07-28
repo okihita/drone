@@ -4,6 +4,12 @@ import React, { useState, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
 import AdminDashboardLayout from "@/components/admin/Sidebar";
 import { supabase } from "@/lib/supabase";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function EditNewsItem() {
   const router = useRouter();
@@ -15,78 +21,64 @@ export default function EditNewsItem() {
 
   useEffect(() => {
     supabase.from("news_items").select("*").eq("id", id).single().then(({ data }: { data: unknown }) => {
-      if (data) {
-        const d = data as Record<string, string>;
-        const dateStr = d.published_date ? new Date(d.published_date).toISOString().split("T")[0] : "";
-        setForm({ ...d, published_date: dateStr });
-      }
+      if (data) { const d = data as Record<string, string>; setForm({ ...d, published_date: d.published_date ? new Date(d.published_date).toISOString().split("T")[0] : "" }); }
       setLoading(false);
     });
   }, [id]);
 
+  const update = (key: string, value: string) => setForm(f => ({ ...f, [key]: value }));
+
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
+    const file = e.target.files?.[0]; if (!file) return;
     setUploading(true);
     const { data, error } = await supabase.storage.from("news").upload(`${Date.now()}-${file.name}`, file, { upsert: true });
-    if (!error && data) {
-      const url = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/news/${data.path}`;
-      setForm({ ...form, image_url: url });
-    }
+    if (!error && data) update("image_url", `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/news/${data.path}`);
     setUploading(false);
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setSaving(true);
-    await supabase.from("news_items").update(form).eq("id", id);
-    router.push("/admin/news");
-  };
+  const handleSubmit = async (e: React.FormEvent) => { e.preventDefault(); setSaving(true); await supabase.from("news_items").update(form).eq("id", id); router.push("/admin/news"); };
 
-  if (loading) return <AdminDashboardLayout><p className="text-slate-500">Loading...</p></AdminDashboardLayout>;
-
-  const fields = ["title", "jurisdiction", "summary", "source_url", "source_name", "author", "read_time"];
+  if (loading) return <AdminDashboardLayout><Skeleton className="h-96 w-full max-w-2xl" /></AdminDashboardLayout>;
 
   return (
     <AdminDashboardLayout>
-      <h1 className="font-serif-editorial text-2xl font-extrabold text-slate-900 dark:text-white mb-6">Edit Article</h1>
-      <form onSubmit={handleSubmit} className="max-w-2xl space-y-4">
-        {fields.map((key) => (
-          <div key={key}>
-            <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1 capitalize">{key.replace(/_/g, " ")}</label>
-            {key === "summary" ? (
-              <textarea rows={3} value={form[key] || ""} onChange={(e) => setForm({ ...form, [key]: e.target.value })}
-                className="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded px-3 py-2 text-sm text-slate-900 dark:text-slate-200 focus:outline-none focus:border-asean-yellow" />
-            ) : (
-              <input value={form[key] || ""} onChange={(e) => setForm({ ...form, [key]: e.target.value })}
-                className="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded px-3 py-2 text-sm text-slate-900 dark:text-slate-200 focus:outline-none focus:border-asean-yellow" />
-            )}
-          </div>
-        ))}
-        <div>
-          <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Image</label>
-          {form.image_url && <p className="text-xs text-slate-500 mb-1">Current: {form.image_url.substring((form.image_url || "").lastIndexOf("/") + 1)}</p>}
-          <input type="file" accept="image/*" onChange={handleUpload} className="text-xs" />
-          {uploading && <span className="text-xs text-slate-500 ml-2">Uploading...</span>}
-        </div>
-        <div className="grid grid-cols-2 gap-3">
-          <div>
-            <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Category</label>
-            <select value={form.category || ""} onChange={(e) => setForm({ ...form, category: e.target.value })}
-              className="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded px-3 py-2 text-sm text-slate-900 dark:text-slate-200 focus:outline-none focus:border-asean-yellow">
-              <option>DEFA</option><option>Cross-Border Data</option><option>AI Governance</option><option>Cybersecurity</option><option>DATA LOCALIZATION</option><option>DEFA SPECIAL REPORT</option><option>AI GOVERNANCE</option>
-            </select>
-          </div>
-          <div>
-            <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Publish Date</label>
-            <input type="date" value={form.published_date || ""} onChange={(e) => setForm({ ...form, published_date: e.target.value })}
-              className="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded px-3 py-2 text-sm text-slate-900 dark:text-slate-200 focus:outline-none focus:border-asean-yellow" />
-          </div>
-        </div>
-        <button type="submit" disabled={saving} className="px-6 py-2.5 rounded-lg bg-asean-yellow hover:bg-asean-yellow-hover text-slate-950 font-bold text-sm transition-colors disabled:opacity-50">
-          {saving ? "Saving..." : "Save Changes"}
-        </button>
-      </form>
+      <h1 className="font-serif-editorial text-2xl font-extrabold mb-6">Edit Article</h1>
+      <Card className="max-w-2xl">
+        <CardHeader><CardTitle>Article Details</CardTitle></CardHeader>
+        <CardContent>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            {["title", "jurisdiction", "summary", "source_url", "source_name", "author", "read_time"].map(key => (
+              <div key={key}>
+                <label className="text-sm font-medium mb-1 block capitalize">{key.replace(/_/g, " ")}</label>
+                {key === "summary" ? <Textarea rows={3} value={form[key] || ""} onChange={e => update(key, e.target.value)} />
+                  : <Input value={form[key] || ""} onChange={e => update(key, e.target.value)} />}
+              </div>
+            ))}
+            <div>
+              <label className="text-sm font-medium mb-1 block">Image</label>
+              {form.image_url && <p className="text-xs text-muted-foreground mb-1 truncate">{form.image_url}</p>}
+              <Input type="file" accept="image/*" onChange={handleUpload} />
+              {uploading && <p className="text-xs text-muted-foreground mt-1">Uploading...</p>}
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label className="text-sm font-medium mb-1 block">Category</label>
+                <Select value={form.category || ""} onValueChange={(v) => update("category", v || "")}>
+                  <SelectTrigger><SelectValue /></SelectTrigger>
+                  <SelectContent>
+                    {["DEFA", "Cross-Border Data", "AI Governance", "Cybersecurity", "DATA LOCALIZATION", "DEFA SPECIAL REPORT", "AI GOVERNANCE"].map(c => <SelectItem key={c} value={c}>{c}</SelectItem>)}
+                  </SelectContent>
+                </Select>
+              </div>
+              <div>
+                <label className="text-sm font-medium mb-1 block">Publish Date</label>
+                <Input type="date" value={form.published_date || ""} onChange={e => update("published_date", e.target.value)} />
+              </div>
+            </div>
+            <Button type="submit" disabled={saving}>{saving ? "Saving..." : "Save Changes"}</Button>
+          </form>
+        </CardContent>
+      </Card>
     </AdminDashboardLayout>
   );
 }
