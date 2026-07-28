@@ -5,13 +5,9 @@ import Link from "next/link";
 import {
   ArrowRight,
   Globe,
-  ShieldCheck,
   Map,
   Activity,
-  Layers,
-  AlertTriangle,
   RefreshCw,
-  Zap,
 } from "lucide-react";
 import HeroMapCanvas, { type MapLayerMode } from "./HeroMapCanvas";
 import HeroCountryDossier from "./HeroCountryDossier";
@@ -74,8 +70,8 @@ export default function HeroSection({ leadStory }: HeroSectionProps) {
       <div className="relative z-20 flex-1 px-4 py-6 sm:px-8 lg:px-12 lg:py-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
           
-          {/* LEFT COLUMN: Intelligence Brief & Jurisdiction Dossier Card (lg:col-span-5) */}
-          <div className="lg:col-span-5 xl:col-span-5 flex flex-col">
+          {/* LEFT COLUMN: Intelligence Brief & Jurisdiction Dossier Card (lg:col-span-6) */}
+          <div className="lg:col-span-6 xl:col-span-6 flex flex-col">
             <div className="w-full h-full rounded-2xl border border-white/15 bg-slate-950/80 p-6 shadow-2xl backdrop-blur-xl sm:p-8 flex flex-col justify-between">
               <div>
                 {/* Header Tabs */}
@@ -210,8 +206,8 @@ export default function HeroSection({ leadStory }: HeroSectionProps) {
             </div>
           </div>
 
-          {/* RIGHT COLUMN: Dedicated Unobstructed Interactive Map Viewport (lg:col-span-7) */}
-          <div className="relative min-h-[460px] sm:min-h-[520px] lg:min-h-[580px] lg:col-span-7 xl:col-span-7 rounded-2xl border border-white/15 bg-slate-950/90 shadow-2xl overflow-hidden">
+          {/* RIGHT COLUMN: Dedicated Unobstructed Interactive Map Viewport (lg:col-span-6) */}
+          <div className="relative min-h-[540px] sm:min-h-[620px] lg:min-h-[700px] xl:min-h-[760px] lg:col-span-6 xl:col-span-6 rounded-2xl border border-white/15 bg-slate-950/90 shadow-2xl overflow-hidden">
             <HeroMapCanvas
               activeCountry={selectedCountry}
               onSelectCountry={handleSelectCountry}
@@ -220,42 +216,6 @@ export default function HeroSection({ leadStory }: HeroSectionProps) {
             />
           </div>
 
-        </div>
-
-        {/* ===== Bottom ASEAN Hotspot Quick-Select Strip ===== */}
-        <div className="mt-6 pt-4 border-t border-white/10">
-          <div className="flex items-center justify-between mb-2">
-            <span className="font-sans text-[10px] font-bold uppercase tracking-widest text-slate-400">
-              Interactive Jurisdiction Selector — Click Nation to Focus &amp; Inspect
-            </span>
-            <span className="hidden sm:inline-block font-sans text-[10px] text-slate-500">
-              High-Precision Natural Earth Cartography
-            </span>
-          </div>
-
-          <div className="flex items-center gap-1.5 overflow-x-auto pb-1 no-scrollbar font-sans">
-            {countries.map((c) => {
-              const isSelected = selectedCountry?.id === c.id;
-
-              return (
-                <button
-                  key={c.id}
-                  onClick={() => handleSelectCountry(c)}
-                  className={`flex shrink-0 items-center gap-1.5 rounded-lg border px-2.5 py-1.5 text-xs font-bold transition-all ${
-                    isSelected
-                      ? "border-asean-yellow bg-asean-yellow/20 text-asean-yellow shadow-lg shadow-asean-yellow/10"
-                      : "border-white/10 bg-slate-900/70 text-slate-300 hover:border-white/25 hover:bg-white/10 hover:text-white"
-                  }`}
-                >
-                  <span className="font-mono text-[10px] opacity-70">[{c.code}]</span>
-                  <span>{c.name}</span>
-                  {c.threatScore >= 4 && (
-                    <span className="h-1.5 w-1.5 rounded-full bg-asean-red animate-pulse" />
-                  )}
-                </button>
-              );
-            })}
-          </div>
         </div>
       </div>
 

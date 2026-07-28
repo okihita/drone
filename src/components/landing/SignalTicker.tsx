@@ -30,7 +30,7 @@ const MOCK_SIGNALS: ReadonlyArray<Signal> = [
 const SEVERITY_DOT_CLASSES: Record<ThreatLevel, string> = {
   "High Alert": "bg-red-500",
   "Medium Risk": "bg-asean-yellow",
-  "Rights Verified": "bg-sky-400",
+  "Rights Verified": "bg-asean-blue",
 };
 
 // ── Component ────────────────────────────────────────────────────────────────

@@ -261,8 +261,8 @@ export default function AseanMap() {
         </div>
 
         {/* SVG Map Canvas */}
-        <div className="relative w-full aspect-[16/9] max-h-[460px] flex items-center justify-center font-sans z-10">
-          <svg viewBox="0 0 540 370" preserveAspectRatio="xMidYMid meet" className="w-full h-full">
+        <div className="relative w-full aspect-[16/9] max-h-[460px] flex items-start justify-center font-sans z-10">
+          <svg viewBox="0 0 570 450" preserveAspectRatio="xMidYMin meet" className="w-full h-full">
             {filteredCountries.map((country) => {
               const isSelected = selectedCountry?.id === country.id;
               const isHovered = hoveredCountry?.id === country.id;

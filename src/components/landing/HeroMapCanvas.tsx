@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 "use client";
 
 import React, { useMemo, useRef } from "react";
@@ -17,7 +18,6 @@ const FLOW_ARCS: ReadonlyArray<readonly [string, string, string]> = [
   ["PH", "VN", "Submarine Cable Link"],
 ];
 
-// eslint-disable-next-line
 const THREAT_COLORS: Record<number, { fill: string; stroke: string }> = {
   5: { fill: "rgba(239, 68, 68, 0.45)", stroke: ASEAN_COLORS.red },
   4: { fill: "rgba(249, 115, 22, 0.40)", stroke: ASEAN_COLORS.yellowDark },
@@ -44,6 +44,12 @@ interface HeroMapCanvasProps {
   activeLayer: MapLayerMode;
   onSelectLayer?: (layer: MapLayerMode) => void;
 }
+
+import { ID, MY, SG, PH, TH, VN, KH, LA, MM, BN, TL } from "country-flag-icons/react/3x2";
+
+const FLAG_COMPONENTS: Record<string, React.ComponentType<{ className?: string }>> = {
+  ID, MY, SG, PH, TH, VN, KH, LA, MM, BN, TL,
+};
 
 export default function HeroMapCanvas({
   activeCountry,
@@ -86,22 +92,22 @@ export default function HeroMapCanvas({
         className="absolute inset-0 pointer-events-none transition-all duration-700 opacity-60"
         style={{
           background: activeCountry
-            ? `radial-gradient(circle at ${activeCountry.centerPos.x / 5.4}% ${activeCountry.centerPos.y / 3.7}%, ${
+            ? `radial-gradient(circle at ${(activeCountry.centerPos.x / 570) * 100}% ${(activeCountry.centerPos.y / 450) * 100}%, ${
                 activeCountry.threatScore >= 4
                   ? "rgba(204,0,0,0.25)"
                   : activeCountry.regimeType === "Open Transfer"
                   ? "rgba(255,204,0,0.2)"
                   : "rgba(0,51,153,0.3)"
               } 0%, transparent 60%)`
-            : "radial-gradient(circle at 60% 45%, rgba(0,51,153,0.18) 0%, transparent 55%), radial-gradient(circle at 35% 65%, rgba(255,204,0,0.08) 0%, transparent 45%)",
+            : "radial-gradient(circle at 50% 50%, rgba(0,51,153,0.18) 0%, transparent 55%), radial-gradient(circle at 50% 50%, rgba(255,204,0,0.08) 0%, transparent 45%)",
         }}
       />
 
       {/* ===== SVG Cartographic Canvas ===== */}
-      <div className="h-full w-full p-2 flex items-center justify-center">
+      <div className="h-full w-full pt-4 sm:pt-6 px-2 pb-16 flex items-start justify-center">
         <svg
-          viewBox="0 0 540 370"
-          preserveAspectRatio="xMidYMid meet"
+          viewBox="0 0 570 450"
+          preserveAspectRatio="xMidYMin meet"
           className="h-full w-full max-h-full"
         >
           <defs>
@@ -227,62 +233,160 @@ export default function HeroMapCanvas({
         </svg>
       </div>
 
-      {/* ===== Radar Sweep Background Spotlight ===== */}
+      {/* ===== Radar Sweep Background Spotlight (Exact Center of Card) ===== */}
       <div
-        className="animate-hero-sweep pointer-events-none absolute left-[56%] top-[50%] aspect-square w-[140%] rounded-full opacity-50"
+        className="animate-hero-sweep pointer-events-none absolute left-1/2 top-1/2 aspect-square w-[140%] rounded-full opacity-50"
         style={{
-          background: "conic-gradient(from 0deg, rgba(255,204,0,0.08) 0deg, rgba(255,204,0,0.02) 28deg, transparent 70deg)",
+          transformOrigin: "50% 50%",
+          background: "conic-gradient(from 0deg at 50% 50%, rgba(255,204,0,0.12) 0deg, rgba(255,204,0,0.03) 30deg, transparent 70deg)",
         }}
       />
+      {/* Radar Center Pivot Crosshair */}
+      <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 flex items-center justify-center">
+        <div className="h-3 w-3 rounded-full border border-asean-yellow/30 bg-asean-yellow/10" />
+        <div className="absolute h-1.5 w-1.5 rounded-full bg-asean-yellow/60" />
+      </div>
 
-      {/* ===== Floating Layer Switcher in the Sea ===== */}
-      {onSelectLayer && (
-        <div className="absolute right-4 top-4 z-30 flex items-center gap-1 rounded-xl border border-white/20 bg-slate-950/85 p-1 font-sans text-xs shadow-2xl backdrop-blur-md sm:right-6 sm:top-6">
-          <span className="hidden items-center gap-1 px-2 text-[10px] font-bold uppercase tracking-wider text-slate-400 md:flex">
-            <Layers className="h-3 w-3 text-slate-400" /> Layer:
+      {/* ===== Top-Right HUD: Monitored Corridors, Regime Posture & Vertically Stacked Layers (South China Sea) ===== */}
+      <div className="absolute right-4 top-4 z-30 flex flex-col items-end gap-2 font-sans text-xs sm:right-6 sm:top-6">
+        <span className="hidden sm:inline-block text-[9px] font-mono uppercase tracking-widest text-slate-400/90 pr-1">
+          8 Data Flow Corridors Monitored
+        </span>
+
+        {/* ASEAN Regime Posture Card (Positioned Above Layers) */}
+        <div className="hidden sm:flex flex-col items-stretch gap-1 rounded-xl border border-white/20 bg-slate-950/85 p-2 font-sans text-xs shadow-2xl backdrop-blur-md min-w-[130px]">
+          <span className="text-[9px] font-mono uppercase tracking-widest text-slate-400 font-bold px-0.5">
+            ASEAN Regime Posture
           </span>
-          <button
-            onClick={() => onSelectLayer("arcs")}
-            className={`flex items-center gap-1 rounded-lg px-2 py-1 text-[10px] sm:px-2.5 sm:py-1 sm:text-[11px] font-bold transition-all ${
-              activeLayer === "arcs"
-                ? "bg-asean-yellow text-slate-950 shadow-md shadow-asean-yellow/20"
-                : "text-slate-300 hover:bg-white/10 hover:text-white"
-            }`}
-          >
-            <Zap className="h-3 w-3" />
-            <span>Arcs</span>
-          </button>
-          <button
-            onClick={() => onSelectLayer("threat")}
-            className={`flex items-center gap-1 rounded-lg px-2 py-1 text-[10px] sm:px-2.5 sm:py-1 sm:text-[11px] font-bold transition-all ${
-              activeLayer === "threat"
-                ? "bg-asean-red text-white shadow-md shadow-asean-red/20"
-                : "text-slate-300 hover:bg-white/10 hover:text-white"
-            }`}
-          >
-            <AlertTriangle className="h-3 w-3" />
-            <span>Threats</span>
-          </button>
-          <button
-            onClick={() => onSelectLayer("regime")}
-            className={`flex items-center gap-1 rounded-lg px-2 py-1 text-[10px] sm:px-2.5 sm:py-1 sm:text-[11px] font-bold transition-all ${
-              activeLayer === "regime"
-                ? "bg-blue-600 text-white shadow-md shadow-blue-600/20"
-                : "text-slate-300 hover:bg-white/10 hover:text-white"
-            }`}
-          >
-            <ShieldCheck className="h-3 w-3" />
-            <span>Regimes</span>
-          </button>
+          <div className="flex items-center justify-between gap-1 text-[10px] font-sans font-bold pt-0.5">
+            <span className="flex items-center gap-1 text-asean-red">
+              <span className="h-1.5 w-1.5 rounded-full bg-asean-red" />
+              3 Strict
+            </span>
+            <span className="text-slate-600">·</span>
+            <span className="flex items-center gap-1 text-asean-yellow">
+              <span className="h-1.5 w-1.5 rounded-full bg-asean-yellow" />
+              5 Hybrid
+            </span>
+            <span className="text-slate-600">·</span>
+            <span className="flex items-center gap-1 text-blue-400">
+              <span className="h-1.5 w-1.5 rounded-full bg-blue-400" />
+              3 Open
+            </span>
+          </div>
         </div>
-      )}
 
-      {/* Cartographic View Status Legend (Bottom Left) */}
-      <div className="pointer-events-none absolute left-4 bottom-4 z-20 font-mono text-[9px] uppercase tracking-widest text-slate-500/80 sm:left-6 sm:bottom-6">
-        <div className="flex items-center gap-1 text-asean-yellow/80 font-bold">
-          11 ASEAN Member States · Full Cartographic View
+        {onSelectLayer && (
+          <div className="flex flex-col items-stretch gap-1 rounded-xl border border-white/20 bg-slate-950/85 p-1.5 shadow-2xl backdrop-blur-md min-w-[130px]">
+            <span className="flex items-center gap-1 px-2 py-0.5 text-[9px] font-mono font-bold uppercase tracking-wider text-slate-400">
+              <Layers className="h-3 w-3 text-slate-400" /> Layer
+            </span>
+            <button
+              onClick={() => onSelectLayer("arcs")}
+              className={`flex flex-col items-start gap-0.5 rounded-lg px-2.5 py-1.5 font-bold transition-all text-left ${
+                activeLayer === "arcs"
+                  ? "bg-asean-yellow text-slate-950 shadow-md shadow-asean-yellow/20"
+                  : "text-slate-300 hover:bg-white/10 hover:text-white"
+              }`}
+            >
+              <div className="flex items-center gap-1.5 text-[11px]">
+                <Zap className="h-3 w-3" />
+                <span>Arcs</span>
+              </div>
+              <span
+                className={`text-[9px] font-normal leading-tight ${
+                  activeLayer === "arcs" ? "text-slate-900/80" : "text-slate-400"
+                }`}
+              >
+                Cross-Border Flows
+              </span>
+            </button>
+
+            <button
+              onClick={() => onSelectLayer("threat")}
+              className={`flex flex-col items-start gap-0.5 rounded-lg px-2.5 py-1.5 font-bold transition-all text-left ${
+                activeLayer === "threat"
+                  ? "bg-asean-red text-white shadow-md shadow-asean-red/20"
+                  : "text-slate-300 hover:bg-white/10 hover:text-white"
+              }`}
+            >
+              <div className="flex items-center gap-1.5 text-[11px]">
+                <AlertTriangle className="h-3 w-3" />
+                <span>Threats</span>
+              </div>
+              <span
+                className={`text-[9px] font-normal leading-tight ${
+                  activeLayer === "threat" ? "text-white/85" : "text-slate-400"
+                }`}
+              >
+                Digital Risk Ratings
+              </span>
+            </button>
+
+            <button
+              onClick={() => onSelectLayer("regime")}
+              className={`flex flex-col items-start gap-0.5 rounded-lg px-2.5 py-1.5 font-bold transition-all text-left ${
+                activeLayer === "regime"
+                  ? "bg-blue-600 text-white shadow-md shadow-blue-600/20"
+                  : "text-slate-300 hover:bg-white/10 hover:text-white"
+              }`}
+            >
+              <div className="flex items-center gap-1.5 text-[11px]">
+                <ShieldCheck className="h-3 w-3" />
+                <span>Regimes</span>
+              </div>
+              <span
+                className={`text-[9px] font-normal leading-tight ${
+                  activeLayer === "regime" ? "text-white/85" : "text-slate-400"
+                }`}
+              >
+                Governance Postures
+              </span>
+            </button>
+          </div>
+        )}
+      </div>
+
+      {/* ===== Bottom Floating Glass Dock Bar (Pacific Sea) ===== */}
+      <div className="absolute bottom-2.5 right-3 left-48 sm:left-56 z-30 flex items-center justify-center font-sans">
+        <div className="flex items-center gap-1 sm:gap-1.5 overflow-x-auto no-scrollbar rounded-xl border border-white/20 bg-slate-950/85 p-1.5 shadow-2xl backdrop-blur-md max-w-full">
+          {countries.map((c) => {
+            const isSelected = activeCountry?.id === c.id;
+            const FlagIcon = FLAG_COMPONENTS[c.code];
+
+            return (
+              <button
+                key={c.id}
+                onClick={() => onSelectCountry(c)}
+                title={`${c.name} (${c.regimeType})`}
+                className={`flex shrink-0 items-center gap-1.5 rounded-lg border px-2 py-1 text-[11px] font-bold transition-all ${
+                  isSelected
+                    ? "border-asean-yellow bg-asean-yellow/25 text-asean-yellow shadow-md shadow-asean-yellow/20"
+                    : "border-white/10 bg-slate-900/60 text-slate-300 hover:border-white/25 hover:bg-white/15 hover:text-white"
+                }`}
+              >
+                {FlagIcon ? (
+                  <FlagIcon className="w-4 h-3 rounded-xs object-cover shadow-xs" />
+                ) : (
+                  <span className="font-mono text-[10px]">[{c.code}]</span>
+                )}
+                <span className="font-mono text-[11px]">{c.code}</span>
+                {c.threatScore >= 4 && (
+                  <span className="h-1.5 w-1.5 rounded-full bg-asean-red animate-pulse" />
+                )}
+              </button>
+            );
+          })}
         </div>
-        <div className="text-slate-400">LAT: 04°30′N · LON: 115°00′E</div>
+      </div>
+
+      {/* ===== Bottom Left Map Status (Indian Ocean) ===== */}
+      <div className="pointer-events-none absolute left-4 bottom-3 z-20 font-mono text-[9px] uppercase tracking-widest text-slate-500/80 sm:left-6 sm:bottom-3.5 space-y-0.5">
+        <div className="text-asean-yellow/90 font-bold">
+          11 ASEAN Member States
+        </div>
+        <div className="text-slate-400">LAT: 04°30′N</div>
+        <div className="text-slate-400">LON: 115°00′E</div>
       </div>
     </div>
   );

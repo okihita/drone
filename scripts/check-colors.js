@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 /**
  * Strict ASEAN Color Guardrail Linter Script
  * 

@@ -19,17 +19,25 @@ export default function NewsList() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  const fetch = useCallback(() => {
-    setLoading(true);
-    listNews()
-      .then(setItems)
-      .catch((e) => setError(e.message))
-      .finally(() => setLoading(false));
-  }, []);
-
   useEffect(() => {
-    fetch();
-  }, [fetch]);
+    let active = true;
+    listNews()
+      .then((data) => {
+        if (active) {
+          setItems(data);
+          setLoading(false);
+        }
+      })
+      .catch((e) => {
+        if (active) {
+          setError(e.message);
+          setLoading(false);
+        }
+      });
+    return () => {
+      active = false;
+    };
+  }, []);
 
   const handleDelete = async (id: string) => {
     if (!confirm("Delete this article?")) return;

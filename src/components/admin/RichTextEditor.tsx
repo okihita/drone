@@ -12,7 +12,6 @@ import { Separator } from "@/components/ui/separator";
 import {
   Bold, Italic, Strikethrough, Code,
   List, ListOrdered, Quote,
-  Heading1, Heading2, Heading3, Heading4,
   Minus,
   Undo, Redo,
   Link as LinkIcon, ImageIcon,
@@ -21,13 +20,13 @@ import {
 } from "lucide-react";
 import { calculateReadTime } from "@/lib/text";
 
-// ── Custom Node: Image with Caption ──────────────────────────────────────────
+// ── Custom Tiptap Node: Image with Figcaption ──────────────────────────────
 
-const ImageCaption = Node.create({
+export const ImageCaptionNode = Node.create({
   name: "imageCaption",
   group: "block",
   content: "inline*",
-  defining: true,
+  draggable: true,
   isolating: true,
 
   addAttributes() {
@@ -50,10 +49,12 @@ const ImageCaption = Node.create({
     ];
   },
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   addCommands(): any {
     return {
       setImageCaption:
         (options: { src: string; alt?: string }) =>
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         ({ commands }: any) =>
           commands.insertContent({
             type: "imageCaption",
@@ -191,6 +192,7 @@ export default function RichTextEditor({ content, onChange, placeholder }: RichT
         .upload(path, file, { upsert: true });
       if (error) throw error;
       const url = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/news/${data.path}`;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (editor.commands as any).setImageCaption({ src: url, alt: file.name });
     } catch (err) {
       console.error("Image upload failed:", err);

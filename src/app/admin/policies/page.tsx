@@ -19,17 +19,25 @@ export default function PoliciesList() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  const fetch = useCallback(() => {
-    setLoading(true);
-    listPolicies()
-      .then(setPolicies)
-      .catch((e) => setError(e.message))
-      .finally(() => setLoading(false));
-  }, []);
-
   useEffect(() => {
-    fetch();
-  }, [fetch]);
+    let active = true;
+    listPolicies()
+      .then((data) => {
+        if (active) {
+          setPolicies(data);
+          setLoading(false);
+        }
+      })
+      .catch((e) => {
+        if (active) {
+          setError(e.message);
+          setLoading(false);
+        }
+      });
+    return () => {
+      active = false;
+    };
+  }, []);
 
   const handleDelete = async (id: string) => {
     if (!confirm("Delete this policy?")) return;

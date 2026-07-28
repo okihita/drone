@@ -145,6 +145,7 @@
 }
 
 .animate-hero-sweep {
+  transform-origin: 50% 50% !important;
   animation: heroSweep 16s linear infinite;
 }
 

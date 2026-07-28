@@ -39,7 +39,7 @@ export default function HeroCountryDossier({ country }: HeroCountryDossierProps)
       <div className="grid grid-cols-3 gap-2 font-sans text-xs">
         <div className="rounded-lg border border-white/10 bg-white/5 p-2.5">
           <span className="block text-[10px] text-slate-400 uppercase">Threat Level</span>
-          <span className="font-bold text-amber-400 flex items-center gap-1">
+          <span className="font-bold text-asean-yellow flex items-center gap-1">
             <AlertTriangle className="h-3 w-3" />
             {country.threatScore} / 5
           </span>
