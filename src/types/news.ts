@@ -12,6 +12,7 @@ export interface NewsItem {
   image_url: string | null;
   author: string | null;
   read_time: string | null;
+  slug: string | null;
   published_date: string;
   created_at?: string;
 }
@@ -19,17 +20,17 @@ export interface NewsItem {
 /** Narrowed view for listing components. */
 export type NewsListItem = Pick<
   NewsItem,
-  "id" | "title" | "jurisdiction" | "category" | "image_url" | "published_date"
+  "id" | "title" | "slug" | "jurisdiction" | "category" | "image_url" | "published_date"
 >;
 
 /** Narrowed view for homepage carousel & editorial grid. */
 export type NewsCardItem = Pick<
   NewsItem,
-  "id" | "title" | "category" | "summary" | "author" | "image_url" | "read_time"
+  "id" | "title" | "slug" | "category" | "summary" | "author" | "image_url" | "read_time"
 >;
 
 /** Narrowed view for editorial field dispatches. */
 export type NewsDispatchItem = Pick<
   NewsItem,
-  "id" | "title" | "category" | "summary" | "image_url"
+  "id" | "title" | "slug" | "category" | "summary" | "image_url"
 >;

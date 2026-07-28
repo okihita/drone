@@ -12,12 +12,14 @@ export {
 export {
   listNews,
   getNewsById,
+  getNewsBySlug,
   listStories,
   listDispatches,
-  uploadNewsImage,
   createNewsItem,
   updateNewsItem,
   deleteNewsItem,
+  uploadNewsImage,
+  generateSlug,
 } from "./news";
 
 export {

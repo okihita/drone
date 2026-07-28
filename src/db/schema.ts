@@ -46,6 +46,7 @@ export const newsItems = pgTable("news_items", {
   imageUrl: text("image_url"),
   author: text("author"),
   readTime: text("read_time"),
+  slug: text("slug").unique(),                               // URL-safe identifier, e.g. "vietnam-decree-53"
   publishedDate: date("published_date").notNull(),
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
 });

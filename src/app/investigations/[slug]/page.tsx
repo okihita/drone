@@ -1,22 +1,32 @@
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { getNewsById } from "@/services/news";
+import { getNewsBySlug, getNewsById } from "@/services/news";
 import DOMPurify from "isomorphic-dompurify";
 
 interface Props {
-  params: Promise<{ id: string }>;
+  params: Promise<{ slug: string }>;
+}
+
+function isUuid(value: string): boolean {
+  return /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(value);
 }
 
 export default async function InvestigationPage({ params }: Props) {
-  const { id } = await params;
+  const { slug } = await params;
 
-  let article;
-  try {
-    article = await getNewsById(id);
-  } catch {
-    notFound();
+  // 1. Try slug lookup first
+  let article = await getNewsBySlug(slug);
+
+  // 2. Fallback: try UUID (backwards-compat with old share links)
+  if (!article && isUuid(slug)) {
+    article = await getNewsById(slug);
+    // Found by UUID → 301 redirect to canonical slug URL
+    if (article?.slug) {
+      redirect(`/investigations/${article.slug}`);
+    }
   }
+
   if (!article) notFound();
 
   const sanitized = DOMPurify.sanitize(article.summary || "");
@@ -25,7 +35,6 @@ export default async function InvestigationPage({ params }: Props) {
     <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-200 font-sans transition-colors">
       <Header />
       <main className="flex-1 py-12 px-4 sm:px-6 lg:px-8 max-w-3xl mx-auto">
-        {/* Meta */}
         <div className="border-b border-slate-200 dark:border-slate-800 pb-6 mb-8">
           <span className="text-xs font-sans text-asean-yellow font-bold uppercase tracking-wider">
             {article.category}
@@ -61,13 +70,11 @@ export default async function InvestigationPage({ params }: Props) {
           )}
         </div>
 
-        {/* Article Body */}
         <article
           className="prose prose-slate dark:prose-invert prose-sm sm:prose-base max-w-none font-sans"
           dangerouslySetInnerHTML={{ __html: sanitized }}
         />
 
-        {/* Source Attribution */}
         <div className="mt-12 pt-6 border-t border-slate-200 dark:border-slate-800 text-xs text-slate-500 dark:text-slate-400 font-sans">
           <p>
             <strong className="text-slate-700 dark:text-slate-300">Source:</strong>{" "}

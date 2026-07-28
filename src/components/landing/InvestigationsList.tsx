@@ -36,7 +36,7 @@ export default function InvestigationsList() {
           ))
         : articles.map((article) => (
             <Link
-              href={`/investigations/${article.id}`}
+              href={article.slug ? `/investigations/${article.slug}` : `/investigations/id/${article.id}`}
               key={article.id}
               className="rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-hidden flex flex-col shadow-sm dark:shadow-none hover:border-slate-400 dark:hover:border-slate-700 transition-all group font-sans"
             >

@@ -169,7 +169,7 @@ export default function AdminDashboard() {
                           <Pencil className="w-3 h-3" />
                         </Button>
                       </Link>
-                      <Link href="/investigations">
+                      <Link href={n.slug ? `/investigations/${n.slug}` : `/investigations/id/${n.id}`}>
                         <Button variant="ghost" size="icon" className="h-7 w-7">
                           <Eye className="w-3 h-3" />
                         </Button>

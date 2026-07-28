@@ -34,6 +34,7 @@ export default function EditNewsItem() {
         }
         setForm({
           title: data.title,
+          slug: data.slug || "",
           jurisdiction: data.jurisdiction,
           category: data.category,
           summary: data.summary,
@@ -106,7 +107,7 @@ export default function EditNewsItem() {
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
             {(
-              ["title", "jurisdiction", "source_url", "source_name", "author", "read_time"] as const
+              ["title", "slug", "jurisdiction", "source_url", "source_name", "author", "read_time"] as const
             ).map((key) => (
               <div key={key}>
                 <label className="text-sm font-medium mb-1 block capitalize">

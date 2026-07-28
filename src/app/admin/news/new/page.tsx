@@ -19,6 +19,7 @@ export default function NewNewsItem() {
   const router = useRouter();
   const [form, setForm] = useState<NewsFormValues>({
     title: "",
+    slug: "",
     jurisdiction: "",
     category: "DEFA",
     summary: "",
@@ -63,8 +64,9 @@ export default function NewNewsItem() {
     }
   };
 
-  const fields: { label: string; key: keyof NewsFormValues }[] = [
+  const fields: { label: string; key: keyof NewsFormValues; placeholder?: string }[] = [
     { label: "Title", key: "title" },
+    { label: "Slug", key: "slug", placeholder: "auto-generated from title if empty" },
     { label: "Jurisdiction", key: "jurisdiction" },
     { label: "Source URL", key: "source_url" },
     { label: "Source Name", key: "source_name" },
