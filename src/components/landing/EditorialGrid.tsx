@@ -1,10 +1,9 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { supabase } from "@/lib/supabase";
 import { EXECUTIVE_INSIGHTS } from "@/lib/landingContent";
 
 interface FieldDispatch {
@@ -23,36 +22,14 @@ interface RadarEntry {
   date: string;
 }
 
-export default function EditorialGrid() {
+export default function EditorialGrid({
+  dispatches,
+  radar,
+}: {
+  dispatches: FieldDispatch[];
+  radar: RadarEntry[];
+}) {
   const insights = EXECUTIVE_INSIGHTS;
-  const [dispatches, setDispatches] = useState<FieldDispatch[]>([]);
-  const [radar, setRadar] = useState<RadarEntry[]>([]);
-  const [dispLoading, setDispLoading] = useState(true);
-  const [radarLoading, setRadarLoading] = useState(true);
-
-  useEffect(() => {
-    (async () => {
-      const { data } = await supabase
-        .from("news_items")
-        .select("id, title, category, summary, image_url")
-        .order("published_date", { ascending: false })
-        .limit(2);
-      if (data) setDispatches(data as FieldDispatch[]);
-      setDispLoading(false);
-    })();
-  }, []);
-
-  useEffect(() => {
-    (async () => {
-      const { data } = await supabase
-        .from("policies")
-        .select("id, jurisdiction, title, threat_level, date")
-        .order("date", { ascending: false })
-        .limit(3);
-      if (data) setRadar(data as RadarEntry[]);
-      setRadarLoading(false);
-    })();
-  }, []);
 
   return (
     <section className="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-b border-slate-200 dark:border-slate-800">
@@ -92,30 +69,15 @@ export default function EditorialGrid() {
           </Link>
         </div>
 
-        {/* COLUMN 2: Field Dispatches (live from news_items) */}
+        {/* COLUMN 2: Field Dispatches */}
         <div className="lg:col-span-4 space-y-6 lg:border-r lg:border-slate-200 lg:dark:border-slate-800 lg:pr-8 animate-fade-up [animation-delay:150ms]">
           <span className="text-xs font-sans uppercase tracking-widest text-asean-blue font-bold block">
             02 \u2022 FIELD DISPATCHES
           </span>
-          {dispLoading
-            ? Array.from({ length: 2 }).map((_, i) => (
-                <div key={i} className="space-y-3 pb-6 border-b border-slate-200 dark:border-slate-800 animate-pulse">
-                  <div className="aspect-[16/9] rounded-lg bg-slate-200 dark:bg-slate-800" />
-                  <div className="h-3 bg-slate-200 dark:bg-slate-800 rounded w-1/3" />
-                  <div className="h-5 bg-slate-200 dark:bg-slate-800 rounded w-full" />
-                  <div className="h-4 bg-slate-200 dark:bg-slate-800 rounded w-2/3" />
-                </div>
-              ))
-            : dispatches.map((d, idx) => (
+          {dispatches.map((d, idx) => (
             <article key={d.id} className={`group space-y-3 ${idx < dispatches.length - 1 ? "pb-6 border-b border-slate-200 dark:border-slate-800" : ""}`}>
               <div className="relative aspect-[16/9] w-full rounded-lg overflow-hidden bg-slate-100 dark:bg-slate-900">
-                <Image
-                  src={d.image_url || ""}
-                  alt={d.title}
-                  fill
-                  sizes="(max-width: 1023px) 100vw, 33vw"
-                  className="object-cover transition-opacity duration-500"
-                />
+                <Image src={d.image_url || ""} alt={d.title} fill sizes="(max-width: 1023px) 100vw, 33vw" className="object-cover transition-opacity duration-500" />
               </div>
               <span className="text-[10px] font-sans text-asean-yellow font-bold uppercase">{d.category}</span>
               <h4 className="font-serif-editorial font-bold text-slate-900 dark:text-white text-base group-hover:text-asean-yellow transition-colors leading-snug">{d.title}</h4>
@@ -124,21 +86,13 @@ export default function EditorialGrid() {
           ))}
         </div>
 
-        {/* COLUMN 3: Regulatory Radar (live from policies) */}
+        {/* COLUMN 3: Regulatory Radar */}
         <div className="lg:col-span-3 space-y-6 animate-fade-up [animation-delay:300ms]">
           <span className="text-xs font-sans uppercase tracking-widest text-asean-blue font-bold block">
             03 \u2022 REGULATORY RADAR
           </span>
           <div className="space-y-4 font-sans">
-            {radarLoading
-              ? Array.from({ length: 3 }).map((_, i) => (
-                  <div key={i} className="p-3.5 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-1.5 animate-pulse">
-                    <div className="flex justify-between"><div className="h-3 bg-slate-200 dark:bg-slate-800 rounded w-1/3" /><div className="h-3 bg-slate-200 dark:bg-slate-800 rounded w-1/4" /></div>
-                    <div className="h-4 bg-slate-200 dark:bg-slate-800 rounded w-full" />
-                    <div className="h-3 bg-slate-200 dark:bg-slate-800 rounded w-1/4" />
-                  </div>
-                ))
-              : radar.map((entry) => {
+            {radar.map((entry) => {
               const alert = entry.threat_level === "High Alert" ? "text-asean-red" : entry.threat_level === "Medium Risk" ? "text-asean-yellow" : "text-asean-blue";
               return (
                 <div key={entry.id} className="p-3.5 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-1.5 shadow-sm dark:shadow-none">
