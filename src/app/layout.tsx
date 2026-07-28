@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
-import { Newsreader, Inter } from "next/font/google";
+import { Newsreader, Geist } from "next/font/google";
+import { Suspense } from "react";
+import AdminBarLoader from "@/components/AdminBarLoader";
 import "./globals.css";
 
 const newsreader = Newsreader({
@@ -8,9 +10,9 @@ const newsreader = Newsreader({
   style: ["normal", "italic"],
 });
 
-const inter = Inter({
-  variable: "--font-sans",
+const geist = Geist({
   subsets: ["latin"],
+  variable: "--font-sans",
 });
 
 export const metadata: Metadata = {
@@ -28,7 +30,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${newsreader.variable} ${inter.variable} h-full antialiased`}
+      className={`${newsreader.variable} ${geist.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <head>
@@ -47,7 +49,10 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="min-h-full flex flex-col font-sans transition-colors duration-200">
+      <body className="min-h-full flex flex-col font-sans transition-colors duration-200 pt-[var(--drone-admin-bar-h,0px)]">
+        <Suspense fallback={null}>
+          <AdminBarLoader />
+        </Suspense>
         {children}
       </body>
     </html>

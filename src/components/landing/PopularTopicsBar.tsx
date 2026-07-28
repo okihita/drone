@@ -4,7 +4,7 @@ import { POPULAR_TOPICS } from "@/lib/landingContent";
 
 export default function PopularTopicsBar() {
   return (
-    <section className="bg-slate-100 dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800/80 py-2 px-4 sm:px-6 lg:px-8 font-sans">
+    <section className="bg-slate-100 dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800/80 py-2 px-4 sm:px-6 lg:px-8 font-sans h-11 flex items-center">
       <div className="max-w-7xl mx-auto flex items-center gap-3 overflow-x-auto no-scrollbar text-xs">
         <span className="font-bold text-slate-600 dark:text-slate-400 uppercase text-[10px] tracking-wider whitespace-nowrap">
           POPULAR TOPICS:

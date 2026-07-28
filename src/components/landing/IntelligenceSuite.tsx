@@ -3,6 +3,12 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { INTELLIGENCE_MODULES } from "@/lib/landingContent";
 
+const TEXT_COLOR_MAP: Record<string, string> = {
+  "group-hover:text-asean-blue": "text-asean-blue",
+  "group-hover:text-asean-red": "text-asean-red",
+  "group-hover:text-asean-yellow": "text-asean-yellow",
+};
+
 export default function IntelligenceSuite() {
   return (
     <section className="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-b border-slate-200 dark:border-slate-800">
@@ -37,7 +43,7 @@ export default function IntelligenceSuite() {
                 {mod.description}
               </p>
             </div>
-            <div className={`pt-4 border-t border-slate-100 dark:border-slate-800 mt-4 flex items-center justify-between text-xs font-sans text-${mod.accentColor} font-semibold`}>
+            <div className={`pt-4 border-t border-slate-100 dark:border-slate-800 mt-4 flex items-center justify-between text-xs font-sans ${TEXT_COLOR_MAP[mod.hoverText] ?? "text-slate-600"} font-semibold`}>
               <span>{mod.ctaLabel}</span>
               <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
             </div>

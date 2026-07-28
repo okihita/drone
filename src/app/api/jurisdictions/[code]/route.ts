@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createClient } from "@supabase/supabase-js";
+import { getJurisdictionByCode } from "@/services/jurisdictions";
 
 export async function GET(
   _request: NextRequest,
@@ -7,20 +7,20 @@ export async function GET(
 ) {
   const { code } = await params;
 
-  const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!,
-  );
-
-  const { data, error } = await supabase
-    .from("jurisdictions")
-    .select("*")
-    .eq("code", code.toUpperCase())
-    .single();
-
-  if (error) {
-    return NextResponse.json({ error: error.message }, { status: 404 });
+  try {
+    const data = await getJurisdictionByCode(code.toUpperCase());
+    if (!data) {
+      return NextResponse.json({ error: "Not found" }, { status: 404 });
+    }
+    return NextResponse.json(data, {
+      headers: {
+        "Cache-Control": "s-maxage=300, stale-while-revalidate=60",
+      },
+    });
+  } catch (error) {
+    return NextResponse.json(
+      { error: error instanceof Error ? error.message : "Unknown error" },
+      { status: 500 },
+    );
   }
-
-  return NextResponse.json(data);
 }

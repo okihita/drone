@@ -9,6 +9,7 @@ const nextConfig: NextConfig = {
         pathname: "/storage/v1/object/public/**",
       },
     ],
+    minimumCacheTTL: 86400, // 24h — prevents repeated fetch timeouts from slow origins
   },
   async headers() {
     return [
