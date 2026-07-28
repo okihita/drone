@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState, useMemo } from "react";
+import React, { useState, useMemo } from "react";
 import Link from "next/link";
 import {
   ArrowRight,
@@ -21,7 +21,6 @@ interface HeroSectionProps {
 }
 
 export default function HeroSection({ leadStory }: HeroSectionProps) {
-  const sectionRef = useRef<HTMLElement | null>(null);
   const countries = useMemo(() => getRealAseanCountries(), []);
 
   const [selectedCountry, setSelectedCountry] = useState<GeoCountryData | null>(null);
@@ -40,7 +39,6 @@ export default function HeroSection({ leadStory }: HeroSectionProps) {
 
   return (
     <section
-      ref={sectionRef}
       className="relative flex w-full flex-col overflow-hidden border-b border-slate-800 bg-slate-950 text-white selection:bg-asean-yellow/30"
     >
       {/* ===== Top Command Center HUD Bar ===== */}
@@ -100,7 +98,7 @@ export default function HeroSection({ leadStory }: HeroSectionProps) {
                     >
                       <span>Jurisdiction Brief</span>
                       {selectedCountry && (
-                        <span className="rounded bg-asean-yellow/30 px-1.5 py-0.2 text-[10px] font-extrabold text-asean-yellow">
+                        <span className="rounded bg-asean-yellow/30 px-1.5 py-0.5 text-[10px] font-extrabold text-asean-yellow">
                           {selectedCountry.code}
                         </span>
                       )}

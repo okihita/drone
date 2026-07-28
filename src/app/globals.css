@@ -208,35 +208,7 @@
   }
 }
 
-.animate-hero-flow {
-  stroke-dasharray: 6 18;
-  animation: heroFlow 1.6s linear infinite !important;
-}
 
-.animate-hero-ping {
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: heroPing 3s cubic-bezier(0, 0, 0.2, 1) infinite !important;
-}
-
-.animate-hero-sweep {
-  animation: heroSweep 16s linear infinite !important;
-}
-
-.animate-hero-flow-fast {
-  stroke-dasharray: 4 12;
-  animation: heroFlowFast 1.1s linear infinite !important;
-}
-
-.animate-threat-sonar {
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: threatSonar 2.2s cubic-bezier(0.1, 0.8, 0.3, 1) infinite !important;
-}
-
-.animate-hero-drift {
-  animation: heroDrift 36s ease-in-out infinite alternate !important;
-}
 
 @keyframes heroMarquee {
   0% {

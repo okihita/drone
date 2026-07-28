@@ -1,7 +1,7 @@
 /* eslint-disable max-lines */
 "use client";
 
-import React, { useMemo, useRef } from "react";
+import React, { useMemo } from "react";
 import { getRealAseanCountries, type GeoCountryData } from "@/lib/aseanGeo";
 import { REGIME_FILL_COLORS } from "@/lib/constants";
 import { ASEAN_COLORS } from "@/lib/colors";
@@ -59,7 +59,6 @@ export default function HeroMapCanvas({
 }: HeroMapCanvasProps) {
   const countries = useMemo(() => getRealAseanCountries(), []);
   const byCode = useMemo(() => new Map(countries.map((c) => [c.code, c])), [countries]);
-  const mapContainerRef = useRef<HTMLDivElement>(null);
 
   const arcs = useMemo(() => {
     return FLOW_ARCS.map(([from, to, label]) => {
@@ -79,7 +78,6 @@ export default function HeroMapCanvas({
 
   return (
     <div
-      ref={mapContainerRef}
       className="absolute inset-0 z-0 overflow-hidden bg-slate-950 select-none"
       aria-label="Interactive Cartographic Map"
     >
@@ -120,116 +118,127 @@ export default function HeroMapCanvas({
             </filter>
           </defs>
 
-          {/* Country Polygons */}
+          {/* Render base country polygons */}
           {countries.map((country) => {
             const isSelected = activeCountry?.id === country.id;
-            let fill = "rgba(30, 41, 59, 0.7)", stroke = "rgba(71, 85, 105, 0.6)", fillOpacity = 0.5;
+            const regimeColors = REGIME_FILL_COLORS[country.regimeType];
+
+            // Layer-specific visual overrides
+            let fillColor = regimeColors.fill;
+            let strokeColor = regimeColors.stroke;
+            let fillOpacity = 0.55;
 
             if (activeLayer === "threat") {
-              const threatStyle = THREAT_COLORS[country.threatScore] ?? THREAT_COLORS[3];
-              fill = threatStyle.fill;
-              stroke = threatStyle.stroke;
-              fillOpacity = isSelected ? 0.9 : 0.65;
-            } else if (activeLayer === "regime" || isSelected) {
-              const regimeColors = REGIME_FILL_COLORS[country.regimeType];
-              if (regimeColors) {
-                fill = isSelected ? regimeColors.fill : "rgba(30, 41, 59, 0.75)";
-                stroke = regimeColors.stroke;
-                fillOpacity = isSelected ? 0.85 : 0.45;
+              // Threat layer: color by risk rating
+              if (country.threatScore >= 4) {
+                fillColor = ASEAN_COLORS.red;
+                strokeColor = ASEAN_COLORS.red;
+                fillOpacity = 0.7;
+              } else if (country.threatScore === 3) {
+                fillColor = ASEAN_COLORS.yellow;
+                strokeColor = ASEAN_COLORS.yellow;
+                fillOpacity = 0.6;
+              } else {
+                fillColor = ASEAN_COLORS.blue;
+                strokeColor = ASEAN_COLORS.blue;
+                fillOpacity = 0.45;
               }
+            } else if (activeLayer === "regime") {
+              fillOpacity = isSelected ? 0.85 : 0.65;
+            }
+
+            if (isSelected) {
+              fillOpacity = 0.9;
             }
 
             return (
-              <path
-                key={country.id}
-                d={country.pathD}
-                fill={fill}
-                fillOpacity={fillOpacity}
-                stroke={stroke}
-                strokeWidth={isSelected ? 2 : 0.8}
-                strokeLinejoin="round"
-                filter={isSelected ? "url(#neon-glow)" : undefined}
-                className="cursor-pointer transition-colors duration-200"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onSelectCountry(country);
-                }}
-              />
-            );
-          })}
-
-          {/* Data-Flow Arcs */}
-          {activeLayer === "arcs" &&
-            arcs.map((arc, i) => {
-              const isArcActive = activeCountry && (arc.from === activeCountry.code || arc.to === activeCountry.code);
-              return (
-                <g key={arc.key}>
-                  <path
-                    d={arc.d}
-                    fill="none"
-                    stroke={isArcActive ? ASEAN_COLORS.yellow : arc.color}
-                    strokeOpacity={isArcActive ? 0.95 : 0.4}
-                    strokeWidth={isArcActive ? 2.2 : 1.25}
-                  />
-                  <path
-                    d={arc.d}
-                    fill="none"
-                    stroke={isArcActive ? ASEAN_COLORS.white : arc.color}
-                    strokeOpacity={0.9}
-                    strokeWidth={isArcActive ? 2.5 : 1.5}
-                    className={isArcActive ? "animate-hero-flow-fast" : "animate-hero-flow"}
-                    style={{ animationDelay: `${i * 0.3}s` }}
-                  />
-                </g>
-              );
-            })}
-
-          {/* Capital Nodes & Threat Pings */}
-          {countries.map((country, i) => {
-            const isSelected = activeCountry?.id === country.id;
-            const threatStyle = THREAT_COLORS[country.threatScore] ?? THREAT_COLORS[3];
-
-            return (
-              <g key={`node-${country.id}`}>
-                {(country.threatScore >= 4 || isSelected || activeLayer === "threat") && (
-                  <circle
-                    cx={country.centerPos.x}
-                    cy={country.centerPos.y}
-                    r={isSelected ? 6.5 : 4}
-                    fill="none"
-                    stroke={threatStyle.stroke}
-                    strokeWidth={1.5}
-                    className="animate-threat-sonar"
-                    style={{ animationDelay: `${(i % 5) * 0.4}s` }}
-                  />
-                )}
-                <circle
-                  cx={country.centerPos.x}
-                  cy={country.centerPos.y}
-                  r={isSelected ? 5 : 3.2}
-                  fill={isSelected ? ASEAN_COLORS.white : threatStyle.stroke}
-                  stroke={isSelected ? threatStyle.stroke : ASEAN_COLORS.borderDark}
-                  strokeWidth={1.5}
-                  className="cursor-pointer transition-all duration-200"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    onSelectCountry(country);
-                  }}
+              <g key={country.id} className="cursor-pointer transition-all duration-300">
+                <path
+                  d={country.pathD}
+                  fill={fillColor}
+                  fillOpacity={fillOpacity}
+                  stroke={isSelected ? ASEAN_COLORS.yellow : strokeColor}
+                  strokeWidth={isSelected ? 2 : 1}
+                  className="transition-all duration-300 hover:fill-opacity-90 hover:stroke-white"
+                  onClick={() => onSelectCountry(country)}
                 />
+
+                {/* Country Code Label */}
                 <text
                   x={country.centerPos.x}
-                  y={country.centerPos.y + (isSelected ? 16 : 13)}
+                  y={country.centerPos.y}
                   textAnchor="middle"
-                  fontSize={isSelected ? 10 : 8}
-                  fontWeight="bold"
-                  fill={isSelected ? ASEAN_COLORS.yellow : ASEAN_COLORS.textMutedDark}
-                  className="pointer-events-none uppercase tracking-wider font-sans"
+                  dominantBaseline="central"
+                  className={`pointer-events-none font-mono text-[10px] font-bold tracking-wider transition-all duration-300 ${
+                    isSelected ? "fill-asean-yellow text-xs" : "fill-slate-300"
+                  }`}
+                  style={{
+                    textShadow: "0 1px 3px rgba(0,0,0,0.9)",
+                  }}
                 >
                   {country.code}
                 </text>
               </g>
             );
           })}
+
+          {/* Layer: Cross-Border Arcs */}
+          {activeLayer === "arcs" &&
+            arcs.map((arc) => (
+              <g key={arc.key} className="pointer-events-none">
+                {/* Glow path */}
+                <path
+                  d={arc.d}
+                  fill="none"
+                  stroke={arc.color}
+                  strokeWidth="2.5"
+                  strokeOpacity="0.4"
+                  filter="url(#neon-glow)"
+                />
+                {/* Animated dash flow */}
+                <path
+                  d={arc.d}
+                  fill="none"
+                  stroke={arc.color}
+                  strokeWidth="1.5"
+                  className="animate-hero-flow"
+                />
+              </g>
+            ))}
+
+          {/* Layer: Threat Sonar Rings */}
+          {activeLayer === "threat" &&
+            countries
+              .filter((c) => c.threatScore >= 4)
+              .map((c) => (
+                <circle
+                  key={`sonar-${c.id}`}
+                  cx={c.centerPos.x}
+                  cy={c.centerPos.y}
+                  r="12"
+                  fill="none"
+                  stroke={ASEAN_COLORS.red}
+                  className="animate-threat-sonar pointer-events-none"
+                />
+              ))}
+
+          {/* Layer: Regime Indicators */}
+          {activeLayer === "regime" &&
+            countries.map((c) => {
+              const rColor = REGIME_FILL_COLORS[c.regimeType].stroke;
+              return (
+                <circle
+                  key={`regime-dot-${c.id}`}
+                  cx={c.centerPos.x}
+                  cy={c.centerPos.y - 12}
+                  r="3"
+                  fill={rColor}
+                  stroke="#000"
+                  strokeWidth="1"
+                  className="animate-pulse pointer-events-none"
+                />
+              );
+            })}
         </svg>
       </div>
 
@@ -261,17 +270,17 @@ export default function HeroMapCanvas({
           <div className="flex items-center justify-between gap-1 text-[10px] font-sans font-bold pt-0.5">
             <span className="flex items-center gap-1 text-asean-red">
               <span className="h-1.5 w-1.5 rounded-full bg-asean-red" />
-              3 Strict
-            </span>
-            <span className="text-slate-600">·</span>
-            <span className="flex items-center gap-1 text-asean-yellow">
-              <span className="h-1.5 w-1.5 rounded-full bg-asean-yellow" />
-              5 Hybrid
+              2 Strict
             </span>
             <span className="text-slate-600">·</span>
             <span className="flex items-center gap-1 text-blue-400">
               <span className="h-1.5 w-1.5 rounded-full bg-blue-400" />
-              3 Open
+              5 Hybrid
+            </span>
+            <span className="text-slate-600">·</span>
+            <span className="flex items-center gap-1 text-asean-yellow">
+              <span className="h-1.5 w-1.5 rounded-full bg-asean-yellow" />
+              4 Open
             </span>
           </div>
         </div>
@@ -348,7 +357,7 @@ export default function HeroMapCanvas({
       </div>
 
       {/* ===== Bottom Floating Glass Dock Bar (Pacific Sea) ===== */}
-      <div className="absolute bottom-2.5 right-3 left-48 sm:left-56 z-30 flex items-center justify-center font-sans">
+      <div className="absolute bottom-2.5 right-3 left-3 sm:left-56 z-30 flex items-center justify-center font-sans">
         <div className="flex items-center gap-1 sm:gap-1.5 overflow-x-auto no-scrollbar rounded-xl border border-white/20 bg-slate-950/85 p-1.5 shadow-2xl backdrop-blur-md max-w-full">
           {countries.map((c) => {
             const isSelected = activeCountry?.id === c.id;
