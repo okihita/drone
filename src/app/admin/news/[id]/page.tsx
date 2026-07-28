@@ -4,7 +4,6 @@ import React, { useState, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
 import AdminDashboardLayout from "@/components/admin/Sidebar";
 import { getNewsById, updateNewsItem, uploadNewsImage } from "@/services/news";
-import { getBrowserClient } from "@/lib/supabase";
 import { NEWS_CATEGORIES } from "@/lib/constants";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -81,7 +80,7 @@ export default function EditNewsItem() {
         summary: DOMPurify.sanitize(form.summary || ""),
         read_time: form.read_time || calculateReadTime(form.summary || ""),
       };
-      await updateNewsItem(id, sanitized, getBrowserClient());
+      await updateNewsItem(id, sanitized);
       router.push("/admin/news");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Save failed");

@@ -16,8 +16,13 @@ export const supabase: SupabaseClient = createClient(supabaseUrl, anonKey);
  * Use ONLY in client components for auth checks (AdminBar, session state).
  * Does NOT work in server components — use supabase-server.ts there.
  */
+let _browserClient: SupabaseClient | null = null;
+
 export function getBrowserClient(): SupabaseClient {
-  return createBrowserClient(supabaseUrl, anonKey);
+  if (!_browserClient) {
+    _browserClient = createBrowserClient(supabaseUrl, anonKey);
+  }
+  return _browserClient;
 }
 
 /**

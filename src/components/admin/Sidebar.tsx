@@ -1,9 +1,9 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { FileText, Newspaper, Globe, LogOut, LayoutDashboard } from "lucide-react";
+import { FileText, Newspaper, Globe, LogOut, LayoutDashboard, Menu, X } from "lucide-react";
 import { getBrowserClient } from "@/lib/supabase";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -18,43 +18,91 @@ const nav = [
 export default function AdminDashboardLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const handleLogout = async () => {
     await getBrowserClient().auth.signOut();
     router.push("/admin/login");
   };
 
+  const NavLink = ({ href, label, icon: Icon, collapsed = false }: { href: string; label: string; icon: React.ComponentType<{ className?: string }>; collapsed?: boolean }) => {
+    const active = pathname === href || (href !== "/admin" && pathname.startsWith(href));
+    return (
+      <Link
+        href={href}
+        onClick={() => setSidebarOpen(false)}
+        className={`flex items-center gap-2.5 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+          active
+            ? "bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white"
+            : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800"
+        }`}
+      >
+        <Icon className="w-4 h-4 shrink-0" />
+        {!collapsed && <span>{label}</span>}
+      </Link>
+    );
+  };
+
   return (
     <div className="min-h-screen flex bg-slate-50 dark:bg-slate-950 font-sans">
-      <aside className="w-56 border-r bg-white dark:bg-slate-900 p-4 flex flex-col">
-        <Link href="/admin" className="font-serif-editorial text-xl font-extrabold text-slate-900 dark:text-white mb-6">
-          DRONE Admin
-        </Link>
+      {/* Mobile overlay */}
+      {sidebarOpen && (
+        <div
+          className="fixed inset-0 z-40 bg-black/50 lg:hidden"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+
+      {/* Sidebar — hidden on mobile, collapsible on tablet, full on desktop */}
+      <aside
+        className={`
+          fixed lg:sticky top-0 left-0 z-50 h-full
+          bg-white dark:bg-slate-900 border-r
+          flex flex-col transition-transform duration-200
+          w-56 p-4
+          max-lg:${sidebarOpen ? "translate-x-0" : "-translate-x-full"}
+          lg:translate-x-0
+        `}
+      >
+        <div className="flex items-center justify-between mb-6">
+          <Link href="/admin" className="font-serif-editorial text-xl font-extrabold text-slate-900 dark:text-white">
+            DRONE
+          </Link>
+          <button
+            onClick={() => setSidebarOpen(false)}
+            className="lg:hidden p-1 rounded hover:bg-slate-100 dark:hover:bg-slate-800"
+          >
+            <X className="w-4 h-4" />
+          </button>
+        </div>
+
         <nav className="flex-1 space-y-1">
-          {nav.map(({ href, label, icon: Icon }) => {
-            const active = pathname === href || (href !== "/admin" && pathname.startsWith(href));
-            return (
-              <Link
-                key={href}
-                href={href}
-                className={`flex items-center gap-2.5 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                  active
-                    ? "bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white"
-                    : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800"
-                }`}
-              >
-                <Icon className="w-4 h-4" />
-                <span>{label}</span>
-              </Link>
-            );
-          })}
+          {nav.map((item) => (
+            <NavLink key={item.href} {...item} />
+          ))}
         </nav>
         <Separator className="my-3" />
         <Button variant="ghost" size="sm" onClick={handleLogout} className="justify-start text-slate-500 hover:text-red-600">
           <LogOut className="w-4 h-4 mr-2" /> Sign Out
         </Button>
       </aside>
-      <main className="flex-1 p-8 overflow-auto">{children}</main>
+
+      {/* Main content */}
+      <main className="flex-1 min-w-0">
+        {/* Mobile header bar */}
+        <div className="lg:hidden flex items-center gap-3 px-4 py-3 border-b bg-white dark:bg-slate-900 sticky top-0 z-30">
+          <button
+            onClick={() => setSidebarOpen(true)}
+            className="p-1.5 rounded hover:bg-slate-100 dark:hover:bg-slate-800"
+          >
+            <Menu className="w-5 h-5" />
+          </button>
+          <span className="font-serif-editorial font-bold text-slate-900 dark:text-white text-sm">DRONE Admin</span>
+        </div>
+        <div className="p-4 sm:p-6 lg:p-8 overflow-auto">
+          {children}
+        </div>
+      </main>
     </div>
   );
 }

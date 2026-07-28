@@ -156,6 +156,7 @@ export default function RichTextEditor({ content, onChange, placeholder }: RichT
     extensions: [
       StarterKit.configure({
         heading: { levels: [1, 2, 3, 4] },
+        link: false, // we configure LinkExtension explicitly below
       }),
       LinkExtension.configure({ openOnClick: false }),
       ImageExtension,
@@ -166,7 +167,7 @@ export default function RichTextEditor({ content, onChange, placeholder }: RichT
     onUpdate: ({ editor: ed }) => onChange(ed.getHTML()),
     editorProps: {
       attributes: {
-        class: "prose prose-sm dark:prose-invert max-w-none min-h-[300px] px-4 py-3 focus:outline-none",
+        class: "max-w-none min-h-[300px] px-4 py-3 focus:outline-none text-slate-900 dark:text-slate-100 text-sm",
       },
     },
   });
@@ -324,7 +325,7 @@ export default function RichTextEditor({ content, onChange, placeholder }: RichT
 
         {previewOpen ? (
           <div
-            className="prose prose-sm dark:prose-invert max-w-none px-4 py-6 min-h-[300px]"
+            className="prose-content font-sans px-4 py-6 min-h-[300px]"
             dangerouslySetInnerHTML={{ __html: previewHtml }}
           />
         ) : (

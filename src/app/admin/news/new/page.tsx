@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import AdminDashboardLayout from "@/components/admin/Sidebar";
 import { createNewsItem, uploadNewsImage } from "@/services/news";
-import { getBrowserClient } from "@/lib/supabase";
 import { NEWS_CATEGORIES } from "@/lib/constants";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -62,7 +61,7 @@ export default function NewNewsItem() {
         summary: DOMPurify.sanitize(form.summary || ""),
         read_time: form.read_time || calculateReadTime(form.summary || ""),
       };
-      await createNewsItem(sanitized, getBrowserClient());
+      await createNewsItem(sanitized);
       router.push("/admin/news");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Save failed");

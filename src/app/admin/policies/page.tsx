@@ -4,7 +4,6 @@ import React, { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 import AdminDashboardLayout from "@/components/admin/Sidebar";
 import { listPolicies, deletePolicy } from "@/services/policies";
-import { getBrowserClient } from "@/lib/supabase";
 import { THREAT_BADGE_CLASSES } from "@/lib/constants";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -33,7 +32,7 @@ export default function PoliciesList() {
   const handleDelete = async (id: string) => {
     if (!confirm("Delete this policy?")) return;
     try {
-      await deletePolicy(id, getBrowserClient());
+      await deletePolicy(id);
       fetch();
     } catch (e) {
       setError(e instanceof Error ? e.message : "Delete failed");
@@ -54,7 +53,7 @@ export default function PoliciesList() {
       </div>
       {error && <p className="text-sm text-red-600 mb-4">{error}</p>}
 
-      <div className="rounded-lg border bg-white dark:bg-slate-900">
+      <div className="rounded-lg border bg-white dark:bg-slate-900 overflow-x-auto">
         <Table>
           <TableHeader>
             <TableRow>

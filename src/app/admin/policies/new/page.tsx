@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import AdminDashboardLayout from "@/components/admin/Sidebar";
 import { createPolicy } from "@/services/policies";
-import { getBrowserClient } from "@/lib/supabase";
 import { POLICY_CATEGORIES, THREAT_LEVELS } from "@/lib/constants";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -54,7 +53,7 @@ export default function NewPolicy() {
         month: "long",
         day: "numeric",
       });
-      await createPolicy({ ...form, date: displayDate }, getBrowserClient());
+      await createPolicy({ ...form, date: displayDate });
       router.push("/admin/policies");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Save failed");
