@@ -1,49 +1,15 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { supabase } from "@/lib/supabase";
+import React, { useState, useEffect, useActionState } from "react";
+import { loginAction, signOutAction } from "./actions";
 
 export default function AdminLoginPage() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
+  const [state, formAction, isPending] = useActionState(loginAction, { error: "" });
   const [ready, setReady] = useState(false);
 
-  // Clear any stale session on mount — prevents cookie loop
   useEffect(() => {
-    supabase.auth.signOut().then(() => setReady(true));
+    signOutAction().finally(() => setReady(true));
   }, []);
-
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (loading) return;
-    setLoading(true);
-    setError("");
-
-    try {
-      console.log("[login] attempting signInWithPassword...");
-      const { data, error: authError } = await supabase.auth.signInWithPassword({
-        email: email.trim(),
-        password,
-      });
-      console.log("[login] response:", { user: !!data.user, error: authError?.message });
-
-      if (authError) {
-        setError(authError.message);
-        setLoading(false);
-      } else {
-        console.log("[login] success, redirecting to /admin");
-        setSuccess(true);
-        setTimeout(() => { window.location.href = "/admin"; }, 150);
-      }
-    } catch (err) {
-      console.error("[login] exception:", err);
-      setError(err instanceof Error ? err.message : "Login failed. Check your network connection.");
-      setLoading(false);
-    }
-  };
 
   if (!ready) {
     return (
@@ -59,15 +25,14 @@ export default function AdminLoginPage() {
         <h1 className="font-serif-editorial text-2xl font-extrabold text-slate-900 dark:text-white mb-1">DRONE Admin</h1>
         <p className="text-xs text-slate-500 dark:text-slate-400 mb-6">EngageMedia editorial dashboard</p>
 
-        <form onSubmit={handleLogin} className="space-y-4">
+        <form action={formAction} className="space-y-4">
           <div>
             <label htmlFor="email" className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Email</label>
             <input
               id="email"
+              name="email"
               type="email"
               autoComplete="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
               required
               className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded px-3 py-2 text-sm text-slate-900 dark:text-slate-200 focus:outline-none focus:border-asean-yellow"
             />
@@ -76,23 +41,22 @@ export default function AdminLoginPage() {
             <label htmlFor="password" className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Password</label>
             <input
               id="password"
+              name="password"
               type="password"
               autoComplete="current-password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
               required
               className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded px-3 py-2 text-sm text-slate-900 dark:text-slate-200 focus:outline-none focus:border-asean-yellow"
             />
           </div>
 
-          {error && <p className="text-xs text-asean-red">{error}</p>}
+          {state.error && <p className="text-xs text-asean-red">{state.error}</p>}
 
           <button
             type="submit"
-            disabled={loading || success}
+            disabled={isPending}
             className="w-full py-2.5 rounded-lg bg-asean-yellow hover:bg-asean-yellow-hover text-slate-950 font-bold text-sm font-sans transition-colors disabled:opacity-50"
           >
-            {success ? "Redirecting..." : loading ? "Signing in..." : "Sign In"}
+            {isPending ? "Signing in..." : "Sign In"}
           </button>
         </form>
       </div>
