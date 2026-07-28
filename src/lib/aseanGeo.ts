@@ -176,6 +176,11 @@ const COUNTRY_METADATA: Record<string, Omit<GeoCountryData, "pathD" | "centerPos
   },
 };
 
+// Round projection coordinates to avoid server/client floating-point mismatch
+function r(v: number): number {
+  return Math.round(v * 10000) / 10000;
+}
+
 // Generate real SVG path strings using Mercator projection over 540x370 viewBox
 export function getRealAseanCountries(): GeoCountryData[] {
   const width = 540;
@@ -186,7 +191,7 @@ export function getRealAseanCountries(): GeoCountryData[] {
     .scale(600)
     .translate([width / 2, height / 2]);
 
-  const pathGenerator = geoPath().projection(projection);
+  const pathGenerator = geoPath().projection(projection).digits(4);
 
   const result: GeoCountryData[] = [];
 
@@ -204,8 +209,8 @@ export function getRealAseanCountries(): GeoCountryData[] {
         ...meta,
         pathD,
         centerPos: {
-          x: isNaN(centroid[0]) ? width / 2 : centroid[0],
-          y: isNaN(centroid[1]) ? height / 2 : centroid[1],
+          x: isNaN(centroid[0]) ? width / 2 : r(centroid[0]),
+          y: isNaN(centroid[1]) ? height / 2 : r(centroid[1]),
         },
       });
     }
