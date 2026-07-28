@@ -16,7 +16,7 @@ export default function Header() {
   const isActive = (path: string) => pathname === path;
 
   return (
-    <header className="w-full border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 transition-colors sticky top-0 z-50 backdrop-blur-md bg-slate-50/95 dark:bg-slate-950/95 font-sans">
+    <header className="w-full border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 transition-colors sticky top-[var(--drone-admin-bar-h,0px)] z-50 backdrop-blur-md bg-slate-50/95 dark:bg-slate-950/95 font-sans">
       {/* Masthead */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-6 border-b border-slate-200/80 dark:border-slate-800/60 font-sans">
         <div className="grid grid-cols-1 md:grid-cols-3 items-center gap-4">
