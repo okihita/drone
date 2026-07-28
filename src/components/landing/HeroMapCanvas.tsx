@@ -238,10 +238,11 @@ export default function HeroMapCanvas({
 
       {/* ===== Radar Sweep Background Spotlight (Exact Center of Card) ===== */}
       <div
-        className="animate-hero-sweep pointer-events-none absolute left-1/2 top-1/2 aspect-square w-[140%] rounded-full opacity-50"
+        className="animate-hero-sweep pointer-events-none absolute left-1/2 top-1/2 aspect-square w-[140%] rounded-full opacity-60"
         style={{
           transformOrigin: "50% 50%",
-          background: "conic-gradient(from 0deg at 50% 50%, rgba(255,204,0,0.12) 0deg, rgba(255,204,0,0.03) 30deg, transparent 70deg)",
+          background:
+            "conic-gradient(from 0deg at 50% 50%, rgba(255,204,0,0.22) 0deg, transparent 2deg, transparent 290deg, rgba(255,204,0,0.03) 320deg, rgba(255,204,0,0.18) 358deg, rgba(255,204,0,0.22) 360deg)",
         }}
       />
       {/* Radar Center Pivot Crosshair */}
