@@ -65,26 +65,19 @@ export default function FeaturedCarousel({
         >
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 items-stretch h-full">
             <div className="lg:col-span-7 relative min-h-[280px] lg:min-h-full h-full bg-slate-950 overflow-hidden">
-              {stories.map((story, idx) => (
-                <div
-                  key={story.id}
-                  className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
-                    activeSlideIndex === idx
-                      ? "opacity-100 z-10"
-                      : "opacity-20 z-0 pointer-events-none"
-                  }`}
-                >
-                  <Image
-                    src={story.image_url || ""}
-                    alt={story.title}
-                    fill
-                    sizes="(max-width: 1023px) 100vw, 50vw"
-                    loading={idx === 0 ? "eager" : "lazy"}
-                    priority={idx === 0}
-                    className="object-cover"
-                  />
-                </div>
-              ))}
+              <div
+                key={activeSlideIndex}
+                className="absolute inset-0 animate-fade-in"
+              >
+                <Image
+                  src={stories[activeSlideIndex]?.image_url || ""}
+                  alt={stories[activeSlideIndex]?.title || ""}
+                  fill
+                  sizes="(max-width: 1023px) 100vw, 50vw"
+                  priority
+                  className="object-cover"
+                />
+              </div>
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent lg:hidden z-20" />
             </div>
 
