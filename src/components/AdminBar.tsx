@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { supabase } from "@/lib/supabase";
+import { getBrowserClient } from "@/lib/supabase";
 import { ShieldCheck, LogOut, LayoutDashboard } from "lucide-react";
 
 export default function AdminBar() {
@@ -11,18 +11,19 @@ export default function AdminBar() {
 
   useEffect(() => {
     setMounted(true);
-    supabase.auth.getSession().then(({ data }) => {
+    const client = getBrowserClient();
+    client.auth.getSession().then(({ data }) => {
       setSession(!!data.session);
     });
 
-    const { data: listener } = supabase.auth.onAuthStateChange((_event, s) => {
+    const { data: listener } = client.auth.onAuthStateChange((_event, s) => {
       setSession(!!s);
     });
     return () => listener.subscription.unsubscribe();
   }, []);
 
   const handleSignOut = async () => {
-    await supabase.auth.signOut();
+    await getBrowserClient().auth.signOut();
     window.location.reload();
   };
 

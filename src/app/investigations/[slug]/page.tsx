@@ -1,7 +1,8 @@
 import { notFound, redirect } from "next/navigation";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { getNewsBySlug, getNewsById } from "@/services/news";
+import { getNewsBySlug, getNewsById, listStories } from "@/services/news";
+import { generateSlug } from "@/lib/slug";
 import DOMPurify from "isomorphic-dompurify";
 
 interface Props {
@@ -18,10 +19,17 @@ export default async function InvestigationPage({ params }: Props) {
   // 1. Try slug lookup first
   let article = await getNewsBySlug(slug);
 
-  // 2. Fallback: try UUID (backwards-compat with old share links)
+  // 2. Fallback: if slug column doesn't exist yet, match by generated title-slug
+  if (!article && !isUuid(slug)) {
+    // Fetch all articles and find the one whose title generates this slug
+    const all = await listStories(100);
+    const match = all.find((a) => generateSlug(a.title) === slug);
+    if (match) article = await getNewsById(match.id);
+  }
+
+  // 3. Fallback: try UUID (backwards-compat with old share links)
   if (!article && isUuid(slug)) {
     article = await getNewsById(slug);
-    // Found by UUID → 301 redirect to canonical slug URL
     if (article?.slug) {
       redirect(`/investigations/${article.slug}`);
     }

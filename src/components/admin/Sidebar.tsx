@@ -4,7 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { FileText, Newspaper, Globe, LogOut, LayoutDashboard } from "lucide-react";
-import { supabase } from "@/lib/supabase";
+import { getBrowserClient } from "@/lib/supabase";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 
@@ -20,7 +20,7 @@ export default function AdminDashboardLayout({ children }: { children: React.Rea
   const router = useRouter();
 
   const handleLogout = async () => {
-    await supabase.auth.signOut();
+    await getBrowserClient().auth.signOut();
     router.push("/admin/login");
   };
 

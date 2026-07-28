@@ -1,25 +1,24 @@
-import { createBrowserClient } from "@supabase/ssr";
 import { createClient } from "@supabase/supabase-js";
+import { createBrowserClient } from "@supabase/ssr";
 import type { SupabaseClient } from "@supabase/supabase-js";
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-
-if (!supabaseUrl || !anonKey) {
-  throw new Error(
-    "Missing NEXT_PUBLIC_SUPABASE_URL or NEXT_PUBLIC_SUPABASE_ANON_KEY",
-  );
-}
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
 
 /**
- * Browser-side client with cookie-based session persistence.
- * Compatible with the SSR auth flow — the login server action sets
- * httpOnly cookies, and createBrowserClient reads them automatically.
+ * General-purpose client (anon key). Works in both server and client contexts.
+ * Use for data queries (policies, news, jurisdictions). Auth-unaware.
  */
-export const supabase: SupabaseClient = createBrowserClient(
-  supabaseUrl!,
-  anonKey!,
-);
+export const supabase: SupabaseClient = createClient(supabaseUrl, anonKey);
+
+/**
+ * Browser-only client with cookie-based session persistence.
+ * Use ONLY in client components for auth checks (AdminBar, session state).
+ * Does NOT work in server components — use supabase-server.ts there.
+ */
+export function getBrowserClient(): SupabaseClient {
+  return createBrowserClient(supabaseUrl, anonKey);
+}
 
 /**
  * Service-role client for server-side privileged queries.
@@ -30,5 +29,5 @@ export function getServiceClient(): SupabaseClient {
   if (!serviceKey) {
     throw new Error("Missing SUPABASE_SERVICE_ROLE_KEY environment variable");
   }
-  return createClient(supabaseUrl!, serviceKey!);
+  return createClient(supabaseUrl, serviceKey);
 }
