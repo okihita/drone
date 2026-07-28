@@ -84,7 +84,7 @@ export default function HeroCountryDossier({ country }: HeroCountryDossierProps)
         </a>
         <Link
           href="/observatory"
-          className="inline-flex items-center gap-1 rounded-lg bg-asean-yellow px-3 py-1.5 font-sans text-xs font-bold text-slate-950 shadow-md transition-colors hover:bg-asean-yellow-hover"
+          className="inline-flex items-center gap-1 rounded-lg bg-asean-yellow px-3 py-1.5 font-sans text-xs font-bold text-slate-950 shadow-xs transition-colors hover:bg-asean-yellow-hover"
         >
           <span>Deep-Dive Profile</span>
           <ChevronRight className="h-3.5 w-3.5" />

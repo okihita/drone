@@ -93,7 +93,7 @@ export default function PolicyMatrixFeed() {
           return (
             <div
               key={alert.id}
-              className="group rounded-2xl border border-slate-200 bg-white/90 p-6 shadow-xl backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/80 hover:border-asean-yellow/50 transition-all flex flex-col justify-between"
+              className="group rounded-2xl border border-slate-200 bg-white/90 p-6 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/80 hover:border-asean-yellow/50 transition-all flex flex-col justify-between"
             >
               <div>
                 {/* Card Top Header */}

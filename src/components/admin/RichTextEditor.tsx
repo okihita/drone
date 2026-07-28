@@ -118,7 +118,7 @@ function ToolbarSelect({
       {open && (
         <>
           <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} />
-          <div className="absolute top-full left-0 mt-1 z-50 bg-white dark:bg-slate-900 border rounded-lg shadow-xl p-1 min-w-[120px]">
+          <div className="absolute top-full left-0 mt-1 z-50 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg shadow-sm p-1 min-w-[120px]">
             {options.map((opt) => (
               <button
                 key={opt.label}

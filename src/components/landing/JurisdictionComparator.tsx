@@ -75,7 +75,7 @@ export default function JurisdictionComparator() {
       </div>
 
       {/* Main Comparison Container */}
-      <div className="rounded-2xl border border-slate-200 bg-white/90 shadow-xl backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/80 p-6 sm:p-8">
+      <div className="rounded-2xl border border-slate-200 bg-white/90 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/80 p-6 sm:p-8">
         {/* Country Selectors Bar */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-center border-b border-slate-200 dark:border-slate-800 pb-6 mb-6">
           {/* Selector A */}
@@ -101,7 +101,7 @@ export default function JurisdictionComparator() {
             <button
               onClick={handleSwap}
               title="Swap Countries"
-              className="p-3 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-asean-yellow hover:text-slate-950 transition-all shadow-md"
+              className="p-3 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-asean-yellow hover:text-slate-950 transition-all shadow-xs"
             >
               <ArrowRightLeft className="h-4 w-4" />
             </button>

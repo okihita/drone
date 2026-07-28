@@ -12,7 +12,7 @@ import type { MapFilterMode } from "@/lib/constants";
 function CountryDossierModal({ country, onClose }: { country: GeoCountryData; onClose: () => void }) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 dark:bg-black/80 backdrop-blur-md font-sans">
-      <div className="relative w-full max-w-2xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded-xl p-6 shadow-2xl">
+      <div className="relative w-full max-w-2xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded-xl p-6 shadow-sm">
         <button onClick={onClose} className="absolute top-4 right-4 p-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white">
           <X className="w-5 h-5" />
         </button>
@@ -89,7 +89,7 @@ function MapFilterControls({ filterRegime, onChange }: { filterRegime: MapFilter
 
 function MapHoverCard({ country }: { country: GeoCountryData }) {
   return (
-    <div className="absolute bottom-4 left-4 p-3.5 rounded-xl bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border border-slate-300 dark:border-slate-700 shadow-2xl max-w-sm text-xs pointer-events-none font-sans transition-all">
+    <div className="absolute bottom-4 left-4 p-3.5 rounded-xl bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border border-slate-300 dark:border-slate-700 shadow-sm max-w-sm text-xs pointer-events-none font-sans transition-all">
       <div className="flex items-center justify-between gap-2 mb-1 font-sans">
         Click to inspect full jurisdiction dossier &rarr;
       </div>
@@ -143,7 +143,7 @@ export default function AseanMap() {
       </div>
 
       {/* Map Container */}
-      <div className="rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 shadow-md dark:shadow-xl relative overflow-hidden transition-colors cursor-crosshair">
+      <div className="rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 shadow-sm relative overflow-hidden transition-colors cursor-crosshair">
         {ambientGlowColor && (
           <div
             className="absolute inset-0 pointer-events-none transition-opacity duration-500 blur-3xl opacity-80"

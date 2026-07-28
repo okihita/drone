@@ -102,7 +102,7 @@ export default function DefaChapterTracker() {
           onClick={() => setSelectedChapterId("all")}
           className={`shrink-0 flex items-center gap-1.5 rounded-lg px-3 py-2 text-xs font-bold transition-all ${
             selectedChapterId === "all"
-              ? "bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-950 shadow-md"
+              ? "bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-950 shadow-xs"
               : "bg-white text-slate-700 border border-slate-200 hover:bg-slate-100 dark:bg-slate-900 dark:text-slate-300 dark:border-slate-800 dark:hover:bg-slate-800"
           }`}
         >
@@ -120,7 +120,7 @@ export default function DefaChapterTracker() {
               onClick={() => setSelectedChapterId(ch.id)}
               className={`shrink-0 flex items-center gap-1.5 rounded-lg px-3 py-2 text-xs font-bold transition-all ${
                 isSelected
-                  ? "bg-asean-yellow text-slate-950 shadow-md shadow-asean-yellow/20"
+                  ? "bg-asean-yellow text-slate-950 shadow-xs"
                   : "bg-white text-slate-700 border border-slate-200 hover:bg-slate-100 dark:bg-slate-900 dark:text-slate-300 dark:border-slate-800 dark:hover:bg-slate-800"
               }`}
             >
@@ -132,7 +132,7 @@ export default function DefaChapterTracker() {
       </div>
 
       {/* Matrix Table Card */}
-      <div className="rounded-2xl border border-slate-200 bg-white/90 shadow-xl backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/80 overflow-hidden">
+      <div className="rounded-2xl border border-slate-200 bg-white/90 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/80 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs font-sans">
             <thead>
