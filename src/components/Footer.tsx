@@ -12,33 +12,23 @@ export default function Footer() {
 
         {/* Col 1: Institutional Overview + EngageMedia Logo */}
         <div className="md:col-span-2 space-y-4 font-sans">
-          <div className="flex items-center gap-4">
-            <Link
-              href="https://engagemedia.org"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="shrink-0"
-            >
-              <Image
-                src="/images/engagemedia-logo.png"
-                alt="EngageMedia"
-                width={768}
-                height={230}
-                className="h-14 sm:h-16 w-auto"
-              />
-            </Link>
-            <div className="border-l border-slate-300 dark:border-slate-700 pl-4">
-              <span className="font-serif-editorial text-xl font-bold text-slate-900 dark:text-white tracking-wider">
-                DRONE
-              </span>
-              <span className="text-[10px] font-sans text-slate-500 dark:text-slate-400 border border-slate-300 dark:border-slate-800 px-1.5 py-0.5 rounded bg-white dark:bg-slate-900 uppercase font-semibold ml-2">
-                ENGAGEMEDIA OBSERVATORY
-              </span>
-            </div>
-          </div>
+          <Link
+            href="https://engagemedia.org"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block shrink-0"
+          >
+            <Image
+              src="/images/engagemedia-logo.png"
+              alt="EngageMedia"
+              width={768}
+              height={230}
+              className="h-14 sm:h-16 w-auto"
+            />
+          </Link>
 
           <p className="text-slate-600 dark:text-slate-400 text-xs leading-relaxed max-w-lg font-sans">
-            <strong>Digital Rights Oversight &amp; Network Evaluator</strong> is an independent policy intelligence platform developed by <strong>EngageMedia</strong>. It monitors ASEAN digital trade frameworks, legal scrubbing, cross-border data transfer laws, and algorithmic governance threats.
+            <strong>D.R.O.N.E. — Digital Rights Oversight &amp; Network Evaluator</strong> is an independent policy intelligence platform developed by <strong>EngageMedia</strong>. It monitors ASEAN digital trade frameworks, legal scrubbing, cross-border data transfer laws, and algorithmic governance threats.
           </p>
 
           <div className="flex items-center gap-3 text-[11px] text-slate-500 dark:text-slate-400 font-sans">
