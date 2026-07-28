@@ -60,8 +60,6 @@ export default function FeaturedCarousel({
         </button>
 
         <div
-          onMouseEnter={() => setIsPaused(true)}
-          onMouseLeave={() => setIsPaused(false)}
           className="group relative rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm dark:shadow-none transition-all duration-300 min-h-[500px] lg:h-[500px]"
         >
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 items-stretch h-full">

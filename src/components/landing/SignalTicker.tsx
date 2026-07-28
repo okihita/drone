@@ -65,7 +65,7 @@ export default function SignalTicker() {
 
       {/* Marquee (static wrapped row under reduced motion) */}
       <div className="flex-1 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_4%,black_96%,transparent)] motion-reduce:[mask-image:none]">
-        <div className="animate-hero-marquee flex w-max items-center py-2.5 hover:[animation-play-state:paused] motion-reduce:w-full motion-reduce:flex-wrap">
+        <div className="animate-hero-marquee flex w-max items-center py-2.5 motion-reduce:w-full motion-reduce:flex-wrap">
           {MOCK_SIGNALS.map((signal, i) => (
             <SignalItem key={`a-${i}`} signal={signal} />
           ))}
