@@ -18,13 +18,7 @@ const FLOW_ARCS: ReadonlyArray<readonly [string, string, string]> = [
   ["PH", "VN", "Submarine Cable Link"],
 ];
 
-const THREAT_COLORS: Record<number, { fill: string; stroke: string }> = {
-  5: { fill: "rgba(239, 68, 68, 0.45)", stroke: ASEAN_COLORS.red },
-  4: { fill: "rgba(249, 115, 22, 0.40)", stroke: ASEAN_COLORS.yellowDark },
-  3: { fill: "rgba(234, 179, 8, 0.35)", stroke: ASEAN_COLORS.yellow },
-  2: { fill: "rgba(16, 185, 129, 0.30)", stroke: ASEAN_COLORS.blueLight },
-  1: { fill: "rgba(59, 130, 246, 0.25)", stroke: ASEAN_COLORS.blue },
-};
+
 
 function arcPathD(a: { x: number; y: number }, b: { x: number; y: number }): string {
   const mx = (a.x + b.x) / 2;
@@ -135,12 +129,12 @@ export default function HeroMapCanvas({
                 strokeColor = ASEAN_COLORS.red;
                 fillOpacity = 0.7;
               } else if (country.threatScore === 3) {
-                fillColor = ASEAN_COLORS.yellow;
-                strokeColor = ASEAN_COLORS.yellow;
+                fillColor = ASEAN_COLORS.amber;
+                strokeColor = ASEAN_COLORS.amber;
                 fillOpacity = 0.6;
               } else {
-                fillColor = ASEAN_COLORS.blue;
-                strokeColor = ASEAN_COLORS.blue;
+                fillColor = ASEAN_COLORS.emerald;
+                strokeColor = ASEAN_COLORS.emerald;
                 fillOpacity = 0.45;
               }
             } else if (activeLayer === "regime") {

@@ -30,9 +30,17 @@
   --color-asean-red: #CC0000;
   --color-asean-yellow: #FFCC00;
   --color-asean-white: #FFFFFF;
+
+  --color-asean-emerald: #10B981;
+  --color-asean-amber: #F59E0B;
+  --color-asean-sky: #0EA5E9;
+
   --color-asean-blue-hover: #002673;
   --color-asean-red-hover: #990000;
   --color-asean-yellow-hover: #e6b800;
+  --color-asean-emerald-hover: #059669;
+  --color-asean-amber-hover: #D97706;
+  --color-asean-sky-hover: #0284C7;
 
   --animate-fade-up: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   --animate-fade-in: fadeIn 0.5s ease-in-out;

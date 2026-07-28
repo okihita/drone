@@ -28,9 +28,9 @@ const MOCK_SIGNALS: ReadonlyArray<Signal> = [
 ];
 
 const SEVERITY_DOT_CLASSES: Record<ThreatLevel, string> = {
-  "High Alert": "bg-red-500",
-  "Medium Risk": "bg-asean-yellow",
-  "Rights Verified": "bg-asean-blue",
+  "High Alert": "bg-asean-red",
+  "Medium Risk": "bg-asean-amber",
+  "Rights Verified": "bg-asean-emerald",
 };
 
 // ── Component ────────────────────────────────────────────────────────────────
@@ -49,16 +49,16 @@ function SignalItem({ signal }: { signal: Signal }) {
 export default function SignalTicker() {
   return (
     <div
-      className="relative flex items-stretch border-t border-white/10 bg-slate-950/80 backdrop-blur-sm"
+      className="relative flex items-stretch border-t border-slate-200 bg-white/90 backdrop-blur-sm dark:border-white/10 dark:bg-slate-950/80"
       aria-label="Live signal feed — latest policy alerts across Southeast Asia"
     >
       {/* Live label */}
-      <div className="relative z-10 flex shrink-0 items-center gap-2 border-r border-white/10 bg-slate-950 px-4 py-2.5">
+      <div className="relative z-10 flex shrink-0 items-center gap-2 border-r border-slate-200 bg-white px-4 py-2.5 dark:border-white/10 dark:bg-slate-950">
         <span className="relative flex h-2 w-2">
-          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-500 opacity-75" />
-          <span className="relative inline-flex h-2 w-2 rounded-full bg-red-500" />
+          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-asean-emerald opacity-75" />
+          <span className="relative inline-flex h-2 w-2 rounded-full bg-asean-emerald" />
         </span>
-        <span className="hidden text-[10px] font-bold uppercase tracking-[0.2em] text-slate-300 sm:inline">
+        <span className="hidden text-[10px] font-bold uppercase tracking-[0.2em] text-slate-700 dark:text-slate-300 sm:inline">
           Live Signal Feed
         </span>
       </div>

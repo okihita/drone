@@ -21,23 +21,23 @@ export type ThreatLevel = (typeof THREAT_LEVELS)[number];
 
 /** Map threat level → Tailwind badge classes (use this instead of if/else chains). */
 export const THREAT_BADGE_CLASSES: Record<ThreatLevel, string> = {
-  "High Alert": "bg-red-500/10 text-red-600 border-red-500/30",
-  "Medium Risk": "bg-yellow-500/10 text-yellow-600 border-yellow-500/30",
-  "Rights Verified": "bg-blue-500/10 text-blue-600 border-blue-500/30",
+  "High Alert": "bg-asean-red/10 text-asean-red border-asean-red/30",
+  "Medium Risk": "bg-asean-amber/10 text-asean-amber border-asean-amber/30",
+  "Rights Verified": "bg-asean-emerald/10 text-asean-emerald border-asean-emerald/30",
 };
 
 /** Map threat level → accent color string. */
 export const THREAT_ACCENT_COLORS: Record<ThreatLevel, string> = {
-  "High Alert": "text-red-600 dark:text-red-400",
-  "Medium Risk": "text-yellow-600 dark:text-yellow-400",
-  "Rights Verified": "text-blue-600 dark:text-blue-400",
+  "High Alert": "text-asean-red",
+  "Medium Risk": "text-asean-amber",
+  "Rights Verified": "text-asean-emerald",
 };
 
 /** Map threat level → container border class. */
 export const THREAT_BADGE_CONTAINER_CLASSES: Record<ThreatLevel, string> = {
-  "High Alert": "border-red-500/30 bg-red-500/5",
-  "Medium Risk": "border-yellow-500/30 bg-yellow-500/5",
-  "Rights Verified": "border-blue-500/30 bg-blue-500/5",
+  "High Alert": "border-asean-red/30 bg-asean-red/5",
+  "Medium Risk": "border-asean-amber/30 bg-asean-amber/5",
+  "Rights Verified": "border-asean-emerald/30 bg-asean-emerald/5",
 };
 
 // ── Regime Types ─────────────────────────────────────────────────────────────

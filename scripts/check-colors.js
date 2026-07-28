@@ -4,8 +4,8 @@
  * 
  * Enforces 2 strict rules:
  * 1. NO hardcoded hex color codes (#...) outside src/lib/colors.ts & src/app/globals.css.
- * 2. NO generic default Tailwind color classes (amber-*, emerald-*, green-*, cyan-*, etc.).
- *    ONLY custom ASEAN theme utility classes (asean-blue, asean-red, asean-yellow, white, black, slate-*) are allowed!
+ * 2. NO generic default Tailwind color classes (generic green-*, cyan-*, purple-*, etc.).
+ *    ONLY official ASEAN theme utility classes (asean-blue, asean-red, asean-yellow, asean-emerald, asean-amber, asean-sky, white, black, slate-*) are allowed!
  */
 
 const fs = require("fs");
@@ -97,7 +97,7 @@ function checkFileForColorViolations(filePath) {
         `❌ [Color Guardrail Error] ${relativePath}:${index + 1}: Generic Tailwind color utility ${twMatches.join(", ")} found!`
       );
       console.error(`   Line content: ${line.trim()}`);
-      console.error(`   👉 Forbidden! Use official ASEAN utility classes: asean-blue, asean-red, or asean-yellow!\n`);
+      console.error(`   👉 Forbidden! Use official ASEAN utility classes: asean-blue, asean-red, asean-yellow, asean-emerald, asean-amber, or asean-sky!\n`);
       violationsCount++;
     }
   });
@@ -110,6 +110,6 @@ if (violationsCount > 0) {
   console.error(`\n❌ Failed: Found ${violationsCount} color violation(s) in src/.`);
   process.exit(1);
 } else {
-  console.log("✅ Success: All branding colors strictly comply with custom ASEAN theme tokens (asean-blue, asean-red, asean-yellow)!");
+  console.log("✅ Success: All branding colors strictly comply with custom ASEAN theme tokens (asean-blue, asean-red, asean-yellow, asean-emerald, asean-amber, asean-sky)!");
   process.exit(0);
 }
