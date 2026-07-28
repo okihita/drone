@@ -3,7 +3,8 @@
 import React, { useState, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
 import AdminDashboardLayout from "@/components/admin/Sidebar";
-import { supabase } from "@/lib/supabase";
+import { getNewsById, updateNewsItem, uploadNewsImage } from "@/services/news";
+import { NEWS_CATEGORIES } from "@/lib/constants";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -11,56 +12,110 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import RichTextEditor from "@/components/admin/RichTextEditor";
 import DOMPurify from "dompurify";
+import type { NewsItem } from "@/types";
+
+type NewsFormValues = Omit<NewsItem, "id" | "created_at">;
 
 export default function EditNewsItem() {
   const router = useRouter();
   const { id } = useParams<{ id: string }>();
-  const [form, setForm] = useState<Record<string, string>>({});
+  const [form, setForm] = useState<NewsFormValues | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState("");
 
   useEffect(() => {
-    (async () => {
-      const { data, error: fetchErr } = await supabase.from("news_items").select("*").eq("id", id).single();
-      if (fetchErr) { setError(fetchErr.message); setLoading(false); return; }
-      if (data) { const d = data as Record<string, string>; setForm({ ...d, published_date: d.published_date ? new Date(d.published_date).toISOString().split("T")[0] : "" }); }
-      setLoading(false);
-    })();
+    getNewsById(id)
+      .then((data) => {
+        if (!data) {
+          setError("Article not found");
+          return;
+        }
+        setForm({
+          title: data.title,
+          jurisdiction: data.jurisdiction,
+          category: data.category,
+          summary: data.summary,
+          source_url: data.source_url,
+          source_name: data.source_name,
+          author: data.author,
+          read_time: data.read_time,
+          image_url: data.image_url,
+          published_date: data.published_date
+            ? new Date(data.published_date).toISOString().split("T")[0]
+            : "",
+        });
+      })
+      .catch((e) => setError(e.message))
+      .finally(() => setLoading(false));
   }, [id]);
 
-  const update = (key: string, value: string) => setForm(f => ({ ...f, [key]: value }));
+  const update = <K extends keyof NewsFormValues>(key: K, value: NewsFormValues[K]) =>
+    setForm((f) => (f ? { ...f, [key]: value } : f));
 
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]; if (!file) return;
+    const file = e.target.files?.[0];
+    if (!file) return;
     setUploading(true);
-    const { data, error } = await supabase.storage.from("news").upload(`${Date.now()}-${file.name}`, file, { upsert: true });
-    if (!error && data) update("image_url", `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/news/${data.path}`);
+    try {
+      const url = await uploadNewsImage(file);
+      update("image_url", url);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Upload failed");
+    }
     setUploading(false);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault(); setSaving(true); setError("");
-    const sanitized = { ...form, summary: DOMPurify.sanitize(form.summary || "") };
-    const { error: updateErr } = await supabase.from("news_items").update(sanitized).eq("id", id);
-    if (updateErr) { setError(updateErr.message); setSaving(false); return; }
-    router.push("/admin/news");
+    e.preventDefault();
+    if (!form) return;
+    setSaving(true);
+    setError("");
+    try {
+      const sanitized = { ...form, summary: DOMPurify.sanitize(form.summary || "") };
+      await updateNewsItem(id, sanitized);
+      router.push("/admin/news");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Save failed");
+      setSaving(false);
+    }
   };
 
-  if (loading) return <AdminDashboardLayout><Skeleton className="h-96 w-full max-w-2xl" /></AdminDashboardLayout>;
+  if (loading)
+    return (
+      <AdminDashboardLayout>
+        <Skeleton className="h-96 w-full max-w-2xl" />
+      </AdminDashboardLayout>
+    );
+
+  if (!form)
+    return (
+      <AdminDashboardLayout>
+        <p className="text-red-600">{error || "Article not found"}</p>
+      </AdminDashboardLayout>
+    );
 
   return (
     <AdminDashboardLayout>
       <h1 className="font-serif-editorial text-2xl font-extrabold mb-6">Edit Article</h1>
       <Card className="max-w-2xl">
-        <CardHeader><CardTitle>Article Details</CardTitle></CardHeader>
+        <CardHeader>
+          <CardTitle>Article Details</CardTitle>
+        </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
-            {["title", "jurisdiction", "source_url", "source_name", "author", "read_time"].map(key => (
+            {(
+              ["title", "jurisdiction", "source_url", "source_name", "author", "read_time"] as const
+            ).map((key) => (
               <div key={key}>
-                <label className="text-sm font-medium mb-1 block capitalize">{key.replace(/_/g, " ")}</label>
-                <Input value={form[key] || ""} onChange={e => update(key, e.target.value)} />
+                <label className="text-sm font-medium mb-1 block capitalize">
+                  {key.replace(/_/g, " ")}
+                </label>
+                <Input
+                  value={(form[key] as string) || ""}
+                  onChange={(e) => update(key, e.target.value as NewsFormValues[typeof key])}
+                />
               </div>
             ))}
 
@@ -73,26 +128,41 @@ export default function EditNewsItem() {
             </div>
             <div>
               <label className="text-sm font-medium mb-1 block">Image</label>
-              {form.image_url && <p className="text-xs text-muted-foreground mb-1 truncate">{form.image_url}</p>}
+              {form.image_url && (
+                <p className="text-xs text-muted-foreground mb-1 truncate">
+                  {form.image_url}
+                </p>
+              )}
               <Input type="file" accept="image/*" onChange={handleUpload} />
               {uploading && <p className="text-xs text-muted-foreground mt-1">Uploading...</p>}
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <label className="text-sm font-medium mb-1 block">Category</label>
-                <Select value={form.category || ""} onValueChange={(v) => update("category", v || "")}>
+                <Select
+                  value={form.category}
+                  onValueChange={(v) => update("category", v || "DEFA")}
+                >
                   <SelectTrigger><SelectValue /></SelectTrigger>
                   <SelectContent>
-                    {["DEFA", "Cross-Border Data", "AI Governance", "Cybersecurity", "DATA LOCALIZATION", "DEFA SPECIAL REPORT", "AI GOVERNANCE"].map(c => <SelectItem key={c} value={c}>{c}</SelectItem>)}
+                    {NEWS_CATEGORIES.map((c) => (
+                      <SelectItem key={c} value={c}>{c}</SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
               </div>
               <div>
                 <label className="text-sm font-medium mb-1 block">Publish Date</label>
-                <Input type="date" value={form.published_date || ""} onChange={e => update("published_date", e.target.value)} />
+                <Input
+                  type="date"
+                  value={form.published_date}
+                  onChange={(e) => update("published_date", e.target.value)}
+                />
               </div>
             </div>
-            <Button type="submit" disabled={saving}>{saving ? "Saving..." : "Save Changes"}</Button>
+            <Button type="submit" disabled={saving}>
+              {saving ? "Saving..." : "Save Changes"}
+            </Button>
             {error && <p className="text-sm text-red-600">{error}</p>}
           </form>
         </CardContent>

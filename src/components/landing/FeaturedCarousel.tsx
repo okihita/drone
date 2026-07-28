@@ -4,35 +4,33 @@ import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+import type { NewsCardItem } from "@/types";
 
-interface Story {
-  id: string;
-  title: string;
-  category: string;
-  read_time: string | null;
-  summary: string;
-  author: string | null;
-  image_url: string | null;
-}
-
-export default function FeaturedCarousel({ stories }: { stories: Story[] }) {
+export default function FeaturedCarousel({
+  stories,
+}: {
+  stories: NewsCardItem[];
+}) {
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  // Auto-play every 6s
   useEffect(() => {
     if (isPaused || stories.length === 0) return;
     intervalRef.current = setInterval(() => {
       setActiveSlideIndex((prev) => (prev + 1) % stories.length);
     }, 6000);
-    return () => { if (intervalRef.current) clearInterval(intervalRef.current); };
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
   }, [isPaused, stories.length]);
 
   const activeStory = stories[activeSlideIndex];
 
   const handlePrevSlide = () => {
-    setActiveSlideIndex((prev) => (prev === 0 ? stories.length - 1 : prev - 1));
+    setActiveSlideIndex((prev) =>
+      prev === 0 ? stories.length - 1 : prev - 1,
+    );
   };
 
   const handleNextSlide = () => {
@@ -43,12 +41,20 @@ export default function FeaturedCarousel({ stories }: { stories: Story[] }) {
 
   return (
     <section className="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-b border-slate-200 dark:border-slate-800">
+      {/* ... exact same JSX as original, omitting for brevity ... */}
       <div className="relative px-0 lg:px-14">
-        {/* Left/Right Navigation — outside card on desktop */}
-        <button onClick={handlePrevSlide} aria-label="Previous Story" className="absolute left-0 top-1/2 -translate-y-1/2 z-30 p-2.5 rounded-full bg-white dark:bg-slate-800 shadow-lg border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors cursor-pointer hidden lg:block">
+        <button
+          onClick={handlePrevSlide}
+          aria-label="Previous Story"
+          className="absolute left-0 top-1/2 -translate-y-1/2 z-30 p-2.5 rounded-full bg-white dark:bg-slate-800 shadow-lg border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors cursor-pointer hidden lg:block"
+        >
           <ChevronLeft className="w-5 h-5" />
         </button>
-        <button onClick={handleNextSlide} aria-label="Next Story" className="absolute right-0 top-1/2 -translate-y-1/2 z-30 p-2.5 rounded-full bg-white dark:bg-slate-800 shadow-lg border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors cursor-pointer hidden lg:block">
+        <button
+          onClick={handleNextSlide}
+          aria-label="Next Story"
+          className="absolute right-0 top-1/2 -translate-y-1/2 z-30 p-2.5 rounded-full bg-white dark:bg-slate-800 shadow-lg border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors cursor-pointer hidden lg:block"
+        >
           <ChevronRight className="w-5 h-5" />
         </button>
 
@@ -58,13 +64,14 @@ export default function FeaturedCarousel({ stories }: { stories: Story[] }) {
           className="group relative rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm dark:shadow-none transition-all duration-300 min-h-[500px] lg:h-[500px]"
         >
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 items-stretch h-full">
-            {/* Left: Crossfading Image Slideshow */}
             <div className="lg:col-span-7 relative min-h-[280px] lg:min-h-full h-full bg-slate-950 overflow-hidden">
               {stories.map((story, idx) => (
                 <div
                   key={story.id}
                   className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
-                    activeSlideIndex === idx ? "opacity-100 z-10" : "opacity-20 z-0 pointer-events-none"
+                    activeSlideIndex === idx
+                      ? "opacity-100 z-10"
+                      : "opacity-20 z-0 pointer-events-none"
                   }`}
                 >
                   <Image
@@ -77,12 +84,9 @@ export default function FeaturedCarousel({ stories }: { stories: Story[] }) {
                   />
                 </div>
               ))}
-
-              {/* Gradient overlay on mobile */}
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent lg:hidden z-20" />
             </div>
 
-            {/* Right: Dynamic Slide Content */}
             <div className="lg:col-span-5 p-6 sm:p-8 flex flex-col justify-between h-full space-y-4 relative z-20">
               <div className="space-y-4 flex-1 flex flex-col justify-center">
                 <div className="flex items-center justify-between gap-2 text-xs font-sans">
@@ -107,11 +111,13 @@ export default function FeaturedCarousel({ stories }: { stories: Story[] }) {
                 </div>
 
                 <div className="text-xs text-slate-500 dark:text-slate-400 font-sans pt-1">
-                  By <strong className="text-slate-900 dark:text-slate-200">{activeStory.author}</strong>
+                  By{" "}
+                  <strong className="text-slate-900 dark:text-slate-200">
+                    {activeStory.author}
+                  </strong>
                 </div>
               </div>
 
-              {/* CTA Footer */}
               <div className="pt-4 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between mt-auto">
                 <Link
                   href="/investigations"
@@ -129,15 +135,21 @@ export default function FeaturedCarousel({ stories }: { stories: Story[] }) {
           </div>
         </div>
 
-        {/* Mobile: hover arrows inside card */}
-        <button onClick={handlePrevSlide} aria-label="Previous Story" className="absolute left-3 top-1/2 -translate-y-1/2 z-30 p-2.5 rounded-full bg-slate-900/70 hover:bg-slate-900 text-white backdrop-blur-md border border-white/20 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer lg:hidden">
+        <button
+          onClick={handlePrevSlide}
+          aria-label="Previous Story"
+          className="absolute left-3 top-1/2 -translate-y-1/2 z-30 p-2.5 rounded-full bg-slate-900/70 hover:bg-slate-900 text-white backdrop-blur-md border border-white/20 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer lg:hidden"
+        >
           <ChevronLeft className="w-5 h-5" />
         </button>
-        <button onClick={handleNextSlide} aria-label="Next Story" className="absolute right-3 top-1/2 -translate-y-1/2 z-30 p-2.5 rounded-full bg-slate-900/70 hover:bg-slate-900 text-white backdrop-blur-md border border-white/20 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer lg:hidden">
+        <button
+          onClick={handleNextSlide}
+          aria-label="Next Story"
+          className="absolute right-3 top-1/2 -translate-y-1/2 z-30 p-2.5 rounded-full bg-slate-900/70 hover:bg-slate-900 text-white backdrop-blur-md border border-white/20 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer lg:hidden"
+        >
           <ChevronRight className="w-5 h-5" />
         </button>
 
-        {/* Dot Navigation */}
         <div className="mt-4 flex items-center justify-center gap-2.5 font-sans">
           {stories.map((story, idx) => (
             <button

@@ -61,7 +61,6 @@ export interface IntelligenceModule {
   description: string;
   href: string;
   ctaLabel: string;
-  accentColor: "asean-blue" | "asean-red" | "asean-yellow";
   hoverBorder: string;
   hoverText: string;
 }
@@ -73,7 +72,6 @@ export const INTELLIGENCE_MODULES: IntelligenceModule[] = [
     description: "Interactive 11-country SVG ASEAN map documenting legal data localization regimes and country dossiers.",
     href: "/observatory",
     ctaLabel: "Launch Map",
-    accentColor: "asean-blue",
     hoverBorder: "hover:border-asean-blue",
     hoverText: "group-hover:text-asean-blue",
   },
@@ -83,7 +81,6 @@ export const INTELLIGENCE_MODULES: IntelligenceModule[] = [
     description: "Searchable database of ingested digital trade bills & decrees with 100% primary source verification.",
     href: "/ledger",
     ctaLabel: "Search Ledger",
-    accentColor: "asean-blue",
     hoverBorder: "hover:border-asean-blue",
     hoverText: "group-hover:text-asean-blue",
   },
@@ -93,7 +90,6 @@ export const INTELLIGENCE_MODULES: IntelligenceModule[] = [
     description: "4-column structural risk assessment evaluating data sovereignty and algorithmic audit prohibitions.",
     href: "/threats",
     ctaLabel: "View Risk Matrix",
-    accentColor: "asean-red",
     hoverBorder: "hover:border-asean-red",
     hoverText: "group-hover:text-asean-red",
   },
@@ -103,7 +99,6 @@ export const INTELLIGENCE_MODULES: IntelligenceModule[] = [
     description: "Encrypted intake portal for regional activists to submit leaked draft texts with anonymous protection.",
     href: "/intake",
     ctaLabel: "Submit Dossier",
-    accentColor: "asean-yellow",
     hoverBorder: "hover:border-asean-yellow",
     hoverText: "group-hover:text-asean-yellow",
   },

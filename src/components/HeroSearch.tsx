@@ -3,29 +3,19 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Search, ArrowRight } from "lucide-react";
-import { supabase } from "@/lib/supabase";
-
-interface PolicyItem {
-  id: string;
-  title: string;
-  jurisdiction: string;
-  category: string;
-  summary: string;
-}
+import { listPoliciesForSearch } from "@/services/policies";
+import type { PolicySearchItem } from "@/types";
 
 export default function HeroSearch() {
   const [query, setQuery] = useState("");
   const [isOpen, setIsOpen] = useState(false);
-  const [policies, setPolicies] = useState<PolicyItem[]>([]);
+  const [policies, setPolicies] = useState<PolicySearchItem[]>([]);
   const router = useRouter();
 
   useEffect(() => {
-    supabase
-      .from("policies")
-      .select("id, title, jurisdiction, category, summary")
-      .then(({ data }) => {
-        if (data) setPolicies(data as PolicyItem[]);
-      });
+    listPoliciesForSearch()
+      .then(setPolicies)
+      .catch(() => {}); // graceful degradation for search
   }, []);
 
   const results = policies.filter(
@@ -33,7 +23,7 @@ export default function HeroSearch() {
       item.title.toLowerCase().includes(query.toLowerCase()) ||
       item.jurisdiction.toLowerCase().includes(query.toLowerCase()) ||
       item.summary.toLowerCase().includes(query.toLowerCase()) ||
-      item.category.toLowerCase().includes(query.toLowerCase())
+      item.category.toLowerCase().includes(query.toLowerCase()),
   );
 
   const handleSearchSubmit = (e: React.FormEvent) => {
@@ -76,7 +66,9 @@ export default function HeroSearch() {
           <div className="absolute top-full left-0 right-0 mt-2 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xl z-30 p-3 space-y-2 max-h-80 overflow-y-auto">
             <div className="flex items-center justify-between text-[10px] uppercase font-bold tracking-wider text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-800 pb-1.5 font-sans">
               <span>Matching Policy Decrees ({results.length})</span>
-              <span className="text-asean-yellow dark:text-asean-yellow font-normal">Press Enter to view all</span>
+              <span className="text-asean-yellow dark:text-asean-yellow font-normal">
+                Press Enter to view all
+              </span>
             </div>
 
             {results.length === 0 ? (
@@ -94,8 +86,12 @@ export default function HeroSearch() {
                   className="p-2.5 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors cursor-pointer space-y-1 text-left"
                 >
                   <div className="flex items-center justify-between gap-2 text-[10px] font-sans">
-                    <span className="font-bold text-slate-900 dark:text-slate-200">{item.jurisdiction}</span>
-                    <span className="text-asean-yellow dark:text-asean-yellow font-semibold">{item.category}</span>
+                    <span className="font-bold text-slate-900 dark:text-slate-200">
+                      {item.jurisdiction}
+                    </span>
+                    <span className="text-asean-yellow dark:text-asean-yellow font-semibold">
+                      {item.category}
+                    </span>
                   </div>
                   <h4 className="font-serif-editorial font-bold text-xs text-slate-900 dark:text-white leading-snug line-clamp-1">
                     {item.title}
