@@ -74,7 +74,7 @@ export type MapFilterMode = (typeof MAP_FILTER_MODES)[number];
 
 // ── Header Navigation Links ──────────────────────────────────────────────────
 
-import { BookOpen, Activity, Map, Database, ShieldAlert, Send, BarChart3, Cpu } from "lucide-react";
+import { BookOpen, Activity, Map, Database, ShieldAlert, Send, BarChart3, Cpu, Lock, Calendar, FileKey } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 export interface NavLink {
@@ -88,10 +88,14 @@ export const NAV_LINKS: NavLink[] = [
   { href: "/investigations", label: "Investigations", icon: BookOpen, iconColor: "text-asean-yellow" },
   { href: "/benchmark", label: "Benchmark", icon: BarChart3, iconColor: "text-asean-blue" },
   { href: "/tech-sovereignty", label: "Tech Sovereignty", icon: Cpu, iconColor: "text-asean-amber" },
+  { href: "/encryption", label: "Encryption", icon: Lock, iconColor: "text-asean-red" },
   { href: "/defa", label: "DEFA Tracker", icon: Activity, iconColor: "text-asean-amber" },
-  { href: "/observatory", label: "Cartographic Observatory", icon: Map, iconColor: "text-asean-blue" },
-  { href: "/ledger", label: "Policy Ledger", icon: Database, iconColor: "text-asean-blue" },
-  { href: "/threats", label: "Threat Matrix", icon: ShieldAlert, iconColor: "text-asean-red" },
+  { href: "/negotiations", label: "Negotiations", icon: Calendar, iconColor: "text-asean-sky" },
+  { href: "/consumer-protection", label: "Consumer Prot.", icon: ShieldAlert, iconColor: "text-asean-emerald" },
+  { href: "/observatory", label: "Observatory", icon: Map, iconColor: "text-asean-blue" },
+  { href: "/ledger", label: "Ledger", icon: Database, iconColor: "text-asean-blue" },
+  { href: "/threats", label: "Threats", icon: ShieldAlert, iconColor: "text-asean-red" },
+  { href: "/ip-monitor", label: "IP Monitor", icon: FileKey, iconColor: "text-asean-sky" },
   { href: "/intake", label: "Submit Dossier", icon: Send, iconColor: "text-slate-500 dark:text-slate-400" },
 ];
 
