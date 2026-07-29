@@ -1,6 +1,14 @@
-import { supabase } from "@/lib/supabase";
+import { supabase, getServiceClient } from "@/lib/supabase";
 import { generateSlug } from "@/lib/text";
 import type { NewsItem } from "@/types";
+
+function getClient() {
+  try {
+    return getServiceClient();
+  } catch {
+    return supabase;
+  }
+}
 
 // ── Interfaces ────────────────────────────────────────────────────────────────
 
@@ -184,7 +192,7 @@ export async function syncEngageMediaContent(perPage = 30): Promise<SyncReport> 
 
     for (const post of posts) {
       // Check if post already exists in news_items DB
-      const { data: existing } = await supabase
+      const { data: existing } = await getClient()
         .from("news_items")
         .select("id, wp_post_id")
         .eq("wp_post_id", post.id)
@@ -226,7 +234,7 @@ export async function syncEngageMediaContent(perPage = 30): Promise<SyncReport> 
         raw_wp_data: JSON.stringify({ wp_id: post.id, original_slug: post.slug }),
       };
 
-      const { error: insertError } = await supabase
+      const { error: insertError } = await getClient()
         .from("news_items")
         .insert(payload);
 
