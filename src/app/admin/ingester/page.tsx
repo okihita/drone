@@ -1,15 +1,15 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import AdminDashboardLayout from "@/components/admin/Sidebar";
 import { supabase } from "@/lib/supabase";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { 
   DownloadCloud, RefreshCw, CheckCircle2, Trash2, ExternalLink, 
-  Sparkles, ShieldAlert, Globe, Layers, Eye, FileText, Calendar, User
+  Sparkles, ShieldAlert, Globe, Layers, FileText, Calendar, User
 } from "lucide-react";
 import Image from "next/image";
 import type { NewsItem } from "@/types";
@@ -70,6 +70,25 @@ export default function AdminIngesterWorkbench() {
   const handleSelect = (item: NewsItem) => {
     setSelectedId(item.id);
     initForm(item);
+  };
+
+  // Helper to parse jurisdiction string into an array
+  const currentJurisdictions = useMemo(() => {
+    const raw = editForm.jurisdiction ?? selectedItem?.jurisdiction ?? "";
+    return raw.split(",").map((s) => s.trim()).filter(Boolean);
+  }, [editForm.jurisdiction, selectedItem?.jurisdiction]);
+
+  const toggleJurisdiction = (j: string) => {
+    let updated: string[];
+    if (currentJurisdictions.includes(j)) {
+      updated = currentJurisdictions.filter((item) => item !== j);
+    } else {
+      updated = [...currentJurisdictions, j];
+    }
+    setEditForm({
+      ...editForm,
+      jurisdiction: updated.join(", "),
+    });
   };
 
   const handleRunSync = async () => {
@@ -328,23 +347,39 @@ export default function AdminIngesterWorkbench() {
                     </div>
                   </div>
 
-                  {/* Classification Selectors */}
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 bg-slate-50 dark:bg-slate-900/60 p-4 rounded-[4px] border border-slate-100 dark:border-slate-800">
-                    <div>
-                      <label className="text-xs font-semibold text-slate-500 flex items-center gap-1 mb-1">
-                        <Globe className="w-3.5 h-3.5 text-indigo-500" /> Jurisdiction
-                      </label>
-                      <select
-                        value={editForm.jurisdiction || selectedItem.jurisdiction}
-                        onChange={(e) => setEditForm({ ...editForm, jurisdiction: e.target.value })}
-                        className="w-full p-2 text-xs border rounded-[4px] bg-white dark:bg-slate-900 font-medium"
-                      >
-                        {JURISDICTIONS.map((j) => (
-                          <option key={j} value={j}>{j}</option>
-                        ))}
-                      </select>
+                  {/* MULTI-SELECT JURISDICTION SELECTOR */}
+                  <div>
+                    <label className="text-xs font-bold text-slate-500 uppercase tracking-wider flex items-center justify-between mb-2">
+                      <span className="flex items-center gap-1.5">
+                        <Globe className="w-3.5 h-3.5 text-indigo-500" /> Target Jurisdictions (Multi-Select)
+                      </span>
+                      <span className="text-[11px] text-indigo-600 dark:text-indigo-400 font-semibold normal-case">
+                        {currentJurisdictions.length} selected
+                      </span>
+                    </label>
+                    <div className="flex flex-wrap gap-1.5 p-3 rounded-[4px] bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800">
+                      {JURISDICTIONS.map((j) => {
+                        const isChecked = currentJurisdictions.includes(j);
+                        return (
+                          <button
+                            key={j}
+                            type="button"
+                            onClick={() => toggleJurisdiction(j)}
+                            className={`text-xs py-1 px-2.5 rounded-[3px] transition-all font-medium border ${
+                              isChecked
+                                ? "bg-indigo-600 text-white border-indigo-600 shadow-xs"
+                                : "bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-indigo-300 dark:hover:border-indigo-700"
+                            }`}
+                          >
+                            {isChecked ? "✓ " : "+ "}{j}
+                          </button>
+                        );
+                      })}
                     </div>
+                  </div>
 
+                  {/* Category & Threat Selectors */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-slate-50 dark:bg-slate-900/60 p-4 rounded-[4px] border border-slate-100 dark:border-slate-800">
                     <div>
                       <label className="text-xs font-semibold text-slate-500 flex items-center gap-1 mb-1">
                         <Layers className="w-3.5 h-3.5 text-indigo-500" /> Category
@@ -389,10 +424,10 @@ export default function AdminIngesterWorkbench() {
                     />
                   </div>
 
-                  {/* Full Article Content Reader */}
+                  {/* Full Article Content Reader with Rich Typography */}
                   <div className="space-y-2 pt-2 border-t">
                     <label className="text-xs font-bold text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
-                      <FileText className="w-3.5 h-3.5 text-indigo-500" /> Full Article Content (Source Text)
+                      <FileText className="w-3.5 h-3.5 text-indigo-500" /> Full Article Source Content
                     </label>
                     {(() => {
                       let htmlContent = "";
@@ -405,7 +440,16 @@ export default function AdminIngesterWorkbench() {
 
                       return htmlContent ? (
                         <div 
-                          className="p-4 rounded-[4px] bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-xs sm:text-sm text-slate-800 dark:text-slate-200 leading-relaxed max-h-80 overflow-y-auto font-sans prose dark:prose-invert max-w-none [&_img]:hidden [&_a]:text-indigo-600 [&_a]:underline"
+                          className="p-5 rounded-[4px] bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-sm text-slate-800 dark:text-slate-200 leading-relaxed max-h-[450px] overflow-y-auto font-sans space-y-4
+                          [&_h1]:text-lg [&_h1]:font-bold [&_h1]:text-slate-900 [&_h1]:dark:text-white [&_h1]:mt-4 [&_h1]:mb-2
+                          [&_h2]:text-base [&_h2]:font-bold [&_h2]:text-slate-900 [&_h2]:dark:text-white [&_h2]:mt-4 [&_h2]:mb-2
+                          [&_h3]:text-sm [&_h3]:font-bold [&_h3]:text-slate-900 [&_h3]:dark:text-white [&_h3]:mt-3 [&_h3]:mb-1
+                          [&_p]:mb-3 [&_p]:leading-relaxed
+                          [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:mb-3 [&_ul]:space-y-1
+                          [&_ol]:list-decimal [&_ol]:pl-5 [&_ol]:mb-3 [&_ol]:space-y-1
+                          [&_a]:text-indigo-600 [&_a]:dark:text-indigo-400 [&_a]:underline [&_a]:font-medium
+                          [&_blockquote]:border-l-4 [&_blockquote]:border-indigo-500 [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:my-3 [&_blockquote]:text-slate-600 [&_blockquote]:dark:text-slate-400
+                          [&_img]:max-w-full [&_img]:h-auto [&_img]:rounded-md [&_img]:my-3 [&_img]:border [&_img]:border-slate-200"
                           dangerouslySetInnerHTML={{ __html: htmlContent }}
                         />
                       ) : (
@@ -414,29 +458,6 @@ export default function AdminIngesterWorkbench() {
                         </div>
                       );
                     })()}
-                  </div>
-
-                  {/* Live Public Ledger Card Preview */}
-                  <div className="space-y-2 pt-2 border-t">
-                    <label className="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
-                      <Eye className="w-3.5 h-3.5 text-indigo-500" /> Public Site Card Preview
-                    </label>
-                    <div className="p-4 rounded-[4px] bg-slate-900 text-white space-y-2 shadow-inner">
-                      <div className="flex items-center justify-between text-[11px]">
-                        <span className="text-amber-400 font-bold uppercase tracking-wider">
-                          {editForm.category || selectedItem.category}
-                        </span>
-                        <span className="text-slate-400">
-                          {editForm.jurisdiction || selectedItem.jurisdiction}
-                        </span>
-                      </div>
-                      <h4 className="font-serif-editorial text-base font-bold leading-snug">
-                        {editForm.title || selectedItem.title}
-                      </h4>
-                      <p className="text-slate-300 text-xs line-clamp-3 leading-relaxed italic border-l-2 border-amber-400 pl-2.5">
-                        {editForm.summary || selectedItem.summary}
-                      </p>
-                    </div>
                   </div>
 
                   {/* Action Toolbar */}
