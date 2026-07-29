@@ -15,11 +15,36 @@ const geist = Geist({
   variable: "--font-sans",
 });
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://drone.engagemedia.org";
+
 export const metadata: Metadata = {
-  title: "D.R.O.N.E. — ASEAN Digital Rights Oversight & Network Evaluator",
+  metadataBase: new URL(siteUrl),
+  title: "DRONE — ASEAN Digital Rights Oversight & Network Evaluator",
   description: "Independent policy research portal and data observatory tracking digital trade treaties, cross-border data governance, and AI rights across Southeast Asia.",
   keywords: ["ASEAN Policy", "Digital Rights", "DEFA", "Southeast Asia", "EngageMedia", "AI Governance", "Data Privacy"],
   authors: [{ name: "EngageMedia Research Team" }, { name: "EngageMedia" }],
+  openGraph: {
+    title: "DRONE — ASEAN Digital Rights Oversight & Network Evaluator",
+    description: "Independent policy research portal and data observatory tracking digital trade treaties, cross-border data governance, and AI rights across Southeast Asia.",
+    url: siteUrl,
+    siteName: "DRONE",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "DRONE — ASEAN Digital Rights Oversight & Network Evaluator",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "DRONE — ASEAN Digital Rights Oversight & Network Evaluator",
+    description: "Independent policy research portal and data observatory tracking digital trade treaties, cross-border data governance, and AI rights across Southeast Asia.",
+    images: ["/og-image.jpg"],
+  },
 };
 
 export default function RootLayout({
