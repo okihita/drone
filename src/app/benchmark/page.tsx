@@ -37,7 +37,7 @@ export default function BenchmarkPage() {
 
       {/* Intro — merged hero + narrative */}
       <section className="relative border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/60 py-10 sm:py-14 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-[1600px] mx-auto">
+        <div className="max-w-7xl mx-auto">
           {/* Title row */}
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">
             <div className="flex-1">
