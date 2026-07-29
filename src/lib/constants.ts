@@ -74,7 +74,7 @@ export type MapFilterMode = (typeof MAP_FILTER_MODES)[number];
 
 // ── Header Navigation Links ──────────────────────────────────────────────────
 
-import { BookOpen, Activity, Map, Database, ShieldAlert, Send, BarChart3, Cpu, Lock, Calendar, FileKey, ShieldCheck } from "lucide-react";
+import { BookOpen, Activity, Map, Database, ShieldAlert, Send, BarChart3, Cpu, Lock, Calendar, FileKey, ShieldCheck, ChevronDown } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 export interface NavLink {
@@ -84,18 +84,41 @@ export interface NavLink {
   iconColor: string;
 }
 
-export const NAV_LINKS: NavLink[] = [
+export interface NavGroup {
+  href: string;               // fallback / landing page for the group
+  label: string;
+  icon: LucideIcon;
+  iconColor: string;
+  children: NavLink[];
+}
+
+export const D2D_SUBMENU: NavLink[] = [
+  { href: "/benchmark", label: "Benchmark Heatmap", icon: BarChart3, iconColor: "text-asean-blue" },
+  { href: "/tech-sovereignty", label: "Tech Sovereignty Radar", icon: Cpu, iconColor: "text-asean-amber" },
+  { href: "/encryption", label: "Encryption Observatory", icon: Lock, iconColor: "text-asean-red" },
+  { href: "/consumer-protection", label: "Consumer Protections", icon: ShieldCheck, iconColor: "text-asean-emerald" },
+  { href: "/negotiations", label: "Trade Negotiations", icon: Calendar, iconColor: "text-asean-sky" },
+  { href: "/ip-monitor", label: "IP & Trade Secrets", icon: FileKey, iconColor: "text-asean-sky" },
+];
+
+export const NAV_GROUPS: (NavLink | NavGroup)[] = [
   { href: "/investigations", label: "Investigations", icon: BookOpen, iconColor: "text-asean-yellow" },
-  { href: "/benchmark", label: "Benchmark", icon: BarChart3, iconColor: "text-asean-blue" },
-  { href: "/tech-sovereignty", label: "Tech Sovereignty", icon: Cpu, iconColor: "text-asean-amber" },
-  { href: "/encryption", label: "Encryption", icon: Lock, iconColor: "text-asean-red" },
+  { href: "/benchmark", label: "Digital 2 Dozen", icon: BarChart3, iconColor: "text-asean-blue", children: D2D_SUBMENU },
   { href: "/defa", label: "DEFA Tracker", icon: Activity, iconColor: "text-asean-amber" },
-  { href: "/negotiations", label: "Negotiations", icon: Calendar, iconColor: "text-asean-sky" },
-  { href: "/consumer-protection", label: "Consumer Prot.", icon: ShieldCheck, iconColor: "text-asean-emerald" },
   { href: "/observatory", label: "Observatory", icon: Map, iconColor: "text-asean-blue" },
   { href: "/ledger", label: "Ledger", icon: Database, iconColor: "text-asean-blue" },
   { href: "/threats", label: "Threats", icon: ShieldAlert, iconColor: "text-asean-red" },
-  { href: "/ip-monitor", label: "IP Monitor", icon: FileKey, iconColor: "text-asean-sky" },
+  { href: "/intake", label: "Submit Dossier", icon: Send, iconColor: "text-slate-500 dark:text-slate-400" },
+];
+
+/** Flat list for mobile drawer — all top-level links + sub-items. */
+export const NAV_LINKS: NavLink[] = [
+  { href: "/investigations", label: "Investigations", icon: BookOpen, iconColor: "text-asean-yellow" },
+  ...D2D_SUBMENU,
+  { href: "/defa", label: "DEFA Tracker", icon: Activity, iconColor: "text-asean-amber" },
+  { href: "/observatory", label: "Observatory", icon: Map, iconColor: "text-asean-blue" },
+  { href: "/ledger", label: "Ledger", icon: Database, iconColor: "text-asean-blue" },
+  { href: "/threats", label: "Threats", icon: ShieldAlert, iconColor: "text-asean-red" },
   { href: "/intake", label: "Submit Dossier", icon: Send, iconColor: "text-slate-500 dark:text-slate-400" },
 ];
 
