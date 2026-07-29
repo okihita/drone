@@ -4,7 +4,6 @@ import { useState } from "react";
 import type { BenchmarkCountrySummary, BenchmarkPrinciple } from "@/types/benchmark";
 import { BENCHMARK_CLUSTERS } from "@/lib/constants";
 import ClusterFilter from "./ClusterFilter";
-import CountryDetailPanel from "./CountryDetailPanel";
 import PrincipleDetailPopover from "./PrincipleDetailPopover";
 
 interface Props {
@@ -34,10 +33,6 @@ export default function BenchmarkHeatmap({ summaries, principles }: Props) {
   const filteredPrinciples = activeCluster === "ALL"
     ? principles
     : principles.filter((p) => p.cluster === activeCluster);
-
-  const selectedSummary = selectedCountry
-    ? summaries.find((s) => s.countryCode === selectedCountry) ?? null
-    : null;
 
   // Sticky column headers
   const headerBg = "sticky top-0 z-10 bg-slate-100 dark:bg-slate-800 font-sans text-xs font-bold text-slate-700 dark:text-slate-300";
@@ -162,10 +157,6 @@ export default function BenchmarkHeatmap({ summaries, principles }: Props) {
         <PrincipleDetailPopover principle={hoveredPrinciple} position={popoverPos} />
       )}
 
-      {/* Country Detail Panel */}
-      {selectedSummary && (
-        <CountryDetailPanel summary={selectedSummary} onClose={() => setSelectedCountry(null)} />
-      )}
     </section>
   );
 }

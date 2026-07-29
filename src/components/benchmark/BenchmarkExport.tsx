@@ -53,7 +53,7 @@ export default function BenchmarkExport({ summaries }: Props) {
 
   return (
     <section className="px-4 sm:px-6 lg:px-8 py-6">
-      <div className="max-w-[1600px] mx-auto flex items-center gap-3">
+      <div className="max-w-7xl mx-auto flex items-center gap-3">
         <span className="text-sm font-sans font-bold text-slate-700 dark:text-slate-300">Export:</span>
         <button
           onClick={exportCSV}

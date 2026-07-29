@@ -34,11 +34,11 @@ export default function BenchmarkHeroMap() {
   }, [countries]);
 
   return (
-    <section className="relative border-b border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-950 overflow-hidden">
+    <section className="relative border-b border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-950 overflow-hidden px-4 sm:px-6 lg:px-8 py-6">
       {/* Subtle grid background */}
       <div className="absolute inset-0 bg-hud-grid pointer-events-none opacity-[0.03] dark:opacity-[0.06]" />
 
-      <div className="relative max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <div className="relative max-w-7xl mx-auto">
         {/* Header + Legend */}
         <div className="flex items-center justify-between mb-4">
           <div>

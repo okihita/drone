@@ -3,7 +3,6 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import BenchmarkHeatmap from "@/components/benchmark/BenchmarkHeatmap";
 import BenchmarkExport from "@/components/benchmark/BenchmarkExport";
-import BenchmarkSummaryCard from "@/components/benchmark/BenchmarkSummaryCard";
 import BenchmarkHeroMap from "@/components/benchmark/BenchmarkHeroMap";
 import D2DSubNav from "@/components/benchmark/D2DSubNav";
 import { listAllBenchmarks, listPrinciples } from "@/services/benchmark";
@@ -118,7 +117,6 @@ export default function BenchmarkPage() {
 
       {/* Main Content */}
       <main className="flex-1">
-        <BenchmarkSummaryCard summaries={allSummaries} />
         <BenchmarkHeatmap summaries={allSummaries} principles={principles} />
         <BenchmarkExport summaries={allSummaries} />
       </main>
