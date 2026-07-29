@@ -44,7 +44,7 @@ export default function EditorialGrid({
             <ul className="space-y-2 text-xs text-slate-600 dark:text-slate-400 font-sans">
               {insights.frictionPoints.map((fp) => (
                 <li key={fp.label} className="flex items-start gap-2">
-                  <span className="text-asean-yellow font-bold">\u2022</span>
+                  <span className="text-asean-yellow font-bold">•</span>
                   <span>
                     <strong>{fp.label}</strong> {fp.description}
                   </span>
@@ -64,7 +64,7 @@ export default function EditorialGrid({
         {/* COLUMN 2: Field Dispatches */}
         <div className="lg:col-span-4 space-y-6 lg:border-r lg:border-slate-200 lg:dark:border-slate-800 lg:pr-8 animate-fade-up [animation-delay:150ms]">
           <span className="text-xs font-sans uppercase tracking-widest text-asean-blue font-bold block">
-            02 \u2022 FIELD DISPATCHES
+            02 • FIELD DISPATCHES
           </span>
           {dispatches.map((d, idx) => (
             <article
