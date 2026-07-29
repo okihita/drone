@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   FileText, Newspaper, Globe, LogOut, LayoutDashboard,
-  Menu, X, PanelLeftClose, PanelLeft,
+  Menu, X, PanelLeftClose, PanelLeft, DownloadCloud,
 } from "lucide-react";
 import { getBrowserClient } from "@/lib/supabase";
 import { Button } from "@/components/ui/button";
@@ -13,6 +13,7 @@ import { Separator } from "@/components/ui/separator";
 
 const nav = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/admin/ingester", label: "EM Ingester", icon: DownloadCloud },
   { href: "/admin/policies", label: "Policies", icon: FileText },
   { href: "/admin/news", label: "News", icon: Newspaper },
   { href: "/admin/jurisdictions", label: "Jurisdictions", icon: Globe },
