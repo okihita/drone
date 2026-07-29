@@ -1,5 +1,5 @@
 import { supabase, getServiceClient } from "@/lib/supabase";
-import { generateSlug } from "@/lib/text";
+import { generateSlug, decodeHtmlEntities } from "@/lib/text";
 import type { NewsItem } from "@/types";
 
 function getClient() {
@@ -45,16 +45,7 @@ export interface SyncReport {
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
 function cleanHtml(rawHtml: string): string {
-  if (!rawHtml) return "";
-  return rawHtml
-    .replace(/<[^>]*>/g, "")
-    .replace(/&#8220;/g, '“')
-    .replace(/&#8221;/g, '”')
-    .replace(/&#8217;/g, "'")
-    .replace(/&#8216;/g, "'")
-    .replace(/&amp;/g, "&")
-    .replace(/\s+/g, " ")
-    .trim();
+  return decodeHtmlEntities(rawHtml);
 }
 
 /** Fallback rule-based classifier if GEMINI_API_KEY is absent or fails */
