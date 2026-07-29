@@ -74,7 +74,7 @@ export type MapFilterMode = (typeof MAP_FILTER_MODES)[number];
 
 // ── Header Navigation Links ──────────────────────────────────────────────────
 
-import { BookOpen, Activity, Map, Database, ShieldAlert, Send, BarChart3, Cpu, Lock, Calendar, FileKey } from "lucide-react";
+import { BookOpen, Activity, Map, Database, ShieldAlert, Send, BarChart3, Cpu, Lock, Calendar, FileKey, ShieldCheck } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 export interface NavLink {
@@ -91,7 +91,7 @@ export const NAV_LINKS: NavLink[] = [
   { href: "/encryption", label: "Encryption", icon: Lock, iconColor: "text-asean-red" },
   { href: "/defa", label: "DEFA Tracker", icon: Activity, iconColor: "text-asean-amber" },
   { href: "/negotiations", label: "Negotiations", icon: Calendar, iconColor: "text-asean-sky" },
-  { href: "/consumer-protection", label: "Consumer Prot.", icon: ShieldAlert, iconColor: "text-asean-emerald" },
+  { href: "/consumer-protection", label: "Consumer Prot.", icon: ShieldCheck, iconColor: "text-asean-emerald" },
   { href: "/observatory", label: "Observatory", icon: Map, iconColor: "text-asean-blue" },
   { href: "/ledger", label: "Ledger", icon: Database, iconColor: "text-asean-blue" },
   { href: "/threats", label: "Threats", icon: ShieldAlert, iconColor: "text-asean-red" },

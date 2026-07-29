@@ -4,6 +4,7 @@ import Footer from "@/components/Footer";
 import HeroSection from "@/components/landing/HeroSection";
 import FeaturedCarousel from "@/components/landing/FeaturedCarousel";
 import EditorialGrid from "@/components/landing/EditorialGrid";
+import BenchmarkPreview from "@/components/landing/BenchmarkPreview";
 import { listStories, listDispatches } from "@/services/news";
 import { listPolicyRadar } from "@/services/policies";
 import { CACHE_TAGS } from "@/lib/cache";
@@ -30,6 +31,7 @@ export default async function Home() {
       <main className="flex-1">
         <HeroSection leadStory={stories[0] ?? null} />
         <FeaturedCarousel stories={stories} />
+        <BenchmarkPreview />
         <EditorialGrid dispatches={dispatches} radar={radar} />
       </main>
       <Footer />
