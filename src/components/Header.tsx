@@ -64,10 +64,16 @@ export default function Header() {
 
       {/* Desktop Navigation */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 font-sans">
-        <nav className="hidden md:flex items-center justify-center gap-6 py-3.5 text-xs font-medium font-sans" ref={dropdownRef}>
+        <nav className="hidden md:flex items-center justify-center gap-1 py-3 text-xs font-sans" ref={dropdownRef}>
           {NAV_GROUPS.map((item) => {
             const isGroup = "children" in item;
             const group = item as NavGroup;
+
+            // Shared pill + animated underline style
+            const linkBase =
+              "relative flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[13px] font-semibold transition-all hover:-translate-y-0.5 " +
+              "after:absolute after:bottom-0.5 after:left-1/2 after:h-0.5 after:w-3 after:rounded-full " +
+              "after:bg-asean-yellow after:transition-all after:duration-200 after:ease-out";
 
             if (isGroup) {
               const isOpen = openDropdown === group.href;
@@ -78,10 +84,11 @@ export default function Header() {
                     <Link
                       href={group.href}
                       onClick={() => setOpenDropdown(null)}
-                      className={`flex items-center gap-1.5 transition-colors cursor-pointer ${
+                      aria-current={active ? "page" : undefined}
+                      className={`${linkBase} ${
                         active || isOpen
-                          ? "text-asean-yellow font-bold"
-                          : "text-slate-700 dark:text-slate-300 hover:text-asean-yellow"
+                          ? "text-asean-yellow after:scale-x-100 after:left-0 after:w-full"
+                          : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:after:scale-x-100 hover:after:left-0 hover:after:w-full"
                       }`}
                     >
                       <group.icon className={`w-3.5 h-3.5 ${group.iconColor}`} />
@@ -128,14 +135,16 @@ export default function Header() {
             }
 
             // Plain link
+            const active = isActive(item.href);
             return (
               <Link
                 key={item.href}
                 href={item.href}
-                className={`flex items-center gap-1.5 transition-colors ${
-                  isActive(item.href)
-                    ? "text-asean-yellow font-bold border-b-2 border-asean-yellow pb-0.5"
-                    : "text-slate-700 dark:text-slate-300 hover:text-asean-yellow"
+                aria-current={active ? "page" : undefined}
+                className={`${linkBase} ${
+                  active
+                    ? "text-asean-yellow after:scale-x-100 after:left-0 after:w-full"
+                    : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:after:scale-x-100 hover:after:left-0 hover:after:w-full"
                 }`}
               >
                 <item.icon className={`w-3.5 h-3.5 ${item.iconColor}`} />

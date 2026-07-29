@@ -5,6 +5,7 @@ import BenchmarkHeatmap from "@/components/benchmark/BenchmarkHeatmap";
 import BenchmarkExport from "@/components/benchmark/BenchmarkExport";
 import BenchmarkSummaryCard from "@/components/benchmark/BenchmarkSummaryCard";
 import BenchmarkHeroMap from "@/components/benchmark/BenchmarkHeroMap";
+import D2DSubNav from "@/components/benchmark/D2DSubNav";
 import { listAllBenchmarks, listPrinciples } from "@/services/benchmark";
 import { BarChart3, Globe, Shield } from "lucide-react";
 
@@ -32,6 +33,7 @@ export default function BenchmarkPage() {
   return (
     <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-200 font-sans selection:bg-asean-yellow/30 selection:text-slate-900 transition-colors">
       <Header />
+      <D2DSubNav />
 
       {/* Intro — merged hero + narrative */}
       <section className="relative border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/60 py-10 sm:py-14 px-4 sm:px-6 lg:px-8">
