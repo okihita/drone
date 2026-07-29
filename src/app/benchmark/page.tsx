@@ -4,7 +4,7 @@ import Footer from "@/components/Footer";
 import BenchmarkHeatmap from "@/components/benchmark/BenchmarkHeatmap";
 import BenchmarkExport from "@/components/benchmark/BenchmarkExport";
 import BenchmarkSummaryCard from "@/components/benchmark/BenchmarkSummaryCard";
-import BenchmarkMap from "@/components/benchmark/BenchmarkMap";
+import BenchmarkHeroMap from "@/components/benchmark/BenchmarkHeroMap";
 import { listAllBenchmarks, listPrinciples } from "@/services/benchmark";
 import { BarChart3, Globe, Shield } from "lucide-react";
 
@@ -112,7 +112,7 @@ export default function BenchmarkPage() {
       </section>
 
       {/* Geographic Compliance Map */}
-      <BenchmarkMap summaries={allSummaries} />
+      <BenchmarkHeroMap />
 
       {/* Main Content */}
       <main className="flex-1">
