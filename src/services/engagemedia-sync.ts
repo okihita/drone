@@ -207,19 +207,45 @@ export async function syncEngageMediaContent(perPage = 30): Promise<SyncReport> 
       const cleanExcerpt = cleanHtml(post.excerpt.rendered);
       const imageUrl = extractMajorImage(post);
 
+      const contentHtml = post.content?.rendered || "";
+
       // Check if post already exists in news_items DB
       const { data: existing } = await getClient()
         .from("news_items")
-        .select("id, wp_post_id, image_url")
+        .select("id, wp_post_id, image_url, raw_wp_data")
         .eq("wp_post_id", post.id)
         .maybeSingle();
 
       if (existing) {
-        // Backfill image if existing record has null/empty image_url
+        // Backfill image or full content if existing record is missing them
+        let needsUpdate = false;
+        const updateFields: Record<string, unknown> = {};
+
         if (!existing.image_url && imageUrl) {
+          updateFields.image_url = imageUrl;
+          needsUpdate = true;
+        }
+
+        // Parse existing raw_wp_data to check for content_html
+        let existingRaw: Record<string, unknown> = {};
+        try {
+          if (existing.raw_wp_data) existingRaw = JSON.parse(existing.raw_wp_data as string);
+        } catch {}
+
+        if (!existingRaw.content_html && contentHtml) {
+          updateFields.raw_wp_data = JSON.stringify({
+            ...existingRaw,
+            wp_id: post.id,
+            original_slug: post.slug,
+            content_html: contentHtml,
+          });
+          needsUpdate = true;
+        }
+
+        if (needsUpdate) {
           await getClient()
             .from("news_items")
-            .update({ image_url: imageUrl })
+            .update(updateFields)
             .eq("id", existing.id);
           report.items.push({ id: post.id, title: cleanTitle, status: "updated_image" });
         } else {
@@ -251,7 +277,11 @@ export async function syncEngageMediaContent(perPage = 30): Promise<SyncReport> 
         read_time: "4 min read",
         slug: slug,
         published_date: pubDate,
-        raw_wp_data: JSON.stringify({ wp_id: post.id, original_slug: post.slug }),
+        raw_wp_data: JSON.stringify({
+          wp_id: post.id,
+          original_slug: post.slug,
+          content_html: contentHtml,
+        }),
       };
 
       const { error: insertError } = await getClient()

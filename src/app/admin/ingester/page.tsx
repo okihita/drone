@@ -382,11 +382,38 @@ export default function AdminIngesterWorkbench() {
                       Executive Policy Summary
                     </label>
                     <textarea
-                      rows={4}
+                      rows={3}
                       value={editForm.summary || ""}
                       onChange={(e) => setEditForm({ ...editForm, summary: e.target.value })}
                       className="w-full px-3 py-2 text-sm border rounded-[4px] bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-700 leading-relaxed focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     />
+                  </div>
+
+                  {/* Full Article Content Reader */}
+                  <div className="space-y-2 pt-2 border-t">
+                    <label className="text-xs font-bold text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
+                      <FileText className="w-3.5 h-3.5 text-indigo-500" /> Full Article Content (Source Text)
+                    </label>
+                    {(() => {
+                      let htmlContent = "";
+                      try {
+                        if (selectedItem?.raw_wp_data) {
+                          const parsed = JSON.parse(selectedItem.raw_wp_data as string);
+                          htmlContent = parsed.content_html || "";
+                        }
+                      } catch {}
+
+                      return htmlContent ? (
+                        <div 
+                          className="p-4 rounded-[4px] bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-xs sm:text-sm text-slate-800 dark:text-slate-200 leading-relaxed max-h-80 overflow-y-auto font-sans prose dark:prose-invert max-w-none [&_img]:hidden [&_a]:text-indigo-600 [&_a]:underline"
+                          dangerouslySetInnerHTML={{ __html: htmlContent }}
+                        />
+                      ) : (
+                        <div className="p-4 rounded-[4px] bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-xs text-slate-500 italic">
+                          {selectedItem?.summary || "Full article text not available."}
+                        </div>
+                      );
+                    })()}
                   </div>
 
                   {/* Live Public Ledger Card Preview */}
