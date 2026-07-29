@@ -11,6 +11,7 @@ import {
   DownloadCloud, RefreshCw, CheckCircle2, Trash2, ExternalLink, 
   Sparkles, AlertCircle, ShieldAlert, Globe, Layers, Filter
 } from "lucide-react";
+import Image from "next/image";
 import type { NewsItem } from "@/types";
 
 const JURISDICTIONS = [
@@ -262,6 +263,20 @@ export default function AdminIngesterPage() {
                       <h3 className="font-serif-editorial text-lg font-bold text-slate-900 dark:text-white leading-snug">
                         {item.title}
                       </h3>
+                    )}
+
+                    {/* Featured Image Preview */}
+                    {item.image_url && (
+                      <div className="relative w-full h-44 rounded-lg overflow-hidden bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-800">
+                        <Image
+                          src={item.image_url}
+                          alt={item.title}
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 768px) 100vw, 600px"
+                          unoptimized
+                        />
+                      </div>
                     )}
 
                     {/* Classifications */}
