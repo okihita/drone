@@ -116,7 +116,7 @@ export default function AdminDashboard() {
               : news.map((n) => (
                   <div key={n.id} className="rounded-lg border hover:bg-muted/30 transition-colors p-2.5">
                     <div className="flex gap-2.5">
-                      {n.image_url ? (
+                      {n.image_url && n.image_url.trim() ? (
                         <Image
                           src={n.image_url}
                           alt={n.title}

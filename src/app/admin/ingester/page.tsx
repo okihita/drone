@@ -266,7 +266,7 @@ export default function AdminIngesterPage() {
                     )}
 
                     {/* Featured Image Preview */}
-                    {item.image_url && (
+                    {item.image_url && item.image_url.trim() ? (
                       <div className="relative w-full h-44 rounded-lg overflow-hidden bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-800">
                         <Image
                           src={item.image_url}
@@ -277,7 +277,7 @@ export default function AdminIngesterPage() {
                           unoptimized
                         />
                       </div>
-                    )}
+                    ) : null}
 
                     {/* Classifications */}
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 bg-slate-50 dark:bg-slate-900/60 p-3 rounded-lg text-sm">
