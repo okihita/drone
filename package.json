@@ -50,5 +50,8 @@
     "eslint-config-next": "16.2.12",
     "tailwindcss": "^4",
     "typescript": "^5"
+  },
+  "overrides": {
+    "@exodus/bytes": "1.14.1"
   }
 }
