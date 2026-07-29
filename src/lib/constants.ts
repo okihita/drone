@@ -93,17 +93,17 @@ export interface NavGroup {
 }
 
 export const D2D_SUBMENU: NavLink[] = [
-  { href: "/benchmark", label: "Benchmark Heatmap", icon: BarChart3, iconColor: "text-asean-blue" },
-  { href: "/tech-sovereignty", label: "Tech Sovereignty Radar", icon: Cpu, iconColor: "text-asean-amber" },
-  { href: "/encryption", label: "Encryption Observatory", icon: Lock, iconColor: "text-asean-red" },
-  { href: "/consumer-protection", label: "Consumer Protections", icon: ShieldCheck, iconColor: "text-asean-emerald" },
-  { href: "/negotiations", label: "Trade Negotiations", icon: Calendar, iconColor: "text-asean-sky" },
-  { href: "/ip-monitor", label: "IP & Trade Secrets", icon: FileKey, iconColor: "text-asean-sky" },
+  { href: "/d2d/benchmark", label: "Benchmark Heatmap", icon: BarChart3, iconColor: "text-asean-blue" },
+  { href: "/d2d/tech-sovereignty", label: "Tech Sovereignty Radar", icon: Cpu, iconColor: "text-asean-amber" },
+  { href: "/d2d/encryption", label: "Encryption Observatory", icon: Lock, iconColor: "text-asean-red" },
+  { href: "/d2d/consumer-protection", label: "Consumer Protections", icon: ShieldCheck, iconColor: "text-asean-emerald" },
+  { href: "/d2d/negotiations", label: "Trade Negotiations", icon: Calendar, iconColor: "text-asean-sky" },
+  { href: "/d2d/ip-monitor", label: "IP & Trade Secrets", icon: FileKey, iconColor: "text-asean-sky" },
 ];
 
 export const NAV_GROUPS: (NavLink | NavGroup)[] = [
   { href: "/investigations", label: "Investigations", icon: BookOpen, iconColor: "text-asean-yellow" },
-  { href: "/benchmark", label: "Digital 2 Dozen", icon: BarChart3, iconColor: "text-asean-blue", children: D2D_SUBMENU },
+  { href: "/d2d/benchmark", label: "Digital 2 Dozen", icon: BarChart3, iconColor: "text-asean-blue", children: D2D_SUBMENU },
   { href: "/defa", label: "DEFA Tracker", icon: Activity, iconColor: "text-asean-amber" },
   { href: "/observatory", label: "Observatory & Threats", icon: Map, iconColor: "text-asean-blue" },
   { href: "/ledger", label: "Ledger", icon: Database, iconColor: "text-asean-blue" },

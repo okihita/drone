@@ -24,7 +24,7 @@ export default function BenchmarkPreview() {
             </div>
           </div>
           <Link
-            href="/benchmark"
+            href="/d2d/benchmark"
             className="flex items-center gap-1 text-xs font-sans font-bold text-asean-blue hover:text-asean-blue/80 transition-colors"
           >
             Full Benchmark <ArrowRight className="h-3.5 w-3.5" />

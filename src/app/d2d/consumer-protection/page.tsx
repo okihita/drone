@@ -3,7 +3,6 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { fetchConsumerProtectionPolicies } from "@/services/consumer_protection";
 import { Shield } from "lucide-react";
-import D2DSubNav from "@/components/benchmark/D2DSubNav";
 
 export const metadata: Metadata = {
   title: "Consumer Protection Dashboard — ASEAN Digital Rights | D.R.O.N.E.",
@@ -17,7 +16,6 @@ export default function ConsumerProtectionPage() {
   return (
     <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-200 font-sans selection:bg-asean-yellow/30 selection:text-slate-900 transition-colors">
       <Header />
-      <D2DSubNav />
       <section className="relative border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/60 py-10 sm:py-14 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">

@@ -69,12 +69,12 @@ export default function BenchmarkHeatmap({ summaries, principles }: Props) {
           <table className="w-full border-collapse text-xs font-sans">
             <thead>
               <tr>
-                <th className={`${headerBg} p-2 text-left min-w-[180px] rounded-tl-xl`}>Principle</th>
-                <th className={`${headerBg} p-2 text-left min-w-[160px]`}>Cluster</th>
+                <th className={`${headerBg} p-2 text-left min-w-[150px] rounded-tl-xl`}>Principle</th>
+                <th className={`${headerBg} p-2 text-left min-w-[120px]`}>Cluster</th>
                 {summaries.map((s) => (
                   <th
                     key={s.countryCode}
-                    className={`${headerBg} p-2 text-center min-w-[70px] cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors ${
+                    className={`${headerBg} p-2 text-center min-w-[60px] cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors ${
                       selectedCountry === s.countryCode ? "bg-asean-yellow/20 dark:bg-asean-yellow/10" : ""
                     }`}
                     onClick={() => setSelectedCountry(selectedCountry === s.countryCode ? null : s.countryCode)}
