@@ -89,7 +89,7 @@ export default function TechSovereigntyRadar({ summaries, principles }: Props) {
                       fill="none"
                       stroke={i === levels - 1 ? "#94a3b8" : "#cbd5e1"}
                       strokeWidth={i === levels - 1 ? 1.5 : 0.5}
-                      className="dark:stroke-slate-600 dark:[&:nth-last-child]:stroke-slate-400"
+                      className="dark:stroke-slate-400"
                     />
                     {i < levels - 1 && (
                       <text
