@@ -7,7 +7,25 @@ import LanguageSwitcher from "./LanguageSwitcher";
 import ThemeToggle from "./ThemeToggle";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { NAV_LINKS, NAV_GROUPS } from "@/lib/constants";
-import type { NavGroup } from "@/lib/constants";
+import type { NavGroup, NavLink } from "@/lib/constants";
+
+// ── Shared style tokens ────────────────────────────────────────────────────
+
+const LINK_BASE =
+  "relative flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[13px] font-semibold transition-all hover:-translate-y-0.5 " +
+  "after:absolute after:bottom-0.5 after:left-1/2 after:h-0.5 after:w-3 after:rounded-full " +
+  "after:bg-asean-yellow after:transition-all after:duration-200 after:ease-out";
+
+const LINK_ACTIVE = "text-asean-yellow after:scale-x-100 after:left-0 after:w-full";
+
+const LINK_IDLE =
+  "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white " +
+  "hover:bg-slate-100 dark:hover:bg-slate-800/60 " +
+  "hover:after:scale-x-100 hover:after:left-0 hover:after:w-full";
+
+function isNavGroup(item: NavLink | NavGroup): item is NavGroup {
+  return "children" in item;
+}
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -17,9 +35,14 @@ export default function Header() {
 
   const isActive = (path: string) => pathname === path;
 
-  // Check if any submenu item is active
   const isSubmenuActive = (group: NavGroup) =>
     group.children.some((child) => isActive(child.href));
+
+  // Close dropdown on route change (navigation)
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- intentional: close dropdown on navigation
+    setOpenDropdown(null);
+  }, [pathname]);
 
   // Close dropdown on click outside
   useEffect(() => {
@@ -66,37 +89,25 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 font-sans">
         <nav className="hidden md:flex items-center justify-center gap-1 py-3 text-xs font-sans" ref={dropdownRef}>
           {NAV_GROUPS.map((item) => {
-            const isGroup = "children" in item;
-            const group = item as NavGroup;
-
-            // Shared pill + animated underline style
-            const linkBase =
-              "relative flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[13px] font-semibold transition-all hover:-translate-y-0.5 " +
-              "after:absolute after:bottom-0.5 after:left-1/2 after:h-0.5 after:w-3 after:rounded-full " +
-              "after:bg-asean-yellow after:transition-all after:duration-200 after:ease-out";
-
-            if (isGroup) {
-              const isOpen = openDropdown === group.href;
-              const active = isSubmenuActive(group);
+            if (isNavGroup(item)) {
+              const isOpen = openDropdown === item.href;
+              const active = isSubmenuActive(item);
               return (
-                <div key={group.href} className="relative">
+                <div key={item.href} className="relative">
                   <div className="flex items-center">
                     <Link
-                      href={group.href}
+                      href={item.href}
                       onClick={() => setOpenDropdown(null)}
                       aria-current={active ? "page" : undefined}
-                      className={`${linkBase} ${
-                        active || isOpen
-                          ? "text-asean-yellow after:scale-x-100 after:left-0 after:w-full"
-                          : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:after:scale-x-100 hover:after:left-0 hover:after:w-full"
-                      }`}
+                      className={`${LINK_BASE} ${active || isOpen ? LINK_ACTIVE : LINK_IDLE}`}
                     >
-                      <group.icon className={`w-3.5 h-3.5 ${group.iconColor}`} />
-                      <span>{group.label}</span>
+                      <item.icon className={`w-3.5 h-3.5 ${item.iconColor}`} />
+                      <span>{item.label}</span>
                     </Link>
                     <button
-                      onClick={(e) => { e.preventDefault(); setOpenDropdown(isOpen ? null : group.href); }}
+                      onClick={(e) => { e.preventDefault(); setOpenDropdown(isOpen ? null : item.href); }}
                       className="ml-0.5 p-0.5 rounded hover:bg-slate-200 dark:hover:bg-slate-800 cursor-pointer"
+                      aria-expanded={isOpen}
                       aria-label={isOpen ? "Close submenu" : "Open submenu"}
                     >
                       <ChevronDown className={`w-3 h-3 transition-transform ${isOpen ? "rotate-180" : ""} ${
@@ -110,24 +121,27 @@ export default function Header() {
                     <div className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-56 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl z-50 py-2 animate-[fadeIn_0.12s_ease-out]">
                       {/* Arrow */}
                       <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-3 h-3 rotate-45 bg-white dark:bg-slate-900 border-l border-t border-slate-200 dark:border-slate-800" />
-                      {group.children.map((child) => (
-                        <Link
-                          key={child.href}
-                          href={child.href}
-                          onClick={() => setOpenDropdown(null)}
-                          className={`flex items-center gap-3 px-4 py-2.5 text-xs transition-colors ${
-                            isActive(child.href)
-                              ? "bg-asean-yellow/10 text-asean-yellow font-bold"
-                              : "text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
-                          }`}
-                        >
-                          <child.icon className={`w-3.5 h-3.5 ${child.iconColor}`} />
-                          <span>{child.label}</span>
-                          {isActive(child.href) && (
-                            <span className="ml-auto w-1.5 h-1.5 rounded-full bg-asean-yellow" />
-                          )}
-                        </Link>
-                      ))}
+                      {item.children.map((child) => {
+                        const active = isActive(child.href);
+                        return (
+                          <Link
+                            key={child.href}
+                            href={child.href}
+                            onClick={() => setOpenDropdown(null)}
+                            className={`flex items-center gap-3 px-4 py-2.5 text-xs font-semibold transition-colors ${
+                              active
+                                ? "bg-asean-yellow/10 text-asean-yellow"
+                                : "text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
+                            }`}
+                          >
+                            <child.icon className={`w-3.5 h-3.5 ${child.iconColor}`} />
+                            <span>{child.label}</span>
+                            {active && (
+                              <span className="ml-auto w-1.5 h-1.5 rounded-full bg-asean-yellow" />
+                            )}
+                          </Link>
+                        );
+                      })}
                     </div>
                   )}
                 </div>
@@ -141,11 +155,7 @@ export default function Header() {
                 key={item.href}
                 href={item.href}
                 aria-current={active ? "page" : undefined}
-                className={`${linkBase} ${
-                  active
-                    ? "text-asean-yellow after:scale-x-100 after:left-0 after:w-full"
-                    : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:after:scale-x-100 hover:after:left-0 hover:after:w-full"
-                }`}
+                className={`${LINK_BASE} ${active ? LINK_ACTIVE : LINK_IDLE}`}
               >
                 <item.icon className={`w-3.5 h-3.5 ${item.iconColor}`} />
                 <span>{item.label}</span>
@@ -157,22 +167,26 @@ export default function Header() {
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 px-4 py-4 space-y-2 text-xs font-sans">
-          {NAV_LINKS.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              onClick={() => setMobileMenuOpen(false)}
-              className={`flex items-center gap-2 py-1.5 ${
-                isActive(link.href)
-                  ? "text-asean-yellow font-bold"
-                  : "text-slate-700 dark:text-slate-300"
-              }`}
-            >
-              <link.icon className={`w-3.5 h-3.5 ${link.iconColor}`} />
-              {link.label}
-            </Link>
-          ))}
+        <div className="md:hidden border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 px-4 py-4 space-y-1 text-xs font-sans">
+          {NAV_LINKS.map((link) => {
+            const active = isActive(link.href);
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={() => setMobileMenuOpen(false)}
+                aria-current={active ? "page" : undefined}
+                className={`flex items-center gap-2 px-2 py-2 rounded-lg font-semibold transition-colors ${
+                  active
+                    ? "bg-asean-yellow/10 text-asean-yellow"
+                    : "text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
+                }`}
+              >
+                <link.icon className={`w-3.5 h-3.5 ${link.iconColor}`} />
+                {link.label}
+              </Link>
+            );
+          })}
         </div>
       )}
     </header>

@@ -356,17 +356,10 @@ export function getCountryBenchmarkSummary(countryCode: string, countryName: str
 /** Build summaries for all 11 ASEAN countries. */
 export function getAllBenchmarkSummaries(): BenchmarkCountrySummary[] {
   const countries = [
-    { code: "SG", name: "Singapore" },
-    { code: "MY", name: "Malaysia" },
-    { code: "VN", name: "Vietnam" },
-    { code: "ID", name: "Indonesia" },
-    { code: "TH", name: "Thailand" },
-    { code: "PH", name: "Philippines" },
-    { code: "MM", name: "Myanmar" },
-    { code: "KH", name: "Cambodia" },
-    { code: "LA", name: "Laos" },
-    { code: "BN", name: "Brunei" },
-    { code: "TL", name: "Timor-Leste" },
+    { code: "SG", name: "Singapore" }, { code: "MY", name: "Malaysia" }, { code: "VN", name: "Vietnam" },
+    { code: "ID", name: "Indonesia" }, { code: "TH", name: "Thailand" }, { code: "PH", name: "Philippines" },
+    { code: "MM", name: "Myanmar" }, { code: "KH", name: "Cambodia" }, { code: "LA", name: "Laos" },
+    { code: "BN", name: "Brunei" }, { code: "TL", name: "Timor-Leste" },
   ];
   return countries.map((c) => getCountryBenchmarkSummary(c.code, c.name));
 }
