@@ -30,7 +30,13 @@ function initSupabase(): SupabaseClient {
  */
 export const supabase: SupabaseClient = new Proxy({} as SupabaseClient, {
   get(_target, prop) {
-    return (initSupabase() as unknown as Record<string | symbol, unknown>)[prop];
+    const client = initSupabase();
+    const value = (client as unknown as Record<string | symbol, unknown>)[prop];
+    // Bind methods so `this` inside supabase.from(), supabase.auth(), etc. points to the real client
+    if (typeof value === "function") {
+      return value.bind(client);
+    }
+    return value;
   },
   set(_target, prop, value) {
     (initSupabase() as unknown as Record<string | symbol, unknown>)[prop] = value;
