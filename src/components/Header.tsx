@@ -116,10 +116,10 @@ export default function Header() {
                     </button>
                   </div>
 
-                  {/* Dropdown */}
+                   {/* Dropdown — centered under group with mobile overflow guard */}
                   {isOpen && (
-                    <div className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-56 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl z-50 py-2 animate-[fadeIn_0.12s_ease-out]">
-                      {/* Arrow */}
+                    <div className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-60 max-w-[calc(100vw-2rem)] rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl z-50 py-2 animate-[fadeIn_0.12s_ease-out]">
+                      {/* Arrow — centered within dropdown */}
                       <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-3 h-3 rotate-45 bg-white dark:bg-slate-900 border-l border-t border-slate-200 dark:border-slate-800" />
                       {item.children.map((child) => {
                         const active = isActive(child.href);
