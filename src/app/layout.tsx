@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     siteName: "DRONE",
     images: [
       {
-        url: "/og-image.jpg",
+        url: "/og-image.jpg?v=2",
         width: 1200,
         height: 630,
         alt: "DRONE — ASEAN Digital Rights Oversight & Network Evaluator",
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "DRONE — ASEAN Digital Rights Oversight & Network Evaluator",
     description: "Independent policy research portal and data observatory tracking digital trade treaties, cross-border data governance, and AI rights across Southeast Asia.",
-    images: ["/og-image.jpg"],
+    images: ["/og-image.jpg?v=2"],
   },
 };
 
