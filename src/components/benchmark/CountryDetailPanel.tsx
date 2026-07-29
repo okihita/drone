@@ -57,7 +57,7 @@ export default function CountryDetailPanel({ summary, onClose }: Props) {
         {/* Per-Principle Scores */}
         <div className="space-y-1.5">
           <h4 className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Principle Scores</h4>
-          {summary.scores.sort((a, b) => a.principleId - b.principleId).map((sc) => (
+          {[...summary.scores].sort((a, b) => a.principleId - b.principleId).map((sc) => (
             <div key={sc.principleId} className="flex items-center justify-between py-1 border-b border-slate-100 dark:border-slate-800/50 text-xs">
               <span className="text-slate-700 dark:text-slate-300 font-medium">#{sc.principleId}</span>
               <span className={`font-mono font-bold ${
