@@ -74,18 +74,29 @@ export default function Header() {
               const active = isSubmenuActive(group);
               return (
                 <div key={group.href} className="relative">
-                  <button
-                    onClick={() => setOpenDropdown(isOpen ? null : group.href)}
-                    className={`flex items-center gap-1.5 transition-colors cursor-pointer ${
-                      active || isOpen
-                        ? "text-asean-yellow font-bold"
-                        : "text-slate-700 dark:text-slate-300 hover:text-asean-yellow"
-                    }`}
-                  >
-                    <group.icon className={`w-3.5 h-3.5 ${group.iconColor}`} />
-                    <span>{group.label}</span>
-                    <ChevronDown className={`w-3 h-3 transition-transform ${isOpen ? "rotate-180" : ""}`} />
-                  </button>
+                  <div className="flex items-center">
+                    <Link
+                      href={group.href}
+                      onClick={() => setOpenDropdown(null)}
+                      className={`flex items-center gap-1.5 transition-colors cursor-pointer ${
+                        active || isOpen
+                          ? "text-asean-yellow font-bold"
+                          : "text-slate-700 dark:text-slate-300 hover:text-asean-yellow"
+                      }`}
+                    >
+                      <group.icon className={`w-3.5 h-3.5 ${group.iconColor}`} />
+                      <span>{group.label}</span>
+                    </Link>
+                    <button
+                      onClick={(e) => { e.preventDefault(); setOpenDropdown(isOpen ? null : group.href); }}
+                      className="ml-0.5 p-0.5 rounded hover:bg-slate-200 dark:hover:bg-slate-800 cursor-pointer"
+                      aria-label={isOpen ? "Close submenu" : "Open submenu"}
+                    >
+                      <ChevronDown className={`w-3 h-3 transition-transform ${isOpen ? "rotate-180" : ""} ${
+                        active || isOpen ? "text-asean-yellow" : "text-slate-400 dark:text-slate-500"
+                      }`} />
+                    </button>
+                  </div>
 
                   {/* Dropdown */}
                   {isOpen && (
