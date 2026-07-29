@@ -237,37 +237,31 @@ export default function AdminIngesterWorkbench() {
                           : "bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700"
                       }`}
                     >
-                      <div className="flex items-stretch min-h-[105px]">
-                        {/* Flush Left 16:9 Landscape Image */}
+                      <div className="flex items-center gap-3 p-2.5">
+                        {/* Flush Left Strict 16:9 Landscape Image */}
                         {item.image_url && item.image_url.trim() ? (
-                          <div className="relative w-32 sm:w-36 shrink-0 aspect-[16/9] bg-slate-100 dark:bg-slate-800">
+                          <div className="relative w-36 sm:w-40 shrink-0 aspect-video rounded-[3px] overflow-hidden bg-slate-100 dark:bg-slate-800 border border-slate-200/60 dark:border-slate-800/60">
                             <Image
                               src={item.image_url}
                               alt={item.title}
                               fill
                               className="object-cover"
-                              sizes="144px"
+                              sizes="160px"
                               unoptimized
                             />
                           </div>
                         ) : (
-                          <div className="w-32 sm:w-36 shrink-0 aspect-[16/9] bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-[10px] text-slate-400 font-medium">
+                          <div className="w-36 sm:w-40 shrink-0 aspect-video rounded-[3px] bg-slate-100 dark:bg-slate-800 border border-slate-200/60 dark:border-slate-800/60 flex items-center justify-center text-[10px] text-slate-400 font-medium">
                             No Image
                           </div>
                         )}
 
                         {/* Right Content */}
-                        <div className="min-w-0 flex-1 p-3.5 space-y-2 flex flex-col justify-between">
-                          <div className="space-y-1">
-                            <h3 className="font-serif-editorial text-xs sm:text-sm font-bold text-slate-900 dark:text-white leading-snug line-clamp-2">
-                              {item.title}
-                            </h3>
-                            <p className="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-2 leading-relaxed font-sans">
-                              {item.summary}
-                            </p>
-                          </div>
-
-                          <div className="flex flex-wrap items-center justify-between gap-1 text-[11px] text-slate-500 font-sans pt-2 border-t border-slate-100 dark:border-slate-800/80">
+                        <div className="min-w-0 flex-1 space-y-1.5">
+                          <h3 className="font-serif-editorial text-xs sm:text-sm font-bold text-slate-900 dark:text-white leading-snug line-clamp-2">
+                            {item.title}
+                          </h3>
+                          <div className="flex flex-wrap items-center justify-between gap-1 text-[11px] text-slate-500 font-sans">
                             <span>{item.published_date}</span>
                             <Badge variant="outline" className="text-[10px] py-0 px-1.5 rounded-[2px]">
                               {item.jurisdiction}
