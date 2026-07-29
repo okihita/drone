@@ -2,7 +2,6 @@
 
 > **Client / Organization**: EngageMedia  
 > **Maintained By**: EngageMedia Research Team  
-> **Strategic Donors**: Luminate Group & Sida (Sweden)  
 > **Tech Stack**: Next.js 16 (App Router & Turbopack), React 19, Tailwind CSS v4, Supabase (`pgvector`), Drizzle ORM, Vercel AI SDK v4  
 > **License**: Creative Commons Attribution 4.0 International (CC BY 4.0) / AGPL-3.0  
 

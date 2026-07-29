@@ -33,9 +33,7 @@ Blueprint:
 What benefits can we get. 
 Positioning adalah science communicator.
 Campaign strategist dari engagemedia.
-Grantee siapa aja. 
-LUMINATE adalah donor.
-SIDA https://www.sida.se/en adalah donor.
+Grantee siapa aja.
 
 Pakai yang ada dulu di website EM, buat beberapa bulan ke belakang buat scaffolding.
 Kolab sama Nan.

@@ -219,9 +219,9 @@ EngageMedia, utilizing its **ASEAN Policy Hub** and acting as a **Science Commun
 3. **Regional Civil Society Convening (DRAPAC Alignment)**:
    * Organize policy workshops bringing together digital rights defenders, legal scholars, and journalists across Indonesia, Philippines, Thailand, and Vietnam to build joint advocacy strategies around DEFA implementation.
 
-4. **Strategic Alignment with Donors**:
-   * **Luminate Group**: Expose Big Tech lobbying in DEFA negotiations; advocate for mandatory algorithmic transparency and strong data protection standards.
-   * **Sida**: Support inclusive digital governance in Southeast Asia; protect online civic space from being compromised by commercial digital trade treaties.
+4. **Strategic Digital Rights Goals**:
+   * Expose Big Tech lobbying in DEFA negotiations; advocate for mandatory algorithmic transparency and strong data protection standards.
+   * Support inclusive digital governance in Southeast Asia; protect online civic space from being compromised by commercial digital trade treaties.
 
 ---
 

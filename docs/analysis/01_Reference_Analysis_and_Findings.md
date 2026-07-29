@@ -15,7 +15,7 @@ To evaluate the feasibility and architectural design of EngageMedia's proposed *
 2. **Bilaterals.org** (*Global Open-Publishing Trade Watchdog*)
 3. **Public Citizen’s Global Trade Watch / Rethink Trade** (*gtwaction.org*)
 4. **SEA Observatory** (*seaobservatory.org*)
-5. **EngageMedia Ecosystem & Donor Strategic Context** (*Luminate Group & Sida*)
+5. **EngageMedia Ecosystem & Strategic Context**
 
 Each platform offers unique strengths, visual features, and operational workflows. This document details the feature set, user experience, content structure, and the **"coolest parts"** of each reference model, concluding with a comparative matrix to inform EngageMedia’s platform blueprint.
 
@@ -124,23 +124,19 @@ flowchart TD
 
 ---
 
-### Reference 5: EngageMedia & Donor Ecosystem Strategic Context
+### Reference 5: EngageMedia Strategic Context
 * **Client**: [EngageMedia](https://engagemedia.org) (Digital Rights, Open Tech, Video for Change, Science Communication, Campaign Strategy)
-* **Donors**: [Luminate Group](https://luminategroup.com) & [Sida](https://www.sida.se)
 
 ```mermaid
 flowchart TD
     subgraph Strategic Alignment Ecosystem
-        EM["EngageMedia<br/>Science Communicator + Campaigner"] --> L["Luminate Group<br/>Data Rights, Civic Empowerment,<br/>Media Integrity & Algorithmic Accountability"]
-        EM --> S["Sida Sweden<br/>Regional Human Rights, Online Civic Space<br/>& Democratic Resilience"]
+        EM["EngageMedia<br/>Science Communicator + Campaigner"] --> ADV["Civil Society & Advocates<br/>Data Rights, Media Integrity & Algorithmic Accountability"]
     end
 ```
 
 #### Key Takeaways for EngageMedia
 * **Role Alignment**: EngageMedia is positioned not merely as an academic think tank, but as a **science communicator and campaign strategist**. The Hub must translate legal jargon into actionable media, infographics, and campaign briefs.
-* **Donor Priorities**:
-  * **Luminate**: Demands algorithmic accountability, data privacy, challenging corporate tech power, and empowering independent journalism/civil society.
-  * **Sida**: Focuses on defending online civic space in Southeast Asia, regional democratic resilience, human-rights-centered AI governance, and capacity building.
+* **Strategic Priorities**: Demands algorithmic accountability, data privacy, challenging corporate tech power, defending online civic space in Southeast Asia, regional democratic resilience, human-rights-centered AI governance, and capacity building.
 
 ---
 
@@ -165,4 +161,4 @@ From this benchmarking analysis, EngageMedia can extract five critical design pr
 2. **Incorporate Bilaterals.org's Open Submissions**: Create a grantee/partner submission portal so regional activists can submit local policy alerts.
 3. **Emulate Global Trade Watch's Campaign Storytelling**: Translate complex policy developments (e.g., ASEAN DEFA, Trump Tariffs, cross-border data restrictions) into clear campaign briefs and visual summaries.
 4. **Utilize AI4D's Geographic Focus**: Tailor taxonomy strictly to ASEAN regional nuances and Global South digital rights priorities.
-5. **Fulfill Luminate & Sida Goals**: Center all features around defending civic space, tracking Big Tech pressure, and democratizing access to policy intelligence for Southeast Asian advocates.
+5. **Fulfill Strategic Digital Rights Goals**: Center all features around defending civic space, tracking Big Tech pressure, and democratizing access to policy intelligence for Southeast Asian advocates.

@@ -50,25 +50,25 @@ export default function Footer() {
           </ul>
         </div>
 
-        {/* Col 3: Donor Partners */}
+        {/* Col 3: Network & Resources */}
         <div className="space-y-2 font-sans">
           <h4 className="font-sans text-xs uppercase font-bold text-slate-900 dark:text-white tracking-wider mb-3">
-            Strategic Donor Partners
+            EngageMedia Network
           </h4>
           <ul className="space-y-3 text-xs font-sans">
             <li>
-              <a href="https://luminategroup.com/en" target="_blank" rel="noopener noreferrer" className="hover:text-asean-yellow transition-colors flex items-center justify-between group">
-                <span className="font-semibold text-slate-800 dark:text-slate-200">Luminate Group</span>
+              <a href="https://engagemedia.org" target="_blank" rel="noopener noreferrer" className="hover:text-asean-yellow transition-colors flex items-center justify-between group">
+                <span className="font-semibold text-slate-800 dark:text-slate-200">EngageMedia Official Site</span>
                 <ExternalLink className="w-3 h-3 text-slate-400 group-hover:text-asean-yellow" />
               </a>
-              <p className="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5 font-sans">Data &amp; Digital Rights, Algorithmic Oversight &amp; Platform Accountability</p>
+              <p className="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5 font-sans">Open and secure digital technologies, media, and human rights across Asia-Pacific</p>
             </li>
             <li>
-              <a href="https://www.sida.se/en" target="_blank" rel="noopener noreferrer" className="hover:text-asean-yellow transition-colors flex items-center justify-between group">
-                <span className="font-semibold text-slate-800 dark:text-slate-200">Sida (Sweden)</span>
+              <a href="https://drapac.org" target="_blank" rel="noopener noreferrer" className="hover:text-asean-yellow transition-colors flex items-center justify-between group">
+                <span className="font-semibold text-slate-800 dark:text-slate-200">DRAPAC Network</span>
                 <ExternalLink className="w-3 h-3 text-slate-400 group-hover:text-asean-yellow" />
               </a>
-              <p className="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5 font-sans">Strategy for Regional Cooperation in Asia-Pacific, Defending Online Civic Space</p>
+              <p className="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5 font-sans">Digital Rights Asia-Pacific Assembly &amp; Regional Movement Building</p>
             </li>
           </ul>
         </div>

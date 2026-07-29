@@ -3,7 +3,7 @@
 > **Author**: Okihita  
 > **Date**: July 2026  
 > **Target Project**: D.R.O.N.E. (Digital Rights Oversight & Network Evaluator)  
-> **Client / Donors**: EngageMedia (Client) | Luminate Group & Sida (Donors)  
+> **Client / Organization**: EngageMedia  
 > **Scope**: End-to-End Web App Engineering Roadmap (6 Months / 6 Sprints)  
 > **Status**: Approved Implementation Architecture  
 

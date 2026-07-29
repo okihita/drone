@@ -15,7 +15,7 @@ The map — the product's strongest visual asset — is a dead sidebar graphic w
 `cursor-pointer` that does nothing. Benchmarking (`docs/analysis/01`) shows every
 reference platform has one "alive" centerpiece (SEA Observatory's density map, GTW's
 threat matrix). D.R.O.N.E.'s hero has none, and it fails to produce a wow moment for
-donors (Luminate, Sida) and first-time visitors.
+key stakeholders and first-time visitors.
 
 ## 2. Decision
 

@@ -193,30 +193,24 @@ flowchart LR
 
 ## 5. Strategic Alignment Narrative
 
-How does the ASEAN Policy Hub fulfill the strategic goals of EngageMedia and its key donors, **Luminate Group** and **Sida**?
+How does the ASEAN Policy Hub fulfill the strategic goals of EngageMedia and Southeast Asian digital rights advocates?
 
 ```mermaid
 flowchart TD
     HUB[ASEAN POLICY HUB] --> EM["ENGAGEMEDIA<br/>Science Comm & Campaigner"]
-    HUB --> DONORS["DONOR GROUPS<br/>Rights, Democracy & Accountability"]
-    DONORS --> L["Luminate Group<br/>Data Rights, Civic Empowerment,<br/>Media Integrity & Algorithmic Oversight"]
-    DONORS --> S["Sida Sweden<br/>Human Rights, Democracy & Online<br/>Civic Space Protection in APAC"]
+    HUB --> ADV["CIVIL SOCIETY & ADVOCATES<br/>Rights, Democracy & Accountability"]
 ```
 
 ### 5.1 Alignment with EngageMedia’s Mission & Vision
 * **Democratizing Technical Knowledge**: Functions as a *Science Communicator*, translating dense legal code (e.g., ASEAN DEFA data provisions) into clear, visually engaging stories.
 * **Empowering Campaigners**: Provides actionable campaign strategy tools, helping regional activists anticipate digital rights threats before bills become law.
-* **Ecosystem Synergy**: Integrates EngageMedia’s existing media platforms, linking policy analysis directly to *Cinemata* human rights documentaries.
+* **Ecosystem Synergy**: Integrates EngageMedia’s existing media platforms, linking policy analysis directly to human rights advocacy.
 
-### 5.2 Alignment with Luminate Group’s Strategy
+### 5.2 Alignment with Digital Rights & Regional Priorities
 * **Data & Digital Rights**: Direct tracking of cross-border data protection, algorithmic oversight, and corporate surveillance regimes.
 * **Challenging Big Tech Power**: Exposes how international trade negotiations and Big Tech lobbies seek to deregulate digital safeguards across ASEAN.
-* **Independent Media & Civic Empowerment**: Equips independent journalists and civil society defenders with verified, source-linked policy intelligence.
-
-### 5.3 Alignment with Sida’s Regional Strategy (Asia-Pacific)
 * **Defending Online Civic Space**: Provides early warning against restrictive ICT laws, internet censorship, and state surveillance across Southeast Asia.
-* **Human Rights & Democracy**: Promotes rights-based AI governance and inclusive policy participation in alignment with Sweden's regional development goals.
-* **Regional Resilience**: Fosters cross-border solidarity among Southeast Asian civil society organizations navigating common authoritarian digital trends.
+* **Regional Resilience**: Fosters cross-border solidarity among Southeast Asian civil society organizations navigating common digital trends.
 
 ---
 

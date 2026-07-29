@@ -25,13 +25,13 @@ Following a dedicated brand evaluation focused on replacing passive terms like *
 ### Strategic Rationale
 1. **Active & Human-Centric ("Evaluator")**: Replaces "Engine" (which feels cold/automated/dead) with **"Evaluator"**—an active, analytical role that directly describes what EngageMedia does: rigorously evaluating pending legislative drafts, legal scrubbing, trade agreements (like ASEAN DEFA), and AI governance threats.
 2. **High-Tech Aerial Vigilance ("DRONE")**: Connotes a 360-degree, high-altitude surveillance system that monitors policy shifts across 11 Southeast Asian nations, detecting threats before bills become law.
-3. **Explicit Donor Alignment ("DR" = Digital Rights)**: Front-loads "Digital Rights" in the expansion, appealing directly to **Luminate Group** (algorithmic oversight & tech accountability) and **Sida** (defending online civic space).
+3. **Explicit Mission Alignment ("DR" = Digital Rights)**: Front-loads "Digital Rights" in the expansion, emphasizing algorithmic oversight, tech accountability, and defending online civic space.
 
 ---
 
 ## 2. 10 Active "D.R.O.N.E." Expansions & Evaluation Matrix
 
-All 10 variations use **D.R.O.N.E.** with **"DR" = Digital Rights** and explore distinct, active 'E' words. Each is scored out of 10 across five criteria: **Clarity**, **Active Energy**, **Memorability**, **Mission Alignment**, and **Donor Appeal**.
+All 10 variations use **D.R.O.N.E.** with **"DR" = Digital Rights** and explore distinct, active 'E' words. Each is scored out of 10 across five criteria: **Clarity**, **Active Energy**, **Memorability**, **Mission Alignment**, and **Strategic Appeal**.
 
 ```mermaid
 flowchart TD
@@ -53,8 +53,8 @@ flowchart TD
 * **Expansion**: **D**igital **R**ights **O**versight & **N**etwork **E**valuator
 * **Tagline**: *Evaluating Tech Policy Threats Across ASEAN*
 * **Active Energy Pitch**: Replaces cold machinery with active human evaluation. Captures the primary function of analyzing pending policy text, assessing cross-border data risks, and scoring digital rights impacts.
-* **Donor Appeal**: High appeal for **Luminate** (algorithmic evaluation) and **Sida** (rigorous policy oversight).
-* **Scoring**: Clarity: **9.5/10** | Active Energy: **9.5/10** | Memorability: **10/10** | Mission Alignment: **9.5/10** | Donor Appeal: **9.5/10** $\rightarrow$ **Overall: 9.6/10**
+* **Strategic Appeal**: High appeal for algorithmic evaluation and rigorous policy oversight.
+* **Scoring**: Clarity: **9.5/10** | Active Energy: **9.5/10** | Memorability: **10/10** | Mission Alignment: **9.5/10** | Strategic Appeal: **9.5/10** $\rightarrow$ **Overall: 9.6/10**
 * **Digital Footprint**: Clean in regional tech policy sphere. Domains `drone-evaluator.org` / `dronepolicy.asia` and handles `@drone_evaluator` / `@drone_policy` are clear.
 
 ---
@@ -98,7 +98,7 @@ flowchart TD
 #### 6. D.R.O.N.E. (Digital Rights Observatory Network for Empowerment)
 * **Expansion**: **D**igital **R**ights **O**bservatory **N**etwork for **E**mpowerment
 * **Tagline**: *Equipping ASEAN Communities to Defend Their Digital Future*
-* **Active Energy Pitch**: Classic donor language ("Empowerment") that resonates with civic capacity-building grants for Sida and Luminate.
+* **Active Energy Pitch**: Focuses on community empowerment that resonates with civic capacity-building initiatives across Southeast Asia.
 * **Scoring**: Clarity: **9/10** | Active Energy: **8.5/10** | Memorability: **8.5/10** | Mission Alignment: **9.5/10** | Donor Appeal: **9.5/10** $\rightarrow$ **Overall: 8.9/10**
 * **Digital Footprint**: Clean.
 
