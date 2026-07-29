@@ -248,120 +248,126 @@ export default function AdminIngesterPage() {
                       </a>
                     </div>
 
-                    {/* Title */}
-                    {isEditing ? (
-                      <div>
-                        <label className="text-xs font-semibold text-slate-500 block mb-1">Article Title</label>
-                        <input
-                          type="text"
-                          value={editForm.title || ""}
-                          onChange={(e) => setEditForm({ ...editForm, title: e.target.value })}
-                          className="w-full px-3 py-1.5 text-sm border rounded bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-700"
-                        />
-                      </div>
-                    ) : (
-                      <h3 className="font-serif-editorial text-lg font-bold text-slate-900 dark:text-white leading-snug">
-                        {item.title}
-                      </h3>
-                    )}
+                    {/* Main Content Layout: Side-by-side thumbnail + details */}
+                    <div className="flex flex-col sm:flex-row gap-5 items-start">
+                      {/* Featured Image Preview */}
+                      {item.image_url && item.image_url.trim() ? (
+                        <div className="relative w-full sm:w-52 h-44 sm:h-36 shrink-0 rounded-lg overflow-hidden bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-800">
+                          <Image
+                            src={item.image_url}
+                            alt={item.title}
+                            fill
+                            className="object-cover"
+                            sizes="(max-width: 640px) 100vw, 208px"
+                            unoptimized
+                          />
+                        </div>
+                      ) : null}
 
-                    {/* Featured Image Preview */}
-                    {item.image_url && item.image_url.trim() ? (
-                      <div className="relative w-full h-44 rounded-lg overflow-hidden bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-800">
-                        <Image
-                          src={item.image_url}
-                          alt={item.title}
-                          fill
-                          className="object-cover"
-                          sizes="(max-width: 768px) 100vw, 600px"
-                          unoptimized
-                        />
-                      </div>
-                    ) : null}
-
-                    {/* Classifications */}
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 bg-slate-50 dark:bg-slate-900/60 p-3 rounded-lg text-sm">
-                      <div>
-                        <label className="text-xs font-semibold text-slate-500 flex items-center gap-1 mb-1">
-                          <Globe className="w-3.5 h-3.5 text-indigo-500" /> Target Jurisdiction
-                        </label>
+                      {/* Article Details */}
+                      <div className="flex-1 space-y-3 min-w-0 w-full">
+                        {/* Title */}
                         {isEditing ? (
-                          <select
-                            value={editForm.jurisdiction || item.jurisdiction}
-                            onChange={(e) => setEditForm({ ...editForm, jurisdiction: e.target.value })}
-                            className="w-full p-1 text-xs border rounded bg-white dark:bg-slate-900"
-                          >
-                            {JURISDICTIONS.map((j) => (
-                              <option key={j} value={j}>{j}</option>
-                            ))}
-                          </select>
+                          <div>
+                            <label className="text-xs font-semibold text-slate-500 block mb-1">Article Title</label>
+                            <input
+                              type="text"
+                              value={editForm.title || ""}
+                              onChange={(e) => setEditForm({ ...editForm, title: e.target.value })}
+                              className="w-full px-3 py-1.5 text-sm border rounded bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-700"
+                            />
+                          </div>
                         ) : (
-                          <span className="font-medium text-slate-800 dark:text-slate-200">
-                            {item.jurisdiction}
-                          </span>
+                          <h3 className="font-serif-editorial text-lg font-bold text-slate-900 dark:text-white leading-snug">
+                            {item.title}
+                          </h3>
                         )}
-                      </div>
 
-                      <div>
-                        <label className="text-xs font-semibold text-slate-500 flex items-center gap-1 mb-1">
-                          <Layers className="w-3.5 h-3.5 text-indigo-500" /> Category
-                        </label>
-                        {isEditing ? (
-                          <select
-                            value={editForm.category || item.category}
-                            onChange={(e) => setEditForm({ ...editForm, category: e.target.value })}
-                            className="w-full p-1 text-xs border rounded bg-white dark:bg-slate-900"
-                          >
-                            {CATEGORIES.map((c) => (
-                              <option key={c} value={c}>{c}</option>
-                            ))}
-                          </select>
-                        ) : (
-                          <span className="font-medium text-slate-800 dark:text-slate-200">
-                            {item.category}
-                          </span>
-                        )}
-                      </div>
+                        {/* Classifications */}
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 bg-slate-50 dark:bg-slate-900/60 p-3 rounded-lg text-sm">
+                          <div>
+                            <label className="text-xs font-semibold text-slate-500 flex items-center gap-1 mb-1">
+                              <Globe className="w-3.5 h-3.5 text-indigo-500" /> Target Jurisdiction
+                            </label>
+                            {isEditing ? (
+                              <select
+                                value={editForm.jurisdiction || item.jurisdiction}
+                                onChange={(e) => setEditForm({ ...editForm, jurisdiction: e.target.value })}
+                                className="w-full p-1 text-xs border rounded bg-white dark:bg-slate-900"
+                              >
+                                {JURISDICTIONS.map((j) => (
+                                  <option key={j} value={j}>{j}</option>
+                                ))}
+                              </select>
+                            ) : (
+                              <span className="font-medium text-slate-800 dark:text-slate-200">
+                                {item.jurisdiction}
+                              </span>
+                            )}
+                          </div>
 
-                      <div>
-                        <label className="text-xs font-semibold text-slate-500 flex items-center gap-1 mb-1">
-                          <ShieldAlert className="w-3.5 h-3.5 text-amber-500" /> Threat Score
-                        </label>
-                        {isEditing ? (
-                          <select
-                            value={editForm.threat_level || item.threat_level || "Medium Risk"}
-                            onChange={(e) => setEditForm({ ...editForm, threat_level: e.target.value })}
-                            className="w-full p-1 text-xs border rounded bg-white dark:bg-slate-900"
-                          >
-                            {THREAT_LEVELS.map((t) => (
-                              <option key={t} value={t}>{t}</option>
-                            ))}
-                          </select>
-                        ) : (
-                          <Badge variant="secondary" className="text-xs">
-                            {item.threat_level || "Medium Risk"}
-                          </Badge>
-                        )}
-                      </div>
-                    </div>
+                          <div>
+                            <label className="text-xs font-semibold text-slate-500 flex items-center gap-1 mb-1">
+                              <Layers className="w-3.5 h-3.5 text-indigo-500" /> Category
+                            </label>
+                            {isEditing ? (
+                              <select
+                                value={editForm.category || item.category}
+                                onChange={(e) => setEditForm({ ...editForm, category: e.target.value })}
+                                className="w-full p-1 text-xs border rounded bg-white dark:bg-slate-900"
+                              >
+                                {CATEGORIES.map((c) => (
+                                  <option key={c} value={c}>{c}</option>
+                                ))}
+                              </select>
+                            ) : (
+                              <span className="font-medium text-slate-800 dark:text-slate-200">
+                                {item.category}
+                              </span>
+                            )}
+                          </div>
 
-                    {/* Summary */}
-                    <div>
-                      <label className="text-xs font-semibold text-slate-500 block mb-1">
-                        Executive Policy Summary
-                      </label>
-                      {isEditing ? (
-                        <textarea
-                          rows={3}
-                          value={editForm.summary || ""}
-                          onChange={(e) => setEditForm({ ...editForm, summary: e.target.value })}
-                          className="w-full px-3 py-2 text-sm border rounded bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-700"
-                        />
-                      ) : (
-                        <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed bg-white dark:bg-slate-900 p-3 rounded border border-slate-100 dark:border-slate-800">
-                          {item.summary}
-                        </p>
-                      )}
+                          <div>
+                            <label className="text-xs font-semibold text-slate-500 flex items-center gap-1 mb-1">
+                              <ShieldAlert className="w-3.5 h-3.5 text-amber-500" /> Threat Score
+                            </label>
+                            {isEditing ? (
+                              <select
+                                value={editForm.threat_level || item.threat_level || "Medium Risk"}
+                                onChange={(e) => setEditForm({ ...editForm, threat_level: e.target.value })}
+                                className="w-full p-1 text-xs border rounded bg-white dark:bg-slate-900"
+                              >
+                                {THREAT_LEVELS.map((t) => (
+                                  <option key={t} value={t}>{t}</option>
+                                ))}
+                              </select>
+                            ) : (
+                              <Badge variant="secondary" className="text-xs">
+                                {item.threat_level || "Medium Risk"}
+                              </Badge>
+                            )}
+                          </div>
+                        </div>
+
+                        {/* Summary */}
+                        <div>
+                          <label className="text-xs font-semibold text-slate-500 block mb-1">
+                            Executive Policy Summary
+                          </label>
+                          {isEditing ? (
+                            <textarea
+                              rows={3}
+                              value={editForm.summary || ""}
+                              onChange={(e) => setEditForm({ ...editForm, summary: e.target.value })}
+                              className="w-full px-3 py-2 text-sm border rounded bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-700"
+                            />
+                          ) : (
+                            <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed bg-white dark:bg-slate-900 p-3 rounded border border-slate-100 dark:border-slate-800">
+                              {item.summary}
+                            </p>
+                          )}
+                        </div>
+                      </div>
                     </div>
 
                     {/* Action Bar */}

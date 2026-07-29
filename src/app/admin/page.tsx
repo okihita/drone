@@ -120,14 +120,14 @@ export default function AdminDashboard() {
                         <Image
                           src={n.image_url}
                           alt={n.title}
-                          width={56}
-                          height={42}
+                          width={80}
+                          height={50}
                           unoptimized
-                          className="rounded object-cover w-14 h-[42px] shrink-0"
+                          className="rounded object-cover w-20 h-12 shrink-0 border border-slate-200 dark:border-slate-800"
                         />
                       ) : (
-                        <div className="w-14 h-[42px] rounded bg-muted shrink-0 flex items-center justify-center">
-                          <Newspaper className="w-3.5 h-3.5 text-muted-foreground" />
+                        <div className="w-20 h-12 rounded bg-muted shrink-0 flex items-center justify-center border border-slate-200 dark:border-slate-800">
+                          <Newspaper className="w-4 h-4 text-muted-foreground" />
                         </div>
                       )}
                       <div className="min-w-0 flex-1">
