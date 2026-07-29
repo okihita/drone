@@ -104,3 +104,27 @@ export const NEWS_CATEGORIES = [
   "DEFA SPECIAL REPORT",
   "AI GOVERNANCE",
 ] as const;
+
+// ── Extended Categories (Digital 2 Dozen expansion) ────────────────────────
+
+export const EXTENDED_CATEGORIES = [
+  ...POLICY_CATEGORIES,
+  "Technology Sovereignty",
+  "Consumer Protection",
+  "IP & Standards",
+  "Infrastructure & Access",
+  "Encryption & Authentication",
+  "Competition & SOEs",
+] as const;
+
+export type ExtendedCategory = (typeof EXTENDED_CATEGORIES)[number];
+
+// ── Digital 2 Dozen: 5 Thematic Clusters ──────────────────────────────────
+
+export const BENCHMARK_CLUSTERS = [
+  { id: "infrastructure", label: "Infrastructure & Access", principles: [1, 11, 17, 18], color: "asean-red" },
+  { id: "data_governance", label: "Data Governance & Flows", principles: [2, 3, 4, 5, 13, 14], color: "asean-blue" },
+  { id: "tech_sovereignty", label: "Technology Sovereignty", principles: [6, 7, 8, 9, 12], color: "asean-amber" },
+  { id: "consumer_trust", label: "Consumer Trust & Security", principles: [10, 15, 19, 20], color: "asean-emerald" },
+  { id: "ip_standards", label: "IP & Standards", principles: [16, 21, 22, 23, 24], color: "asean-sky" },
+] as const;

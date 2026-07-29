@@ -55,3 +55,65 @@ export const newsItems = pgTable("news_items", {
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
 });
 
+// ── Benchmark Scores (Digital 2 Dozen) ─────────────────────────────────────
+
+export const benchmarkScores = pgTable("benchmark_scores", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  countryCode: text("country_code").notNull().references(() => jurisdictions.code),
+  principleId: integer("principle_id").notNull(),               // 1-24
+  score: integer("score").notNull(),                            // 0-100
+  evidence: text("evidence").notNull(),
+  sourceUrl: text("source_url"),
+  lastReviewed: date("last_reviewed").notNull().defaultNow(),
+  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+});
+
+// ── Encryption Events ───────────────────────────────────────────────────────
+
+export const encryptionEvents = pgTable("encryption_events", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  countryCode: text("country_code").notNull().references(() => jurisdictions.code),
+  eventType: text("event_type").notNull(),                      // VPN_BAN, BACKDOOR_MANDATE, etc.
+  title: text("title").notNull(),
+  summary: text("summary").notNull(),
+  sourceUrl: text("source_url"),
+  eventDate: date("event_date").notNull(),
+  severityScore: integer("severity_score").notNull().default(50),
+  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+});
+
+// ── Negotiation Milestones ──────────────────────────────────────────────────
+
+export const negotiationMilestones = pgTable("negotiation_milestones", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  framework: text("framework").notNull(),                       // DEFA, CPTPP, DEPA, IPEF, BILATERAL
+  title: text("title").notNull(),
+  description: text("description").notNull(),
+  milestoneDate: date("milestone_date").notNull(),
+  endDate: date("end_date"),
+  status: text("status").notNull().default("UPCOMING"),         // COMPLETED, IN_PROGRESS, UPCOMING, DELAYED
+  countries: text("countries").notNull(),                       // JSON array of country codes
+  sourceUrl: text("source_url"),
+  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+});
+
+// ── Consumer Protection Policies ────────────────────────────────────────────
+
+export const consumerProtectionPolicies = pgTable("consumer_protection_policies", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  countryCode: text("country_code").notNull().references(() => jurisdictions.code),
+  intermediaryLiability: text("intermediary_liability").notNull(),
+  intermediaryLiabilityScore: integer("intermediary_liability_score").notNull(),
+  algorithmicAudit: text("algorithmic_audit").notNull(),
+  algorithmicAuditScore: integer("algorithmic_audit_score").notNull(),
+  breachNotification: text("breach_notification").notNull(),
+  breachNotificationScore: integer("breach_notification_score").notNull(),
+  spamRegulation: text("spam_regulation").notNull(),
+  spamRegulationScore: integer("spam_regulation_score").notNull(),
+  darkPatternRestriction: text("dark_pattern_restriction").notNull(),
+  darkPatternScore: integer("dark_pattern_score").notNull(),
+  compositeScore: integer("composite_score").notNull(),
+  lastUpdated: date("last_updated").notNull().defaultNow(),
+  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+});
+
