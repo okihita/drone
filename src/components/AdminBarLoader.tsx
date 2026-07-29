@@ -9,11 +9,16 @@ import AdminBar from "./AdminBar";
  * If session exists, renders AdminBar as a fixed overlay — zero layout shift.
  */
 export default async function AdminBarLoader() {
+  // Skip auth check entirely when Supabase env vars are absent (e.g. Vercel preview)
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  if (!supabaseUrl || !supabaseKey) return null;
+
   const cookieStore = await cookies();
 
   const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    supabaseUrl,
+    supabaseKey,
     {
       cookies: {
         getAll() { return cookieStore.getAll(); },

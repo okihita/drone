@@ -88,7 +88,7 @@ export const INTELLIGENCE_MODULES: IntelligenceModule[] = [
     number: "03",
     title: "Rights Threat Matrix",
     description: "4-column structural risk assessment evaluating data sovereignty and algorithmic audit prohibitions.",
-    href: "/threats",
+    href: "/observatory",
     ctaLabel: "View Risk Matrix",
     hoverBorder: "hover:border-asean-red",
     hoverText: "group-hover:text-asean-red",
