@@ -105,9 +105,8 @@ export const NAV_GROUPS: (NavLink | NavGroup)[] = [
   { href: "/investigations", label: "Investigations", icon: BookOpen, iconColor: "text-asean-yellow" },
   { href: "/benchmark", label: "Digital 2 Dozen", icon: BarChart3, iconColor: "text-asean-blue", children: D2D_SUBMENU },
   { href: "/defa", label: "DEFA Tracker", icon: Activity, iconColor: "text-asean-amber" },
-  { href: "/observatory", label: "Observatory", icon: Map, iconColor: "text-asean-blue" },
+  { href: "/observatory", label: "Observatory & Threats", icon: Map, iconColor: "text-asean-blue" },
   { href: "/ledger", label: "Ledger", icon: Database, iconColor: "text-asean-blue" },
-  { href: "/threats", label: "Threats", icon: ShieldAlert, iconColor: "text-asean-red" },
   { href: "/intake", label: "Submit Dossier", icon: Send, iconColor: "text-slate-500 dark:text-slate-400" },
 ];
 
@@ -116,9 +115,8 @@ export const NAV_LINKS: NavLink[] = [
   { href: "/investigations", label: "Investigations", icon: BookOpen, iconColor: "text-asean-yellow" },
   ...D2D_SUBMENU,
   { href: "/defa", label: "DEFA Tracker", icon: Activity, iconColor: "text-asean-amber" },
-  { href: "/observatory", label: "Observatory", icon: Map, iconColor: "text-asean-blue" },
+  { href: "/observatory", label: "Observatory & Threats", icon: Map, iconColor: "text-asean-blue" },
   { href: "/ledger", label: "Ledger", icon: Database, iconColor: "text-asean-blue" },
-  { href: "/threats", label: "Threats", icon: ShieldAlert, iconColor: "text-asean-red" },
   { href: "/intake", label: "Submit Dossier", icon: Send, iconColor: "text-slate-500 dark:text-slate-400" },
 ];
 

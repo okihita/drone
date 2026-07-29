@@ -45,7 +45,7 @@ export default function Footer() {
             <li><Link href="/investigations" className="hover:text-asean-yellow transition-colors">Featured DEFA Investigation</Link></li>
             <li><Link href="/observatory" className="hover:text-asean-yellow transition-colors">ASEAN Jurisdiction Map &amp; Dossiers</Link></li>
             <li><Link href="/ledger" className="hover:text-asean-yellow transition-colors">Verified Policy Ledger &amp; Table</Link></li>
-            <li><Link href="/threats" className="hover:text-asean-yellow transition-colors">Civil Society Threat Matrix</Link></li>
+            <li><Link href="/observatory" className="hover:text-asean-yellow transition-colors">Observatory & Threat Matrix</Link></li>
             <li><Link href="/intake" className="hover:text-asean-yellow transition-colors">Encrypted Dossier Intake</Link></li>
           </ul>
         </div>
