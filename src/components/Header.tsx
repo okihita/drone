@@ -13,15 +13,15 @@ import type { NavGroup, NavLink } from "@/lib/constants";
 
 const LINK_BASE =
   "relative flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[13px] font-semibold transition-all hover:-translate-y-0.5 " +
-  "after:absolute after:bottom-0.5 after:left-1/2 after:h-0.5 after:w-3 after:rounded-full " +
-  "after:bg-asean-yellow after:transition-all after:duration-200 after:ease-out";
+  "after:absolute after:left-0 after:-bottom-0.5 after:h-0.5 after:w-full after:rounded-full after:origin-left " +
+  "after:scale-x-0 after:bg-asean-yellow after:transition-transform after:duration-200 after:ease-out";
 
-const LINK_ACTIVE = "text-asean-yellow after:scale-x-100 after:left-0 after:w-full";
+const LINK_ACTIVE = "text-asean-yellow after:scale-x-100";
 
 const LINK_IDLE =
   "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white " +
   "hover:bg-slate-100 dark:hover:bg-slate-800/60 " +
-  "hover:after:scale-x-100 hover:after:left-0 hover:after:w-full";
+  "hover:after:scale-x-100";
 
 function isNavGroup(item: NavLink | NavGroup): item is NavGroup {
   return "children" in item;
