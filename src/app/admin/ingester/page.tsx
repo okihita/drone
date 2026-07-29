@@ -9,7 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Skeleton } from "@/components/ui/skeleton";
 import { 
   DownloadCloud, RefreshCw, CheckCircle2, Trash2, ExternalLink, 
-  Sparkles, AlertCircle, ShieldAlert, Globe, Layers, Filter
+  Sparkles, ShieldAlert, Globe, Layers, Eye, Save, ArrowRight
 } from "lucide-react";
 import Image from "next/image";
 import type { NewsItem } from "@/types";
@@ -23,13 +23,14 @@ const JURISDICTIONS = [
 const CATEGORIES = ["AI Governance", "DEFA", "Cross-Border Data", "Cybersecurity"];
 const THREAT_LEVELS = ["High Alert", "Medium Risk", "Rights Verified"];
 
-export default function AdminIngesterPage() {
+export default function AdminIngesterWorkbench() {
   const [stagedItems, setStagedItems] = useState<NewsItem[]>([]);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [syncing, setSyncing] = useState(false);
   const [syncResult, setSyncResult] = useState<string | null>(null);
-  const [editingId, setEditingId] = useState<string | null>(null);
   const [editForm, setEditForm] = useState<Partial<NewsItem>>({});
+  const [saving, setSaving] = useState(false);
 
   const fetchStagedItems = async () => {
     setLoading(true);
@@ -40,7 +41,12 @@ export default function AdminIngesterPage() {
       .order("created_at", { ascending: false });
 
     if (!error && data) {
-      setStagedItems(data as unknown as NewsItem[]);
+      const items = data as unknown as NewsItem[];
+      setStagedItems(items);
+      if (items.length > 0 && !selectedId) {
+        setSelectedId(items[0].id);
+        initForm(items[0]);
+      }
     }
     setLoading(false);
   };
@@ -48,6 +54,23 @@ export default function AdminIngesterPage() {
   useEffect(() => {
     fetchStagedItems();
   }, []);
+
+  const selectedItem = stagedItems.find((item) => item.id === selectedId) || stagedItems[0] || null;
+
+  function initForm(item: NewsItem) {
+    setEditForm({
+      title: item.title,
+      summary: item.summary,
+      jurisdiction: item.jurisdiction,
+      category: item.category,
+      threat_level: item.threat_level || "Medium Risk",
+    });
+  }
+
+  const handleSelect = (item: NewsItem) => {
+    setSelectedId(item.id);
+    initForm(item);
+  };
 
   const handleRunSync = async () => {
     setSyncing(true);
@@ -70,70 +93,81 @@ export default function AdminIngesterPage() {
     }
   };
 
-  const handleApprove = async (item: NewsItem) => {
-    const patch = editingId === item.id ? editForm : {};
+  const handleApprove = async () => {
+    if (!selectedItem) return;
+    setSaving(true);
+
     const { error } = await supabase
       .from("news_items")
       .update({
         status: "published",
-        jurisdiction: patch.jurisdiction || item.jurisdiction,
-        category: patch.category || item.category,
-        threat_level: patch.threat_level || item.threat_level || "Medium Risk",
-        summary: patch.summary || item.summary,
-        title: patch.title || item.title,
+        jurisdiction: editForm.jurisdiction || selectedItem.jurisdiction,
+        category: editForm.category || selectedItem.category,
+        threat_level: editForm.threat_level || selectedItem.threat_level || "Medium Risk",
+        summary: editForm.summary || selectedItem.summary,
+        title: editForm.title || selectedItem.title,
       })
-      .eq("id", item.id);
+      .eq("id", selectedItem.id);
+
+    setSaving(false);
 
     if (!error) {
-      setStagedItems((prev) => prev.filter((i) => i.id !== item.id));
-      if (editingId === item.id) setEditingId(null);
+      const updatedList = stagedItems.filter((i) => i.id !== selectedItem.id);
+      setStagedItems(updatedList);
+      if (updatedList.length > 0) {
+        setSelectedId(updatedList[0].id);
+        initForm(updatedList[0]);
+      } else {
+        setSelectedId(null);
+      }
     } else {
       alert(`Approval error: ${error.message}`);
     }
   };
 
-  const handleDiscard = async (id: string) => {
+  const handleDiscard = async () => {
+    if (!selectedItem) return;
     if (!confirm("Are you sure you want to discard this staged item?")) return;
+
+    setSaving(true);
     const { error } = await supabase
       .from("news_items")
       .update({ status: "archived" })
-      .eq("id", id);
+      .eq("id", selectedItem.id);
+
+    setSaving(false);
 
     if (!error) {
-      setStagedItems((prev) => prev.filter((i) => i.id !== id));
+      const updatedList = stagedItems.filter((i) => i.id !== selectedItem.id);
+      setStagedItems(updatedList);
+      if (updatedList.length > 0) {
+        setSelectedId(updatedList[0].id);
+        initForm(updatedList[0]);
+      } else {
+        setSelectedId(null);
+      }
     }
-  };
-
-  const startEditing = (item: NewsItem) => {
-    setEditingId(item.id);
-    setEditForm({
-      title: item.title,
-      summary: item.summary,
-      jurisdiction: item.jurisdiction,
-      category: item.category,
-      threat_level: item.threat_level || "Medium Risk",
-    });
   };
 
   return (
     <AdminDashboardLayout>
       <div className="space-y-6">
         {/* Header */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b pb-5">
           <div>
             <h1 className="font-serif-editorial text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
               <DownloadCloud className="w-7 h-7 text-indigo-600 dark:text-indigo-400" />
-              EngageMedia Content Ingester
+              EngageMedia Ingester Workbench
             </h1>
             <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
-              Human-in-the-Loop (HITL) Staging Queue for automated EngageMedia blog ingestion
+              Split-pane Master-Detail review &amp; live publication workspace
             </p>
           </div>
 
           <Button
             onClick={handleRunSync}
             disabled={syncing}
-            className="bg-indigo-600 hover:bg-indigo-700 text-white font-medium"
+            className="bg-indigo-600 hover:bg-indigo-700 text-white font-medium shadow-sm"
           >
             <RefreshCw className={`w-4 h-4 mr-2 ${syncing ? "animate-spin" : ""}`} />
             {syncing ? "Polling WP API..." : "Run Ingester Sync Now"}
@@ -151,262 +185,261 @@ export default function AdminIngesterPage() {
           </div>
         )}
 
-        {/* Stats summary */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <Card>
-            <CardHeader className="py-3 px-4">
-              <CardDescription>Staged Pending Review</CardDescription>
-              <CardTitle className="text-2xl font-bold text-indigo-600 dark:text-indigo-400">
-                {stagedItems.length}
-              </CardTitle>
-            </CardHeader>
-          </Card>
-          <Card>
-            <CardHeader className="py-3 px-4">
-              <CardDescription>Source Feed</CardDescription>
-              <CardTitle className="text-base font-semibold text-slate-800 dark:text-slate-200">
-                EngageMedia WP API
-              </CardTitle>
-            </CardHeader>
-          </Card>
-          <Card>
-            <CardHeader className="py-3 px-4">
-              <CardDescription>Auto Classifier</CardDescription>
-              <CardTitle className="text-base font-semibold text-slate-800 dark:text-slate-200 flex items-center gap-1.5">
-                <Sparkles className="w-4 h-4 text-amber-500" />
-                Gemini AI 1.5 Flash
-              </CardTitle>
-            </CardHeader>
-          </Card>
-        </div>
-
-        {/* Pending Items List */}
-        <div className="space-y-4">
-          <div className="flex items-center justify-between">
-            <h2 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
-              <Filter className="w-4 h-4 text-slate-500" />
-              Pending Review Queue ({stagedItems.length})
-            </h2>
-            <Button variant="ghost" size="sm" onClick={fetchStagedItems}>
-              <RefreshCw className="w-3.5 h-3.5 mr-1" /> Refresh Queue
-            </Button>
-          </div>
-
-          {loading ? (
-            <div className="space-y-4">
-              {[1, 2].map((i) => (
-                <Card key={i}>
-                  <CardContent className="p-6 space-y-3">
-                    <Skeleton className="h-6 w-3/4" />
-                    <Skeleton className="h-4 w-1/2" />
-                    <Skeleton className="h-16 w-full" />
-                  </CardContent>
-                </Card>
-              ))}
+        {/* Master-Detail Split Pane Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+          {/* LEFT PANE (Master List - 5 Cols) */}
+          <div className="lg:col-span-5 space-y-4">
+            <div className="flex items-center justify-between px-1">
+              <h2 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider">
+                Staged Articles ({stagedItems.length})
+              </h2>
+              <Button variant="ghost" size="sm" onClick={fetchStagedItems} className="text-xs h-7">
+                <RefreshCw className="w-3 h-3 mr-1" /> Refresh
+              </Button>
             </div>
-          ) : stagedItems.length === 0 ? (
-            <Card className="border-dashed border-2">
-              <CardContent className="py-12 text-center text-slate-500">
-                <CheckCircle2 className="w-12 h-12 text-emerald-500 mx-auto mb-3 opacity-80" />
-                <p className="font-semibold text-slate-800 dark:text-slate-200">
-                  Staging Queue is Clean!
-                </p>
-                <p className="text-sm mt-1">
-                  All EngageMedia articles have been reviewed and published. Click &ldquo;Run Ingester Sync Now&rdquo; to poll for new articles.
-                </p>
-              </CardContent>
-            </Card>
-          ) : (
-            stagedItems.map((item) => {
-              const isEditing = editingId === item.id;
 
-              return (
-                <Card 
-                  key={item.id} 
-                  className="border-slate-200 dark:border-slate-800 shadow-sm hover:shadow transition-shadow"
-                >
-                  <CardContent className="p-5 sm:p-6 space-y-4">
-                    {/* Top Bar / Badges */}
-                    <div className="flex flex-wrap items-center justify-between gap-2 border-b pb-3">
-                      <div className="flex flex-wrap items-center gap-2">
-                        <Badge variant="outline" className="bg-indigo-50 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 border-indigo-200">
-                          <Sparkles className="w-3 h-3 mr-1 text-indigo-500" />
-                          WP Post #{item.wp_post_id}
-                        </Badge>
-                        <span className="text-xs text-slate-500">
-                          Published: {item.published_date}
-                        </span>
-                      </div>
+            {loading ? (
+              <div className="space-y-3">
+                {[1, 2, 3, 4].map((i) => (
+                  <Card key={i}>
+                    <CardContent className="p-4 space-y-2">
+                      <Skeleton className="h-4 w-3/4" />
+                      <Skeleton className="h-3 w-1/2" />
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            ) : stagedItems.length === 0 ? (
+              <Card className="border-dashed border-2">
+                <CardContent className="py-12 text-center text-slate-500">
+                  <CheckCircle2 className="w-10 h-10 text-emerald-500 mx-auto mb-2 opacity-80" />
+                  <p className="font-semibold text-slate-800 dark:text-slate-200 text-sm">
+                    Queue is Clean!
+                  </p>
+                  <p className="text-xs mt-1 text-slate-500">
+                    All EngageMedia articles have been reviewed and published.
+                  </p>
+                </CardContent>
+              </Card>
+            ) : (
+              <div className="space-y-2.5 max-h-[calc(100vh-220px)] overflow-y-auto pr-1">
+                {stagedItems.map((item) => {
+                  const isSelected = selectedItem?.id === item.id;
 
-                      <a
-                        href={item.source_url}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="inline-flex items-center text-xs text-slate-600 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-400 font-medium"
-                      >
-                        Original EngageMedia Post <ExternalLink className="w-3 h-3 ml-1" />
-                      </a>
-                    </div>
-
-                    {/* Main Content Layout: Side-by-side thumbnail + details */}
-                    <div className="flex flex-col sm:flex-row gap-5 items-start">
-                      {/* Featured Image Preview */}
-                      {item.image_url && item.image_url.trim() ? (
-                        <div className="relative w-full sm:w-52 h-44 sm:h-36 shrink-0 rounded-lg overflow-hidden bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-800">
-                          <Image
-                            src={item.image_url}
-                            alt={item.title}
-                            fill
-                            className="object-cover"
-                            sizes="(max-width: 640px) 100vw, 208px"
-                            unoptimized
-                          />
-                        </div>
-                      ) : null}
-
-                      {/* Article Details */}
-                      <div className="flex-1 space-y-3 min-w-0 w-full">
-                        {/* Title */}
-                        {isEditing ? (
-                          <div>
-                            <label className="text-xs font-semibold text-slate-500 block mb-1">Article Title</label>
-                            <input
-                              type="text"
-                              value={editForm.title || ""}
-                              onChange={(e) => setEditForm({ ...editForm, title: e.target.value })}
-                              className="w-full px-3 py-1.5 text-sm border rounded bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-700"
+                  return (
+                    <div
+                      key={item.id}
+                      onClick={() => handleSelect(item)}
+                      className={`p-3.5 rounded-xl border transition-all cursor-pointer ${
+                        isSelected
+                          ? "bg-indigo-50/70 dark:bg-indigo-950/50 border-indigo-500 dark:border-indigo-500 shadow-sm ring-1 ring-indigo-500/30"
+                          : "bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700"
+                      }`}
+                    >
+                      <div className="flex gap-3 items-start">
+                        {/* Compact Image */}
+                        {item.image_url && item.image_url.trim() ? (
+                          <div className="relative w-20 h-14 shrink-0 rounded-md overflow-hidden bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-800">
+                            <Image
+                              src={item.image_url}
+                              alt={item.title}
+                              fill
+                              className="object-cover"
+                              sizes="80px"
+                              unoptimized
                             />
                           </div>
                         ) : (
-                          <h3 className="font-serif-editorial text-lg font-bold text-slate-900 dark:text-white leading-snug">
+                          <div className="w-20 h-14 shrink-0 rounded-md bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-800 flex items-center justify-center text-[10px] text-slate-400">
+                            No Img
+                          </div>
+                        )}
+
+                        <div className="min-w-0 flex-1 space-y-1">
+                          <h3 className="font-serif-editorial text-sm font-bold text-slate-900 dark:text-white leading-snug line-clamp-2">
                             {item.title}
                           </h3>
-                        )}
-
-                        {/* Classifications */}
-                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 bg-slate-50 dark:bg-slate-900/60 p-3 rounded-lg text-sm">
-                          <div>
-                            <label className="text-xs font-semibold text-slate-500 flex items-center gap-1 mb-1">
-                              <Globe className="w-3.5 h-3.5 text-indigo-500" /> Target Jurisdiction
-                            </label>
-                            {isEditing ? (
-                              <select
-                                value={editForm.jurisdiction || item.jurisdiction}
-                                onChange={(e) => setEditForm({ ...editForm, jurisdiction: e.target.value })}
-                                className="w-full p-1 text-xs border rounded bg-white dark:bg-slate-900"
-                              >
-                                {JURISDICTIONS.map((j) => (
-                                  <option key={j} value={j}>{j}</option>
-                                ))}
-                              </select>
-                            ) : (
-                              <span className="font-medium text-slate-800 dark:text-slate-200">
-                                {item.jurisdiction}
-                              </span>
-                            )}
+                          <div className="flex flex-wrap items-center gap-1.5 text-[11px] text-slate-500">
+                            <span>{item.published_date}</span>
+                            <span>•</span>
+                            <Badge variant="outline" className="text-[10px] py-0 px-1.5">
+                              {item.jurisdiction}
+                            </Badge>
                           </div>
-
-                          <div>
-                            <label className="text-xs font-semibold text-slate-500 flex items-center gap-1 mb-1">
-                              <Layers className="w-3.5 h-3.5 text-indigo-500" /> Category
-                            </label>
-                            {isEditing ? (
-                              <select
-                                value={editForm.category || item.category}
-                                onChange={(e) => setEditForm({ ...editForm, category: e.target.value })}
-                                className="w-full p-1 text-xs border rounded bg-white dark:bg-slate-900"
-                              >
-                                {CATEGORIES.map((c) => (
-                                  <option key={c} value={c}>{c}</option>
-                                ))}
-                              </select>
-                            ) : (
-                              <span className="font-medium text-slate-800 dark:text-slate-200">
-                                {item.category}
-                              </span>
-                            )}
-                          </div>
-
-                          <div>
-                            <label className="text-xs font-semibold text-slate-500 flex items-center gap-1 mb-1">
-                              <ShieldAlert className="w-3.5 h-3.5 text-amber-500" /> Threat Score
-                            </label>
-                            {isEditing ? (
-                              <select
-                                value={editForm.threat_level || item.threat_level || "Medium Risk"}
-                                onChange={(e) => setEditForm({ ...editForm, threat_level: e.target.value })}
-                                className="w-full p-1 text-xs border rounded bg-white dark:bg-slate-900"
-                              >
-                                {THREAT_LEVELS.map((t) => (
-                                  <option key={t} value={t}>{t}</option>
-                                ))}
-                              </select>
-                            ) : (
-                              <Badge variant="secondary" className="text-xs">
-                                {item.threat_level || "Medium Risk"}
-                              </Badge>
-                            )}
-                          </div>
-                        </div>
-
-                        {/* Summary */}
-                        <div>
-                          <label className="text-xs font-semibold text-slate-500 block mb-1">
-                            Executive Policy Summary
-                          </label>
-                          {isEditing ? (
-                            <textarea
-                              rows={3}
-                              value={editForm.summary || ""}
-                              onChange={(e) => setEditForm({ ...editForm, summary: e.target.value })}
-                              className="w-full px-3 py-2 text-sm border rounded bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-700"
-                            />
-                          ) : (
-                            <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed bg-white dark:bg-slate-900 p-3 rounded border border-slate-100 dark:border-slate-800">
-                              {item.summary}
-                            </p>
-                          )}
                         </div>
                       </div>
                     </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
 
-                    {/* Action Bar */}
-                    <div className="flex flex-wrap items-center justify-between gap-2 pt-2">
-                      <div className="flex items-center gap-2">
-                        {isEditing ? (
-                          <Button size="sm" variant="ghost" onClick={() => setEditingId(null)}>
-                            Cancel Edit
-                          </Button>
-                        ) : (
-                          <Button size="sm" variant="outline" onClick={() => startEditing(item)}>
-                            Tweak Metadata
-                          </Button>
-                        )}
-                      </div>
+          {/* RIGHT PANE (Inspector & Live Workbench - 7 Cols, Sticky) */}
+          <div className="lg:col-span-7 lg:sticky lg:top-6">
+            {selectedItem ? (
+              <Card className="border-slate-200 dark:border-slate-800 shadow-md">
+                <CardHeader className="border-b bg-slate-50/50 dark:bg-slate-900/50 py-3.5 px-6 flex flex-row items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <Sparkles className="w-4 h-4 text-indigo-500" />
+                    <span className="font-semibold text-xs text-slate-700 dark:text-slate-300">
+                      WP Post #{selectedItem.wp_post_id}
+                    </span>
+                  </div>
 
-                      <div className="flex items-center gap-2">
-                        <Button
-                          size="sm"
-                          variant="ghost"
-                          onClick={() => handleDiscard(item.id)}
-                          className="text-red-600 hover:bg-red-50 dark:hover:bg-red-950"
-                        >
-                          <Trash2 className="w-4 h-4 mr-1" /> Discard
-                        </Button>
-                        <Button
-                          size="sm"
-                          onClick={() => handleApprove(item)}
-                          className="bg-emerald-600 hover:bg-emerald-700 text-white font-medium"
-                        >
-                          <CheckCircle2 className="w-4 h-4 mr-1.5" /> Approve & Publish
-                        </Button>
-                      </div>
+                  <a
+                    href={selectedItem.source_url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center text-xs text-indigo-600 dark:text-indigo-400 hover:underline font-medium"
+                  >
+                    Original EngageMedia Post <ExternalLink className="w-3 h-3 ml-1" />
+                  </a>
+                </CardHeader>
+
+                <CardContent className="p-6 space-y-6">
+                  {/* Featured Cover Photo */}
+                  {selectedItem.image_url && selectedItem.image_url.trim() ? (
+                    <div className="relative w-full h-56 rounded-xl overflow-hidden bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-800">
+                      <Image
+                        src={selectedItem.image_url}
+                        alt={selectedItem.title}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 1024px) 100vw, 700px"
+                        unoptimized
+                      />
                     </div>
-                  </CardContent>
-                </Card>
-              );
-            })
-          )}
+                  ) : null}
+
+                  {/* Title Editor */}
+                  <div>
+                    <label className="text-xs font-bold text-slate-500 uppercase tracking-wider block mb-1.5">
+                      Article Title
+                    </label>
+                    <input
+                      type="text"
+                      value={editForm.title || ""}
+                      onChange={(e) => setEditForm({ ...editForm, title: e.target.value })}
+                      className="w-full px-3 py-2 text-sm font-medium border rounded-lg bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    />
+                  </div>
+
+                  {/* Classification Selectors */}
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 bg-slate-50 dark:bg-slate-900/60 p-4 rounded-xl border border-slate-100 dark:border-slate-800">
+                    <div>
+                      <label className="text-xs font-semibold text-slate-500 flex items-center gap-1 mb-1">
+                        <Globe className="w-3.5 h-3.5 text-indigo-500" /> Jurisdiction
+                      </label>
+                      <select
+                        value={editForm.jurisdiction || selectedItem.jurisdiction}
+                        onChange={(e) => setEditForm({ ...editForm, jurisdiction: e.target.value })}
+                        className="w-full p-2 text-xs border rounded-md bg-white dark:bg-slate-900 font-medium"
+                      >
+                        {JURISDICTIONS.map((j) => (
+                          <option key={j} value={j}>{j}</option>
+                        ))}
+                      </select>
+                    </div>
+
+                    <div>
+                      <label className="text-xs font-semibold text-slate-500 flex items-center gap-1 mb-1">
+                        <Layers className="w-3.5 h-3.5 text-indigo-500" /> Category
+                      </label>
+                      <select
+                        value={editForm.category || selectedItem.category}
+                        onChange={(e) => setEditForm({ ...editForm, category: e.target.value })}
+                        className="w-full p-2 text-xs border rounded-md bg-white dark:bg-slate-900 font-medium"
+                      >
+                        {CATEGORIES.map((c) => (
+                          <option key={c} value={c}>{c}</option>
+                        ))}
+                      </select>
+                    </div>
+
+                    <div>
+                      <label className="text-xs font-semibold text-slate-500 flex items-center gap-1 mb-1">
+                        <ShieldAlert className="w-3.5 h-3.5 text-amber-500" /> Threat Score
+                      </label>
+                      <select
+                        value={editForm.threat_level || selectedItem.threat_level || "Medium Risk"}
+                        onChange={(e) => setEditForm({ ...editForm, threat_level: e.target.value })}
+                        className="w-full p-2 text-xs border rounded-md bg-white dark:bg-slate-900 font-medium"
+                      >
+                        {THREAT_LEVELS.map((t) => (
+                          <option key={t} value={t}>{t}</option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+
+                  {/* Summary Textarea */}
+                  <div>
+                    <label className="text-xs font-bold text-slate-500 uppercase tracking-wider block mb-1.5">
+                      Executive Policy Summary
+                    </label>
+                    <textarea
+                      rows={4}
+                      value={editForm.summary || ""}
+                      onChange={(e) => setEditForm({ ...editForm, summary: e.target.value })}
+                      className="w-full px-3 py-2 text-sm border rounded-lg bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-700 leading-relaxed focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    />
+                  </div>
+
+                  {/* Live Public Ledger Card Preview */}
+                  <div className="space-y-2 pt-2 border-t">
+                    <label className="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
+                      <Eye className="w-3.5 h-3.5 text-indigo-500" /> Public Site Card Preview
+                    </label>
+                    <div className="p-4 rounded-xl bg-slate-900 text-white space-y-2 shadow-inner">
+                      <div className="flex items-center justify-between text-[11px]">
+                        <span className="text-amber-400 font-bold uppercase tracking-wider">
+                          {editForm.category || selectedItem.category}
+                        </span>
+                        <span className="text-slate-400">
+                          {editForm.jurisdiction || selectedItem.jurisdiction}
+                        </span>
+                      </div>
+                      <h4 className="font-serif-editorial text-base font-bold leading-snug">
+                        {editForm.title || selectedItem.title}
+                      </h4>
+                      <p className="text-slate-300 text-xs line-clamp-2 leading-relaxed italic border-l-2 border-amber-400 pl-2.5">
+                        {editForm.summary || selectedItem.summary}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Action Toolbar */}
+                  <div className="flex flex-wrap items-center justify-between gap-3 pt-4 border-t">
+                    <Button
+                      size="sm"
+                      variant="ghost"
+                      disabled={saving}
+                      onClick={handleDiscard}
+                      className="text-red-600 hover:bg-red-50 dark:hover:bg-red-950/50"
+                    >
+                      <Trash2 className="w-4 h-4 mr-1.5" /> Discard Item
+                    </Button>
+
+                    <Button
+                      onClick={handleApprove}
+                      disabled={saving}
+                      className="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-6 shadow-sm"
+                    >
+                      <CheckCircle2 className="w-4 h-4 mr-2" />
+                      {saving ? "Publishing..." : "Approve & Publish to Ledger"}
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            ) : (
+              <Card>
+                <CardContent className="py-16 text-center text-slate-500">
+                  <p>Select an article from the left pane to begin reviewing.</p>
+                </CardContent>
+              </Card>
+            )}
+          </div>
         </div>
       </div>
     </AdminDashboardLayout>
