@@ -11,13 +11,46 @@ import { getBrowserClient } from "@/lib/supabase";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 
-const nav = [
+const NAV_ITEMS = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
   { href: "/admin/ingester", label: "EM Ingester", icon: DownloadCloud },
   { href: "/admin/policies", label: "Policies", icon: FileText },
   { href: "/admin/news", label: "News", icon: Newspaper },
   { href: "/admin/jurisdictions", label: "Jurisdictions", icon: Globe },
 ];
+
+function NavItem({
+  href,
+  label,
+  icon: Icon,
+  active,
+  collapsed,
+  onClick,
+}: {
+  href: string;
+  label: string;
+  icon: React.ComponentType<{ className?: string }>;
+  active: boolean;
+  collapsed: boolean;
+  onClick: () => void;
+}) {
+  return (
+    <Link
+      href={href}
+      prefetch={true}
+      onClick={onClick}
+      title={collapsed ? label : undefined}
+      className={`flex items-center gap-2.5 px-3 py-2 rounded-md text-sm font-medium transition-all duration-150 active:scale-[0.98] ${
+        active
+          ? "bg-indigo-50 dark:bg-indigo-950/70 text-indigo-700 dark:text-indigo-300 font-semibold shadow-xs"
+          : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800"
+      } ${collapsed ? "lg:justify-center lg:px-2" : ""}`}
+    >
+      <Icon className={`w-4 h-4 shrink-0 ${active ? "text-indigo-600 dark:text-indigo-400" : ""}`} />
+      <span className={collapsed ? "lg:hidden" : ""}>{label}</span>
+    </Link>
+  );
+}
 
 export default function AdminDashboardLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -27,25 +60,6 @@ export default function AdminDashboardLayout({ children }: { children: React.Rea
   const handleLogout = async () => {
     await getBrowserClient().auth.signOut();
     window.location.href = "/admin/login";
-  };
-
-  const NavLink = ({ href, label, icon: Icon }: { href: string; label: string; icon: React.ComponentType<{ className?: string }> }) => {
-    const active = pathname === href || (href !== "/admin" && pathname.startsWith(href));
-    return (
-      <Link
-        href={href}
-        onClick={() => setSidebarOpen(false)}
-        title={collapsed ? label : undefined}
-        className={`flex items-center gap-2.5 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-          active
-            ? "bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white"
-            : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800"
-        } ${collapsed ? "lg:justify-center lg:px-2" : ""}`}
-      >
-        <Icon className="w-4 h-4 shrink-0" />
-        <span className={collapsed ? "lg:hidden" : ""}>{label}</span>
-      </Link>
-    );
   };
 
   return (
@@ -62,7 +76,7 @@ export default function AdminDashboardLayout({ children }: { children: React.Rea
       <aside
         className={`
           fixed lg:sticky top-[var(--drone-admin-bar-h,0px)] left-0 z-50 h-[calc(100vh-var(--drone-admin-bar-h,0px))]
-          bg-white dark:bg-slate-900 border-r
+          bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800
           flex flex-col transition-all duration-200
           w-56 ${collapsed ? "lg:w-14" : ""}
           p-4 ${collapsed ? "lg:p-2" : ""}
@@ -81,14 +95,14 @@ export default function AdminDashboardLayout({ children }: { children: React.Rea
           <div className="flex items-center gap-1">
             <button
               onClick={() => setCollapsed(!collapsed)}
-              className="hidden lg:flex p-1 rounded hover:bg-slate-100 dark:hover:bg-slate-800"
+              className="hidden lg:flex p-1 rounded hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500"
               title={collapsed ? "Expand sidebar" : "Collapse sidebar"}
             >
               {collapsed ? <PanelLeft className="w-4 h-4" /> : <PanelLeftClose className="w-4 h-4" />}
             </button>
             <button
               onClick={() => setSidebarOpen(false)}
-              className="lg:hidden p-1 rounded hover:bg-slate-100 dark:hover:bg-slate-800"
+              className="lg:hidden p-1 rounded hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500"
             >
               <X className="w-4 h-4" />
             </button>
@@ -97,9 +111,18 @@ export default function AdminDashboardLayout({ children }: { children: React.Rea
 
         {/* Nav */}
         <nav className={`flex-1 space-y-1 ${collapsed ? "lg:mt-2" : ""}`}>
-          {nav.map((item) => (
-            <NavLink key={item.href} {...item} />
-          ))}
+          {NAV_ITEMS.map((item) => {
+            const active = pathname === item.href || (item.href !== "/admin" && pathname.startsWith(item.href));
+            return (
+              <NavItem
+                key={item.href}
+                {...item}
+                active={active}
+                collapsed={collapsed}
+                onClick={() => setSidebarOpen(false)}
+              />
+            );
+          })}
         </nav>
 
         <Separator className="my-3" />
@@ -109,10 +132,10 @@ export default function AdminDashboardLayout({ children }: { children: React.Rea
           variant="ghost"
           size="sm"
           onClick={handleLogout}
-          className={`${collapsed ? "lg:justify-center lg:px-2" : ""} justify-start text-slate-500 hover:text-red-600`}
+          className={`${collapsed ? "lg:justify-center lg:px-2" : ""} justify-start text-slate-500 hover:text-red-600 w-full`}
           title="Sign Out"
         >
-          <LogOut className="w-4 h-4" />
+          <LogOut className="w-4 h-4 shrink-0" />
           <span className={`ml-2 ${collapsed ? "lg:hidden" : ""}`}>Sign Out</span>
         </Button>
       </aside>
