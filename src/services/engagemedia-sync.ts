@@ -150,6 +150,27 @@ Excerpt: "${cleanHtml(excerpt)}"`;
 
 // ── Ingestion Core ────────────────────────────────────────────────────────────
 
+/** Extract primary image from WP featured media or post HTML content */
+function extractMajorImage(post: WPPostItem): string | null {
+  // 1. Featured image from WP embedded media
+  const featuredUrl = post._embedded?.["wp:featuredmedia"]?.[0]?.source_url;
+  if (featuredUrl && typeof featuredUrl === "string" && featuredUrl.trim()) {
+    return featuredUrl.trim();
+  }
+
+  // 2. Parse first <img> tag src from HTML content
+  const contentHtml = post.content?.rendered || "";
+  const imgMatch = contentHtml.match(/<img[^>]+src=["']([^"']+)["']/i);
+  if (imgMatch && imgMatch[1] && imgMatch[1].trim()) {
+    const src = imgMatch[1].trim();
+    if (!src.includes("gravatar.com") && !src.endsWith(".svg")) {
+      return src;
+    }
+  }
+
+  return null;
+}
+
 export async function fetchEngageMediaPosts(perPage = 30): Promise<WPPostItem[]> {
   // Fetch posts with tag = 381 (Artificial Intelligence) or general posts
   const url = `https://engagemedia.org/wp-json/wp/v2/posts?tags=381&per_page=${perPage}&_embed=true`;
@@ -182,24 +203,32 @@ export async function syncEngageMediaContent(perPage = 30): Promise<SyncReport> 
     report.totalFetched = posts.length;
 
     for (const post of posts) {
+      const cleanTitle = cleanHtml(post.title.rendered);
+      const cleanExcerpt = cleanHtml(post.excerpt.rendered);
+      const imageUrl = extractMajorImage(post);
+
       // Check if post already exists in news_items DB
       const { data: existing } = await getClient()
         .from("news_items")
-        .select("id, wp_post_id")
+        .select("id, wp_post_id, image_url")
         .eq("wp_post_id", post.id)
         .maybeSingle();
 
       if (existing) {
+        // Backfill image if existing record has null/empty image_url
+        if (!existing.image_url && imageUrl) {
+          await getClient()
+            .from("news_items")
+            .update({ image_url: imageUrl })
+            .eq("id", existing.id);
+          report.items.push({ id: post.id, title: cleanTitle, status: "updated_image" });
+        } else {
+          report.items.push({ id: post.id, title: cleanTitle, status: "skipped_exists" });
+        }
         report.skippedCount++;
-        report.items.push({ id: post.id, title: cleanHtml(post.title.rendered), status: "skipped_exists" });
         continue;
       }
 
-      const cleanTitle = cleanHtml(post.title.rendered);
-      const cleanExcerpt = cleanHtml(post.excerpt.rendered);
-
-      // Featured image extraction
-      const imageUrl = post._embedded?.["wp:featuredmedia"]?.[0]?.source_url || null;
       const authorName = post._embedded?.author?.[0]?.name || "EngageMedia Research";
       const pubDate = post.date ? post.date.substring(0, 10) : new Date().toISOString().substring(0, 10);
       const slug = generateSlug(cleanTitle);
