@@ -3,9 +3,12 @@ import type { PolicyCategory } from "./policy";
 /** Canonical news-item shape matching the Supabase `news_items` table. */
 export interface NewsItem {
   id: string;
+  wp_post_id?: number | null;
+  status?: "pending_review" | "published" | "archived";
   title: string;
   jurisdiction: string;
   category: string;
+  threat_level?: string | null;
   summary: string;
   source_url: string;
   source_name: string;
@@ -14,6 +17,7 @@ export interface NewsItem {
   read_time: string | null;
   slug: string | null;
   published_date: string;
+  raw_wp_data?: string | null;
   created_at?: string;
 }
 

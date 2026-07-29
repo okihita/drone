@@ -68,15 +68,21 @@ export default function FeaturedCarousel({
                 key={activeSlideIndex}
                 className="absolute inset-0 animate-fade-in"
               >
-                <Image
-                  src={stories[activeSlideIndex]?.image_url || ""}
-                  alt={stories[activeSlideIndex]?.title || ""}
-                  fill
-                  unoptimized
-                  sizes="(max-width: 1023px) 100vw, 50vw"
-                  priority
-                  className="object-cover"
-                />
+                {activeStory?.image_url && activeStory.image_url.trim() ? (
+                  <Image
+                    src={activeStory.image_url}
+                    alt={activeStory.title}
+                    fill
+                    unoptimized
+                    sizes="(max-width: 1023px) 100vw, 50vw"
+                    priority
+                    className="object-cover"
+                  />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center text-slate-600 dark:text-slate-400 font-sans text-sm">
+                    DRONE Policy Investigation
+                  </div>
+                )}
               </div>
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent lg:hidden z-20" />
             </div>

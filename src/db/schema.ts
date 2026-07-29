@@ -37,9 +37,12 @@ export const policies = pgTable("policies", {
 
 export const newsItems = pgTable("news_items", {
   id: uuid("id").defaultRandom().primaryKey(),
+  wpPostId: integer("wp_post_id").unique(),                   // Original WP post ID for deduplication
+  status: text("status").notNull().default("published"),      // "pending_review" | "published" | "archived"
   title: text("title").notNull(),
   jurisdiction: text("jurisdiction").notNull(),        // e.g. "Indonesia (ID)"
   category: text("category").notNull(),                // "DEFA" | "AI Governance" | "Cybersecurity" | "Cross-Border Data"
+  threatLevel: text("threat_level"),                   // "High Alert" | "Medium Risk" | "Rights Verified"
   summary: text("summary").notNull(),
   sourceUrl: text("source_url").notNull(),
   sourceName: text("source_name").notNull(),
@@ -48,5 +51,7 @@ export const newsItems = pgTable("news_items", {
   readTime: text("read_time"),
   slug: text("slug").unique(),                               // URL-safe identifier, e.g. "vietnam-decree-53"
   publishedDate: date("published_date").notNull(),
+  rawWpData: text("raw_wp_data"),                            // Original WP API JSON payload
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
 });
+

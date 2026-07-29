@@ -1,0 +1,8 @@
+{
+  "crons": [
+    {
+      "path": "/api/cron/engagemedia-sync",
+      "schedule": "0 0 * * *"
+    }
+  ]
+}

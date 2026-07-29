@@ -76,14 +76,20 @@ export default function EditorialGrid({
               }`}
             >
               <div className="relative aspect-[16/9] w-full rounded-lg overflow-hidden bg-slate-100 dark:bg-slate-900">
-                <Image
-                  src={d.image_url || ""}
-                  alt={d.title}
-                  fill
-                  unoptimized
-                  sizes="(max-width: 1023px) 100vw, 33vw"
-                  className="object-cover transition-opacity duration-500"
-                />
+                {d.image_url && d.image_url.trim() ? (
+                  <Image
+                    src={d.image_url}
+                    alt={d.title}
+                    fill
+                    unoptimized
+                    sizes="(max-width: 1023px) 100vw, 33vw"
+                    className="object-cover transition-opacity duration-500"
+                  />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center text-slate-400 dark:text-slate-600 font-sans text-xs">
+                    EngageMedia Dispatch
+                  </div>
+                )}
               </div>
               <span className="text-[10px] font-sans text-asean-yellow font-bold uppercase">
                 {d.category}

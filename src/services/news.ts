@@ -16,6 +16,7 @@ export async function listNews(): Promise<NewsListItem[]> {
   const { data, error } = await supabase
     .from("news_items")
     .select("*")
+    .eq("status", "published")
     .order("published_date", { ascending: false });
 
   if (error) throw new Error(error.message);
@@ -72,6 +73,7 @@ export async function listStories(limit = 3): Promise<NewsCardItem[]> {
   const { data, error } = await supabase
     .from("news_items")
     .select("*")
+    .eq("status", "published")
     .order("published_date", { ascending: false })
     .limit(limit);
 
@@ -92,6 +94,7 @@ export async function listDispatches(limit = 2): Promise<NewsDispatchItem[]> {
   const { data, error } = await supabase
     .from("news_items")
     .select("*")
+    .eq("status", "published")
     .order("published_date", { ascending: false })
     .limit(limit);
 

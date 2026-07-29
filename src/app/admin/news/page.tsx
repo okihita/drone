@@ -82,7 +82,7 @@ export default function NewsList() {
               : items.map((n) => (
                   <TableRow key={n.id}>
                     <TableCell>
-                      {n.image_url ? (
+                      {n.image_url && n.image_url.trim() ? (
                         <Image
                           src={n.image_url}
                           alt=""
