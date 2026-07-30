@@ -47,7 +47,7 @@ export const supabase: SupabaseClient = new Proxy({} as SupabaseClient, {
 /**
  * Browser-only client with cookie-based session persistence.
  * Use ONLY in client components for auth checks (AdminBar, session state).
- * Does NOT work in server components — use supabase-server.ts there.
+ * Does NOT work in server components — use getServiceClient in those contexts.
  */
 let _browserClient: SupabaseClient | null = null;
 
