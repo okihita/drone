@@ -21,10 +21,10 @@ export default function DefaPage() {
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div>
-              <div className="flex items-center gap-2 text-xs font-sans uppercase tracking-widest text-asean-yellow font-bold mb-2">
+              <div className="flex flex-wrap items-center gap-x-2 gap-y-0 text-xs font-sans uppercase tracking-widest text-asean-yellow font-bold mb-2">
                 <Activity className="h-4 w-4 text-asean-amber animate-pulse" />
                 <span>ASEAN Secretarial Telemetry</span>
-                <span>·</span>
+                <span className="hidden sm:inline">·</span>
                 <span className="text-slate-500 font-mono">SEOM DEFA 2026</span>
               </div>
               <h1 className="font-serif-editorial text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
