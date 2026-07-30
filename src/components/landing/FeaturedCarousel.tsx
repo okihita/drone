@@ -13,7 +13,8 @@ export default function FeaturedCarousel({
   stories: NewsCardItem[];
 }) {
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
-  const [isPaused] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
+  const pauseTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   useEffect(() => {
@@ -25,6 +26,13 @@ export default function FeaturedCarousel({
       if (intervalRef.current) clearInterval(intervalRef.current);
     };
   }, [isPaused, stories.length]);
+
+  const handleDotClick = (idx: number) => {
+    setActiveSlideIndex(idx);
+    setIsPaused(true);
+    if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current);
+    pauseTimeoutRef.current = setTimeout(() => setIsPaused(false), 8000);
+  };
 
   const activeStory = stories[activeSlideIndex];
 
@@ -154,7 +162,7 @@ export default function FeaturedCarousel({
           {stories.map((story, idx) => (
             <button
               key={story.id}
-              onClick={() => setActiveSlideIndex(idx)}
+              onClick={() => handleDotClick(idx)}
               aria-label={`Go to slide ${idx + 1}: ${story.title}`}
               className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
                 activeSlideIndex === idx
