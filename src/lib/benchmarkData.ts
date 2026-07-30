@@ -1,6 +1,5 @@
 import type { BenchmarkScore, BenchmarkCountrySummary } from "@/types/benchmark";
 import { BENCHMARK_CLUSTERS } from "@/lib/constants";
-import { DIGITAL_2_DOZEN_PRINCIPLES } from "@/lib/digital2dozen";
 
 /**
  * Compliance scores for all 11 ASEAN countries × 24 Digital 2 Dozen principles.

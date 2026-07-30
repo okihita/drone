@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import type { BenchmarkCountrySummary } from "@/types/benchmark";
-import { DIGITAL_2_DOZEN_PRINCIPLES } from "@/lib/digital2dozen";
 
 interface Props {
   summaries: BenchmarkCountrySummary[];

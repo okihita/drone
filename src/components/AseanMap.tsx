@@ -71,7 +71,7 @@ function StatCard({ label, value, accent }: { label: string; value: string; acce
 
 // ── Map Filter Controls ──────────────────────────────────────────────────────
 
-function MapFilterControls({ filterRegime, onChange }: { filterRegime: MapFilterMode; onChange: (mode: MapFilterMode) => void }) {
+function MapFilterControls({ filterRegime, onChange }: { filterRegime: MapFilterMode; onChange: (_mode: MapFilterMode) => void }) {
   return (
     <div className="flex items-center gap-2 bg-white dark:bg-slate-900 p-1.5 rounded-lg border border-slate-300 dark:border-slate-800 text-xs">
       <Filter className="w-3.5 h-3.5 text-slate-500 dark:text-slate-400 ml-2" />
@@ -87,7 +87,7 @@ function MapFilterControls({ filterRegime, onChange }: { filterRegime: MapFilter
 
 // ── Hover Card ───────────────────────────────────────────────────────────────
 
-function MapHoverCard({ country }: { country: GeoCountryData }) {
+function MapHoverCard() {
   return (
     <div className="absolute bottom-4 left-4 p-3.5 rounded-xl bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border border-slate-300 dark:border-slate-700 shadow-sm max-w-sm text-xs pointer-events-none font-sans transition-all">
       <div className="flex items-center justify-between gap-2 mb-1 font-sans">
@@ -245,7 +245,7 @@ export default function AseanMap() {
           </svg>
 
           {hoveredCountry && !selectedCountry && (
-            <MapHoverCard country={hoveredCountry} />
+            <MapHoverCard />
           )}
         </div>
       </div>

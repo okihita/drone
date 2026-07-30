@@ -141,7 +141,8 @@ export async function createNewsItem(
   if (error) {
     // If insert fails because slug column doesn't exist, retry without slug
     if ((error as { code?: string }).code === "42703") {
-      const { slug: _s, ...rest } = payload as Record<string, unknown>;
+      const rest = { ...payload } as Record<string, unknown>;
+      delete rest.slug;
       const { data: d2, error: e2 } = await client
         .from("news_items")
         .insert(rest)

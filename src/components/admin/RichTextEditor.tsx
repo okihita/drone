@@ -144,7 +144,7 @@ function ToolbarSelect({
 
 interface RichTextEditorProps {
   content: string;
-  onChange: (html: string) => void;
+  onChange: (_html: string) => void;
   placeholder?: string;
 }
 

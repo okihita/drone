@@ -13,7 +13,7 @@ export default function FeaturedCarousel({
   stories: NewsCardItem[];
 }) {
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
+  const [isPaused] = useState(false);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   useEffect(() => {

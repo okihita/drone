@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import useSWR from "swr";
-import { Search, Filter, ExternalLink, ShieldAlert, CheckCircle, FileText } from "lucide-react";
+import { Search, Filter, ShieldAlert, CheckCircle, FileText } from "lucide-react";
 import { listPolicies } from "@/services/policies";
 import { POLICY_CATEGORIES, THREAT_ACCENT_COLORS, THREAT_BADGE_CONTAINER_CLASSES } from "@/lib/constants";
 import type { PolicyListItem } from "@/types";
