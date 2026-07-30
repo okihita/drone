@@ -85,9 +85,11 @@ export default function NewsList() {
                       {n.image_url && n.image_url.trim() ? (
                         <Image
                           src={n.image_url}
-                          alt=""
+                          alt={n.title}
                           width={48}
                           height={32}
+                          loading="lazy"
+                          sizes="48px"
                           className="rounded object-cover w-12 h-8"
                         />
                       ) : (

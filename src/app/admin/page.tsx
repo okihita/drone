@@ -125,6 +125,8 @@ export default function AdminDashboard() {
                           width={80}
                           height={50}
                           unoptimized
+                          loading="lazy"
+                          sizes="80px"
                           className="rounded object-cover w-20 h-12 shrink-0 border border-slate-200 dark:border-slate-800"
                         />
                       ) : (
