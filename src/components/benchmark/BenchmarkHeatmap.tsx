@@ -10,6 +10,8 @@ const FLAG_COMPONENTS: Record<string, React.ComponentType<{ className?: string }
   ID, MY, SG, PH, TH, VN, KH, LA, MM, BN, TL,
 };
 
+import { ASEAN_COLORS } from "@/lib/colors";
+
 interface Props {
   summaries: BenchmarkCountrySummary[];
   principles: BenchmarkPrinciple[];
@@ -18,20 +20,20 @@ interface Props {
 }
 
 function scoreColor(score: number): string {
-  if (score >= 80) return "bg-emerald-600 dark:bg-emerald-500";
-  if (score >= 65) return "bg-emerald-400 dark:bg-emerald-400";
-  if (score >= 50) return "bg-amber-400 dark:bg-amber-400";
-  if (score >= 35) return "bg-orange-500 dark:bg-orange-400";
-  if (score >= 20) return "bg-red-500 dark:bg-red-400";
-  return "bg-red-700 dark:bg-red-600";
+  if (score >= 80) return "bg-asean-emerald";
+  if (score >= 65) return "bg-asean-emerald/80";
+  if (score >= 50) return "bg-asean-amber";
+  if (score >= 35) return "bg-asean-amber/80";
+  if (score >= 20) return "bg-asean-red/80";
+  return "bg-asean-red";
 }
 
 const CLUSTER_COLORS: Record<string, string> = {
-  "asean-red": "#CC0000",
-  "asean-blue": "#003399",
-  "asean-amber": "#CC8800",
-  "asean-emerald": "#008855",
-  "asean-sky": "#0066CC",
+  "asean-red": ASEAN_COLORS.red,
+  "asean-blue": ASEAN_COLORS.blue,
+  "asean-amber": ASEAN_COLORS.amber,
+  "asean-emerald": ASEAN_COLORS.emerald,
+  "asean-sky": ASEAN_COLORS.sky,
 };
 
 export default function BenchmarkHeatmap({ summaries, principles, selectedCountry, onSelectCountry }: Props) {
@@ -54,11 +56,11 @@ export default function BenchmarkHeatmap({ summaries, principles, selectedCountr
         <div className="flex flex-wrap items-center gap-3 mb-4 text-[11px] font-sans text-slate-500 dark:text-slate-400">
           <span>Score:</span>
           {[
-            { range: "81–100", color: "bg-emerald-600 dark:bg-emerald-500" },
-            { range: "61–80", color: "bg-emerald-400" },
-            { range: "41–60", color: "bg-amber-400" },
-            { range: "21–40", color: "bg-red-500 dark:bg-red-400" },
-            { range: "0–20", color: "bg-red-700 dark:bg-red-600" },
+            { range: "81–100", color: "bg-asean-emerald" },
+            { range: "61–80", color: "bg-asean-emerald/80" },
+            { range: "41–60", color: "bg-asean-amber" },
+            { range: "21–40", color: "bg-asean-red/80" },
+            { range: "0–20", color: "bg-asean-red" },
           ].map((l) => (
             <span key={l.range} className="flex items-center gap-1">
               <span className={`inline-block w-3 h-3 rounded-sm ${l.color}`} />
@@ -142,7 +144,7 @@ export default function BenchmarkHeatmap({ summaries, principles, selectedCountr
                     <td className="p-2 align-middle">
                       <span
                         className="inline-block px-1.5 py-0.5 rounded text-[9px] font-bold text-white"
-                        style={{ backgroundColor: CLUSTER_COLORS[clusterInfo?.color ?? ""] ?? "#888" }}
+                        style={{ backgroundColor: CLUSTER_COLORS[clusterInfo?.color ?? ""] ?? ASEAN_COLORS.textMutedLight }}
                       >
                         {clusterInfo?.label ?? principle.cluster}
                       </span>

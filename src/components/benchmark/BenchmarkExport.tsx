@@ -68,7 +68,7 @@ export default function BenchmarkExport({ summaries }: Props) {
           <Download className="h-3.5 w-3.5" /> JSON
         </button>
         {downloaded && (
-          <span className="text-xs text-emerald-600 dark:text-emerald-400 font-sans animate-pulse">Downloaded!</span>
+          <span className="text-xs text-asean-emerald font-sans animate-pulse">Downloaded!</span>
         )}
       </div>
     </section>

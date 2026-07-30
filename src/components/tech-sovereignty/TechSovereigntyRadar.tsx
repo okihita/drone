@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import type { BenchmarkCountrySummary } from "@/types/benchmark";
+import { ASEAN_COLORS } from "@/lib/colors";
 
 interface Props {
   summaries: BenchmarkCountrySummary[];
@@ -17,8 +18,8 @@ const AXIS_LABELS: Record<number, string> = {
 };
 
 const COUNTRY_COLORS = [
-  "#003399", "#CC0000", "#FFCC00", "#008855", "#CC6600",
-  "#0066CC", "#990066", "#339900", "#CC8800", "#005566", "#666666",
+  ASEAN_COLORS.blue, ASEAN_COLORS.red, ASEAN_COLORS.yellow, ASEAN_COLORS.emerald, ASEAN_COLORS.amber,
+  ASEAN_COLORS.sky, ASEAN_COLORS.blueLight, ASEAN_COLORS.redLight, ASEAN_COLORS.yellowLight, ASEAN_COLORS.emeraldLight, ASEAN_COLORS.amberLight,
 ];
 
 export default function TechSovereigntyRadar({ summaries, principles }: Props) {
@@ -86,7 +87,7 @@ export default function TechSovereigntyRadar({ summaries, principles }: Props) {
                     <polygon
                       points={ringPoints}
                       fill="none"
-                      stroke={i === levels - 1 ? "#94a3b8" : "#cbd5e1"}
+                      stroke={i === levels - 1 ? ASEAN_COLORS.textMutedDark : ASEAN_COLORS.borderDark}
                       strokeWidth={i === levels - 1 ? 1.5 : 0.5}
                       className="dark:stroke-slate-400"
                     />
@@ -110,7 +111,7 @@ export default function TechSovereigntyRadar({ summaries, principles }: Props) {
                   <line
                     key={`axis-${i}`}
                     x1={cx} y1={cy} x2={end.x} y2={end.y}
-                    stroke="#cbd5e1"
+                    stroke={ASEAN_COLORS.borderDark}
                     strokeWidth="0.5"
                     className="dark:stroke-slate-600"
                   />
@@ -214,9 +215,9 @@ export default function TechSovereigntyRadar({ summaries, principles }: Props) {
                 >
                   {s.countryCode}
                   <span className={`ml-1 text-[10px] ${
-                    avgTech >= 60 ? "text-emerald-500"
-                    : avgTech >= 35 ? "text-amber-500"
-                    : "text-red-500"
+                    avgTech >= 60 ? "text-asean-emerald"
+                    : avgTech >= 35 ? "text-asean-amber"
+                    : "text-asean-red"
                   }`}>
                     ({avgTech})
                   </span>
@@ -234,9 +235,9 @@ export default function TechSovereigntyRadar({ summaries, principles }: Props) {
                 <div className="flex justify-between items-center mb-2">
                   <span className="text-xs font-bold text-slate-800 dark:text-slate-200">{s.countryName}</span>
                   <span className={`text-xs font-mono font-bold ${
-                    avgTech >= 60 ? "text-emerald-600"
-                    : avgTech >= 35 ? "text-amber-600"
-                    : "text-red-600"
+                    avgTech >= 60 ? "text-asean-emerald"
+                    : avgTech >= 35 ? "text-asean-amber"
+                    : "text-asean-red"
                   }`}>
                     Avg: {avgTech}/100
                   </span>

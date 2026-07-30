@@ -1,3 +1,5 @@
+import { ASEAN_COLORS } from "@/lib/colors";
+
 interface Props {
   summary: Record<string, { countryName: string; totalEvents: number; avgSeverity: number; worstEvent: string }>;
 }
@@ -22,14 +24,14 @@ export default function EncryptionSummaryStats({ summary }: Props) {
                   {(() => { const FlagIcon = FLAG_COMPONENTS[code]; return FlagIcon ? <FlagIcon className="w-4 h-3 rounded-xs" /> : null; })()}
                   <span className="font-mono text-[10px] font-extrabold text-slate-400">{code}</span>
                 </div>
-                <span className={`font-mono text-sm font-extrabold ${data.avgSeverity >= 70 ? "text-red-600" : data.avgSeverity >= 40 ? "text-amber-600" : "text-emerald-600"}`}>
+                <span className={`font-mono text-sm font-extrabold ${data.avgSeverity >= 70 ? "text-asean-red" : data.avgSeverity >= 40 ? "text-asean-amber" : "text-asean-emerald"}`}>
                   {data.avgSeverity}
                 </span>
               </div>
               <div className="text-xs font-bold text-slate-800 dark:text-slate-200 truncate">{data.countryName}</div>
               <div className="text-[10px] text-slate-500 mt-1">{data.totalEvents} event{data.totalEvents !== 1 ? "s" : ""}</div>
               <div className="mt-2 h-1.5 w-full rounded-full bg-slate-200 dark:bg-slate-700">
-                <div className="h-full rounded-full" style={{ width: `${data.avgSeverity}%`, backgroundColor: data.avgSeverity >= 70 ? "#dc2626" : data.avgSeverity >= 40 ? "#d97706" : "#059669" }} />
+                <div className="h-full rounded-full" style={{ width: `${data.avgSeverity}%`, backgroundColor: data.avgSeverity >= 70 ? ASEAN_COLORS.red : data.avgSeverity >= 40 ? ASEAN_COLORS.amber : ASEAN_COLORS.emerald }} />
               </div>
             </div>
           ))}

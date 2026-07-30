@@ -1,7 +1,7 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
@@ -22,7 +22,7 @@ export async function middleware(request: NextRequest) {
             response.cookies.set(name, value, options);
           });
         } catch (err) {
-          console.error("[middleware] cookie set error:", err);
+          console.error("[proxy] cookie set error:", err);
         }
       },
     },
@@ -33,7 +33,7 @@ export async function middleware(request: NextRequest) {
     const result = await supabase.auth.getUser();
     user = result.data.user;
   } catch (err) {
-    console.error("[middleware] auth check failed:", err);
+    console.error("[proxy] auth check failed:", err);
     // Treat as unauthenticated — protected routes will redirect to login below
   }
 
