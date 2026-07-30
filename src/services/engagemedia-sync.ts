@@ -4,9 +4,11 @@ import type { NewsItem } from "@/types";
 
 function getClient() {
   try {
-    return getServiceClient();
-  } catch {
-    return supabase;
+    const client = getServiceClient();
+    return client;
+  } catch (err) {
+    console.error("[engagemedia-sync] SERVICE_ROLE_KEY missing — writes will fail due to RLS. Set SUPABASE_SERVICE_ROLE_KEY in environment.");
+    throw err;
   }
 }
 

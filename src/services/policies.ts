@@ -54,8 +54,10 @@ export async function searchPoliciesServer(params: {
     .order("date", { ascending: false });
 
   if (params.q) {
+    // Escape PostgREST special characters to prevent filter injection
+    const sanitized = params.q.replace(/[%_,()]/g, "\\$&");
     query = query.or(
-      `title.ilike.%${params.q}%,summary.ilike.%${params.q}%,jurisdiction.ilike.%${params.q}%`,
+      `title.ilike.*${sanitized}*,summary.ilike.*${sanitized}*,jurisdiction.ilike.*${sanitized}*`,
     );
   }
   if (params.category && params.category !== "ALL") {

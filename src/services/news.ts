@@ -153,7 +153,16 @@ export async function listDispatches(limit = 2): Promise<NewsDispatchItem[]> {
 
 // ── Mutations ────────────────────────────────────────────────────────────────
 
+const MAX_IMAGE_SIZE = 5 * 1024 * 1024; // 5 MB
+const ALLOWED_IMAGE_TYPES = ["image/jpeg", "image/png", "image/webp", "image/gif", "image/svg+xml"];
+
 export async function uploadNewsImage(file: File): Promise<string> {
+  if (!ALLOWED_IMAGE_TYPES.includes(file.type)) {
+    throw new Error(`Unsupported image type: ${file.type}. Allowed: ${ALLOWED_IMAGE_TYPES.join(", ")}`);
+  }
+  if (file.size > MAX_IMAGE_SIZE) {
+    throw new Error(`Image too large: ${(file.size / 1024 / 1024).toFixed(1)}MB. Maximum: 5MB.`);
+  }
   const path = `${Date.now()}-${file.name}`;
   const { data, error } = await supabase.storage
     .from("news")
