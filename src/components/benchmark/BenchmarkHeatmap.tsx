@@ -94,7 +94,7 @@ export default function BenchmarkHeatmap({ summaries, principles, selectedCountr
 
         {/* Grid */}
         <div className="overflow-x-auto border border-slate-200 dark:border-slate-700 rounded-xl shadow-sm bg-white dark:bg-slate-900">
-          <table className="w-full border-collapse text-xs font-sans">
+          <table className="border-collapse text-xs font-sans">
             <thead>
               <tr>
                 <th className={`${headerBg} p-2 text-left rounded-tl-xl`}>Principle</th>
