@@ -58,7 +58,7 @@ export default function DefaCivilSocietyView() {
 
           {/* How to Read Note */}
           <p className="text-xs text-slate-500 dark:text-slate-400 font-sans leading-relaxed max-w-4xl pt-1">
-            <strong className="text-slate-700 dark:text-slate-300 font-bold uppercase tracking-wider">How to read:</strong> The 11-Nation DEFA Readiness Radar visualizes country performance across 4 critical axes. <span className="text-asean-red font-bold">High Big Tech pressure scores (&gt;70)</span> alert advocates to deregulatory risks; <span className="text-asean-amber font-bold">Low transparency scores (&lt;35)</span> highlight closed-door negotiation deficits. Use the dataset exporter to download raw telemetry.
+            <strong className="text-slate-700 dark:text-slate-300 font-bold">How to read</strong>: The 11-Nation DEFA Readiness Radar visualizes country performance across 4 critical axes. <span className="text-asean-red font-bold">High Big Tech pressure scores (&gt;70)</span> alert advocates to deregulatory risks; <span className="text-asean-amber font-bold">Low transparency scores (&lt;35)</span> highlight closed-door negotiation deficits. Use the dataset exporter to download raw telemetry.
           </p>
         </div>
       </section>

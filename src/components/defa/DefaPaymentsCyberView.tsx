@@ -56,7 +56,7 @@ export default function DefaPaymentsCyberView() {
 
           {/* How to Read Note */}
           <p className="text-xs text-slate-500 dark:text-slate-400 font-sans leading-relaxed max-w-4xl pt-1">
-            <strong className="text-slate-700 dark:text-slate-300 font-bold uppercase tracking-wider">How to read:</strong> Each country card displays active QR payment linkages and cybersecurity reporting limits. <span className="text-asean-blue font-bold">Shorter CERT breach notification windows (24h)</span> demand rapid incident response; <span className="text-asean-emerald font-bold">Lower surveillance risk scores (&lt;40)</span> indicate strong consumer transaction privacy.
+            <strong className="text-slate-700 dark:text-slate-300 font-bold">How to read</strong>: Each country card displays active QR payment linkages and cybersecurity reporting limits. <span className="text-asean-blue font-bold">Shorter CERT breach notification windows (24h)</span> demand rapid incident response; <span className="text-asean-emerald font-bold">Lower surveillance risk scores (&lt;40)</span> indicate strong consumer transaction privacy.
           </p>
         </div>
       </section>

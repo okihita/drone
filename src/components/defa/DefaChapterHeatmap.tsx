@@ -107,7 +107,7 @@ export default function DefaChapterHeatmap() {
 
           {/* How to Read Guidance Note */}
           <p className="text-xs text-slate-500 dark:text-slate-400 font-sans leading-relaxed max-w-4xl pt-1">
-            <strong className="text-slate-700 dark:text-slate-300 font-bold uppercase tracking-wider">How to read:</strong> Each matrix cell displays real-time legal scrubbing progress (% completion). <span className="text-asean-emerald font-bold">Green badges (100%)</span> represent concluded chapter ratifications; <span className="text-asean-blue font-bold">Blue (75–90%)</span> represent active legal scrubbing; <span className="text-asean-amber font-bold">Amber (60–70%)</span> indicate provisional reservations; <span className="text-asean-red font-bold">Red (&lt;50%)</span> signal pending domestic consultations. Click any cell for TPP text comparisons and gazette citations.
+            <strong className="text-slate-700 dark:text-slate-300 font-bold">How to read</strong>: Each matrix cell displays real-time legal scrubbing progress (% completion). <span className="text-asean-emerald font-bold">Green badges (100%)</span> represent concluded chapter ratifications; <span className="text-asean-blue font-bold">Blue (75–90%)</span> represent active legal scrubbing; <span className="text-asean-amber font-bold">Amber (60–70%)</span> indicate provisional reservations; <span className="text-asean-red font-bold">Red (&lt;50%)</span> signal pending domestic consultations. Click any cell for TPP text comparisons and gazette citations.
           </p>
         </div>
       </section>

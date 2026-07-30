@@ -74,7 +74,7 @@ export default function DefaDataGovernanceView() {
 
           {/* How to Read Note */}
           <p className="text-xs text-slate-500 dark:text-slate-400 font-sans leading-relaxed max-w-4xl pt-1">
-            <strong className="text-slate-700 dark:text-slate-300 font-bold uppercase tracking-wider">How to read:</strong> Each country card breaks down primary data protection laws, localization decrees, and ASEAN MCC integration. <span className="text-asean-emerald font-bold">Low friction scores (0–30)</span> indicate open data regimes; <span className="text-asean-amber font-bold">Moderate scores (31–65)</span> represent hybrid regimes; <span className="text-asean-red font-bold">High scores (&gt;65)</span> flag heavy data localization mandates and elevated state surveillance risks.
+            <strong className="text-slate-700 dark:text-slate-300 font-bold">How to read</strong>: Each country card breaks down primary data protection laws, localization decrees, and ASEAN MCC integration. <span className="text-asean-emerald font-bold">Low friction scores (0–30)</span> indicate open data regimes; <span className="text-asean-amber font-bold">Moderate scores (31–65)</span> represent hybrid regimes; <span className="text-asean-red font-bold">High scores (&gt;65)</span> flag heavy data localization mandates and elevated state surveillance risks.
           </p>
         </div>
       </section>
