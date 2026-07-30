@@ -30,7 +30,7 @@ export default function BenchmarkHeroMap() {
   const countries = useMemo(() => getRealAseanCountries(), []);
   const allSummaries = useMemo(() => listAllBenchmarks(), []);
   const [hoveredCode, setHoveredCode] = useState<string | null>(null);
-  const [selectedCode, setSelectedCode] = useState<string | null>(null);
+  const [selectedCode, setSelectedCode] = useState<string | null>("ID");
 
   const scoreMap = useMemo(() => {
     const map = new Map<string, BenchmarkCountrySummary>();
