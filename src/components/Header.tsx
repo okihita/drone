@@ -248,7 +248,7 @@ export default function Header() {
         role="dialog"
         aria-modal="true"
         aria-label="Site navigation"
-        className="md:hidden border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 px-4 py-4 animate-[slideDown_0.2s_ease-out]"
+        className="md:hidden relative z-50 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 px-4 py-4 animate-[slideDown_0.2s_ease-out]"
       >
         <div className="space-y-1 text-xs font-sans">
           {NAV_GROUPS.map((item) => {
