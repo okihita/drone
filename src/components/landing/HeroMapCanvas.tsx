@@ -151,7 +151,16 @@ export default function HeroMapCanvas({
                   stroke={isSelected ? ASEAN_COLORS.yellow : strokeColor}
                   strokeWidth={isSelected ? 2 : 1}
                   className="transition-all duration-300 hover:fill-opacity-90 hover:stroke-slate-900 dark:hover:stroke-white"
+                  role="button"
+                  tabIndex={0}
+                  aria-label={`${country.name} (${country.regimeType})`}
                   onClick={() => onSelectCountry(country)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      onSelectCountry(country);
+                    }
+                  }}
                 />
 
                 {/* Country Code Label */}
