@@ -1,6 +1,6 @@
 export type NegotiationFramework = "DEFA" | "CPTPP" | "DEPA" | "IPEF" | "BILATERAL";
 
-export type MilestoneStatus = "COMPLETED" | "IN_PROGRESS" | "UPCOMING" | "DELAYED";
+type MilestoneStatus = "COMPLETED" | "IN_PROGRESS" | "UPCOMING" | "DELAYED";
 
 export interface NegotiationMilestone {
   id: string;

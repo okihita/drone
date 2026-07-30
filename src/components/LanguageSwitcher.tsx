@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 
-export interface Language {
+interface Language {
   code: string;
   name: string;
   native: string;

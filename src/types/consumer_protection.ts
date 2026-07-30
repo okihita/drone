@@ -22,7 +22,7 @@ export interface ConsumerProtectionPolicy {
   lastUpdated: string;
 }
 
-export interface ConsumerEvent {
+interface ConsumerEvent {
   id: string;
   countryCode: string;
   countryName: string;

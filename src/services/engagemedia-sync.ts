@@ -12,7 +12,7 @@ function getClient() {
 
 // ── Interfaces ────────────────────────────────────────────────────────────────
 
-export interface WPPostItem {
+interface WPPostItem {
   id: number;
   date: string;
   slug: string;
@@ -26,7 +26,7 @@ export interface WPPostItem {
   };
 }
 
-export interface ClassificationResult {
+interface ClassificationResult {
   jurisdiction: string;
   category: string;
   threatLevel: string;

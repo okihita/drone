@@ -144,7 +144,7 @@ export const EXTENDED_CATEGORIES = [
   "Competition & SOEs",
 ] as const;
 
-export type ExtendedCategory = (typeof EXTENDED_CATEGORIES)[number];
+type ExtendedCategory = (typeof EXTENDED_CATEGORIES)[number];
 
 // ── Digital 2 Dozen: 5 Thematic Clusters ──────────────────────────────────
 

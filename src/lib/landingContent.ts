@@ -1,4 +1,4 @@
-export interface TopicPill {
+interface TopicPill {
   label: string;
   href: string;
 }
@@ -15,7 +15,7 @@ export const POPULAR_TOPICS: TopicPill[] = [
 
 // ── Section 3: Editorial Grid ────────────────────────────────────────────────
 
-export interface FrictionPoint {
+interface FrictionPoint {
   label: string;
   description: string;
 }
@@ -55,7 +55,7 @@ export const EXECUTIVE_INSIGHTS: ExecutiveInsightsData = {
 
 // ── Section 4: Intelligence Suite ─────────────────────────────────────────────
 
-export interface IntelligenceModule {
+interface IntelligenceModule {
   number: string;
   title: string;
   description: string;
@@ -106,7 +106,7 @@ export const INTELLIGENCE_MODULES: IntelligenceModule[] = [
 
 // ── Section 5: Newsletter ─────────────────────────────────────────────────────
 
-export interface NewsletterContent {
+interface NewsletterContent {
   kebab: string;
   heading: string;
   description: string;

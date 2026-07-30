@@ -57,4 +57,4 @@ export const ASEAN_COLORS = {
   textMutedDark: "#94a3b8",
 } as const;
 
-export type AseanColorKey = keyof typeof ASEAN_COLORS;
+

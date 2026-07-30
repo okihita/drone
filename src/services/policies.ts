@@ -1,10 +1,6 @@
 import { supabase, getServiceClient } from "@/lib/supabase";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import type { Policy, PolicyListItem, PolicySearchItem, PolicyRadarEntry } from "@/types";
-import type { PolicyCategory, ThreatLevel } from "@/types";
-
-// Re-export the array types so consumers can depend on this module
-export type { PolicyCategory, ThreatLevel };
 
 // ── Queries ──────────────────────────────────────────────────────────────────
 

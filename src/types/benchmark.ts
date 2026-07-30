@@ -22,7 +22,7 @@ export interface BenchmarkScore {
 }
 
 /** Aggregate cluster score for a country. */
-export interface BenchmarkClusterSummary {
+interface BenchmarkClusterSummary {
   clusterId: string;
   clusterLabel: string;
   averageScore: number;

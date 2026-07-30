@@ -1,4 +1,4 @@
-export interface IPRiskProfile {
+interface IPRiskProfile {
   id: string;
   countryCode: string;
   countryName: string;
