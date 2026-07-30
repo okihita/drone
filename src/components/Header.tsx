@@ -114,32 +114,41 @@ export default function Header() {
   return (
     <header className="w-full border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 transition-colors sticky top-[var(--drone-admin-bar-h,0px)] z-50 backdrop-blur-md bg-slate-50/95 dark:bg-slate-950/95 font-sans">
       {/* Masthead */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-6 border-b border-slate-200/80 dark:border-slate-800/60 font-sans">
-        <div className="flex items-center justify-between">
-          <Link href="/" className="group flex items-center gap-3 sm:gap-4">
-            <span className="font-serif-editorial text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white group-hover:text-asean-yellow transition-colors leading-none select-none">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 border-b border-slate-200/80 dark:border-slate-800/60 font-sans">
+        {/* Row 1: Logo + tagline (centered on mobile, left-aligned on desktop) */}
+        <div className="flex items-center justify-center md:justify-between">
+          <Link href="/" className="group flex items-center gap-3 sm:gap-4 min-w-0">
+            <span className="font-serif-editorial text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white group-hover:text-asean-yellow transition-colors leading-none select-none shrink-0">
               DRONE
             </span>
-            <div className="border-l border-slate-300 dark:border-slate-700 pl-3 sm:pl-4 text-left flex flex-col justify-center text-xs font-sans text-slate-500 dark:text-slate-400 uppercase tracking-wider font-semibold leading-none space-y-1">
-              <span className="leading-none block">Digital Rights Oversight</span>
-              <span className="leading-none block">&amp; Network Evaluator</span>
+            <div className="border-l border-slate-300 dark:border-slate-700 pl-3 sm:pl-4 text-left flex flex-col justify-center text-[10px] sm:text-xs font-sans text-slate-500 dark:text-slate-400 uppercase tracking-wider font-semibold leading-none space-y-1 min-w-0">
+              <span className="leading-none block truncate">Digital Rights Oversight</span>
+              <span className="leading-none block truncate">&amp; Network Evaluator</span>
             </div>
           </Link>
 
-          {/* Right: toggles + mobile menu */}
-          <div className="flex items-center gap-3">
+          {/* Desktop controls (hidden on mobile — see Row 2 below) */}
+          <div className="hidden md:flex items-center gap-3">
             <ThemeToggle />
             <LanguageSwitcher />
-            <button
-              onClick={() => toggleMenu(!mobileMenuOpen)}
-              className="md:hidden p-2 rounded-lg bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-800"
-              aria-label="Toggle Menu"
-              aria-expanded={mobileMenuOpen}
-              aria-controls="mobile-nav-drawer"
-            >
-              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-            </button>
           </div>
+        </div>
+
+        {/* Row 2: Mobile controls bar (hidden on desktop) */}
+        <div className="md:hidden flex items-center justify-between mt-3 pt-3 border-t border-slate-200/60 dark:border-slate-800/40 animate-[fadeIn_0.3s_ease-out]">
+          <div className="flex items-center gap-2">
+            <ThemeToggle />
+            <LanguageSwitcher />
+          </div>
+          <button
+            onClick={() => toggleMenu(!mobileMenuOpen)}
+            className="p-2 rounded-lg bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-800"
+            aria-label="Toggle Menu"
+            aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-nav-drawer"
+          >
+            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
         </div>
       </div>
 
@@ -232,17 +241,14 @@ export default function Header() {
       )}
 
       {/* Mobile Drawer */}
+      {mobileMenuOpen && (
       <div
         id="mobile-nav-drawer"
         ref={drawerRef}
         role="dialog"
         aria-modal="true"
         aria-label="Site navigation"
-        className={`md:hidden border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 transition-all duration-300 ease-out ${
-          mobileMenuOpen
-            ? "max-h-[70vh] px-4 py-4 border-b opacity-100 overflow-y-auto"
-            : "max-h-0 px-4 py-0 border-b-0 opacity-0 overflow-hidden"
-        }`}
+        className="md:hidden border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 px-4 py-4 animate-[slideDown_0.2s_ease-out]"
       >
         <div className="space-y-1 text-xs font-sans">
           {NAV_GROUPS.map((item) => {
@@ -305,6 +311,7 @@ export default function Header() {
           })}
         </div>
       </div>
+      )}
     </header>
   );
 }
