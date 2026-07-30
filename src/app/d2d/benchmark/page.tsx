@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import Footer from "@/components/Footer";
-import BenchmarkHeatmap from "@/components/benchmark/BenchmarkHeatmap";
-import BenchmarkExport from "@/components/benchmark/BenchmarkExport";
-import BenchmarkHeroMap from "@/components/benchmark/BenchmarkHeroMap";
+import BenchmarkClientShell from "@/components/benchmark/BenchmarkClientShell";
 import { listAllBenchmarks, listPrinciples } from "@/services/benchmark";
 import { BarChart3, Globe, Shield } from "lucide-react";
 
@@ -107,14 +105,8 @@ export default function BenchmarkPage() {
         </div>
       </section>
 
-      {/* Geographic Compliance Map */}
-      <BenchmarkHeroMap />
-
-      {/* Main Content */}
-      <main className="flex-1">
-        <BenchmarkHeatmap summaries={allSummaries} principles={principles} />
-        <BenchmarkExport summaries={allSummaries} />
-      </main>
+      {/* Geographic Compliance Map + Heatmap — two-way synced via shared state */}
+      <BenchmarkClientShell summaries={allSummaries} principles={principles} />
 
       <Footer />
     </div>

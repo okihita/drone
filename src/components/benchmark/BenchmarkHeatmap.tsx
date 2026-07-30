@@ -14,6 +14,8 @@ const FLAG_COMPONENTS: Record<string, React.ComponentType<{ className?: string }
 interface Props {
   summaries: BenchmarkCountrySummary[];
   principles: BenchmarkPrinciple[];
+  selectedCountry: string | null;
+  onSelectCountry: (code: string | null) => void;
 }
 
 function scoreColor(score: number): string {
@@ -33,11 +35,10 @@ const CLUSTER_COLORS: Record<string, string> = {
   "asean-sky": "#0066CC",
 };
 
-export default function BenchmarkHeatmap({ summaries, principles }: Props) {
+export default function BenchmarkHeatmap({ summaries, principles, selectedCountry, onSelectCountry }: Props) {
   const [expandedClusters, setExpandedClusters] = useState<Set<string>>(
     () => new Set(BENCHMARK_CLUSTERS.map((c) => c.id)),
   );
-  const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
   const [hoveredPrinciple, setHoveredPrinciple] = useState<BenchmarkPrinciple | null>(null);
   const [popoverPos, setPopoverPos] = useState<{ x: number; y: number } | null>(null);
 
@@ -105,7 +106,7 @@ export default function BenchmarkHeatmap({ summaries, principles }: Props) {
                       className={`${headerBg} px-1 py-2 text-center min-w-[44px] cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors ${
                         selectedCountry === s.countryCode ? "bg-asean-yellow/20 dark:bg-asean-yellow/10" : ""
                       }`}
-                      onClick={() => setSelectedCountry(selectedCountry === s.countryCode ? null : s.countryCode)}
+                      onClick={() => onSelectCountry(selectedCountry === s.countryCode ? null : s.countryCode)}
                       title={`${s.countryName} (${s.countryCode})`}
                     >
                       {FlagIcon ? (
@@ -161,7 +162,7 @@ export default function BenchmarkHeatmap({ summaries, principles }: Props) {
                             className={`px-0.5 py-1 text-center align-middle ${isSelected ? "ring-2 ring-asean-yellow ring-inset" : ""}`}
                             onClick={(e) => {
                               e.stopPropagation();
-                              setSelectedCountry(selectedCountry === s.countryCode ? null : s.countryCode);
+                              onSelectCountry(selectedCountry === s.countryCode ? null : s.countryCode);
                             }}
                           >
                             <span
@@ -205,7 +206,7 @@ export default function BenchmarkHeatmap({ summaries, principles }: Props) {
                         <td
                           key={s.countryCode}
                           className={`px-0.5 py-1 text-center align-middle cursor-pointer transition-all ${isSelected ? "ring-2 ring-asean-yellow ring-inset" : ""}`}
-                          onClick={() => setSelectedCountry(selectedCountry === s.countryCode ? null : s.countryCode)}
+                          onClick={() => onSelectCountry(selectedCountry === s.countryCode ? null : s.countryCode)}
                         >
                           <span
                             className={`inline-flex items-center justify-center w-10 h-7 rounded-md font-mono text-[11px] font-bold ${scoreColor(score)} text-white`}

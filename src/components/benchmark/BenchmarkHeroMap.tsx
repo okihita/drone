@@ -26,11 +26,15 @@ function scoreBadge(score: number): string {
   return "text-red-600 dark:text-red-400";
 }
 
-export default function BenchmarkHeroMap() {
+interface Props {
+  selectedCountryCode: string | null;
+  onSelectCountry: (code: string | null) => void;
+}
+
+export default function BenchmarkHeroMap({ selectedCountryCode, onSelectCountry }: Props) {
   const countries = useMemo(() => getRealAseanCountries(), []);
   const allSummaries = useMemo(() => listAllBenchmarks(), []);
   const [hoveredCode, setHoveredCode] = useState<string | null>(null);
-  const [selectedCode, setSelectedCode] = useState<string | null>("ID");
 
   const scoreMap = useMemo(() => {
     const map = new Map<string, BenchmarkCountrySummary>();
@@ -48,7 +52,7 @@ export default function BenchmarkHeroMap() {
     return map;
   }, [countries]);
 
-  const selectedSummary = selectedCode ? scoreMap.get(selectedCode) ?? null : null;
+  const selectedSummary = selectedCountryCode ? scoreMap.get(selectedCountryCode) ?? null : null;
 
   return (
     <section className="relative border-b border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-950 overflow-hidden px-4 sm:px-6 lg:px-8 py-6">
@@ -92,7 +96,7 @@ export default function BenchmarkHeroMap() {
                 {countries.map((country) => {
                   const color = countryColors.get(country.code) ?? "#94a3b8";
                   const isHovered = hoveredCode === country.code;
-                  const isSelected = selectedCode === country.code;
+                  const isSelected = selectedCountryCode === country.code;
 
                   return (
                     <g key={country.code}>
@@ -109,7 +113,7 @@ export default function BenchmarkHeroMap() {
                         className="cursor-pointer transition-all duration-200"
                         onMouseEnter={() => setHoveredCode(country.code)}
                         onMouseLeave={() => setHoveredCode(null)}
-                        onClick={() => setSelectedCode(selectedCode === country.code ? null : country.code)}
+                        onClick={() => onSelectCountry(selectedCountryCode === country.code ? null : country.code)}
                       />
                       <circle cx={country.centerPos.x} cy={country.centerPos.y} r={isSelected || isHovered ? 5 : 3.5} fill="#fff" stroke={color} strokeWidth="1.5" className="pointer-events-none" />
                       <text x={country.centerPos.x} y={country.centerPos.y + 14} textAnchor="middle" className="pointer-events-none font-sans text-[9px] font-bold uppercase select-none" fill="#fff" style={{ textShadow: "0 1px 3px rgba(0,0,0,0.8)" }}>
@@ -138,12 +142,12 @@ export default function BenchmarkHeroMap() {
             <div className="flex items-center justify-center mt-3">
               <div className="flex items-center gap-1 sm:gap-1.5 overflow-x-auto no-scrollbar rounded-xl border border-slate-200 bg-white/90 p-1.5 shadow-xs backdrop-blur-md max-w-full dark:border-white/20 dark:bg-slate-950/85">
                 {countries.map((c) => {
-                  const isSelected = selectedCode === c.code;
+                  const isSelected = selectedCountryCode === c.code;
                   const FlagIcon = FLAG_COMPONENTS[c.code];
                   return (
                     <button
                       key={c.code}
-                      onClick={() => setSelectedCode(selectedCode === c.code ? null : c.code)}
+                      onClick={() => onSelectCountry(selectedCountryCode === c.code ? null : c.code)}
                       title={`${c.name} — ${c.regimeType}`}
                       className={`flex shrink-0 items-center gap-1.5 rounded-lg border px-2 py-1 text-[11px] font-bold transition-all ${
                         isSelected
@@ -169,7 +173,7 @@ export default function BenchmarkHeroMap() {
                   <span className="font-mono text-lg font-extrabold text-slate-900 dark:text-white">{selectedSummary.countryCode}</span>
                   <span className="text-xs font-bold text-slate-700 dark:text-slate-300">{selectedSummary.countryName}</span>
                 </div>
-                <button onClick={() => setSelectedCode(null)} className="p-0.5 rounded hover:bg-slate-100 dark:hover:bg-slate-800">
+                <button onClick={() => onSelectCountry(null)} className="p-0.5 rounded hover:bg-slate-100 dark:hover:bg-slate-800">
                   <X className="h-3.5 w-3.5 text-slate-400" />
                 </button>
               </div>
