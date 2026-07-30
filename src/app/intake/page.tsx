@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Header from "@/components/Header";
+import ObservatorySubNav from "@/components/observatory/ObservatorySubNav";
 import Footer from "@/components/Footer";
 import { Upload, Send, CheckCircle2 } from "lucide-react";
 
@@ -16,6 +17,7 @@ export default function IntakePage() {
   return (
     <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-200 font-sans transition-colors">
       <Header />
+      <ObservatorySubNav />
       <main className="flex-1 py-12 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto w-full font-sans">
         <div className="border-b border-slate-200 dark:border-slate-800 pb-6 mb-8 text-center font-sans">
           <span className="text-xs font-sans text-asean-yellow font-bold uppercase tracking-wider">
