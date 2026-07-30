@@ -1,5 +1,5 @@
 import { ASEAN_COLORS } from "./colors";
-import { BookOpen, Activity, Map, Database, Send, BarChart3, Cpu, Lock, Calendar, FileKey, ShieldCheck } from "lucide-react";
+import { BookOpen, Activity, Map, Database, Send, BarChart3, Cpu, Lock, Calendar, FileKey, ShieldCheck, FileText, Globe, CreditCard, Shield } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 // ── Policy Categories (single source of truth) ──────────────────────────────

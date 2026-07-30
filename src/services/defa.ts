@@ -6,7 +6,7 @@ import {
   DefaPaymentState,
   DefaCivilSocietyState,
 } from "@/types/defa";
-import { ASEAN_MEMBER_STATES, ASEANCountryCode } from "@/lib/countries";
+import { ASEANCountryCode } from "@/lib/countries";
 
 /** 9 Official DEFA Negotiating Chapters */
 export const DEFA_CHAPTERS: DefaChapterInfo[] = [

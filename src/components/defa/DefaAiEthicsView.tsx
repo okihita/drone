@@ -3,7 +3,7 @@
 import React from "react";
 import { getDefaAiEthicsStates } from "@/services/defa";
 import { ASEAN_MEMBER_STATES } from "@/lib/countries";
-import { Cpu, Check, X, AlertTriangle, ShieldCheck, Activity } from "lucide-react";
+import { Cpu, Check, X, ShieldCheck, Activity } from "lucide-react";
 import Footer from "@/components/Footer";
 
 export default function DefaAiEthicsView() {

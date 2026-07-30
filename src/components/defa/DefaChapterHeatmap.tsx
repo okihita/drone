@@ -3,8 +3,8 @@
 import React, { useState } from "react";
 import { DEFA_CHAPTERS, getDefaChapterStatuses } from "@/services/defa";
 import { ASEAN_MEMBER_STATES, ASEANCountryCode } from "@/lib/countries";
-import { DefaChapterMemberStateStatus, DefaRatificationStatus } from "@/types/defa";
-import { FileText, CheckCircle2, AlertTriangle, Clock, Lock, Sparkles, ExternalLink } from "lucide-react";
+import { DefaRatificationStatus } from "@/types/defa";
+import { FileText, CheckCircle2, AlertTriangle, Clock, Lock, Sparkles } from "lucide-react";
 import Footer from "@/components/Footer";
 
 export default function DefaChapterHeatmap() {
