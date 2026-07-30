@@ -23,7 +23,9 @@ export default function Footer() {
               alt="EngageMedia"
               width={768}
               height={230}
+              sizes="(max-width: 640px) 56px, 64px"
               className="h-14 sm:h-16 w-auto"
+              loading="lazy"
             />
           </Link>
 

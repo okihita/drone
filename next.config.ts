@@ -25,7 +25,7 @@ const nextConfig: NextConfig = {
         pathname: "/**",
       },
     ],
-    minimumCacheTTL: 86400, // 24h — prevents repeated fetch timeouts from slow origins
+    minimumCacheTTL: 3600, // 1h — balances freshness with cache efficiency
   },
   async headers() {
     return [
