@@ -55,7 +55,7 @@ export default function ConsumerProtectionPage() {
           </div>
 
           <p className="text-xs text-slate-400 dark:text-slate-500 max-w-3xl">
-            <strong className="text-slate-500 dark:text-slate-400">How to read:</strong> Each country card shows a composite score (0–100) and five dimension breakdowns. Green scores (≥60) indicate strong protections; amber (35–59) indicate moderate frameworks; red (&lt;35) indicate weak or absent safeguards.
+            <strong className="text-slate-500 dark:text-slate-400">How to read</strong>: Each country card shows a composite score (0–100) and five dimension breakdowns. Green scores (≥60) indicate strong protections; amber (35–59) indicate moderate frameworks; red (&lt;35) indicate weak or absent safeguards.
           </p>
         </div>
       </section>

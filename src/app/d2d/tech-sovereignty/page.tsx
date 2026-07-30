@@ -88,7 +88,7 @@ export default function TechSovereigntyPage() {
           </div>
 
           <p className="text-xs text-slate-400 dark:text-slate-500 max-w-3xl">
-            <strong className="text-slate-500 dark:text-slate-400">How to read the radar:</strong> Select up to 4 countries from the toggles. Each axis ranges from 0 (worst) to 100 (best). Countries scoring below 40 are flagged as <span className="text-asean-red font-medium">high risk</span>. The timeline below the radar logs real-world laws and decrees — red dots signal high-impact restrictions, green dots signal positive developments.
+            <strong className="text-slate-500 dark:text-slate-400">How to read the radar</strong>: Select up to 4 countries from the toggles. Each axis ranges from 0 (worst) to 100 (best). Countries scoring below 40 are flagged as <span className="text-asean-red font-medium">high risk</span>. The timeline below the radar logs real-world laws and decrees — red dots signal high-impact restrictions, green dots signal positive developments.
           </p>
         </div>
       </section>

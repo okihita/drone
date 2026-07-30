@@ -74,7 +74,7 @@ export default function IPMonitorPage() {
           </div>
 
           <p className="text-xs text-slate-400 dark:text-slate-500 max-w-3xl">
-            <strong className="text-slate-500 dark:text-slate-400">How to read:</strong> Each country card shows a composite IP score (0–100) and four dimension breakdowns. Green scores (≥55) indicate strong IP frameworks; amber (35–54) indicate moderate protection with gaps; red (&lt;35) indicate weak or absent IP safeguards.
+            <strong className="text-slate-500 dark:text-slate-400">How to read</strong>: Each country card shows a composite IP score (0–100) and four dimension breakdowns. Green scores (≥55) indicate strong IP frameworks; amber (35–54) indicate moderate protection with gaps; red (&lt;35) indicate weak or absent IP safeguards.
           </p>
         </div>
       </section>

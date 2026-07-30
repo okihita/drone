@@ -13,7 +13,6 @@ export default function BenchmarkPage() {
   const allSummaries = listAllBenchmarks();
   const principles = listPrinciples();
 
-  // Average across all countries for hero stat
   const globalAverage = Math.round(
     allSummaries.reduce((sum, c) => sum + c.overallScore, 0) / allSummaries.length,
   );
@@ -27,10 +26,8 @@ export default function BenchmarkPage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-200 font-sans selection:bg-asean-yellow/30 selection:text-slate-900 transition-colors">
-      {/* Intro — merged hero + narrative */}
       <section className="relative border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/60 py-10 sm:py-14 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          {/* Title row */}
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">
             <div className="flex-1">
               <div className="flex items-center gap-2 text-xs font-sans uppercase tracking-widest text-asean-blue font-bold mb-2">
@@ -44,7 +41,6 @@ export default function BenchmarkPage() {
               </h1>
             </div>
 
-            {/* Quick stats */}
             <div className="shrink-0 flex flex-wrap items-center gap-4 p-4 rounded-2xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 shadow-sm text-xs font-sans">
               <div className="flex items-center gap-2">
                 <Globe className="h-5 w-5 text-asean-emerald" />
@@ -72,7 +68,6 @@ export default function BenchmarkPage() {
             </div>
           </div>
 
-          {/* Narrative + key facts */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <div className="lg:col-span-2 text-sm leading-relaxed text-slate-600 dark:text-slate-400 font-sans space-y-3">
               <p>
@@ -101,15 +96,14 @@ export default function BenchmarkPage() {
                 <p className="text-[11px] text-slate-600 dark:text-slate-400 leading-snug">Click cells for detail · Hover for TPP text · Filter by cluster</p>
               </div>
             </div>
-            </div>
           </div>
 
           <p className="text-xs text-slate-400 dark:text-slate-500 mt-6 max-w-3xl">
-            <strong className="text-slate-500 dark:text-slate-400">How to read:</strong> Click any country on the map to see its detailed scores. Hover over heatmap cells for the original TPP provision text. Filter by cluster to focus on specific policy areas. Green cells (80+) indicate full compliance; red cells (&lt;20) indicate severe non-compliance. Export the full dataset via the button in the sidebar.
+            <strong className="text-slate-500 dark:text-slate-400">How to read</strong>: Click any country on the map to see its detailed scores. Hover over heatmap cells for the original TPP provision text. Filter by cluster to focus on specific policy areas. Green cells (80+) indicate full compliance; red cells (&lt;20) indicate severe non-compliance. Export the full dataset via the button in the sidebar.
           </p>
+        </div>
       </section>
 
-      {/* Geographic Compliance Map + Heatmap — two-way synced via shared state */}
       <BenchmarkClientShell summaries={allSummaries} principles={principles} />
 
       <Footer />

@@ -75,7 +75,7 @@ export default function NegotiationsPage() {
           </div>
 
           <p className="text-xs text-slate-400 dark:text-slate-500 max-w-3xl">
-            <strong className="text-slate-500 dark:text-slate-400">How to read:</strong> Milestones are grouped by trade framework and sorted chronologically. Green checkmarks indicate completed milestones; amber clocks indicate ongoing negotiations; grey triangles indicate upcoming events. Each entry shows the milestone date, countries involved, and a link to the official source.
+            <strong className="text-slate-500 dark:text-slate-400">How to read</strong>: Milestones are grouped by trade framework and sorted chronologically. Green checkmarks indicate completed milestones; amber clocks indicate ongoing negotiations; grey triangles indicate upcoming events. Each entry shows the milestone date, countries involved, and a link to the official source.
           </p>
         </div>
       </section>

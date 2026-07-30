@@ -68,7 +68,7 @@ export default function EncryptionPage() {
           </div>
 
           <p className="text-xs text-slate-400 dark:text-slate-500 max-w-3xl">
-            <strong className="text-slate-500 dark:text-slate-400">How to read:</strong> Each event is scored from 0–100 severity. Red dots (≥70) represent severe restrictions; orange dots (40–69) represent moderate concern; green dots (&lt;40) represent positive or low-impact developments. The summary stats above the event list show per-country averages.
+            <strong className="text-slate-500 dark:text-slate-400">How to read</strong>: Each event is scored from 0–100 severity. Red dots (≥70) represent severe restrictions; orange dots (40–69) represent moderate concern; green dots (&lt;40) represent positive or low-impact developments. The summary stats above the event list show per-country averages.
           </p>
         </div>
       </section>
