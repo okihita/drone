@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Footer from "@/components/Footer";
 import { FileKey } from "lucide-react";
 import { ID, MY, SG, PH, TH, VN, KH, LA, MM, BN, TL } from "country-flag-icons/react/3x2";
+import { ASEAN_COLORS } from "@/lib/colors";
 
 const FLAG_COMPONENTS: Record<string, React.ComponentType<{ className?: string }>> = {
   ID, MY, SG, PH, TH, VN, KH, LA, MM, BN, TL,
@@ -96,12 +97,12 @@ export default function IPMonitorPage() {
                   <span className="font-mono text-[10px] px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-800 font-extrabold">{profile.countryCode}</span>
                     <span className="ml-2 text-sm font-bold text-slate-800 dark:text-slate-200">{profile.countryName}</span>
                   </div>
-                  <span className={`text-sm font-mono font-extrabold ${profile.compositeScore >= 55 ? "text-emerald-600" : profile.compositeScore >= 35 ? "text-amber-600" : "text-red-600"}`}>
+                  <span className={`text-sm font-mono font-extrabold ${profile.compositeScore >= 55 ? "text-asean-emerald" : profile.compositeScore >= 35 ? "text-asean-amber" : "text-asean-red"}`}>
                     {profile.compositeScore}/100
                   </span>
                 </div>
                 <div className="h-2 w-full rounded-full bg-slate-200 dark:bg-slate-700 mb-3">
-                  <div className="h-full rounded-full" style={{ width: `${profile.compositeScore}%`, backgroundColor: profile.compositeScore >= 55 ? "#059669" : profile.compositeScore >= 35 ? "#d97706" : "#dc2626" }} />
+                  <div className="h-full rounded-full" style={{ width: `${profile.compositeScore}%`, backgroundColor: profile.compositeScore >= 55 ? ASEAN_COLORS.emerald : profile.compositeScore >= 35 ? ASEAN_COLORS.amber : ASEAN_COLORS.red }} />
                 </div>
                 <div className="space-y-1.5 text-[11px]">
                   {DIMENSIONS.map((d) => {
@@ -109,7 +110,7 @@ export default function IPMonitorPage() {
                     return (
                       <div key={d.key} className="flex items-center justify-between">
                         <span className="text-slate-600 dark:text-slate-400">{d.label}</span>
-                        <span className={`font-mono font-bold ${score >= 55 ? "text-emerald-600" : score >= 35 ? "text-amber-600" : "text-red-600"}`}>
+                        <span className={`font-mono font-bold ${score >= 55 ? "text-asean-emerald" : score >= 35 ? "text-asean-amber" : "text-asean-red"}`}>
                           {score}
                         </span>
                       </div>

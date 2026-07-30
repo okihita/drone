@@ -3,6 +3,7 @@
 import type { EncryptionEvent } from "@/types/encryption";
 import { ENCRYPTION_EVENT_LABELS } from "@/types/encryption";
 import { ID, MY, SG, PH, TH, VN, KH, LA, MM, BN, TL } from "country-flag-icons/react/3x2";
+import { ASEAN_COLORS } from "@/lib/colors";
 
 const FLAG_COMPONENTS: Record<string, React.ComponentType<{ className?: string }>> = {
   ID, MY, SG, PH, TH, VN, KH, LA, MM, BN, TL,
@@ -29,9 +30,9 @@ export default function ViolationTimeline({ events }: Props) {
               <div
                 className="shrink-0 w-2 h-2 mt-1.5 rounded-full"
                 style={{
-                  backgroundColor: event.severityScore >= 70 ? "#CC0000"
-                    : event.severityScore >= 40 ? "#CC8800"
-                    : "#008855",
+                  backgroundColor: event.severityScore >= 70 ? ASEAN_COLORS.red
+                    : event.severityScore >= 40 ? ASEAN_COLORS.amber
+                    : ASEAN_COLORS.emerald,
                 }}
                 title={`Severity: ${event.severityScore}/100`}
               />
@@ -43,9 +44,9 @@ export default function ViolationTimeline({ events }: Props) {
                     {event.countryCode}
                   </span>
                   <span className="text-[10px] px-1.5 py-0.5 rounded font-bold text-white" style={{
-                    backgroundColor: event.severityScore >= 70 ? "#CC0000"
-                      : event.severityScore >= 40 ? "#CC8800"
-                      : "#008855",
+                    backgroundColor: event.severityScore >= 70 ? ASEAN_COLORS.red
+                      : event.severityScore >= 40 ? ASEAN_COLORS.amber
+                      : ASEAN_COLORS.emerald,
                   }}>
                     {ENCRYPTION_EVENT_LABELS[event.eventType] ?? event.eventType}
                   </span>
@@ -59,9 +60,9 @@ export default function ViolationTimeline({ events }: Props) {
 
               <div className="shrink-0 text-right">
                 <span className={`text-xs font-mono font-bold ${
-                  event.severityScore >= 70 ? "text-red-600 dark:text-red-400"
-                  : event.severityScore >= 40 ? "text-amber-600 dark:text-amber-400"
-                  : "text-emerald-600 dark:text-emerald-400"
+                  event.severityScore >= 70 ? "text-asean-red"
+                  : event.severityScore >= 40 ? "text-asean-amber"
+                  : "text-asean-emerald"
                 }`}>
                   {event.severityScore}/100
                 </span>

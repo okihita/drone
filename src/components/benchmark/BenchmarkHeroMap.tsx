@@ -8,32 +8,34 @@ import { ID, MY, SG, PH, TH, VN, KH, LA, MM, BN, TL } from "country-flag-icons/r
 import { ArrowRight, X } from "lucide-react";
 import Link from "next/link";
 
+import { ASEAN_COLORS } from "@/lib/colors";
+
 const FLAG_COMPONENTS: Record<string, React.ComponentType<{ className?: string }>> = {
   ID, MY, SG, PH, TH, VN, KH, LA, MM, BN, TL,
 };
 
 function scoreColor(score: number): string {
-  if (score >= 80) return "#059669";
-  if (score >= 65) return "#22c55e";
-  if (score >= 50) return "#eab308";
-  if (score >= 35) return "#f97316";
-  if (score >= 20) return "#dc2626";
-  return "#991b1b";
+  if (score >= 80) return ASEAN_COLORS.emerald;
+  if (score >= 65) return ASEAN_COLORS.emeraldLight;
+  if (score >= 50) return ASEAN_COLORS.yellow;
+  if (score >= 35) return ASEAN_COLORS.amber;
+  if (score >= 20) return ASEAN_COLORS.red;
+  return ASEAN_COLORS.redDark;
 }
 
 function scoreBadge(score: number): string {
-  if (score >= 65) return "text-emerald-600 dark:text-emerald-400";
-  if (score >= 40) return "text-amber-600 dark:text-amber-400";
-  return "text-red-600 dark:text-red-400";
+  if (score >= 65) return "text-asean-emerald";
+  if (score >= 40) return "text-asean-amber";
+  return "text-asean-red";
 }
 
 const SCORE_LEGEND = [
-  { color: "#059669", range: "80–100" },
-  { color: "#22c55e", range: "65–79" },
-  { color: "#eab308", range: "50–64" },
-  { color: "#f97316", range: "35–49" },
-  { color: "#dc2626", range: "20–34" },
-  { color: "#991b1b", range: "0–19" },
+  { color: ASEAN_COLORS.emerald, range: "80–100" },
+  { color: ASEAN_COLORS.emeraldLight, range: "65–79" },
+  { color: ASEAN_COLORS.yellow, range: "50–64" },
+  { color: ASEAN_COLORS.amber, range: "35–49" },
+  { color: ASEAN_COLORS.red, range: "20–34" },
+  { color: ASEAN_COLORS.redDark, range: "0–19" },
 ];
 
 interface Props {
@@ -102,7 +104,7 @@ export default function BenchmarkHeroMap({ selectedCountryCode, onSelectCountry 
                 <rect width="570" height="450" fill="none" />
 
                 {countries.map((country) => {
-                  const color = countryColors.get(country.code) ?? "#94a3b8";
+                  const color = countryColors.get(country.code) ?? ASEAN_COLORS.textMutedDark;
                   const isHovered = hoveredCode === country.code;
                   const isSelected = selectedCountryCode === country.code;
 
@@ -115,7 +117,7 @@ export default function BenchmarkHeroMap({ selectedCountryCode, onSelectCountry 
                         d={country.pathD}
                         fill={color}
                         fillOpacity={isHovered || isSelected ? 0.9 : 0.65}
-                        stroke={isHovered || isSelected ? "#fff" : "transparent"}
+                        stroke={isHovered || isSelected ? ASEAN_COLORS.white : "transparent"}
                         strokeWidth={isHovered || isSelected ? 2 : 0}
                         strokeLinejoin="round"
                         className="cursor-pointer transition-all duration-200"
@@ -123,13 +125,13 @@ export default function BenchmarkHeroMap({ selectedCountryCode, onSelectCountry 
                         onMouseLeave={() => setHoveredCode(null)}
                         onClick={() => onSelectCountry(selectedCountryCode === country.code ? null : country.code)}
                       />
-                      <circle cx={country.centerPos.x} cy={country.centerPos.y} r={isSelected || isHovered ? 5 : 3.5} fill="#fff" stroke={color} strokeWidth="1.5" className="pointer-events-none" />
-                      <text x={country.centerPos.x} y={country.centerPos.y + 14} textAnchor="middle" className="pointer-events-none font-sans text-[9px] font-bold uppercase select-none" fill="#fff" style={{ textShadow: "0 1px 3px rgba(0,0,0,0.8)" }}>
+                      <circle cx={country.centerPos.x} cy={country.centerPos.y} r={isSelected || isHovered ? 5 : 3.5} fill={ASEAN_COLORS.white} stroke={color} strokeWidth="1.5" className="pointer-events-none" />
+                      <text x={country.centerPos.x} y={country.centerPos.y + 14} textAnchor="middle" className="pointer-events-none font-sans text-[9px] font-bold uppercase select-none" fill={ASEAN_COLORS.white} style={{ textShadow: "0 1px 3px rgba(0,0,0,0.8)" }}>
                         {country.code}
                       </text>
                       {isHovered && (
                         <g>
-                          <rect x={country.centerPos.x - 36} y={country.centerPos.y - 32} width="72" height="18" rx="4" fill="#0f172a" fillOpacity="0.92" />
+                          <rect x={country.centerPos.x - 36} y={country.centerPos.y - 32} width="72" height="18" rx="4" fill={ASEAN_COLORS.cardDark} fillOpacity="0.92" />
                           <text x={country.centerPos.x} y={country.centerPos.y - 19} textAnchor="middle" className="fill-white font-sans text-[10px] font-bold">{country.name}</text>
                         </g>
                       )}
@@ -195,7 +197,7 @@ export default function BenchmarkHeroMap({ selectedCountryCode, onSelectCountry 
                   </span>
                 </div>
                 <div className="h-1.5 w-full rounded-full bg-slate-200 dark:bg-slate-700">
-                  <div className="h-full rounded-full" style={{ width: `${selectedSummary.overallScore}%`, backgroundColor: selectedSummary.overallScore >= 65 ? "#059669" : selectedSummary.overallScore >= 40 ? "#d97706" : "#dc2626" }} />
+                  <div className="h-full rounded-full" style={{ width: `${selectedSummary.overallScore}%`, backgroundColor: selectedSummary.overallScore >= 65 ? ASEAN_COLORS.emerald : selectedSummary.overallScore >= 40 ? ASEAN_COLORS.amber : ASEAN_COLORS.red }} />
                 </div>
               </div>
 
@@ -211,14 +213,14 @@ export default function BenchmarkHeroMap({ selectedCountryCode, onSelectCountry 
                         <span className="text-slate-500">Best</span>
                         <div className="flex items-center justify-between mt-0.5">
                           <span className="font-bold text-slate-800 dark:text-slate-200 truncate mr-1">{best.clusterLabel}</span>
-                          <span className="font-mono font-bold text-emerald-600 shrink-0">{best.averageScore}</span>
+                          <span className="font-mono font-bold text-asean-emerald shrink-0">{best.averageScore}</span>
                         </div>
                       </div>
                       <div>
                         <span className="text-slate-500">Worst</span>
                         <div className="flex items-center justify-between mt-0.5">
                           <span className="font-bold text-slate-800 dark:text-slate-200 truncate mr-1">{worst.clusterLabel}</span>
-                          <span className="font-mono font-bold text-red-600 shrink-0">{worst.averageScore}</span>
+                          <span className="font-mono font-bold text-asean-red shrink-0">{worst.averageScore}</span>
                         </div>
                       </div>
                     </>

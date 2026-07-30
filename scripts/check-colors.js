@@ -66,8 +66,8 @@ function checkFileForColorViolations(filePath) {
   const lines = content.split("\n");
 
   lines.forEach((line, index) => {
-    // Ignore inline SVG path commands or data URI strings or linter override comments
-    if (line.includes("path") || line.includes("viewBox") || line.includes("// eslint-disable")) {
+    // Ignore inline SVG path commands or data URI strings or linter override comments or HTML entities
+    if (line.includes("path") || line.includes("viewBox") || line.includes("// eslint-disable") || line.includes("&#")) {
       return;
     }
 

@@ -42,11 +42,11 @@ function NavItem({
       title={collapsed ? label : undefined}
       className={`flex items-center gap-2.5 px-3 py-2 rounded-md text-sm font-medium transition-all duration-150 active:scale-[0.98] ${
         active
-          ? "bg-indigo-50 dark:bg-indigo-950/70 text-indigo-700 dark:text-indigo-300 font-semibold shadow-xs"
+          ? "bg-asean-blue/10 dark:bg-asean-blue/20 text-asean-blue dark:text-asean-yellow font-semibold shadow-xs"
           : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800"
       } ${collapsed ? "lg:justify-center lg:px-2" : ""}`}
     >
-      <Icon className={`w-4 h-4 shrink-0 ${active ? "text-indigo-600 dark:text-indigo-400" : ""}`} />
+      <Icon className={`w-4 h-4 shrink-0 ${active ? "text-asean-blue dark:text-asean-yellow" : ""}`} />
       <span className={collapsed ? "lg:hidden" : ""}>{label}</span>
     </Link>
   );

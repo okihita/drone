@@ -3,6 +3,7 @@ import Footer from "@/components/Footer";
 import { fetchConsumerProtectionPolicies } from "@/services/consumer_protection";
 import { Shield } from "lucide-react";
 import { ID, MY, SG, PH, TH, VN, KH, LA, MM, BN, TL } from "country-flag-icons/react/3x2";
+import { ASEAN_COLORS } from "@/lib/colors";
 
 const FLAG_COMPONENTS: Record<string, React.ComponentType<{ className?: string }>> = {
   ID, MY, SG, PH, TH, VN, KH, LA, MM, BN, TL,
@@ -77,13 +78,13 @@ export default function ConsumerProtectionPage() {
                   <span className="font-mono text-[10px] px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-800 font-extrabold">{policy.countryCode}</span>
                     <span className="ml-2 text-sm font-bold text-slate-800 dark:text-slate-200">{policy.countryName}</span>
                   </div>
-                  <span className={`text-sm font-mono font-extrabold ${policy.compositeScore >= 60 ? "text-emerald-600" : policy.compositeScore >= 35 ? "text-amber-600" : "text-red-600"}`}>
+                  <span className={`text-sm font-mono font-extrabold ${policy.compositeScore >= 60 ? "text-asean-emerald" : policy.compositeScore >= 35 ? "text-asean-amber" : "text-asean-red"}`}>
                     {policy.compositeScore}/100
                   </span>
                 </div>
 
                 <div className="h-2 w-full rounded-full bg-slate-200 dark:bg-slate-700 mb-3">
-                  <div className="h-full rounded-full" style={{ width: `${policy.compositeScore}%`, backgroundColor: policy.compositeScore >= 60 ? "#059669" : policy.compositeScore >= 35 ? "#d97706" : "#dc2626" }} />
+                  <div className="h-full rounded-full" style={{ width: `${policy.compositeScore}%`, backgroundColor: policy.compositeScore >= 60 ? ASEAN_COLORS.emerald : policy.compositeScore >= 35 ? ASEAN_COLORS.amber : ASEAN_COLORS.red }} />
                 </div>
 
                 <div className="space-y-1.5 text-[11px]">
@@ -96,7 +97,7 @@ export default function ConsumerProtectionPage() {
                   ].map((d) => (
                     <div key={d.label} className="flex items-center justify-between">
                       <span className="text-slate-600 dark:text-slate-400">{d.label}</span>
-                      <span className={`font-mono font-bold ${d.score >= 60 ? "text-emerald-600" : d.score >= 35 ? "text-amber-600" : "text-red-600"}`}>
+                      <span className={`font-mono font-bold ${d.score >= 60 ? "text-asean-emerald" : d.score >= 35 ? "text-asean-amber" : "text-asean-red"}`}>
                         {d.score}
                       </span>
                     </div>

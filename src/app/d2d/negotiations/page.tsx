@@ -25,10 +25,10 @@ export default function NegotiationsPage() {
   };
 
   const STATUS_COLORS: Record<string, string> = {
-    COMPLETED: "text-emerald-500",
+    COMPLETED: "text-asean-emerald",
     IN_PROGRESS: "text-asean-amber",
     UPCOMING: "text-slate-400",
-    DELAYED: "text-red-500",
+    DELAYED: "text-asean-red",
   };
 
   return (
@@ -52,7 +52,7 @@ export default function NegotiationsPage() {
             </div>
 
             <div className="shrink-0 flex items-center gap-4 p-4 rounded-2xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 shadow-sm text-xs font-sans">
-              <div className="flex items-center gap-2"><CheckCircle className="h-5 w-5 text-emerald-500" /><div><span className="block font-mono text-[10px] text-slate-400 uppercase font-bold">Completed</span><span className="font-bold text-slate-900 dark:text-white">{completedCount}</span></div></div>
+              <div className="flex items-center gap-2"><CheckCircle className="h-5 w-5 text-asean-emerald" /><div><span className="block font-mono text-[10px] text-slate-400 uppercase font-bold">Completed</span><span className="font-bold text-slate-900 dark:text-white">{completedCount}</span></div></div>
               <div className="h-8 w-px bg-slate-300 dark:bg-slate-700" />
               <div className="flex items-center gap-2"><Clock className="h-5 w-5 text-asean-amber" /><div><span className="block font-mono text-[10px] text-slate-400 uppercase font-bold">In Progress</span><span className="font-bold text-slate-900 dark:text-white">{inProgressCount}</span></div></div>
             </div>
@@ -100,8 +100,8 @@ export default function NegotiationsPage() {
                         <div className="flex items-center gap-2 mb-0.5 flex-wrap">
                           <span className="text-sm font-bold text-slate-800 dark:text-slate-200">{m.title}</span>
                           <span className={`text-[10px] px-1.5 py-0.5 rounded font-bold ${
-                            m.status === "COMPLETED" ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400"
-                            : m.status === "IN_PROGRESS" ? "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400"
+                            m.status === "COMPLETED" ? "bg-asean-emerald/10 text-asean-emerald dark:bg-asean-emerald/20 dark:text-asean-emerald"
+                            : m.status === "IN_PROGRESS" ? "bg-asean-amber/10 text-asean-amber dark:bg-asean-amber/20 dark:text-asean-amber"
                             : "bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400"
                           }`}>
                             {m.status.replace("_", " ")}

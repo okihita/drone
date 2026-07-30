@@ -33,16 +33,16 @@ export default function BenchmarkPreview() {
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
           {top3.map((s, i) => (
-            <div key={s.countryCode} className="p-3 rounded-lg border border-emerald-200 dark:border-emerald-800 bg-emerald-50/50 dark:bg-emerald-950/20">
+            <div key={s.countryCode} className="p-3 rounded-lg border border-asean-emerald/30 dark:border-asean-emerald/40 bg-asean-emerald/10 dark:bg-asean-emerald/20">
               <div className="flex items-center justify-between">
                 <div>
                   <span className="font-mono text-[10px] font-extrabold text-slate-400">#{i + 1}</span>
                   <span className="ml-1.5 text-xs font-bold text-slate-800 dark:text-slate-200">{s.countryName}</span>
                 </div>
-                <span className="font-mono text-sm font-extrabold text-emerald-600 dark:text-emerald-400">{s.overallScore}/100</span>
+                <span className="font-mono text-sm font-extrabold text-asean-emerald">{s.overallScore}/100</span>
               </div>
               <div className="mt-1.5 h-1.5 rounded-full bg-slate-200 dark:bg-slate-700">
-                <div className="h-full rounded-full bg-emerald-600 dark:bg-emerald-500" style={{ width: `${s.overallScore}%` }} />
+                <div className="h-full rounded-full bg-asean-emerald" style={{ width: `${s.overallScore}%` }} />
               </div>
             </div>
           ))}
