@@ -21,7 +21,8 @@ async function createClient() {
               cookieStore.set(name, value, options),
             );
           } catch (err) {
-            console.error("[login] cookie set error:", err);
+            console.error("[login] cookie set error — this will prevent session persistence:", err);
+            throw err; // Cookie failure means auth won't work — surface it
           }
         },
       },

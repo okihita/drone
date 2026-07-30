@@ -23,7 +23,10 @@ export async function getPolicyById(id: string): Promise<Policy | null> {
     .eq("id", id)
     .single();
 
-  if (error) throw new Error(error.message);
+  if (error) {
+    if ((error as { code?: string }).code === "PGRST116") return null;
+    throw new Error(error.message);
+  }
   return (data as Policy) ?? null;
 }
 

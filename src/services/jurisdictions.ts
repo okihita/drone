@@ -36,7 +36,10 @@ export async function getJurisdictionByCode(
     .eq("code", code)
     .single();
 
-  if (error) throw new Error(error.message);
+  if (error) {
+    if ((error as { code?: string }).code === "PGRST116") return null;
+    throw new Error(error.message);
+  }
   return (data as Jurisdiction) ?? null;
 }
 

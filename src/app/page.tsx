@@ -17,17 +17,22 @@ export default async function Home() {
   let radar: PolicyRadarEntry[] = [];
 
   if (SUPABASE_AVAILABLE) {
-    // Dynamic import: only loads Supabase-dependent modules when env vars are set
-    const [{ listStories, listDispatches }, { listPolicyRadar }] = await Promise.all([
-      import("@/services/news"),
-      import("@/services/policies"),
-    ]);
+    try {
+      // Dynamic import: only loads Supabase-dependent modules when env vars are set
+      const [{ listStories, listDispatches }, { listPolicyRadar }] = await Promise.all([
+        import("@/services/news"),
+        import("@/services/policies"),
+      ]);
 
-    [stories, dispatches, radar] = await Promise.all([
-      listStories(),
-      listDispatches(),
-      listPolicyRadar(),
-    ]);
+      [stories, dispatches, radar] = await Promise.all([
+        listStories(),
+        listDispatches(),
+        listPolicyRadar(),
+      ]);
+    } catch (err) {
+      console.error("[homepage] failed to fetch content:", err);
+      // Render with empty data — page shows static content gracefully
+    }
   }
 
   return (
