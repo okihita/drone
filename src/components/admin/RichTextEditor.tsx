@@ -204,7 +204,7 @@ export default function RichTextEditor({ content, onChange, placeholder }: RichT
 
       <div className="rounded-lg border bg-white dark:bg-slate-900 overflow-hidden">
         {/* Toolbar */}
-        <div className="flex items-center gap-0.5 px-2 py-1.5 border-b bg-slate-50 dark:bg-slate-800 flex-wrap">
+        <div className="flex items-center gap-1 px-2 py-1.5 border-b bg-slate-50 dark:bg-slate-800 flex-wrap">
 
           {/* Text formatting */}
           <ToolbarButton onClick={() => editor.chain().focus().toggleBold().run()} active={editor.isActive("bold")} title="Bold">

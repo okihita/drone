@@ -138,14 +138,14 @@ export default function FeaturedCarousel({
         <button
           onClick={handlePrevSlide}
           aria-label="Previous Story"
-          className="absolute left-3 top-1/2 -translate-y-1/2 z-30 p-2.5 rounded-full bg-slate-900/70 hover:bg-slate-900 text-white backdrop-blur-md border border-white/20 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer lg:hidden"
+          className="absolute left-3 top-1/2 -translate-y-1/2 z-30 p-2.5 rounded-full bg-slate-900/70 hover:bg-slate-900 text-white backdrop-blur-md border border-white/20 transition-colors cursor-pointer lg:hidden"
         >
           <ChevronLeft className="w-5 h-5" />
         </button>
         <button
           onClick={handleNextSlide}
           aria-label="Next Story"
-          className="absolute right-3 top-1/2 -translate-y-1/2 z-30 p-2.5 rounded-full bg-slate-900/70 hover:bg-slate-900 text-white backdrop-blur-md border border-white/20 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer lg:hidden"
+          className="absolute right-3 top-1/2 -translate-y-1/2 z-30 p-2.5 rounded-full bg-slate-900/70 hover:bg-slate-900 text-white backdrop-blur-md border border-white/20 transition-colors cursor-pointer lg:hidden"
         >
           <ChevronRight className="w-5 h-5" />
         </button>

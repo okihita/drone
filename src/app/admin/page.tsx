@@ -88,12 +88,12 @@ export default function AdminDashboard() {
                           </span>
                         </div>
                       </div>
-                      <div className="flex gap-0.5 shrink-0">
+                      <div className="flex gap-2 shrink-0">
                         <Link href={`/admin/policies/${p.id}`}>
-                          <Button variant="ghost" size="icon" className="h-6 w-6"><Pencil className="w-3 h-3" /></Button>
+                          <Button variant="ghost" size="icon" className="h-10 w-10"><Pencil className="w-3 h-3" /></Button>
                         </Link>
                         <Link href="/ledger">
-                          <Button variant="ghost" size="icon" className="h-6 w-6"><Eye className="w-3 h-3" /></Button>
+                          <Button variant="ghost" size="icon" className="h-10 w-10"><Eye className="w-3 h-3" /></Button>
                         </Link>
                       </div>
                     </div>
@@ -141,12 +141,12 @@ export default function AdminDashboard() {
                           <Badge variant="secondary" className="text-[10px] px-1.5 py-0">{n.category}</Badge>
                         </div>
                       </div>
-                      <div className="flex gap-0.5 shrink-0">
+                      <div className="flex gap-2 shrink-0">
                         <Link href={`/admin/news/${n.id}`}>
-                          <Button variant="ghost" size="icon" className="h-6 w-6"><Pencil className="w-3 h-3" /></Button>
+                          <Button variant="ghost" size="icon" className="h-10 w-10"><Pencil className="w-3 h-3" /></Button>
                         </Link>
                         <Link href={n.slug ? `/investigations/${n.slug}` : `/investigations/id/${n.id}`}>
-                          <Button variant="ghost" size="icon" className="h-6 w-6"><Eye className="w-3 h-3" /></Button>
+                          <Button variant="ghost" size="icon" className="h-10 w-10"><Eye className="w-3 h-3" /></Button>
                         </Link>
                       </div>
                     </div>
@@ -181,10 +181,10 @@ export default function AdminDashboard() {
                       }`}>{j.threat_score}/5</span>
                       <div className="flex gap-0.5 ml-0.5">
                         <Link href="/admin/jurisdictions">
-                          <Button variant="ghost" size="icon" className="h-6 w-6"><Pencil className="w-3 h-3" /></Button>
+                          <Button variant="ghost" size="icon" className="h-10 w-10"><Pencil className="w-3 h-3" /></Button>
                         </Link>
                         <Link href="/observatory">
-                          <Button variant="ghost" size="icon" className="h-6 w-6"><Eye className="w-3 h-3" /></Button>
+                          <Button variant="ghost" size="icon" className="h-10 w-10"><Eye className="w-3 h-3" /></Button>
                         </Link>
                       </div>
                     </div>

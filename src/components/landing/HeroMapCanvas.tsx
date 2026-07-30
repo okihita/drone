@@ -369,7 +369,7 @@ export default function HeroMapCanvas({
                 key={c.id}
                 onClick={() => onSelectCountry(c)}
                 title={`${c.name} (${c.regimeType})`}
-                className={`flex shrink-0 items-center gap-1.5 rounded-lg border px-2 py-1 text-[11px] font-bold transition-all ${
+                className={`flex shrink-0 items-center gap-1.5 rounded-lg border px-3 py-2 text-xs font-bold transition-all ${
                   isSelected
                     ? "border-asean-yellow bg-asean-yellow/25 text-asean-yellow shadow-xs"
                     : "border-slate-200 bg-slate-100/80 text-slate-700 hover:border-slate-300 hover:bg-slate-200 hover:text-slate-900 dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-300 dark:hover:border-white/25 dark:hover:bg-white/15 dark:hover:text-white"
