@@ -1,5 +1,5 @@
 import { ASEAN_COLORS } from "./colors";
-import { BookOpen, Activity, Map, Database, Send, BarChart3, Cpu, Lock, Calendar, FileKey, ShieldCheck } from "lucide-react";
+import { BookOpen, Activity, Map, Database, Send, BarChart3, Cpu, Lock, Calendar, FileKey, ShieldCheck, FileText, Globe, CreditCard, Shield } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 // ── Policy Categories (single source of truth) ──────────────────────────────
@@ -100,23 +100,35 @@ export const D2D_SUBMENU: NavLink[] = [
   { href: "/d2d/ip-monitor", label: "IP & Trade Secrets", icon: FileKey, iconColor: "text-asean-sky" },
 ];
 
+export const DEFA_SUBMENU: NavLink[] = [
+  { href: "/defa/chapters", label: "Ratification Matrix", icon: FileText, iconColor: "text-asean-yellow" },
+  { href: "/defa/data-governance", label: "Data Governance", icon: Globe, iconColor: "text-asean-blue" },
+  { href: "/defa/ai-ethics", label: "AI Governance", icon: Cpu, iconColor: "text-asean-emerald" },
+  { href: "/defa/payments-cyber", label: "Payments & Cyber", icon: CreditCard, iconColor: "text-asean-amber" },
+  { href: "/defa/civil-society", label: "Civil Society & Readiness", icon: Shield, iconColor: "text-asean-red" },
+];
+
+export const OBSERVATORY_SUBMENU: NavLink[] = [
+  { href: "/observatory", label: "Regional Map & Threats", icon: Map, iconColor: "text-asean-blue" },
+  { href: "/ledger", label: "Policy & Case Ledger", icon: Database, iconColor: "text-asean-amber" },
+  { href: "/intake", label: "Submit Dossier", icon: Send, iconColor: "text-asean-red" },
+];
+
 export const NAV_GROUPS: (NavLink | NavGroup)[] = [
   { href: "/investigations", label: "Investigations", icon: BookOpen, iconColor: "text-asean-yellow" },
   { href: "/d2d/benchmark", label: "Digital 2 Dozen", icon: BarChart3, iconColor: "text-asean-blue", children: D2D_SUBMENU },
-  { href: "/defa", label: "DEFA Tracker", icon: Activity, iconColor: "text-asean-amber" },
-  { href: "/observatory", label: "Observatory & Threats", icon: Map, iconColor: "text-asean-blue" },
-  { href: "/ledger", label: "Ledger", icon: Database, iconColor: "text-asean-blue" },
-  { href: "/intake", label: "Submit Dossier", icon: Send, iconColor: "text-slate-500 dark:text-slate-400" },
+  { href: "/defa/chapters", label: "DEFA", icon: Activity, iconColor: "text-asean-amber", children: DEFA_SUBMENU },
+  { href: "/observatory", label: "Observatory", icon: Map, iconColor: "text-asean-blue", children: OBSERVATORY_SUBMENU },
 ];
 
 /** Flat list for mobile drawer — all top-level links + sub-items. */
 export const NAV_LINKS: NavLink[] = [
   { href: "/investigations", label: "Investigations", icon: BookOpen, iconColor: "text-asean-yellow" },
   ...D2D_SUBMENU,
-  { href: "/defa", label: "DEFA Tracker", icon: Activity, iconColor: "text-asean-amber" },
-  { href: "/observatory", label: "Observatory & Threats", icon: Map, iconColor: "text-asean-blue" },
-  { href: "/ledger", label: "Ledger", icon: Database, iconColor: "text-asean-blue" },
-  { href: "/intake", label: "Submit Dossier", icon: Send, iconColor: "text-slate-500 dark:text-slate-400" },
+  { href: "/defa/chapters", label: "DEFA", icon: Activity, iconColor: "text-asean-amber" },
+  ...DEFA_SUBMENU,
+  { href: "/observatory", label: "Observatory", icon: Map, iconColor: "text-asean-blue" },
+  ...OBSERVATORY_SUBMENU,
 ];
 
 // ── News Categories (broader set than policy categories, used by admin) ──────

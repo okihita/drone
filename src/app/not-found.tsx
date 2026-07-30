@@ -53,8 +53,8 @@ export default function NotFound() {
             <Link href="/observatory" className="hover:text-slate-600 dark:hover:text-slate-300 transition-colors">
               Observatory
             </Link>
-            <Link href="/defa" className="hover:text-slate-600 dark:hover:text-slate-300 transition-colors">
-              DEFA Tracker
+            <Link href="/defa/chapters" className="hover:text-slate-600 dark:hover:text-slate-300 transition-colors">
+              DEFA
             </Link>
             <Link href="/d2d/benchmark" className="hover:text-slate-600 dark:hover:text-slate-300 transition-colors">
               Digital 2 Dozen
