@@ -62,8 +62,9 @@ export default function DefaAiEthicsView() {
       </section>
 
       {/* Main Content Workspace */}
-      <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full space-y-8">
-        {/* Summary Metric Cards */}
+      <main className="flex-1 px-4 sm:px-6 lg:px-8 py-8 font-sans">
+        <div className="max-w-7xl mx-auto space-y-8">
+          {/* Summary Metric Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 font-sans">
           <div className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm flex items-center justify-between">
             <div>
@@ -162,6 +163,7 @@ export default function DefaAiEthicsView() {
               })}
             </tbody>
           </table>
+        </div>
         </div>
       </main>
 

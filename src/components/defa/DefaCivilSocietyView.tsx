@@ -64,8 +64,9 @@ export default function DefaCivilSocietyView() {
       </section>
 
       {/* Main Workspace */}
-      <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full space-y-8">
-        {/* Civil Society Warning Callout */}
+      <main className="flex-1 px-4 sm:px-6 lg:px-8 py-8 font-sans">
+        <div className="max-w-7xl mx-auto space-y-8">
+          {/* Civil Society Warning Callout */}
         <div className="p-5 rounded-2xl bg-asean-red/10 border border-asean-red/30 text-slate-900 dark:text-white flex items-start gap-4 text-xs font-sans">
           <ShieldAlert className="w-6 h-6 text-asean-red shrink-0 mt-0.5" />
           <div className="space-y-1">
@@ -141,6 +142,7 @@ export default function DefaCivilSocietyView() {
 
         {/* Dataset Downloader */}
         <DEFABenchmarkExport />
+        </div>
       </main>
 
       <Footer />

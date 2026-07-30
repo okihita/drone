@@ -62,8 +62,9 @@ export default function DefaPaymentsCyberView() {
       </section>
 
       {/* Main Workspace */}
-      <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full space-y-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <main className="flex-1 px-4 sm:px-6 lg:px-8 py-8 font-sans">
+        <div className="max-w-7xl mx-auto space-y-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {paymentStates.map((st) => {
             const country = ASEAN_MEMBER_STATES.find((m) => m.code === st.countryCode);
 
@@ -131,6 +132,7 @@ export default function DefaPaymentsCyberView() {
               </div>
             );
           })}
+        </div>
         </div>
       </main>
 

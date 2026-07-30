@@ -114,11 +114,12 @@ export default function DefaChapterHeatmap() {
       </section>
 
       {/* Main Heatmap Workspace */}
-      <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full space-y-8">
-        {/* What is DEFA Explainer Brief */}
-        <DefaExplainerCard />
+      <main className="flex-1 px-4 sm:px-6 lg:px-8 py-8 font-sans">
+        <div className="max-w-7xl mx-auto space-y-8">
+          {/* What is DEFA Explainer Brief */}
+          <DefaExplainerCard />
 
-        {/* Status Filter / Legend Pills */}
+          {/* Status Filter / Legend Pills */}
         <div className="flex flex-wrap items-center justify-between gap-4 p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
           <div className="flex items-center gap-2">
             <FileText className="w-4 h-4 text-asean-blue" />
@@ -227,6 +228,7 @@ export default function DefaChapterHeatmap() {
             </div>
           </div>
         )}
+        </div>
       </main>
 
       <Footer />

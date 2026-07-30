@@ -1,13 +1,11 @@
 "use client";
 
-import React, { useState } from "react";
-import { BookOpen, ShieldAlert, ChevronDown, ChevronUp } from "lucide-react";
+import React from "react";
+import { BookOpen, ShieldAlert } from "lucide-react";
 
 export default function DefaExplainerCard() {
-  const [isExpanded, setIsExpanded] = useState(true);
-
   return (
-    <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-md space-y-4 font-sans animate-[fadeIn_0.25s_ease-out]">
+    <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-md space-y-4 font-sans">
       <div className="flex items-center justify-between gap-4 border-b border-slate-100 dark:border-slate-800 pb-3">
         <div className="flex items-center gap-2.5">
           <div className="p-2 rounded-xl bg-asean-yellow/15 text-asean-amber">
@@ -27,19 +25,9 @@ export default function DefaExplainerCard() {
             </p>
           </div>
         </div>
-
-        <button
-          type="button"
-          onClick={() => setIsExpanded(!isExpanded)}
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs font-bold text-slate-700 dark:text-slate-300 hover:bg-slate-100 transition-all shrink-0"
-        >
-          <span>{isExpanded ? "Collapse Brief" : "Read Full DEFA Brief"}</span>
-          {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
-        </button>
       </div>
 
-      {isExpanded && (
-        <div className="space-y-6 pt-2 text-xs font-sans leading-relaxed">
+      <div className="space-y-6 pt-2 text-xs font-sans leading-relaxed">
           {/* Executive Overview */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 space-y-1.5">
@@ -74,7 +62,6 @@ export default function DefaExplainerCard() {
             </p>
           </div>
         </div>
-      )}
     </div>
   );
 }
