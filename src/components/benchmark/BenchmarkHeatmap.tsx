@@ -4,7 +4,6 @@ import { useState } from "react";
 import type { BenchmarkCountrySummary, BenchmarkPrinciple } from "@/types/benchmark";
 import { BENCHMARK_CLUSTERS } from "@/lib/constants";
 import PrincipleDetailPopover from "./PrincipleDetailPopover";
-import { ChevronRight, ChevronDown } from "lucide-react";
 import { ID, MY, SG, PH, TH, VN, KH, LA, MM, BN, TL } from "country-flag-icons/react/3x2";
 
 const FLAG_COMPONENTS: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -36,44 +35,17 @@ const CLUSTER_COLORS: Record<string, string> = {
 };
 
 export default function BenchmarkHeatmap({ summaries, principles, selectedCountry, onSelectCountry }: Props) {
-  const [expandedClusters, setExpandedClusters] = useState<Set<string>>(
-    () => new Set(BENCHMARK_CLUSTERS.map((c) => c.id)),
-  );
   const [hoveredPrinciple, setHoveredPrinciple] = useState<BenchmarkPrinciple | null>(null);
   const [popoverPos, setPopoverPos] = useState<{ x: number; y: number } | null>(null);
 
-  const toggleCluster = (id: string) => {
-    setExpandedClusters((prev) => {
-      const next = new Set(prev);
-      if (next.has(id)) next.delete(id); else next.add(id);
-      return next;
-    });
-  };
-
   const headerBg = "sticky top-0 z-10 bg-slate-100 dark:bg-slate-800 font-sans text-xs font-bold text-slate-700 dark:text-slate-300";
-
-  // Build rows: cluster summary + optionally expanded principle rows
-  const rows: Array<
-    | { type: "cluster"; cluster: (typeof BENCHMARK_CLUSTERS)[number] }
-    | { type: "principle"; principle: BenchmarkPrinciple; clusterId: string }
-  > = [];
-
-  for (const cluster of BENCHMARK_CLUSTERS) {
-    rows.push({ type: "cluster", cluster });
-    if (expandedClusters.has(cluster.id)) {
-      const children = principles.filter((p) => p.cluster === cluster.id);
-      for (const p of children) rows.push({ type: "principle", principle: p, clusterId: cluster.id });
-    }
-  }
 
   return (
     <section className="px-4 sm:px-6 lg:px-8 py-6 max-w-full">
       <div className="max-w-[1600px] mx-auto">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
-          <h2 className="font-serif-editorial text-xl font-bold text-slate-900 dark:text-white">
-            Compliance Heatmap
-          </h2>
-        </div>
+        <h2 className="font-serif-editorial text-xl font-bold text-slate-900 dark:text-white mb-4">
+          Compliance Heatmap
+        </h2>
 
         {/* Legend */}
         <div className="flex flex-wrap items-center gap-3 mb-4 text-[11px] font-sans text-slate-500 dark:text-slate-400">
@@ -92,18 +64,19 @@ export default function BenchmarkHeatmap({ summaries, principles, selectedCountr
           ))}
         </div>
 
-        {/* Grid */}
-        <div className="overflow-x-auto border border-slate-200 dark:border-slate-700 rounded-xl shadow-sm bg-white dark:bg-slate-900">
+        {/* Centered table */}
+        <div className="overflow-x-auto border border-slate-200 dark:border-slate-700 rounded-xl shadow-sm bg-white dark:bg-slate-900 flex justify-center">
           <table className="border-collapse text-xs font-sans">
             <thead>
               <tr>
                 <th className={`${headerBg} p-2 text-left rounded-tl-xl`}>Principle</th>
+                <th className={`${headerBg} p-2 text-left`}>Cluster</th>
                 {summaries.map((s) => {
                   const FlagIcon = FLAG_COMPONENTS[s.countryCode];
                   return (
                     <th
                       key={s.countryCode}
-                      className={`${headerBg} px-1 py-2 text-center min-w-[44px] cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors ${
+                      className={`${headerBg} px-1 py-2 text-center cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors ${
                         selectedCountry === s.countryCode ? "bg-asean-yellow/20 dark:bg-asean-yellow/10" : ""
                       }`}
                       onClick={() => onSelectCountry(selectedCountry === s.countryCode ? null : s.countryCode)}
@@ -120,87 +93,42 @@ export default function BenchmarkHeatmap({ summaries, principles, selectedCountr
               </tr>
             </thead>
             <tbody>
-              {rows.map((row) => {
-                if (row.type === "cluster") {
-                  const isExpanded = expandedClusters.has(row.cluster.id);
-                  const clusterColor = CLUSTER_COLORS[row.cluster.color] ?? "#888";
-                  return (
-                    <tr
-                      key={row.cluster.id}
-                      className="border-t-2 border-t-slate-300 dark:border-t-slate-600 bg-slate-50 dark:bg-slate-800/30 hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-colors cursor-pointer"
-                      onClick={() => toggleCluster(row.cluster.id)}
-                    >
-                      <td className="p-2.5 align-middle">
-                        <div className="flex items-center gap-2">
-                          {isExpanded ? (
-                            <ChevronDown className="w-3.5 h-3.5 text-slate-400 shrink-0" />
-                          ) : (
-                            <ChevronRight className="w-3.5 h-3.5 text-slate-400 shrink-0" />
-                          )}
-                          <span
-                            className="inline-block px-1.5 py-0.5 rounded text-[9px] font-bold text-white shrink-0"
-                            style={{ backgroundColor: clusterColor }}
-                          >
-                            {row.cluster.principles.length}
-                          </span>
-                          <span className="font-bold text-slate-800 dark:text-slate-200">
-                            {row.cluster.label}
-                          </span>
-                        </div>
-                      </td>
-                      {summaries.map((s) => {
-                        const clusterScores = s.scores.filter((sc) =>
-                          (row.cluster.principles as readonly number[]).includes(sc.principleId),
-                        );
-                        const avg = Math.round(
-                          clusterScores.reduce((sum, sc) => sum + sc.score, 0) / clusterScores.length,
-                        );
-                        const isSelected = selectedCountry === s.countryCode;
-                        return (
-                          <td
-                            key={s.countryCode}
-                            className={`px-0.5 py-1 text-center align-middle ${isSelected ? "ring-2 ring-asean-yellow ring-inset" : ""}`}
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              onSelectCountry(selectedCountry === s.countryCode ? null : s.countryCode);
-                            }}
-                          >
-                            <span
-                              className={`inline-flex items-center justify-center w-10 h-7 rounded-md font-mono text-[11px] font-bold ${scoreColor(avg)} text-white`}
-                              title={`${s.countryName}: avg ${avg}/100 across ${clusterScores.length} principles`}
-                            >
-                              {avg}
-                            </span>
-                          </td>
-                        );
-                      })}
-                    </tr>
-                  );
-                }
+              {principles.map((principle, pIdx) => {
+                const clusterInfo = BENCHMARK_CLUSTERS.find((c) => c.id === principle.cluster);
+                const isFirstOfCluster = pIdx === 0 || principles[pIdx - 1].cluster !== principle.cluster;
 
-                // Principle row (indented)
                 return (
                   <tr
-                    key={row.principle.id}
-                    className="border-t border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors"
+                    key={principle.id}
+                    className={`border-t border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors ${
+                      isFirstOfCluster ? "border-t-2 border-t-slate-300 dark:border-t-slate-600" : ""
+                    }`}
                   >
                     <td
-                      className="p-2 pl-8 align-middle cursor-pointer"
+                      className="p-2 align-middle cursor-pointer"
                       onMouseEnter={(e) => {
-                        setHoveredPrinciple(row.principle);
+                        setHoveredPrinciple(principle);
                         setPopoverPos({ x: e.clientX, y: e.clientY });
                       }}
                       onMouseLeave={() => { setHoveredPrinciple(null); setPopoverPos(null); }}
                     >
                       <span className="font-mono text-[10px] text-slate-400 dark:text-slate-500 mr-1.5">
-                        P{row.principle.id}
+                        #{principle.id}
                       </span>
                       <span className="font-bold text-slate-800 dark:text-slate-200 leading-tight">
-                        {row.principle.shortTitle}
+                        {principle.shortTitle}
+                      </span>
+                    </td>
+                    <td className="p-2 align-middle">
+                      <span
+                        className="inline-block px-1.5 py-0.5 rounded text-[9px] font-bold text-white"
+                        style={{ backgroundColor: CLUSTER_COLORS[clusterInfo?.color ?? ""] ?? "#888" }}
+                      >
+                        {clusterInfo?.label ?? principle.cluster}
                       </span>
                     </td>
                     {summaries.map((s) => {
-                      const score = s.scores.find((sc) => sc.principleId === row.principle.id)?.score ?? 0;
+                      const score = s.scores.find((sc) => sc.principleId === principle.id)?.score ?? 0;
                       const isSelected = selectedCountry === s.countryCode;
                       return (
                         <td
@@ -210,7 +138,7 @@ export default function BenchmarkHeatmap({ summaries, principles, selectedCountr
                         >
                           <span
                             className={`inline-flex items-center justify-center w-10 h-7 rounded-md font-mono text-[11px] font-bold ${scoreColor(score)} text-white`}
-                            title={`${s.countryName}: ${score}/100 — ${row.principle.shortTitle}`}
+                            title={`${s.countryName}: ${score}/100 — ${principle.shortTitle}`}
                           >
                             {score}
                           </span>
