@@ -6,6 +6,7 @@ import { ASEAN_MEMBER_STATES } from "@/lib/countries";
 import { DataRegimeTier } from "@/types/defa";
 import { Globe, Layers } from "lucide-react";
 import Footer from "@/components/Footer";
+import DefaExplainerCard from "@/components/defa/DefaExplainerCard";
 
 export default function DefaDataGovernanceView() {
   const dataStates = getDefaDataGovernanceStates();
@@ -81,6 +82,9 @@ export default function DefaDataGovernanceView() {
 
       {/* Main Workspace */}
       <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full space-y-8">
+        {/* What is DEFA Explainer Brief */}
+        <DefaExplainerCard />
+
         {/* Tier Filter Pills */}
         <div className="flex flex-wrap items-center justify-between gap-4 p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
           <div className="flex items-center gap-2">

@@ -6,6 +6,7 @@ import { ASEAN_MEMBER_STATES, ASEANCountryCode } from "@/lib/countries";
 import { DefaRatificationStatus } from "@/types/defa";
 import { FileText, CheckCircle2, AlertTriangle, Clock, Lock, Sparkles } from "lucide-react";
 import Footer from "@/components/Footer";
+import DefaExplainerCard from "@/components/defa/DefaExplainerCard";
 
 export default function DefaChapterHeatmap() {
   const statuses = getDefaChapterStatuses();
@@ -114,6 +115,9 @@ export default function DefaChapterHeatmap() {
 
       {/* Main Heatmap Workspace */}
       <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full space-y-8">
+        {/* What is DEFA Explainer Brief */}
+        <DefaExplainerCard />
+
         {/* Status Filter / Legend Pills */}
         <div className="flex flex-wrap items-center justify-between gap-4 p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
           <div className="flex items-center gap-2">

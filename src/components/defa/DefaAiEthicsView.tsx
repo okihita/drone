@@ -5,6 +5,7 @@ import { getDefaAiEthicsStates } from "@/services/defa";
 import { ASEAN_MEMBER_STATES } from "@/lib/countries";
 import { Cpu, Check, X, ShieldCheck, Activity } from "lucide-react";
 import Footer from "@/components/Footer";
+import DefaExplainerCard from "@/components/defa/DefaExplainerCard";
 
 export default function DefaAiEthicsView() {
   const aiStates = getDefaAiEthicsStates();
@@ -63,6 +64,9 @@ export default function DefaAiEthicsView() {
 
       {/* Main Content Workspace */}
       <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full space-y-8">
+        {/* What is DEFA Explainer Brief */}
+        <DefaExplainerCard />
+
         {/* Summary Metric Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 font-sans">
           <div className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm flex items-center justify-between">
