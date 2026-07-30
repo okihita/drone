@@ -120,7 +120,7 @@ export default function Header() {
             <span className="font-serif-editorial text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white group-hover:text-asean-yellow transition-colors leading-none select-none">
               DRONE
             </span>
-            <div className="border-l border-slate-300 dark:border-slate-700 pl-3 sm:pl-4 text-left flex flex-col justify-center text-[10px] sm:text-xs font-sans text-slate-500 dark:text-slate-400 uppercase tracking-wider font-semibold leading-none space-y-1">
+            <div className="border-l border-slate-300 dark:border-slate-700 pl-3 sm:pl-4 text-left flex flex-col justify-center text-xs font-sans text-slate-500 dark:text-slate-400 uppercase tracking-wider font-semibold leading-none space-y-1">
               <span className="leading-none block">Digital Rights Oversight</span>
               <span className="leading-none block">&amp; Network Evaluator</span>
             </div>

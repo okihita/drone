@@ -121,6 +121,16 @@ export default function BenchmarkHeatmap({ summaries, principles, selectedCountr
                         setPopoverPos({ x: e.clientX, y: e.clientY });
                       }}
                       onMouseLeave={() => { setHoveredPrinciple(null); setPopoverPos(null); }}
+                      onClick={(e) => {
+                        // Touch fallback: toggle popover on tap
+                        if (hoveredPrinciple?.id === principle.id) {
+                          setHoveredPrinciple(null);
+                          setPopoverPos(null);
+                        } else {
+                          setHoveredPrinciple(principle);
+                          setPopoverPos({ x: e.clientX, y: e.clientY });
+                        }
+                      }}
                     >
                       <span className="font-mono text-[10px] text-slate-400 dark:text-slate-500 mr-1.5">
                         #{principle.id}

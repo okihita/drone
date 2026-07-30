@@ -22,6 +22,13 @@
   html {
     @apply font-sans;
   }
+  /* Mobile performance: eliminate 300ms tap delay, prevent pull-to-refresh on modals */
+  a, button, [role="button"], input, select, textarea {
+    touch-action: manipulation;
+  }
+  [role="dialog"], .modal, .drawer {
+    overscroll-behavior: contain;
+  }
 }
 
 /* Custom ASEAN Logo Branding Utility Classes */
