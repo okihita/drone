@@ -31,7 +31,9 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const drawerRef = useRef<HTMLDivElement>(null);
+  const sheetRef = useRef<HTMLDivElement>(null);
+  const hamburgerRef = useRef<HTMLButtonElement>(null);
+  const touchStartX = useRef(0);
   const pathname = usePathname();
 
   const isActive = (path: string) => pathname === path;
@@ -39,10 +41,14 @@ export default function Header() {
   const isSubmenuActive = (group: NavGroup) =>
     group.children.some((child) => isActive(child.href));
 
-  // ── Body scroll-lock when mobile drawer is open ────────────────────────
+  // ── Body scroll-lock when sheet is open ───────────────────────────────
   const toggleMenu = useCallback((open: boolean) => {
     setMobileMenuOpen(open);
     document.body.style.overflow = open ? "hidden" : "";
+    // Return focus to hamburger on close
+    if (!open) {
+      requestAnimationFrame(() => hamburgerRef.current?.focus());
+    }
   }, []);
 
   // Clean up scroll-lock on unmount
@@ -50,45 +56,48 @@ export default function Header() {
     return () => { document.body.style.overflow = ""; };
   }, []);
 
-  // ── Focus trap for mobile drawer ───────────────────────────────────────
+  // ── Focus trap for sheet ──────────────────────────────────────────────
   useEffect(() => {
-    if (!mobileMenuOpen || !drawerRef.current) return;
-    const drawer = drawerRef.current;
-    const focusable = drawer.querySelectorAll<HTMLElement>(
+    if (!mobileMenuOpen || !sheetRef.current) return;
+    const sheet = sheetRef.current;
+    const focusable = sheet.querySelectorAll<HTMLElement>(
       'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
     );
     const first = focusable[0];
     const last = focusable[focusable.length - 1];
 
-    // Focus first link on open
-    first?.focus();
+    first?.focus({ preventScroll: true });
 
     function trapFocus(e: KeyboardEvent) {
       if (e.key !== "Tab") return;
       if (e.shiftKey) {
-        if (document.activeElement === first) {
-          e.preventDefault();
-          last?.focus();
-        }
+        if (document.activeElement === first) { e.preventDefault(); last?.focus(); }
       } else {
-        if (document.activeElement === last) {
-          e.preventDefault();
-          first?.focus();
-        }
+        if (document.activeElement === last) { e.preventDefault(); first?.focus(); }
       }
     }
 
-    drawer.addEventListener("keydown", trapFocus);
-    return () => drawer.removeEventListener("keydown", trapFocus);
+    sheet.addEventListener("keydown", trapFocus);
+    return () => sheet.removeEventListener("keydown", trapFocus);
   }, [mobileMenuOpen]);
 
-  // Close dropdown on route change (navigation)
+  // ── Swipe-to-dismiss on sheet ─────────────────────────────────────────
+  const handleTouchStart = useCallback((e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  }, []);
+
+  const handleTouchEnd = useCallback((e: React.TouchEvent) => {
+    const delta = e.changedTouches[0].clientX - touchStartX.current;
+    if (delta > 60) toggleMenu(false); // swipe right > 60px closes
+  }, [toggleMenu]);
+
+  // Close dropdown on route change
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect -- intentional: close dropdown on navigation
     setOpenDropdown(null);
   }, [pathname]);
 
-  // Close mobile menu on ESC key
+  // ESC key
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
       if (e.key === "Escape") {
@@ -100,7 +109,7 @@ export default function Header() {
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [toggleMenu]);
 
-  // Close dropdown on click outside
+  // Click outside dropdown
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
@@ -112,10 +121,11 @@ export default function Header() {
   }, []);
 
   return (
+    <>
     <header className="w-full border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 transition-colors sticky top-[var(--drone-admin-bar-h,0px)] z-50 backdrop-blur-md bg-slate-50/95 dark:bg-slate-950/95 font-sans">
       {/* Masthead */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 border-b border-slate-200/80 dark:border-slate-800/60 font-sans">
-        {/* Row 1: Logo + tagline (centered on mobile, left-aligned on desktop) */}
+        {/* Row 1: Logo + tagline */}
         <div className="flex items-center justify-center md:justify-between">
           <Link href="/" className="group flex items-center gap-3 sm:gap-4 min-w-0">
             <span className="font-serif-editorial text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white group-hover:text-asean-yellow transition-colors leading-none select-none shrink-0">
@@ -126,26 +136,25 @@ export default function Header() {
               <span className="leading-none block truncate">&amp; Network Evaluator</span>
             </div>
           </Link>
-
-          {/* Desktop controls (hidden on mobile — see Row 2 below) */}
           <div className="hidden md:flex items-center gap-3">
             <ThemeToggle />
             <LanguageSwitcher />
           </div>
         </div>
 
-        {/* Row 2: Mobile controls bar (hidden on desktop) */}
-        <div className="md:hidden flex items-center justify-between mt-3 pt-3 border-t border-slate-200/60 dark:border-slate-800/40 animate-[fadeIn_0.3s_ease-out]">
+        {/* Row 2: Mobile controls */}
+        <div className="md:hidden flex items-center justify-between mt-3 pt-3 border-t border-slate-200/60 dark:border-slate-800/40">
           <div className="flex items-center gap-2">
             <ThemeToggle />
             <LanguageSwitcher />
           </div>
           <button
+            ref={hamburgerRef}
             onClick={() => toggleMenu(!mobileMenuOpen)}
             className="p-2 rounded-lg bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-800"
             aria-label="Toggle Menu"
             aria-expanded={mobileMenuOpen}
-            aria-controls="mobile-nav-drawer"
+            aria-controls="mobile-nav-sheet"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
@@ -182,11 +191,8 @@ export default function Header() {
                       }`} />
                     </button>
                   </div>
-
-                   {/* Dropdown — centered under group with mobile overflow guard */}
                   {isOpen && (
                     <div className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-60 max-w-[calc(100vw-2rem)] rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl z-50 py-2 animate-[fadeIn_0.12s_ease-out]">
-                      {/* Arrow — centered within dropdown */}
                       <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-3 h-3 rotate-45 bg-white dark:bg-slate-900 border-l border-t border-slate-200 dark:border-slate-800" />
                       {item.children.map((child) => {
                         const active = isActive(child.href);
@@ -203,9 +209,7 @@ export default function Header() {
                           >
                             <child.icon className={`w-3.5 h-3.5 ${child.iconColor}`} />
                             <span>{child.label}</span>
-                            {active && (
-                              <span className="ml-auto w-1.5 h-1.5 rounded-full bg-asean-yellow" />
-                            )}
+                            {active && <span className="ml-auto w-1.5 h-1.5 rounded-full bg-asean-yellow" />}
                           </Link>
                         );
                       })}
@@ -214,8 +218,6 @@ export default function Header() {
                 </div>
               );
             }
-
-            // Plain link
             const active = isActive(item.href);
             return (
               <Link
@@ -231,87 +233,103 @@ export default function Header() {
           })}
         </nav>
       </div>
+    </header>
 
-      {/* Mobile Drawer Overlay */}
-      {mobileMenuOpen && (
+    {/* ── Mobile Side Sheet (renders outside header so it overlays page content) ── */}
+    {mobileMenuOpen && (
+      <div className="md:hidden fixed inset-0 z-40 flex">
+        {/* Backdrop */}
         <div
-          className="md:hidden fixed inset-0 z-40 bg-black/50"
+          className="absolute inset-0 bg-black/40 animate-[fadeIn_0.2s_ease-out]"
           onClick={() => toggleMenu(false)}
         />
-      )}
+        {/* Sheet panel */}
+        <div
+          id="mobile-nav-sheet"
+          ref={sheetRef}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Site navigation"
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+          className="relative w-[80%] max-w-[320px] h-full bg-slate-50 dark:bg-slate-950 border-r border-slate-200 dark:border-slate-800 shadow-2xl overflow-y-auto overscroll-contain animate-[slideInLeft_0.25s_ease-out]"
+        >
+          {/* Close button + branding */}
+          <div className="sticky top-0 z-10 flex items-center justify-between px-4 py-4 border-b border-slate-200 dark:border-slate-800 bg-slate-50/95 dark:bg-slate-950/95 backdrop-blur-md">
+            <span className="font-serif-editorial text-lg font-extrabold text-slate-900 dark:text-white">DRONE</span>
+            <button
+              onClick={() => toggleMenu(false)}
+              className="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500"
+              aria-label="Close menu"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
 
-      {/* Mobile Drawer */}
-      {mobileMenuOpen && (
-      <div
-        id="mobile-nav-drawer"
-        ref={drawerRef}
-        role="dialog"
-        aria-modal="true"
-        aria-label="Site navigation"
-        className="md:hidden relative z-50 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 px-4 py-4 animate-[slideDown_0.2s_ease-out]"
-      >
-        <div className="space-y-1 text-xs font-sans">
-          {NAV_GROUPS.map((item) => {
-            if (isNavGroup(item)) {
-              const groupActive = isSubmenuActive(item);
+          {/* Nav items */}
+          <nav className="px-3 py-3 space-y-1 text-sm font-sans">
+            {NAV_GROUPS.map((item) => {
+              if (isNavGroup(item)) {
+                const groupActive = isSubmenuActive(item);
+                return (
+                  <div key={item.href} className="space-y-0.5">
+                    <Link
+                      href={item.href}
+                      onClick={() => toggleMenu(false)}
+                      aria-current={groupActive ? "page" : undefined}
+                      className={`flex items-center gap-3 px-3 py-2.5 rounded-lg font-bold transition-colors ${
+                        groupActive
+                          ? "bg-asean-yellow/10 text-asean-yellow"
+                          : "text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800"
+                      }`}
+                    >
+                      <item.icon className={`w-4 h-4 ${item.iconColor}`} />
+                      {item.label}
+                    </Link>
+                    {item.children.map((child) => {
+                      const active = isActive(child.href);
+                      return (
+                        <Link
+                          key={child.href}
+                          href={child.href}
+                          onClick={() => toggleMenu(false)}
+                          aria-current={active ? "page" : undefined}
+                          className={`flex items-center gap-3 pl-9 pr-3 py-2 rounded-lg font-medium transition-colors ${
+                            active
+                              ? "bg-asean-yellow/10 text-asean-yellow"
+                              : "text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
+                          }`}
+                        >
+                          <child.icon className={`w-3.5 h-3.5 ${child.iconColor}`} />
+                          {child.label}
+                        </Link>
+                      );
+                    })}
+                  </div>
+                );
+              }
+              const active = isActive(item.href);
               return (
-                <div key={item.href} className="space-y-0.5">
-                  <Link
-                    href={item.href}
-                    onClick={() => toggleMenu(false)}
-                    aria-current={groupActive ? "page" : undefined}
-                    className={`flex items-center gap-2 px-2 py-2 rounded-lg font-bold transition-colors ${
-                      groupActive
-                        ? "bg-asean-yellow/10 text-asean-yellow"
-                        : "text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800"
-                    }`}
-                  >
-                    <item.icon className={`w-3.5 h-3.5 ${item.iconColor}`} />
-                    {item.label}
-                  </Link>
-                  {item.children.map((child) => {
-                    const active = isActive(child.href);
-                    return (
-                      <Link
-                        key={child.href}
-                        href={child.href}
-                        onClick={() => toggleMenu(false)}
-                        aria-current={active ? "page" : undefined}
-                        className={`flex items-center gap-2 pl-7 pr-2 py-2 rounded-lg font-semibold transition-colors ${
-                          active
-                            ? "bg-asean-yellow/10 text-asean-yellow"
-                            : "text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
-                        }`}
-                      >
-                        <child.icon className={`w-3.5 h-3.5 ${child.iconColor}`} />
-                        {child.label}
-                      </Link>
-                    );
-                  })}
-                </div>
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => toggleMenu(false)}
+                  aria-current={active ? "page" : undefined}
+                  className={`flex items-center gap-3 px-3 py-2.5 rounded-lg font-bold transition-colors ${
+                    active
+                      ? "bg-asean-yellow/10 text-asean-yellow"
+                      : "text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800"
+                  }`}
+                >
+                  <item.icon className={`w-4 h-4 ${item.iconColor}`} />
+                  {item.label}
+                </Link>
               );
-            }
-            const active = isActive(item.href);
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                onClick={() => toggleMenu(false)}
-                aria-current={active ? "page" : undefined}
-                className={`flex items-center gap-2 px-2 py-2 rounded-lg font-bold transition-colors ${
-                  active
-                    ? "bg-asean-yellow/10 text-asean-yellow"
-                    : "text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800"
-                }`}
-              >
-                <item.icon className={`w-3.5 h-3.5 ${item.iconColor}`} />
-                {item.label}
-              </Link>
-            );
-          })}
+            })}
+          </nav>
         </div>
       </div>
-      )}
-    </header>
+    )}
+    </>
   );
 }
