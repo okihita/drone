@@ -2,6 +2,11 @@ import type { Metadata } from "next";
 import Footer from "@/components/Footer";
 import { fetchConsumerProtectionPolicies } from "@/services/consumer_protection";
 import { Shield } from "lucide-react";
+import { ID, MY, SG, PH, TH, VN, KH, LA, MM, BN, TL } from "country-flag-icons/react/3x2";
+
+const FLAG_COMPONENTS: Record<string, React.ComponentType<{ className?: string }>> = {
+  ID, MY, SG, PH, TH, VN, KH, LA, MM, BN, TL,
+};
 
 export const metadata: Metadata = {
   title: "Consumer Protection Dashboard — ASEAN Digital Rights | D.R.O.N.E.",
@@ -67,8 +72,9 @@ export default function ConsumerProtectionPage() {
             {policies.map((policy) => (
               <div key={policy.id} className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm">
                 <div className="flex items-center justify-between mb-2">
-                  <div>
-                    <span className="font-mono text-[10px] px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-800 font-extrabold">{policy.countryCode}</span>
+                <div className="flex items-center gap-1.5">
+                  {(() => { const FlagIcon = FLAG_COMPONENTS[policy.countryCode]; return FlagIcon ? <FlagIcon className="w-4 h-3 rounded-xs shrink-0" /> : null; })()}
+                  <span className="font-mono text-[10px] px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-800 font-extrabold">{policy.countryCode}</span>
                     <span className="ml-2 text-sm font-bold text-slate-800 dark:text-slate-200">{policy.countryName}</span>
                   </div>
                   <span className={`text-sm font-mono font-extrabold ${policy.compositeScore >= 60 ? "text-emerald-600" : policy.compositeScore >= 35 ? "text-amber-600" : "text-red-600"}`}>

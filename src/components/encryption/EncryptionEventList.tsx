@@ -3,6 +3,11 @@
 import type { EncryptionEvent } from "@/types/encryption";
 import { ENCRYPTION_EVENT_LABELS } from "@/types/encryption";
 import { useState } from "react";
+import { ID, MY, SG, PH, TH, VN, KH, LA, MM, BN, TL } from "country-flag-icons/react/3x2";
+
+const FLAG_COMPONENTS: Record<string, React.ComponentType<{ className?: string }>> = {
+  ID, MY, SG, PH, TH, VN, KH, LA, MM, BN, TL,
+};
 
 interface Props {
   events: EncryptionEvent[];
@@ -41,6 +46,7 @@ export default function EncryptionEventList({ events }: Props) {
               <div className="shrink-0 w-2 h-2 mt-1.5 rounded-full" style={{ backgroundColor: event.severityScore >= 70 ? "#CC0000" : event.severityScore >= 40 ? "#CC8800" : "#008855" }} />
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 mb-0.5">
+                  {(() => { const FlagIcon = FLAG_COMPONENTS[event.countryCode]; return FlagIcon ? <FlagIcon className="w-4 h-3 rounded-xs shrink-0" /> : null; })()}
                   <span className="font-mono text-[10px] px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-800">{event.countryCode}</span>
                   <span className="text-[10px] px-1.5 py-0.5 rounded font-bold text-white" style={{ backgroundColor: event.severityScore >= 70 ? "#CC0000" : event.severityScore >= 40 ? "#CC8800" : "#008855" }}>
                     {ENCRYPTION_EVENT_LABELS[event.eventType]}

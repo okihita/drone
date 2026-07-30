@@ -85,11 +85,14 @@ export default function BenchmarkHeatmap({ summaries, principles, selectedCountr
                       onClick={() => onSelectCountry(selectedCountry === s.countryCode ? null : s.countryCode)}
                       title={`${s.countryName} (${s.countryCode})`}
                     >
-                      {FlagIcon ? (
-                        <FlagIcon className="w-5 h-3.5 rounded-xs mx-auto" />
-                      ) : (
-                        <span className="font-mono text-[10px] font-extrabold">{s.countryCode}</span>
-                      )}
+                      <div className="flex flex-col items-center gap-0.5">
+                        {FlagIcon ? (
+                          <FlagIcon className="w-5 h-3.5 rounded-xs" />
+                        ) : (
+                          <span className="font-mono text-[10px] font-extrabold">{s.countryCode}</span>
+                        )}
+                        <span className="font-mono text-[9px] font-bold text-slate-500 dark:text-slate-400">{s.countryCode}</span>
+                      </div>
                     </th>
                   );
                 })}

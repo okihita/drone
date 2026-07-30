@@ -2,6 +2,12 @@ interface Props {
   summary: Record<string, { countryName: string; totalEvents: number; avgSeverity: number; worstEvent: string }>;
 }
 
+import { ID, MY, SG, PH, TH, VN, KH, LA, MM, BN, TL } from "country-flag-icons/react/3x2";
+
+const FLAG_COMPONENTS: Record<string, React.ComponentType<{ className?: string }>> = {
+  ID, MY, SG, PH, TH, VN, KH, LA, MM, BN, TL,
+};
+
 export default function EncryptionSummaryStats({ summary }: Props) {
   const entries = Object.entries(summary).sort((a, b) => b[1].avgSeverity - a[1].avgSeverity);
 
@@ -12,7 +18,10 @@ export default function EncryptionSummaryStats({ summary }: Props) {
           {entries.map(([code, data]) => (
             <div key={code} className="p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm">
               <div className="flex items-center justify-between mb-1">
-                <span className="font-mono text-[10px] font-extrabold text-slate-400">{code}</span>
+                <div className="flex items-center gap-1">
+                  {(() => { const FlagIcon = FLAG_COMPONENTS[code]; return FlagIcon ? <FlagIcon className="w-4 h-3 rounded-xs" /> : null; })()}
+                  <span className="font-mono text-[10px] font-extrabold text-slate-400">{code}</span>
+                </div>
                 <span className={`font-mono text-sm font-extrabold ${data.avgSeverity >= 70 ? "text-red-600" : data.avgSeverity >= 40 ? "text-amber-600" : "text-emerald-600"}`}>
                   {data.avgSeverity}
                 </span>

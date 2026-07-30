@@ -2,6 +2,11 @@
 
 import type { EncryptionEvent } from "@/types/encryption";
 import { ENCRYPTION_EVENT_LABELS } from "@/types/encryption";
+import { ID, MY, SG, PH, TH, VN, KH, LA, MM, BN, TL } from "country-flag-icons/react/3x2";
+
+const FLAG_COMPONENTS: Record<string, React.ComponentType<{ className?: string }>> = {
+  ID, MY, SG, PH, TH, VN, KH, LA, MM, BN, TL,
+};
 
 interface Props {
   events: EncryptionEvent[];
@@ -33,6 +38,7 @@ export default function ViolationTimeline({ events }: Props) {
 
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 mb-0.5">
+                  {(() => { const FlagIcon = FLAG_COMPONENTS[event.countryCode]; return FlagIcon ? <FlagIcon className="w-4 h-3 rounded-xs shrink-0" /> : null; })()}
                   <span className="font-mono text-[10px] px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
                     {event.countryCode}
                   </span>
