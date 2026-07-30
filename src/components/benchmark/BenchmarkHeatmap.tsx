@@ -97,7 +97,7 @@ export default function BenchmarkHeatmap({ summaries, principles, selectedCountr
           <table className="w-full border-collapse text-xs font-sans">
             <thead>
               <tr>
-                <th className={`${headerBg} p-2 text-left min-w-[220px] rounded-tl-xl`}>Principle</th>
+                <th className={`${headerBg} p-2 text-left min-w-[200px] rounded-tl-xl`}>Principle</th>
                 {summaries.map((s) => {
                   const FlagIcon = FLAG_COMPONENTS[s.countryCode];
                   return (
