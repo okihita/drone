@@ -1,4 +1,6 @@
 import { ASEAN_COLORS } from "./colors";
+import { BookOpen, Activity, Map, Database, Send, BarChart3, Cpu, Lock, Calendar, FileKey, ShieldCheck } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 
 // ── Policy Categories (single source of truth) ──────────────────────────────
 
@@ -73,9 +75,6 @@ export const MAP_FILTER_MODES = ["ALL", "OPEN", "HYBRID", "STRICT"] as const;
 export type MapFilterMode = (typeof MAP_FILTER_MODES)[number];
 
 // ── Header Navigation Links ──────────────────────────────────────────────────
-
-import { BookOpen, Activity, Map, Database, Send, BarChart3, Cpu, Lock, Calendar, FileKey, ShieldCheck } from "lucide-react";
-import type { LucideIcon } from "lucide-react";
 
 export interface NavLink {
   href: string;

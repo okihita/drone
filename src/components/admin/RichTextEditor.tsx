@@ -128,12 +128,25 @@ export default function RichTextEditor({ content, onChange, placeholder }: RichT
   });
 
   const contentRef = useRef(content);
+  const readTime = useRef(calculateReadTime(content));
+
   useEffect(() => {
     if (editor && content !== contentRef.current) {
       contentRef.current = content;
+      readTime.current = calculateReadTime(content);
       editor.commands.setContent(content);
     }
   }, [editor, content]);
+
+  // Track read time on editor changes — avoids expensive getHTML() during renders
+  useEffect(() => {
+    if (!editor) return;
+    const updateReadTime = () => {
+      readTime.current = calculateReadTime(editor.getHTML());
+    };
+    editor.on("update", updateReadTime);
+    return () => { editor.off("update", updateReadTime); };
+  }, [editor]);
 
   const handleImageUpload = useCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -146,8 +159,7 @@ export default function RichTextEditor({ content, onChange, placeholder }: RichT
         .upload(path, file, { upsert: true });
       if (error) throw error;
       const url = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/news/${data.path}`;
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (editor.commands as any).setImageCaption({ src: url, alt: file.name });
+      editor.chain().focus().setImage({ src: url, alt: file.name }).run();
     } catch (err) {
       console.error("Image upload failed:", err);
     } finally {
@@ -257,7 +269,7 @@ export default function RichTextEditor({ content, onChange, placeholder }: RichT
           {/* Read time indicator */}
           <span className="text-[10px] text-slate-400 dark:text-slate-500 font-sans flex items-center gap-1 px-2">
             <Clock className="w-3 h-3" />
-            {calculateReadTime(editor.getHTML())}
+            {readTime.current}
           </span>
 
           {/* Preview toggle */}

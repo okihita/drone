@@ -6,6 +6,7 @@ import { getRealAseanCountries, type GeoCountryData } from "@/lib/aseanGeo";
 import { REGIME_FILL_COLORS } from "@/lib/constants";
 import { ASEAN_COLORS } from "@/lib/colors";
 import { Zap, AlertTriangle, ShieldCheck, Layers } from "lucide-react";
+import { ID, MY, SG, PH, TH, VN, KH, LA, MM, BN, TL } from "country-flag-icons/react/3x2";
 
 const FLOW_ARCS: ReadonlyArray<readonly [string, string, string]> = [
   ["MY", "VN", "Cross-Border Cloud Directive"],
@@ -17,8 +18,6 @@ const FLOW_ARCS: ReadonlyArray<readonly [string, string, string]> = [
   ["TH", "MM", "Border Cybersecurity Relay"],
   ["PH", "VN", "Submarine Cable Link"],
 ];
-
-
 
 function arcPathD(a: { x: number; y: number }, b: { x: number; y: number }): string {
   const mx = (a.x + b.x) / 2;
@@ -38,8 +37,6 @@ interface HeroMapCanvasProps {
   activeLayer: MapLayerMode;
   onSelectLayer?: (layer: MapLayerMode) => void;
 }
-
-import { ID, MY, SG, PH, TH, VN, KH, LA, MM, BN, TL } from "country-flag-icons/react/3x2";
 
 const FLAG_COMPONENTS: Record<string, React.ComponentType<{ className?: string }>> = {
   ID, MY, SG, PH, TH, VN, KH, LA, MM, BN, TL,
@@ -254,7 +251,7 @@ export default function HeroMapCanvas({
       {/* ===== Top-Right HUD: Monitored Corridors, Regime Posture & Vertically Stacked Layers (South China Sea) ===== */}
       <div className="absolute right-4 top-4 z-30 flex flex-col items-end gap-2 font-sans text-xs sm:right-6 sm:top-6">
         <span className="hidden sm:inline-block text-[9px] font-mono uppercase tracking-widest text-slate-500 dark:text-slate-400/90 pr-1">
-          8 Data Flow Corridors Monitored
+          {FLOW_ARCS.length} Data Flow Corridors Monitored
         </span>
 
         {/* ASEAN Regime Posture Card (Positioned Above Layers) */}
@@ -387,7 +384,7 @@ export default function HeroMapCanvas({
       {/* ===== Bottom Left Map Status (Indian Ocean) ===== */}
       <div className="pointer-events-none absolute left-4 bottom-3 z-20 font-mono text-[9px] uppercase tracking-widest text-slate-500/90 dark:text-slate-500/80 sm:left-6 sm:bottom-3.5 space-y-0.5">
         <div className="text-asean-yellow font-bold">
-          11 ASEAN Member States
+          {countries.length} ASEAN Member States
         </div>
         <div className="text-slate-600 dark:text-slate-400">LAT: 04°30′N</div>
         <div className="text-slate-600 dark:text-slate-400">LON: 115°00′E</div>
