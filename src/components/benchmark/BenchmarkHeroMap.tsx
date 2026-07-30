@@ -12,19 +12,29 @@ const FLAG_COMPONENTS: Record<string, React.ComponentType<{ className?: string }
   ID, MY, SG, PH, TH, VN, KH, LA, MM, BN, TL,
 };
 
-const CLUSTER_LEGEND = [
-  { fill: "#CC0000", label: "Infrastructure & Access", id: "infrastructure" },
-  { fill: "#003399", label: "Data Governance & Flows", id: "data_governance" },
-  { fill: "#CC8800", label: "Technology Sovereignty", id: "tech_sovereignty" },
-  { fill: "#008855", label: "Consumer Trust & Security", id: "consumer_trust" },
-  { fill: "#0066CC", label: "IP & Standards", id: "ip_standards" },
-];
+function scoreColor(score: number): string {
+  if (score >= 80) return "#059669";
+  if (score >= 65) return "#22c55e";
+  if (score >= 50) return "#eab308";
+  if (score >= 35) return "#f97316";
+  if (score >= 20) return "#dc2626";
+  return "#991b1b";
+}
 
 function scoreBadge(score: number): string {
   if (score >= 65) return "text-emerald-600 dark:text-emerald-400";
   if (score >= 40) return "text-amber-600 dark:text-amber-400";
   return "text-red-600 dark:text-red-400";
 }
+
+const SCORE_LEGEND = [
+  { color: "#059669", range: "80–100" },
+  { color: "#22c55e", range: "65–79" },
+  { color: "#eab308", range: "50–64" },
+  { color: "#f97316", range: "35–49" },
+  { color: "#dc2626", range: "20–34" },
+  { color: "#991b1b", range: "0–19" },
+];
 
 interface Props {
   selectedCountryCode: string | null;
@@ -44,13 +54,11 @@ export default function BenchmarkHeroMap({ selectedCountryCode, onSelectCountry 
 
   const countryColors = useMemo(() => {
     const map = new Map<string, string>();
-    const colors = CLUSTER_LEGEND.map((l) => l.fill);
-    for (const c of countries) {
-      const idx = c.threatScore >= 4 ? 0 : c.threatScore === 3 ? 2 : c.threatScore === 2 ? 3 : 4;
-      map.set(c.code, colors[idx]);
+    for (const s of allSummaries) {
+      map.set(s.countryCode, scoreColor(s.overallScore));
     }
     return map;
-  }, [countries]);
+  }, [allSummaries]);
 
   const selectedSummary = selectedCountryCode ? scoreMap.get(selectedCountryCode) ?? null : null;
 
@@ -66,15 +74,15 @@ export default function BenchmarkHeroMap({ selectedCountryCode, onSelectCountry 
               Geographic Compliance Overview
             </h2>
             <p className="text-xs text-slate-500 dark:text-slate-400 font-sans mt-0.5">
-              Countries colored by primary Digital 2 Dozen risk profile. Click a flag or country to inspect.
+              Countries colored by overall Digital 2 Dozen compliance score. Click a flag or country to inspect.
             </p>
           </div>
-          <div className="hidden sm:flex items-center gap-3">
-            {CLUSTER_LEGEND.map((val) => (
-              <div key={val.label} className="flex items-center gap-1.5 text-[10px] font-sans text-slate-500 dark:text-slate-400">
-                <span className="w-3 h-3 rounded-sm" style={{ backgroundColor: val.fill }} />
-                <span className="hidden lg:inline">{val.label.split(" & ")[0]}</span>
-              </div>
+          <div className="hidden sm:flex items-center gap-2 text-[10px] font-sans text-slate-500 dark:text-slate-400">
+            {SCORE_LEGEND.map((val) => (
+              <span key={val.range} className="flex items-center gap-1">
+                <span className="w-3 h-3 rounded-sm" style={{ backgroundColor: val.color }} />
+                {val.range}
+              </span>
             ))}
           </div>
         </div>

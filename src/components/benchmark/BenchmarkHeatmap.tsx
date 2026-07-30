@@ -69,7 +69,7 @@ export default function BenchmarkHeatmap({ summaries, principles, selectedCountr
 
         {/* Centered table inside card container */}
         <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm overflow-x-auto flex justify-center">
-          <table className="border-collapse text-xs font-sans">
+          <table className="w-full border-collapse text-xs font-sans">
             <thead>
               <tr>
                 <th className={`${headerBg} p-2 text-left rounded-tl-xl`}>Principle</th>
