@@ -42,8 +42,11 @@ export default function BenchmarkHeatmap({ summaries, principles, selectedCountr
 
   return (
     <section className="px-4 sm:px-6 lg:px-8 py-6 max-w-full">
-      <div className="max-w-[1600px] mx-auto">
-        <h2 className="font-serif-editorial text-xl font-bold text-slate-900 dark:text-white mb-4">
+      <div className="max-w-7xl mx-auto">
+        <span className="text-xs font-sans uppercase tracking-widest text-asean-blue font-bold">
+          PRINCIPLE-BY-PRINCIPLE SCORES
+        </span>
+        <h2 className="font-serif-editorial text-xl font-bold text-slate-900 dark:text-white mb-4 mt-1">
           Compliance Heatmap
         </h2>
 
@@ -64,8 +67,8 @@ export default function BenchmarkHeatmap({ summaries, principles, selectedCountr
           ))}
         </div>
 
-        {/* Centered table */}
-        <div className="overflow-x-auto border border-slate-200 dark:border-slate-700 rounded-xl shadow-sm bg-white dark:bg-slate-900 flex justify-center">
+        {/* Centered table inside card container */}
+        <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm overflow-x-auto flex justify-center">
           <table className="border-collapse text-xs font-sans">
             <thead>
               <tr>
