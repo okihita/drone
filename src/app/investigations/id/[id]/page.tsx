@@ -1,6 +1,8 @@
 import { notFound, redirect } from "next/navigation";
 import { getNewsById } from "@/services/news";
 
+export const revalidate = 3600;
+
 interface Props {
   params: Promise<{ id: string }>;
 }

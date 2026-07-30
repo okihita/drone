@@ -4,7 +4,11 @@ import type { Policy, PolicyListItem, PolicyRadarEntry } from "@/types";
 
 // ── Queries ──────────────────────────────────────────────────────────────────
 
-/** Fetch all policies ordered by date descending (for admin listing). */
+/**
+ * Fetch all policies ordered by date descending.
+ * Selects only listing-relevant columns for efficiency.
+ * Used by admin dashboard and policy listing pages.
+ */
 export async function listPolicies(): Promise<PolicyListItem[]> {
   const { data, error } = await supabase
     .from("policies")
@@ -23,7 +27,10 @@ export async function getPolicyById(id: string): Promise<Policy | null> {
     .eq("id", id)
     .single();
 
-  if (error) throw new Error(error.message);
+  if (error) {
+    if ((error as { code?: string }).code === "PGRST116") return null;
+    throw new Error(error.message);
+  }
   return (data as Policy) ?? null;
 }
 
@@ -39,7 +46,12 @@ export async function listPolicyRadar(limit = 3): Promise<PolicyRadarEntry[]> {
   return (data as PolicyRadarEntry[]) ?? [];
 }
 
-/** Server-side search (used by API route and SSR pages). */
+/**
+ * Server-side policy search with sanitized input.
+ * Escapes PostgREST filter special characters to prevent injection.
+ * Supports free-text search across title, summary, and jurisdiction,
+ * plus optional category filter. Uses service-role client for RLS bypass.
+ */
 export async function searchPoliciesServer(params: {
   q?: string;
   category?: string;
@@ -51,8 +63,10 @@ export async function searchPoliciesServer(params: {
     .order("date", { ascending: false });
 
   if (params.q) {
+    // Escape PostgREST special characters to prevent filter injection
+    const sanitized = params.q.replace(/[%_,()]/g, "\\$&");
     query = query.or(
-      `title.ilike.%${params.q}%,summary.ilike.%${params.q}%,jurisdiction.ilike.%${params.q}%`,
+      `title.ilike.*${sanitized}*,summary.ilike.*${sanitized}*,jurisdiction.ilike.*${sanitized}*`,
     );
   }
   if (params.category && params.category !== "ALL") {
@@ -83,7 +97,7 @@ export async function createPolicy(
 
 export async function updatePolicy(
   id: string,
-  patch: Partial<Policy>,
+  patch: Partial<Omit<Policy, "id" | "created_at">>,
   client: SupabaseClient = supabase,
 ): Promise<void> {
   const { error } = await client

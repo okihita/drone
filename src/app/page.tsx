@@ -7,6 +7,8 @@ import BenchmarkPreview from "@/components/landing/BenchmarkPreview";
 import type { NewsCardItem, NewsDispatchItem } from "@/types/news";
 import type { PolicyRadarEntry } from "@/types/policy";
 
+export const revalidate = 3600; // ISR: regenerate page at most once per hour
+
 const SUPABASE_AVAILABLE = !!(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
 
 export default async function Home() {
@@ -15,17 +17,22 @@ export default async function Home() {
   let radar: PolicyRadarEntry[] = [];
 
   if (SUPABASE_AVAILABLE) {
-    // Dynamic import: only loads Supabase-dependent modules when env vars are set
-    const [{ listStories, listDispatches }, { listPolicyRadar }] = await Promise.all([
-      import("@/services/news"),
-      import("@/services/policies"),
-    ]);
+    try {
+      // Dynamic import: only loads Supabase-dependent modules when env vars are set
+      const [{ listStories, listDispatches }, { listPolicyRadar }] = await Promise.all([
+        import("@/services/news"),
+        import("@/services/policies"),
+      ]);
 
-    [stories, dispatches, radar] = await Promise.all([
-      listStories(),
-      listDispatches(),
-      listPolicyRadar(),
-    ]);
+      [stories, dispatches, radar] = await Promise.all([
+        listStories(),
+        listDispatches(),
+        listPolicyRadar(),
+      ]);
+    } catch (err) {
+      console.error("[homepage] failed to fetch content:", err);
+      // Render with empty data — page shows static content gracefully
+    }
   }
 
   return (

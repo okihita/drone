@@ -8,11 +8,13 @@ const newsreader = Newsreader({
   variable: "--font-serif",
   subsets: ["latin"],
   style: ["normal", "italic"],
+  display: "swap",
 });
 
 const geist = Geist({
   subsets: ["latin"],
   variable: "--font-sans",
+  display: "swap",
 });
 
 const siteUrl =

@@ -11,16 +11,22 @@ import type { MapFilterMode } from "@/lib/constants";
 
 function CountryDossierModal({ country, onClose }: { country: GeoCountryData; onClose: () => void }) {
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 dark:bg-black/80 backdrop-blur-md font-sans">
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 dark:bg-black/80 backdrop-blur-md font-sans"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modal-country-name"
+      onKeyDown={(e) => { if (e.key === "Escape") onClose(); }}
+    >
       <div className="relative w-full max-w-2xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded-xl p-6 shadow-sm">
-        <button onClick={onClose} className="absolute top-4 right-4 p-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white">
+        <button onClick={onClose} className="absolute top-4 right-4 p-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white" aria-label="Close modal">
           <X className="w-5 h-5" />
         </button>
 
         <div className="flex items-center gap-3 mb-4 font-sans">
           <MapPin className="w-6 h-6 text-asean-yellow" />
           <div>
-            <h3 className="font-serif-editorial text-2xl font-bold text-slate-900 dark:text-white">{country.name}</h3>
+            <h3 id="modal-country-name" className="font-serif-editorial text-2xl font-bold text-slate-900 dark:text-white">{country.name}</h3>
             <span className="text-xs text-slate-500 dark:text-slate-400 font-sans">Capital: {country.capital} &bull; ISO: {country.code}</span>
           </div>
         </div>
@@ -213,9 +219,18 @@ export default function AseanMap() {
                     stroke={strokeColor}
                     strokeWidth={isSelected || isHovered ? "2" : "0.75"}
                     className="transition-all duration-200"
+                    role="button"
+                    tabIndex={0}
+                    aria-label={`${country.name} (${country.regimeType})`}
                     onMouseEnter={() => setHoveredCountry(country)}
                     onMouseLeave={() => setHoveredCountry(null)}
                     onClick={() => setSelectedCountry(country)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        setSelectedCountry(country);
+                      }
+                    }}
                   />
                   <circle
                     cx={country.centerPos.x}

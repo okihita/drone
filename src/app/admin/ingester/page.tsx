@@ -52,7 +52,9 @@ export default function AdminIngesterWorkbench() {
   };
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- standard data-fetching on mount
     fetchStagedItems();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const selectedItem = stagedItems.find((item) => item.id === selectedId) || stagedItems[0] || null;
@@ -386,7 +388,7 @@ export default function AdminIngesterWorkbench() {
                       </label>
                       <select
                         value={editForm.category || selectedItem.category}
-                        onChange={(e) => setEditForm({ ...editForm, category: e.target.value })}
+                        onChange={(e) => setEditForm({ ...editForm, category: e.target.value as NewsItem["category"] })}
                         className="w-full p-2 text-xs border rounded-[4px] bg-white dark:bg-slate-900 font-medium"
                       >
                         {CATEGORIES.map((c) => (

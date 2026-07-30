@@ -48,8 +48,11 @@ export default function HeroSection({ leadStory }: HeroSectionProps) {
               <div>
                 {/* Header Tabs */}
                 <div className="mb-4 flex items-center justify-between border-b border-slate-200 pb-3 dark:border-white/10">
-                  <div className="flex items-center gap-2">
+                  <div role="tablist" className="flex items-center gap-2">
                     <button
+                      role="tab"
+                      aria-selected={activeTab === "story"}
+                      tabIndex={activeTab === "story" ? 0 : -1}
                       onClick={() => setActiveTab("story")}
                       className={`rounded-lg px-3 py-1.5 font-sans text-xs font-bold transition-all ${
                         activeTab === "story"
@@ -60,6 +63,9 @@ export default function HeroSection({ leadStory }: HeroSectionProps) {
                       Featured Lead Story
                     </button>
                     <button
+                      role="tab"
+                      aria-selected={activeTab === "dossier"}
+                      tabIndex={activeTab === "dossier" ? 0 : -1}
                       onClick={() => {
                         if (!selectedCountry) setSelectedCountry(countries[0]);
                         setActiveTab("dossier");

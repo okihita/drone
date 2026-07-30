@@ -36,7 +36,10 @@ export async function getJurisdictionByCode(
     .eq("code", code)
     .single();
 
-  if (error) throw new Error(error.message);
+  if (error) {
+    if ((error as { code?: string }).code === "PGRST116") return null;
+    throw new Error(error.message);
+  }
   return (data as Jurisdiction) ?? null;
 }
 
@@ -44,7 +47,7 @@ export async function getJurisdictionByCode(
 
 export async function updateJurisdiction(
   id: string,
-  patch: Partial<Jurisdiction>,
+  patch: Partial<Omit<Jurisdiction, "id" | "created_at">>,
   client: SupabaseClient = supabase,
 ): Promise<void> {
   const { error } = await client

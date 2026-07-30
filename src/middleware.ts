@@ -1,7 +1,7 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
-export async function proxy(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
@@ -19,24 +19,36 @@ export async function proxy(request: NextRequest) {
       setAll(cookiesToSet) {
         try {
           cookiesToSet.forEach(({ name, value, options }) => {
-            request.cookies.set(name, value);
             response.cookies.set(name, value, options);
           });
         } catch (err) {
-          console.error("[proxy] cookie set error:", err);
+          console.error("[middleware] cookie set error:", err);
         }
       },
     },
   });
 
-  const { data: { user } } = await supabase.auth.getUser();
+  let user = null;
+  try {
+    const result = await supabase.auth.getUser();
+    user = result.data.user;
+  } catch (err) {
+    console.error("[middleware] auth check failed:", err);
+    // Treat as unauthenticated — protected routes will redirect to login below
+  }
 
-  // Protect /admin/* except /admin/login
   const pathname = request.nextUrl.pathname;
   const isLoginPage = pathname === "/admin/login" || pathname === "/admin/login/";
+  const isAdminRoute = pathname.startsWith("/admin");
 
-  if (!user && !isLoginPage) {
+  // Redirect unauthenticated users away from protected admin routes
+  if (!user && isAdminRoute && !isLoginPage) {
     return NextResponse.redirect(new URL("/admin/login", request.url));
+  }
+
+  // Redirect authenticated users away from the login page
+  if (user && isLoginPage) {
+    return NextResponse.redirect(new URL("/admin", request.url));
   }
 
   return response;

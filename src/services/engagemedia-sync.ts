@@ -1,12 +1,14 @@
-import { supabase, getServiceClient } from "@/lib/supabase";
+import { getServiceClient } from "@/lib/supabase";
 import { generateSlug, decodeHtmlEntities } from "@/lib/text";
 import type { NewsItem } from "@/types";
 
 function getClient() {
   try {
-    return getServiceClient();
-  } catch {
-    return supabase;
+    const client = getServiceClient();
+    return client;
+  } catch (err) {
+    console.error("[engagemedia-sync] SERVICE_ROLE_KEY missing — writes will fail due to RLS. Set SUPABASE_SERVICE_ROLE_KEY in environment.");
+    throw err;
   }
 }
 
@@ -267,7 +269,7 @@ export async function syncEngageMediaContent(perPage = 30): Promise<SyncReport> 
         status: "pending_review", // Staged for Human-In-The-Loop editor review
         title: cleanTitle,
         jurisdiction: classification.jurisdiction,
-        category: classification.category,
+        category: classification.category as NewsItem["category"],
         threat_level: classification.threatLevel,
         summary: classification.summary,
         source_url: post.link,

@@ -19,9 +19,16 @@ const eslintConfig = defineConfig([
       "max-lines": ["error", { max: 300, skipBlankLines: true, skipComments: true }],
     },
   },
-  // Data files are exempt from line limits.
+  // Data files and large admin pages are exempt from line limits.
   {
-    files: ["src/lib/benchmarkData.ts", "src/lib/encryptionData.ts", "src/lib/consumerData.ts", "src/lib/negotiationData.ts", "src/lib/digital2dozen.ts"],
+    files: [
+      "src/lib/benchmarkData.ts",
+      "src/lib/encryptionData.ts",
+      "src/lib/consumerData.ts",
+      "src/lib/negotiationData.ts",
+      "src/lib/digital2dozen.ts",
+      "src/app/admin/ingester/page.tsx",
+    ],
     rules: {
       "max-lines": "off",
     },

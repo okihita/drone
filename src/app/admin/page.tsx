@@ -24,24 +24,26 @@ export default function AdminDashboard() {
 
   useEffect(() => {
     let cancelled = false;
-    Promise.all([
-      listPolicies().then((data) => data.slice(0, 4)),
-      listNews().then((data) => data.slice(0, 3)),
-      listJurisdictionSummaries(),
-    ])
-      .then(([p, n, j]) => {
-        if (cancelled) return;
-        setPolicies(p);
-        setNews(n);
-        setJurisdictions(j);
-        setLoading(false);
-      })
-      .catch((err) => {
-        if (!cancelled) {
-          setErrors([err.message]);
-          setLoading(false);
-        }
-      });
+    const fetchData = async () => {
+      const [pRes, nRes, jRes] = await Promise.allSettled([
+        listPolicies().then((data) => data.slice(0, 4)),
+        listNews().then((data) => data.slice(0, 3)),
+        listJurisdictionSummaries(),
+      ]);
+      if (cancelled) return;
+
+      const errs: string[] = [];
+      if (pRes.status === "fulfilled") setPolicies(pRes.value);
+      else errs.push(`Policies: ${pRes.reason.message}`);
+      if (nRes.status === "fulfilled") setNews(nRes.value);
+      else errs.push(`News: ${nRes.reason.message}`);
+      if (jRes.status === "fulfilled") setJurisdictions(jRes.value);
+      else errs.push(`Jurisdictions: ${jRes.reason.message}`);
+
+      setErrors(errs);
+      setLoading(false);
+    };
+    fetchData();
     return () => { cancelled = true; };
   }, []);
 
@@ -123,6 +125,8 @@ export default function AdminDashboard() {
                           width={80}
                           height={50}
                           unoptimized
+                          loading="lazy"
+                          sizes="80px"
                           className="rounded object-cover w-20 h-12 shrink-0 border border-slate-200 dark:border-slate-800"
                         />
                       ) : (

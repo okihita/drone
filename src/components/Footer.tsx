@@ -1,9 +1,9 @@
-"use client";
-
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { ExternalLink } from "lucide-react";
+
+const CURRENT_YEAR = new Date().getFullYear();
 
 export default function Footer() {
   return (
@@ -23,7 +23,9 @@ export default function Footer() {
               alt="EngageMedia"
               width={768}
               height={230}
+              sizes="(max-width: 640px) 56px, 64px"
               className="h-14 sm:h-16 w-auto"
+              loading="lazy"
             />
           </Link>
 
@@ -45,7 +47,6 @@ export default function Footer() {
             <li><Link href="/investigations" className="hover:text-asean-yellow transition-colors">Featured DEFA Investigation</Link></li>
             <li><Link href="/observatory" className="hover:text-asean-yellow transition-colors">ASEAN Jurisdiction Map &amp; Dossiers</Link></li>
             <li><Link href="/ledger" className="hover:text-asean-yellow transition-colors">Verified Policy Ledger &amp; Table</Link></li>
-            <li><Link href="/observatory" className="hover:text-asean-yellow transition-colors">Observatory & Threat Matrix</Link></li>
             <li><Link href="/intake" className="hover:text-asean-yellow transition-colors">Encrypted Dossier Intake</Link></li>
           </ul>
         </div>
@@ -77,7 +78,7 @@ export default function Footer() {
 
       {/* Bottom Bar */}
       <div className="max-w-7xl mx-auto pt-6 border-t border-slate-200 dark:border-slate-900 flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400 font-sans">
-        <div>© 2026 EngageMedia • DRONE Project • Released under CC BY 4.0 Human Rights License.</div>
+        <div>© {CURRENT_YEAR} EngageMedia • DRONE Project • Released under CC BY 4.0 Human Rights License.</div>
       </div>
     </footer>
   );

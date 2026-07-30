@@ -1,3 +1,6 @@
+import type { NEWS_CATEGORIES } from "@/lib/constants";
+
+export type NewsCategory = (typeof NEWS_CATEGORIES)[number];
 
 /** Canonical news-item shape matching the Supabase `news_items` table. */
 export interface NewsItem {
@@ -6,7 +9,7 @@ export interface NewsItem {
   status?: "pending_review" | "published" | "archived";
   title: string;
   jurisdiction: string;
-  category: string;
+  category: NewsCategory;
   threat_level?: string | null;
   summary: string;
   source_url: string;

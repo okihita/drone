@@ -70,15 +70,19 @@ export default function BenchmarkHeatmap({ summaries, principles, selectedCountr
         {/* Centered table inside card container */}
         <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm overflow-x-auto flex justify-center">
           <table className="w-full border-collapse text-xs font-sans">
+            <caption className="sr-only">
+              Digital 2 Dozen Compliance Heatmap — principle scores across 11 ASEAN countries
+            </caption>
             <thead>
               <tr>
-                <th className={`${headerBg} p-2 text-left rounded-tl-xl`}>Principle</th>
-                <th className={`${headerBg} p-2 text-left`}>Cluster</th>
+                <th scope="col" className={`${headerBg} p-2 text-left rounded-tl-xl`}>Principle</th>
+                <th scope="col" className={`${headerBg} p-2 text-left`}>Cluster</th>
                 {summaries.map((s) => {
                   const FlagIcon = FLAG_COMPONENTS[s.countryCode];
                   return (
                     <th
                       key={s.countryCode}
+                      scope="col"
                       className={`${headerBg} px-1 py-2 text-center cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors ${
                         selectedCountry === s.countryCode ? "bg-asean-yellow/20 dark:bg-asean-yellow/10" : ""
                       }`}

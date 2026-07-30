@@ -4,7 +4,11 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 export default function HomeLoading() {
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-200 font-sans transition-colors">
+    <div
+      className="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-200 font-sans transition-colors"
+      aria-busy="true"
+      aria-label="Loading page content"
+    >
       <Header />
       <main className="flex-1">
         {/* Hero skeleton */}
