@@ -7,7 +7,6 @@ import { Shield, ShieldAlert } from "lucide-react";
 import DEFARadarChart from "@/components/defa/DEFARadarChart";
 import DEFABenchmarkExport from "@/components/defa/DEFABenchmarkExport";
 import Footer from "@/components/Footer";
-import DefaExplainerCard from "@/components/defa/DefaExplainerCard";
 
 export default function DefaCivilSocietyView() {
   const csStates = getDefaCivilSocietyStates();
@@ -66,9 +65,6 @@ export default function DefaCivilSocietyView() {
 
       {/* Main Workspace */}
       <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full space-y-8">
-        {/* What is DEFA Explainer Brief */}
-        <DefaExplainerCard />
-
         {/* Civil Society Warning Callout */}
         <div className="p-5 rounded-2xl bg-asean-red/10 border border-asean-red/30 text-slate-900 dark:text-white flex items-start gap-4 text-xs font-sans">
           <ShieldAlert className="w-6 h-6 text-asean-red shrink-0 mt-0.5" />
