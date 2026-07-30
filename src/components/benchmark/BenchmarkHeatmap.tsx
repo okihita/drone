@@ -3,6 +3,7 @@
 import { useState } from "react";
 import type { BenchmarkCountrySummary, BenchmarkPrinciple } from "@/types/benchmark";
 import { BENCHMARK_CLUSTERS } from "@/lib/constants";
+import PrincipleDetailPopover from "./PrincipleDetailPopover";
 import { ChevronRight, ChevronDown } from "lucide-react";
 
 interface Props {
@@ -28,7 +29,6 @@ const CLUSTER_COLORS: Record<string, string> = {
 };
 
 export default function BenchmarkHeatmap({ summaries, principles }: Props) {
-  const [activeCluster, setActiveCluster] = useState<string>("ALL");
   const [expandedClusters, setExpandedClusters] = useState<Set<string>>(
     () => new Set(BENCHMARK_CLUSTERS.map((c) => c.id)),
   );
@@ -53,7 +53,6 @@ export default function BenchmarkHeatmap({ summaries, principles }: Props) {
   > = [];
 
   for (const cluster of BENCHMARK_CLUSTERS) {
-    if (activeCluster !== "ALL" && cluster.id !== activeCluster) continue;
     rows.push({ type: "cluster", cluster });
     if (expandedClusters.has(cluster.id)) {
       const children = principles.filter((p) => p.cluster === cluster.id);
@@ -68,7 +67,6 @@ export default function BenchmarkHeatmap({ summaries, principles }: Props) {
           <h2 className="font-serif-editorial text-xl font-bold text-slate-900 dark:text-white">
             Compliance Heatmap
           </h2>
-          <ClusterFilter active={activeCluster} onChange={setActiveCluster} />
         </div>
 
         {/* Legend */}
