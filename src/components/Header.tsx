@@ -29,6 +29,7 @@ function isNavGroup(item: NavLink | NavGroup): item is NavGroup {
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [closing, setClosing] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const sheetRef = useRef<HTMLDivElement>(null);
@@ -41,14 +42,21 @@ export default function Header() {
   const isSubmenuActive = (group: NavGroup) =>
     group.children.some((child) => isActive(child.href));
 
-  // ── Body scroll-lock when sheet is open ───────────────────────────────
-  const toggleMenu = useCallback((open: boolean) => {
-    setMobileMenuOpen(open);
-    document.body.style.overflow = open ? "hidden" : "";
-    // Return focus to hamburger on close
-    if (!open) {
+  // ── Close with exit animation ─────────────────────────────────────────
+  const closeSheet = useCallback(() => {
+    setClosing(true);
+    setTimeout(() => {
+      setMobileMenuOpen(false);
+      setClosing(false);
+      document.body.style.overflow = "";
       requestAnimationFrame(() => hamburgerRef.current?.focus());
-    }
+    }, 200); // match slideOutRight duration
+  }, []);
+
+  // ── Open sheet ────────────────────────────────────────────────────────
+  const openSheet = useCallback(() => {
+    setMobileMenuOpen(true);
+    document.body.style.overflow = "hidden";
   }, []);
 
   // Clean up scroll-lock on unmount
@@ -88,8 +96,8 @@ export default function Header() {
 
   const handleTouchEnd = useCallback((e: React.TouchEvent) => {
     const delta = e.changedTouches[0].clientX - touchStartX.current;
-    if (delta > 60) toggleMenu(false); // swipe right > 60px closes
-  }, [toggleMenu]);
+    if (delta < -60) closeSheet(); // swipe left > 60px closes (sheet on right)
+  }, [closeSheet]);
 
   // Close dropdown on route change
   useEffect(() => {
@@ -101,13 +109,13 @@ export default function Header() {
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
       if (e.key === "Escape") {
-        toggleMenu(false);
+        closeSheet();
         setOpenDropdown(null);
       }
     }
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [toggleMenu]);
+  }, [closeSheet]);
 
   // Click outside dropdown
   useEffect(() => {
@@ -150,7 +158,7 @@ export default function Header() {
           </div>
           <button
             ref={hamburgerRef}
-            onClick={() => toggleMenu(!mobileMenuOpen)}
+            onClick={() => mobileMenuOpen ? closeSheet() : openSheet()}
             className="p-2 rounded-lg bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-800"
             aria-label="Toggle Menu"
             aria-expanded={mobileMenuOpen}
@@ -241,7 +249,7 @@ export default function Header() {
         {/* Backdrop */}
         <div
           className="absolute inset-0 bg-black/40 animate-[fadeIn_0.2s_ease-out]"
-          onClick={() => toggleMenu(false)}
+          onClick={() => closeSheet()}
         />
         {/* Sheet panel */}
         <div
@@ -252,13 +260,17 @@ export default function Header() {
           aria-label="Site navigation"
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
-          className="relative w-[80%] max-w-[320px] h-full bg-slate-50 dark:bg-slate-950 border-r border-slate-200 dark:border-slate-800 shadow-2xl overflow-y-auto overscroll-contain animate-[slideInLeft_0.25s_ease-out]"
+          className={`relative ml-auto w-[80%] max-w-[320px] h-full bg-slate-50 dark:bg-slate-950 border-l border-slate-200 dark:border-slate-800 shadow-2xl overflow-y-auto overscroll-contain ${
+            closing
+              ? "animate-[slideOutRight_0.2s_ease-in]"
+              : "animate-[slideInRight_0.25s_ease-out]"
+          }`}
         >
           {/* Close button + branding */}
           <div className="sticky top-0 z-10 flex items-center justify-between px-4 py-4 border-b border-slate-200 dark:border-slate-800 bg-slate-50/95 dark:bg-slate-950/95 backdrop-blur-md">
             <span className="font-serif-editorial text-lg font-extrabold text-slate-900 dark:text-white">DRONE</span>
             <button
-              onClick={() => toggleMenu(false)}
+              onClick={() => closeSheet()}
               className="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500"
               aria-label="Close menu"
             >
@@ -275,7 +287,7 @@ export default function Header() {
                   <div key={item.href} className="space-y-0.5">
                     <Link
                       href={item.href}
-                      onClick={() => toggleMenu(false)}
+                      onClick={() => closeSheet()}
                       aria-current={groupActive ? "page" : undefined}
                       className={`flex items-center gap-3 px-3 py-2.5 rounded-lg font-bold transition-colors ${
                         groupActive
@@ -292,7 +304,7 @@ export default function Header() {
                         <Link
                           key={child.href}
                           href={child.href}
-                          onClick={() => toggleMenu(false)}
+                          onClick={() => closeSheet()}
                           aria-current={active ? "page" : undefined}
                           className={`flex items-center gap-3 pl-9 pr-3 py-2 rounded-lg font-medium transition-colors ${
                             active
@@ -313,7 +325,7 @@ export default function Header() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  onClick={() => toggleMenu(false)}
+                  onClick={() => closeSheet()}
                   aria-current={active ? "page" : undefined}
                   className={`flex items-center gap-3 px-3 py-2.5 rounded-lg font-bold transition-colors ${
                     active
