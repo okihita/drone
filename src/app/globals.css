@@ -231,6 +231,16 @@
   animation: heroMarquee 28s linear infinite !important;
 }
 
+@keyframes slideDown {
+  from { max-height: 0; opacity: 0; transform: translateY(-4px); }
+  to { max-height: 56px; opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(12px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
 /* ── Image with Caption (Tiptap custom node) ───────────────────────────────── */
 
 .prose figure.image-caption,
