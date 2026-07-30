@@ -117,7 +117,7 @@ export default function NewNewsItem() {
               {form.image_url && <p className="text-xs text-asean-yellow mt-1">Uploaded</p>}
             </div>
 
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
                 <label className="text-sm font-medium mb-1 block">Category</label>
                 <Select

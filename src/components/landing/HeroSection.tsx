@@ -185,7 +185,7 @@ export default function HeroSection({ leadStory }: HeroSectionProps) {
           </div>
 
           {/* RIGHT COLUMN: Dedicated Unobstructed Interactive Map Viewport (lg:col-span-6) */}
-          <div className="relative min-h-[540px] sm:min-h-[620px] lg:min-h-[700px] xl:min-h-[760px] lg:col-span-6 xl:col-span-6 rounded-2xl border border-slate-200 bg-slate-100 shadow-sm dark:border-white/15 dark:bg-slate-950/90 overflow-hidden">
+          <div className="relative min-h-[380px] sm:min-h-[620px] lg:min-h-[700px] xl:min-h-[760px] lg:col-span-6 xl:col-span-6 rounded-2xl border border-slate-200 bg-slate-100 shadow-sm dark:border-white/15 dark:bg-slate-950/90 overflow-hidden">
             <HeroMapCanvas
               activeCountry={selectedCountry}
               onSelectCountry={handleSelectCountry}
