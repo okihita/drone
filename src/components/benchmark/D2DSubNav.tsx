@@ -10,7 +10,7 @@ export default function D2DSubNav() {
 
   return (
     <div
-      className="sticky top-[72px] z-30 overflow-hidden border-b border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-slate-950/95 backdrop-blur-md animate-[slideDown_0.25s_ease-out]"
+      className="sticky top-[var(--drone-admin-bar-h,72px)] z-30 overflow-hidden border-b border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-slate-950/95 backdrop-blur-md animate-[slideDown_0.25s_ease-out]"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-center gap-1 py-2 overflow-x-auto no-scrollbar">
         {D2D_SUBMENU.map((item) => {

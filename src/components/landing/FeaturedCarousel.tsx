@@ -13,7 +13,8 @@ export default function FeaturedCarousel({
   stories: NewsCardItem[];
 }) {
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
-  const [isPaused] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
+  const pauseTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   useEffect(() => {
@@ -25,6 +26,13 @@ export default function FeaturedCarousel({
       if (intervalRef.current) clearInterval(intervalRef.current);
     };
   }, [isPaused, stories.length]);
+
+  const handleDotClick = (idx: number) => {
+    setActiveSlideIndex(idx);
+    setIsPaused(true);
+    if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current);
+    pauseTimeoutRef.current = setTimeout(() => setIsPaused(false), 8000);
+  };
 
   const activeStory = stories[activeSlideIndex];
 
@@ -60,7 +68,7 @@ export default function FeaturedCarousel({
         </button>
 
         <div
-          className="group relative rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm dark:shadow-none transition-all duration-300 min-h-[500px] lg:h-[500px]"
+          className="group relative rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm dark:shadow-none transition-all duration-300 min-h-[380px] sm:min-h-[450px] lg:h-[500px]"
         >
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 items-stretch h-full">
             <div className="lg:col-span-7 relative min-h-[280px] lg:min-h-full h-full bg-slate-950 overflow-hidden">
@@ -138,14 +146,14 @@ export default function FeaturedCarousel({
         <button
           onClick={handlePrevSlide}
           aria-label="Previous Story"
-          className="absolute left-3 top-1/2 -translate-y-1/2 z-30 p-2.5 rounded-full bg-slate-900/70 hover:bg-slate-900 text-white backdrop-blur-md border border-white/20 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer lg:hidden"
+          className="absolute left-3 top-1/2 -translate-y-1/2 z-30 p-2.5 rounded-full bg-slate-900/70 hover:bg-slate-900 text-white backdrop-blur-md border border-white/20 transition-colors cursor-pointer lg:hidden"
         >
           <ChevronLeft className="w-5 h-5" />
         </button>
         <button
           onClick={handleNextSlide}
           aria-label="Next Story"
-          className="absolute right-3 top-1/2 -translate-y-1/2 z-30 p-2.5 rounded-full bg-slate-900/70 hover:bg-slate-900 text-white backdrop-blur-md border border-white/20 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer lg:hidden"
+          className="absolute right-3 top-1/2 -translate-y-1/2 z-30 p-2.5 rounded-full bg-slate-900/70 hover:bg-slate-900 text-white backdrop-blur-md border border-white/20 transition-colors cursor-pointer lg:hidden"
         >
           <ChevronRight className="w-5 h-5" />
         </button>
@@ -154,7 +162,7 @@ export default function FeaturedCarousel({
           {stories.map((story, idx) => (
             <button
               key={story.id}
-              onClick={() => setActiveSlideIndex(idx)}
+              onClick={() => handleDotClick(idx)}
               aria-label={`Go to slide ${idx + 1}: ${story.title}`}
               className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
                 activeSlideIndex === idx

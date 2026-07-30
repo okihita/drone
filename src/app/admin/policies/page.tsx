@@ -108,14 +108,14 @@ export default function PoliciesList() {
                     </TableCell>
                     <TableCell className="flex gap-1">
                       <Link href={`/admin/policies/${p.id}`}>
-                        <Button variant="ghost" size="icon" className="h-8 w-8">
+                        <Button variant="ghost" size="icon" className="h-10 w-10">
                           <Pencil className="w-3.5 h-3.5" />
                         </Button>
                       </Link>
                       <Button
                         variant="ghost"
                         size="icon"
-                        className="h-8 w-8 text-red-500 hover:text-red-700"
+                        className="h-10 w-10 text-red-500 hover:text-red-700"
                         onClick={() => handleDelete(p.id)}
                       >
                         <Trash2 className="w-3.5 h-3.5" />

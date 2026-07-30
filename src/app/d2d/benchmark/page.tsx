@@ -30,10 +30,10 @@ export default function BenchmarkPage() {
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">
             <div className="flex-1">
-              <div className="flex items-center gap-2 text-xs font-sans uppercase tracking-widest text-asean-blue font-bold mb-2">
+              <div className="flex flex-wrap items-center gap-x-2 gap-y-0 text-xs font-sans uppercase tracking-widest text-asean-blue font-bold mb-2">
                 <BarChart3 className="h-4 w-4 text-asean-blue animate-pulse" />
                 <span>USTR Digital 2 Dozen — TPP Benchmark</span>
-                <span>·</span>
+                <span className="hidden sm:inline">·</span>
                 <span className="text-slate-500 font-mono">24 Principles × 11 States</span>
               </div>
               <h1 className="font-serif-editorial text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">

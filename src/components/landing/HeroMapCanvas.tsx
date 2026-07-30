@@ -169,7 +169,7 @@ export default function HeroMapCanvas({
                   y={country.centerPos.y}
                   textAnchor="middle"
                   dominantBaseline="central"
-                  className={`pointer-events-none font-mono text-[10px] font-bold tracking-wider transition-all duration-300 ${
+                  className={`pointer-events-none font-mono text-xs font-bold tracking-wider transition-all duration-300 ${
                     isSelected ? "fill-asean-yellow text-xs" : "fill-slate-700 dark:fill-slate-300"
                   }`}
                   style={{
@@ -263,8 +263,8 @@ export default function HeroMapCanvas({
           {FLOW_ARCS.length} Data Flow Corridors Monitored
         </span>
 
-        {/* ASEAN Regime Posture Card (Positioned Above Layers) */}
-        <div className="hidden sm:flex flex-col items-stretch gap-1 rounded-xl border border-slate-200 bg-white/90 p-2 font-sans text-xs shadow-xs backdrop-blur-md min-w-[130px] dark:border-white/20 dark:bg-slate-950/85">
+        {/* ASEAN Regime Posture Card */}
+        <div className="flex flex-col items-stretch gap-1 rounded-xl border border-slate-200 bg-white/90 p-2 font-sans text-xs shadow-xs backdrop-blur-md min-w-[130px] dark:border-white/20 dark:bg-slate-950/85">
           <span className="text-[9px] font-mono uppercase tracking-widest text-slate-500 dark:text-slate-400 font-bold px-0.5">
             ASEAN Regime Posture
           </span>
@@ -369,7 +369,7 @@ export default function HeroMapCanvas({
                 key={c.id}
                 onClick={() => onSelectCountry(c)}
                 title={`${c.name} (${c.regimeType})`}
-                className={`flex shrink-0 items-center gap-1.5 rounded-lg border px-2 py-1 text-[11px] font-bold transition-all ${
+                className={`flex shrink-0 items-center gap-1.5 rounded-lg border px-3 py-2 text-xs font-bold transition-all ${
                   isSelected
                     ? "border-asean-yellow bg-asean-yellow/25 text-asean-yellow shadow-xs"
                     : "border-slate-200 bg-slate-100/80 text-slate-700 hover:border-slate-300 hover:bg-slate-200 hover:text-slate-900 dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-300 dark:hover:border-white/25 dark:hover:bg-white/15 dark:hover:text-white"

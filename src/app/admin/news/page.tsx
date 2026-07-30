@@ -115,14 +115,14 @@ export default function NewsList() {
                     </TableCell>
                     <TableCell className="flex gap-1">
                       <Link href={`/admin/news/${n.id}`}>
-                        <Button variant="ghost" size="icon" className="h-8 w-8">
+                        <Button variant="ghost" size="icon" className="h-10 w-10">
                           <Pencil className="w-3.5 h-3.5" />
                         </Button>
                       </Link>
                       <Button
                         variant="ghost"
                         size="icon"
-                        className="h-8 w-8 text-red-500"
+                        className="h-10 w-10 text-red-500"
                         onClick={() => handleDelete(n.id)}
                       >
                         <Trash2 className="w-3.5 h-3.5" />
