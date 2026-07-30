@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -56,6 +56,49 @@ export default function AdminDashboardLayout({ children }: { children: React.Rea
   const pathname = usePathname();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
+  const sidebarRef = useRef<HTMLElement>(null);
+
+  // ── Body scroll-lock when mobile sidebar is open ──────────────────────
+  const toggleSidebar = useCallback((open: boolean) => {
+    setSidebarOpen(open);
+    document.body.style.overflow = open ? "hidden" : "";
+  }, []);
+
+  useEffect(() => {
+    return () => { document.body.style.overflow = ""; };
+  }, []);
+
+  // ── Focus trap for mobile sidebar ────────────────────────────────────
+  useEffect(() => {
+    if (!sidebarOpen || !sidebarRef.current) return;
+    const sidebar = sidebarRef.current;
+    const focusable = sidebar.querySelectorAll<HTMLElement>(
+      'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
+    );
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    first?.focus();
+
+    function trapFocus(e: KeyboardEvent) {
+      if (e.key !== "Tab") return;
+      if (e.shiftKey) {
+        if (document.activeElement === first) { e.preventDefault(); last?.focus(); }
+      } else {
+        if (document.activeElement === last) { e.preventDefault(); first?.focus(); }
+      }
+    }
+    sidebar.addEventListener("keydown", trapFocus);
+    return () => sidebar.removeEventListener("keydown", trapFocus);
+  }, [sidebarOpen]);
+
+  // ── ESC key closes mobile sidebar ─────────────────────────────────────
+  useEffect(() => {
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") toggleSidebar(false);
+    }
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [toggleSidebar]);
 
   const handleLogout = async () => {
     await getBrowserClient().auth.signOut();
@@ -68,12 +111,16 @@ export default function AdminDashboardLayout({ children }: { children: React.Rea
       {sidebarOpen && (
         <div
           className="fixed inset-0 z-40 bg-black/50 lg:hidden"
-          onClick={() => setSidebarOpen(false)}
+          onClick={() => toggleSidebar(false)}
         />
       )}
 
       {/* Sidebar */}
       <aside
+        ref={sidebarRef}
+        role={sidebarOpen ? "dialog" : undefined}
+        aria-modal={sidebarOpen ? true : undefined}
+        aria-label="Admin navigation"
         className={`
           fixed lg:sticky top-[var(--drone-admin-bar-h,0px)] left-0 z-50 h-[calc(100vh-var(--drone-admin-bar-h,0px))]
           bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800
@@ -101,7 +148,7 @@ export default function AdminDashboardLayout({ children }: { children: React.Rea
               {collapsed ? <PanelLeft className="w-4 h-4" /> : <PanelLeftClose className="w-4 h-4" />}
             </button>
             <button
-              onClick={() => setSidebarOpen(false)}
+              onClick={() => toggleSidebar(false)}
               className="lg:hidden p-1 rounded hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500"
             >
               <X className="w-4 h-4" />
@@ -119,7 +166,7 @@ export default function AdminDashboardLayout({ children }: { children: React.Rea
                 {...item}
                 active={active}
                 collapsed={collapsed}
-                onClick={() => setSidebarOpen(false)}
+                onClick={() => toggleSidebar(false)}
               />
             );
           })}
@@ -145,7 +192,7 @@ export default function AdminDashboardLayout({ children }: { children: React.Rea
         {/* Mobile header */}
         <div className="lg:hidden flex items-center gap-3 px-4 py-3 border-b bg-white dark:bg-slate-900 sticky top-[var(--drone-admin-bar-h,0px)] z-30">
           <button
-            onClick={() => setSidebarOpen(true)}
+            onClick={() => toggleSidebar(true)}
             className="p-1.5 rounded hover:bg-slate-100 dark:hover:bg-slate-800"
           >
             <Menu className="w-5 h-5" />

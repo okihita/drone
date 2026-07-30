@@ -1,12 +1,12 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import LanguageSwitcher from "./LanguageSwitcher";
 import ThemeToggle from "./ThemeToggle";
 import { Menu, X, ChevronDown } from "lucide-react";
-import { NAV_LINKS, NAV_GROUPS } from "@/lib/constants";
+import { NAV_GROUPS } from "@/lib/constants";
 import type { NavGroup, NavLink } from "@/lib/constants";
 
 // ── Shared style tokens ────────────────────────────────────────────────────
@@ -31,12 +31,56 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const drawerRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
 
   const isActive = (path: string) => pathname === path;
 
   const isSubmenuActive = (group: NavGroup) =>
     group.children.some((child) => isActive(child.href));
+
+  // ── Body scroll-lock when mobile drawer is open ────────────────────────
+  const toggleMenu = useCallback((open: boolean) => {
+    setMobileMenuOpen(open);
+    document.body.style.overflow = open ? "hidden" : "";
+  }, []);
+
+  // Clean up scroll-lock on unmount
+  useEffect(() => {
+    return () => { document.body.style.overflow = ""; };
+  }, []);
+
+  // ── Focus trap for mobile drawer ───────────────────────────────────────
+  useEffect(() => {
+    if (!mobileMenuOpen || !drawerRef.current) return;
+    const drawer = drawerRef.current;
+    const focusable = drawer.querySelectorAll<HTMLElement>(
+      'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
+    );
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+
+    // Focus first link on open
+    first?.focus();
+
+    function trapFocus(e: KeyboardEvent) {
+      if (e.key !== "Tab") return;
+      if (e.shiftKey) {
+        if (document.activeElement === first) {
+          e.preventDefault();
+          last?.focus();
+        }
+      } else {
+        if (document.activeElement === last) {
+          e.preventDefault();
+          first?.focus();
+        }
+      }
+    }
+
+    drawer.addEventListener("keydown", trapFocus);
+    return () => drawer.removeEventListener("keydown", trapFocus);
+  }, [mobileMenuOpen]);
 
   // Close dropdown on route change (navigation)
   useEffect(() => {
@@ -48,13 +92,13 @@ export default function Header() {
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
       if (e.key === "Escape") {
-        setMobileMenuOpen(false);
+        toggleMenu(false);
         setOpenDropdown(null);
       }
     }
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
-  }, []);
+  }, [toggleMenu]);
 
   // Close dropdown on click outside
   useEffect(() => {
@@ -87,7 +131,7 @@ export default function Header() {
             <ThemeToggle />
             <LanguageSwitcher />
             <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              onClick={() => toggleMenu(!mobileMenuOpen)}
               className="md:hidden p-2 rounded-lg bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-800"
               aria-label="Toggle Menu"
               aria-expanded={mobileMenuOpen}
@@ -179,30 +223,88 @@ export default function Header() {
         </nav>
       </div>
 
-      {/* Mobile Drawer */}
+      {/* Mobile Drawer Overlay */}
       {mobileMenuOpen && (
-        <div id="mobile-nav-drawer" className="md:hidden border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 px-4 py-4 space-y-1 text-xs font-sans">
-          {NAV_LINKS.map((link) => {
-            const active = isActive(link.href);
+        <div
+          className="md:hidden fixed inset-0 z-40 bg-black/50"
+          onClick={() => toggleMenu(false)}
+        />
+      )}
+
+      {/* Mobile Drawer */}
+      <div
+        id="mobile-nav-drawer"
+        ref={drawerRef}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Site navigation"
+        className={`md:hidden border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 transition-all duration-300 ease-out ${
+          mobileMenuOpen
+            ? "max-h-[70vh] px-4 py-4 border-b opacity-100 overflow-y-auto"
+            : "max-h-0 px-4 py-0 border-b-0 opacity-0 overflow-hidden"
+        }`}
+      >
+        <div className="space-y-1 text-xs font-sans">
+          {NAV_GROUPS.map((item) => {
+            if (isNavGroup(item)) {
+              const groupActive = isSubmenuActive(item);
+              return (
+                <div key={item.href} className="space-y-0.5">
+                  <Link
+                    href={item.href}
+                    onClick={() => toggleMenu(false)}
+                    aria-current={groupActive ? "page" : undefined}
+                    className={`flex items-center gap-2 px-2 py-2 rounded-lg font-bold transition-colors ${
+                      groupActive
+                        ? "bg-asean-yellow/10 text-asean-yellow"
+                        : "text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800"
+                    }`}
+                  >
+                    <item.icon className={`w-3.5 h-3.5 ${item.iconColor}`} />
+                    {item.label}
+                  </Link>
+                  {item.children.map((child) => {
+                    const active = isActive(child.href);
+                    return (
+                      <Link
+                        key={child.href}
+                        href={child.href}
+                        onClick={() => toggleMenu(false)}
+                        aria-current={active ? "page" : undefined}
+                        className={`flex items-center gap-2 pl-7 pr-2 py-2 rounded-lg font-semibold transition-colors ${
+                          active
+                            ? "bg-asean-yellow/10 text-asean-yellow"
+                            : "text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
+                        }`}
+                      >
+                        <child.icon className={`w-3.5 h-3.5 ${child.iconColor}`} />
+                        {child.label}
+                      </Link>
+                    );
+                  })}
+                </div>
+              );
+            }
+            const active = isActive(item.href);
             return (
               <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => setMobileMenuOpen(false)}
+                key={item.href}
+                href={item.href}
+                onClick={() => toggleMenu(false)}
                 aria-current={active ? "page" : undefined}
-                className={`flex items-center gap-2 px-2 py-2 rounded-lg font-semibold transition-colors ${
+                className={`flex items-center gap-2 px-2 py-2 rounded-lg font-bold transition-colors ${
                   active
                     ? "bg-asean-yellow/10 text-asean-yellow"
-                    : "text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
+                    : "text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800"
                 }`}
               >
-                <link.icon className={`w-3.5 h-3.5 ${link.iconColor}`} />
-                {link.label}
+                <item.icon className={`w-3.5 h-3.5 ${item.iconColor}`} />
+                {item.label}
               </Link>
             );
           })}
         </div>
-      )}
+      </div>
     </header>
   );
 }
