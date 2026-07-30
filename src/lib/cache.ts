@@ -1,12 +1,14 @@
 /**
  * Cache tag constants — single source of truth for ISR revalidation.
- * Tags follow a hierarchical namespace: "domain:scope"
+ * Tags follow a hierarchical namespace convention: "domain:scope"
+ * Note: Next.js revalidateTag() does NOT support hierarchical busting —
+ * revalidating "news" does not invalidate "news:stories". Each tag is independent.
  *
  * Admin mutations call revalidateTag() with these to bust the right caches.
  * Supabase webhooks can POST to /api/revalidate?tag=... for the same effect.
  */
 
-// Group tags — revalidating a group tag busts all sub-tags
+// Domain-scoped tags for ISR revalidation
 export const CACHE_TAGS = {
   // Homepage sections
   homepage: "homepage",

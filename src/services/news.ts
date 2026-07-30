@@ -54,6 +54,7 @@ function toNewsItem(row: NewsRow): NewsItem {
 
 // ── Queries ──────────────────────────────────────────────────────────────────
 
+/** Fetch all published news items ordered by date descending. Used by admin listing. */
 export async function listNews(): Promise<NewsListItem[]> {
   const { data, error } = await supabase
     .from("news_items")
@@ -73,6 +74,7 @@ export async function listNews(): Promise<NewsListItem[]> {
   }));
 }
 
+/** Fetch a single news item by ID. Returns null if not found (handles PGRST116). */
 export async function getNewsById(id: string): Promise<NewsItem | null> {
   const { data, error } = await supabase
     .from("news_items")
@@ -89,6 +91,7 @@ export async function getNewsById(id: string): Promise<NewsItem | null> {
   return toNewsItem(row);
 }
 
+/** Fetch a news item by URL slug. Returns null if not found or if slug column hasn't been migrated yet (42703). */
 export async function getNewsBySlug(slug: string): Promise<NewsItem | null> {
   try {
     const { data, error } = await supabase

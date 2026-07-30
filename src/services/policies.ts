@@ -4,7 +4,11 @@ import type { Policy, PolicyListItem, PolicyRadarEntry } from "@/types";
 
 // ── Queries ──────────────────────────────────────────────────────────────────
 
-/** Fetch all policies ordered by date descending (for admin listing). */
+/**
+ * Fetch all policies ordered by date descending.
+ * Selects only listing-relevant columns for efficiency.
+ * Used by admin dashboard and policy listing pages.
+ */
 export async function listPolicies(): Promise<PolicyListItem[]> {
   const { data, error } = await supabase
     .from("policies")
@@ -42,7 +46,12 @@ export async function listPolicyRadar(limit = 3): Promise<PolicyRadarEntry[]> {
   return (data as PolicyRadarEntry[]) ?? [];
 }
 
-/** Server-side search (used by API route and SSR pages). */
+/**
+ * Server-side policy search with sanitized input.
+ * Escapes PostgREST filter special characters to prevent injection.
+ * Supports free-text search across title, summary, and jurisdiction,
+ * plus optional category filter. Uses service-role client for RLS bypass.
+ */
 export async function searchPoliciesServer(params: {
   q?: string;
   category?: string;
