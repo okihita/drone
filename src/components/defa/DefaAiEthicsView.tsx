@@ -13,18 +13,50 @@ export default function DefaAiEthicsView() {
     <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-200 font-sans">
       {/* Header Banner */}
       <section className="relative border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/60 py-10 sm:py-14 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto space-y-4">
-          <div className="flex flex-wrap items-center gap-2 text-xs font-sans uppercase tracking-widest text-asean-emerald font-bold">
-            <Cpu className="h-4 w-4 text-asean-emerald animate-pulse" />
-            <span>DEFA Chapter 5 Observatory</span>
-            <span>·</span>
-            <span className="text-slate-500 font-mono">ASEAN AI Ethics Guide 2024</span>
+        <div className="max-w-7xl mx-auto space-y-6">
+          <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-6">
+            <div className="flex-1">
+              <div className="flex flex-wrap items-center gap-x-2 gap-y-0 text-xs font-sans uppercase tracking-widest text-asean-emerald font-bold mb-2">
+                <Cpu className="h-4 w-4 text-asean-emerald animate-pulse" />
+                <span>DEFA Observatory · Chapter 5</span>
+                <span className="hidden sm:inline">·</span>
+                <span className="text-slate-500 font-mono">AI Governance &amp; Ethics</span>
+              </div>
+              <h1 className="font-serif-editorial text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
+                ASEAN AI Governance &amp; Ethics Alignment
+              </h1>
+              <p className="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-3xl font-sans leading-relaxed">
+                As artificial intelligence deployment accelerates across Southeast Asia, DEFA Chapter 5 seeks to establish common AI safety and governance baselines. This dashboard measures national alignment with the landmark <strong className="text-slate-800 dark:text-slate-200">ASEAN Guide on AI Ethics and Governance (2024)</strong>, evaluating algorithmic risk classification, AI training copyright exemptions, state automated decision audit rights, and real-time algorithmic harm telemetry.
+              </p>
+            </div>
+
+            {/* Stat Pill */}
+            <div className="shrink-0 p-4 rounded-2xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 shadow-sm text-xs font-sans space-y-1">
+              <span className="block font-mono text-[10px] text-slate-400 uppercase font-bold">Regional Alignment</span>
+              <div className="font-bold text-slate-900 dark:text-white text-sm">5 Full Adoption Nations</div>
+              <span className="text-asean-emerald font-bold">SG, MY, ID, TH, PH</span>
+            </div>
           </div>
-          <h1 className="font-serif-editorial text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
-            ASEAN AI Governance &amp; Ethics Alignment
-          </h1>
-          <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-3xl font-sans leading-relaxed">
-            Evaluating member state alignment with the regional AI ethics framework, algorithmic transparency mandates, AI training copyright exemptions, and algorithmic harm incident telemetry.
+
+          {/* 5 Concept Cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 pt-2">
+            {[
+              { title: "ASEAN AI Guide", desc: "Adoption of regional ethical principles covering fairness, transparency, and human oversight." },
+              { title: "AI Copyright Exemption", desc: "Statutory exceptions allowing text and data mining (TDM) for AI model training." },
+              { title: "Risk Classification", desc: "Categorizing high-risk AI deployments in healthcare, finance, and law enforcement." },
+              { title: "State Audit Rights", desc: "Regulating government access to inspect proprietary AI algorithms and training datasets." },
+              { title: "Harm Telemetry", desc: "Connecting reported algorithmic discrimination incidents from D.R.O.N.E. Media AI." },
+            ].map((card) => (
+              <div key={card.title} className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-xs font-sans">
+                <strong className="block text-slate-900 dark:text-white font-bold mb-1">{card.title}</strong>
+                <p className="text-slate-600 dark:text-slate-400 leading-normal">{card.desc}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* How to Read Note */}
+          <p className="text-xs text-slate-500 dark:text-slate-400 font-sans leading-relaxed max-w-4xl pt-1">
+            <strong className="text-slate-700 dark:text-slate-300 font-bold uppercase tracking-wider">How to read:</strong> Each country row rates statutory compliance across 5 dimensions. <span className="text-asean-emerald font-bold">Higher readiness scores (&ge;75)</span> represent advanced legal frameworks that balance innovation with ethical AI safeguards; <span className="text-asean-amber font-bold">Moderate scores (45–74)</span> indicate draft or voluntary frameworks; <span className="text-asean-red font-bold">Red indicators (&lt;45)</span> reflect absent AI governance or unconstrained state algorithmic surveillance.
           </p>
         </div>
       </section>
