@@ -5,6 +5,8 @@ import { getNewsBySlug, getNewsById, listStories } from "@/services/news";
 import { generateSlug } from "@/lib/text";
 import DOMPurify from "isomorphic-dompurify";
 
+export const revalidate = 3600;
+
 interface Props {
   params: Promise<{ slug: string }>;
 }

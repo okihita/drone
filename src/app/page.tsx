@@ -7,6 +7,8 @@ import BenchmarkPreview from "@/components/landing/BenchmarkPreview";
 import type { NewsCardItem, NewsDispatchItem } from "@/types/news";
 import type { PolicyRadarEntry } from "@/types/policy";
 
+export const revalidate = 3600; // ISR: regenerate page at most once per hour
+
 const SUPABASE_AVAILABLE = !!(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
 
 export default async function Home() {
