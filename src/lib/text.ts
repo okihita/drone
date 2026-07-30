@@ -43,7 +43,7 @@ export function decodeHtmlEntities(text: string | null | undefined): string {
 /**
  * Strip all HTML tags from a string and collapse whitespace.
  */
-export function stripHtml(html: string | null | undefined): string {
+function stripHtml(html: string | null | undefined): string {
   return decodeHtmlEntities(html);
 }
 

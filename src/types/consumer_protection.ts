@@ -21,14 +21,3 @@ export interface ConsumerProtectionPolicy {
   compositeScore: number;
   lastUpdated: string;
 }
-
-interface ConsumerEvent {
-  id: string;
-  countryCode: string;
-  countryName: string;
-  title: string;
-  summary: string;
-  sourceUrl: string;
-  eventDate: string;
-  impactScore: number; // 0-100
-}

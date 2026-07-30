@@ -9,7 +9,7 @@ interface Language {
   flag: string;
 }
 
-export const LANGUAGES: Language[] = [
+const LANGUAGES: Language[] = [
   { code: "en", name: "English", native: "EN", flag: "🌐" },
   { code: "id", name: "Indonesian", native: "ID", flag: "🇮🇩" },
 ];

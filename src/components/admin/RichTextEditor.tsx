@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState, useCallback } from "react";
-import { useEditor, EditorContent, Node } from "@tiptap/react";
+import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import LinkExtension from "@tiptap/extension-link";
 import ImageExtension from "@tiptap/extension-image";
@@ -19,51 +19,6 @@ import {
   RemoveFormatting,
 } from "lucide-react";
 import { calculateReadTime } from "@/lib/text";
-
-// ── Custom Tiptap Node: Image with Figcaption ──────────────────────────────
-
-export const ImageCaptionNode = Node.create({
-  name: "imageCaption",
-  group: "block",
-  content: "inline*",
-  draggable: true,
-  isolating: true,
-
-  addAttributes() {
-    return {
-      src: { default: null },
-      alt: { default: "" },
-    };
-  },
-
-  parseHTML() {
-    return [{ tag: "figure[data-image-caption]" }];
-  },
-
-  renderHTML({ HTMLAttributes }) {
-    return [
-      "figure",
-      { "data-image-caption": "", class: "image-caption" },
-      ["img", { src: HTMLAttributes.src, alt: HTMLAttributes.alt }],
-      ["figcaption", { class: "image-caption-text" }, 0],
-    ];
-  },
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  addCommands(): any {
-    return {
-      setImageCaption:
-        (options: { src: string; alt?: string }) =>
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        ({ commands }: any) =>
-          commands.insertContent({
-            type: "imageCaption",
-            attrs: { src: options.src, alt: options.alt || "" },
-            content: [{ type: "text", text: "Caption" }],
-          }),
-    };
-  },
-});
 
 // ── Toolbar ──────────────────────────────────────────────────────────────────
 

@@ -11,7 +11,7 @@ import { BENCHMARK_CLUSTERS } from "@/lib/constants";
  * Last reviewed: 2026-07-29
  */
 
-export const BENCHMARK_SCORES: BenchmarkScore[] = [
+const BENCHMARK_SCORES: BenchmarkScore[] = [
   // ══════════════════════════════════════════════════════════════
   // SINGAPORE (SG) — CPTPP Member, DEPA Co-Founder, DEFA Leader
   // ══════════════════════════════════════════════════════════════
@@ -326,14 +326,8 @@ export const BENCHMARK_SCORES: BenchmarkScore[] = [
   { countryCode: "TL", principleId: 24, score: 35, evidence: "Conformity assessment infrastructure minimal. International certification recognized but framework informal. Capacity developing.", sourceUrl: "https://www.tic.gov.tl", lastReviewed: "2026-07-29" },
 ];
 
-/** Get all scores, optionally filtered by country code. */
-export function getBenchmarkScores(countryCode?: string): BenchmarkScore[] {
-  if (countryCode) return BENCHMARK_SCORES.filter((s) => s.countryCode === countryCode);
-  return BENCHMARK_SCORES;
-}
-
 /** Build a summary for a single country. */
-export function getCountryBenchmarkSummary(countryCode: string, countryName: string): BenchmarkCountrySummary {
+function getCountryBenchmarkSummary(countryCode: string, countryName: string): BenchmarkCountrySummary {
   const scores = BENCHMARK_SCORES.filter((s) => s.countryCode === countryCode);
   const overallScore = Math.round(scores.reduce((sum, s) => sum + s.score, 0) / scores.length);
 

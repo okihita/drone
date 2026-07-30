@@ -171,7 +171,7 @@ function extractMajorImage(post: WPPostItem): string | null {
   return null;
 }
 
-export async function fetchEngageMediaPosts(perPage = 30): Promise<WPPostItem[]> {
+async function fetchEngageMediaPosts(perPage = 30): Promise<WPPostItem[]> {
   // Fetch posts with tag = 381 (Artificial Intelligence) or general posts
   const url = `https://engagemedia.org/wp-json/wp/v2/posts?tags=381&per_page=${perPage}&_embed=true`;
   const response = await fetch(url, {

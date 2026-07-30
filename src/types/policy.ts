@@ -18,12 +18,6 @@ export type PolicyListItem = Pick<
   "id" | "title" | "jurisdiction" | "category" | "threat_level" | "date"
 >;
 
-/** Narrowed view for search-type components. */
-export type PolicySearchItem = Pick<
-  Policy,
-  "id" | "title" | "jurisdiction" | "category" | "summary"
->;
-
 /** Narrowed view for the regulatory radar widget. */
 export type PolicyRadarEntry = Pick<
   Policy,

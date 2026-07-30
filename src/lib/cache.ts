@@ -19,21 +19,3 @@ export const CACHE_TAGS = {
   news: "news",
   jurisdictions: "jurisdictions",
 } as const;
-
-// Revalidation helper — wraps revalidateTag with error logging
-export async function revalidate(...tags: string[]) {
-  const { revalidateTag } = await import("next/cache");
-  for (const tag of tags) {
-    try {
-      revalidateTag(tag, "max");
-    } catch {
-      // Tag-based revalidation is best-effort in dev mode
-    }
-  }
-}
-
-// Default ISR revalidation period (seconds)
-export const ISR_TTL = 300; // 5 minutes
-
-// CDN/API cache TTL (seconds)
-export const API_CACHE_TTL = "s-maxage=300, stale-while-revalidate=60";

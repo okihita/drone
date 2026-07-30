@@ -1,6 +1,6 @@
 import { supabase, getServiceClient } from "@/lib/supabase";
 import type { SupabaseClient } from "@supabase/supabase-js";
-import type { Policy, PolicyListItem, PolicySearchItem, PolicyRadarEntry } from "@/types";
+import type { Policy, PolicyListItem, PolicyRadarEntry } from "@/types";
 
 // ── Queries ──────────────────────────────────────────────────────────────────
 
@@ -25,16 +25,6 @@ export async function getPolicyById(id: string): Promise<Policy | null> {
 
   if (error) throw new Error(error.message);
   return (data as Policy) ?? null;
-}
-
-/** Fetch policies for the hero search dropdown (lightweight fields). */
-export async function listPoliciesForSearch(): Promise<PolicySearchItem[]> {
-  const { data, error } = await supabase
-    .from("policies")
-    .select("id, title, jurisdiction, category, summary");
-
-  if (error) throw new Error(error.message);
-  return (data as PolicySearchItem[]) ?? [];
 }
 
 /** Fetch policy radar entries for the editorial grid (top 3 by date). */

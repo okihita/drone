@@ -5,7 +5,7 @@ import type { ConsumerProtectionPolicy } from "@/types/consumer_protection";
  * Sources: National PDP laws, platform governance regulations, OECD.
  * Last reviewed: 2026-07-29
  */
-export const CONSUMER_PROTECTION_POLICIES: ConsumerProtectionPolicy[] = [
+const CONSUMER_PROTECTION_POLICIES: ConsumerProtectionPolicy[] = [
   {
     id: "cp-sg",
     countryCode: "SG", countryName: "Singapore",

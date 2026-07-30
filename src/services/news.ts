@@ -181,4 +181,4 @@ export async function deleteNewsItem(
   if (error) throw new Error(error.message);
 }
 
-export { generateSlug };
+

@@ -237,18 +237,3 @@ export const DIGITAL_2_DOZEN_PRINCIPLES: BenchmarkPrinciple[] = [
     provisionText: "TPP requires Parties to provide national treatment to one another's conformity assessment bodies, so testing and certification will be mutually accepted.",
   },
 ];
-
-/** Group principles by cluster ID. */
-export function getPrinciplesByCluster(): Record<string, BenchmarkPrinciple[]> {
-  const grouped: Record<string, BenchmarkPrinciple[]> = {};
-  for (const p of DIGITAL_2_DOZEN_PRINCIPLES) {
-    if (!grouped[p.cluster]) grouped[p.cluster] = [];
-    grouped[p.cluster].push(p);
-  }
-  return grouped;
-}
-
-/** Get a single principle by ID. */
-export function getPrincipleById(id: number): BenchmarkPrinciple | undefined {
-  return DIGITAL_2_DOZEN_PRINCIPLES.find((p) => p.id === id);
-}

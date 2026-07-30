@@ -5,7 +5,7 @@ import type { EncryptionEvent } from "@/types/encryption";
  * Sources: AccessNow #KeepItOn, national legislation databases, Freedom House.
  * Last reviewed: 2026-07-29
  */
-export const ENCRYPTION_EVENTS: EncryptionEvent[] = [
+const ENCRYPTION_EVENTS: EncryptionEvent[] = [
   // ── Myanmar ──
   {
     id: "enc-mm-001",

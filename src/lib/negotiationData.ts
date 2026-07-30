@@ -5,7 +5,7 @@ import type { NegotiationMilestone } from "@/types/negotiation";
  * Sources: Wikipedia CPTPP, ASEAN Secretariat, MTI Singapore, DEPA joint committee.
  * Last reviewed: 2026-07-29
  */
-export const NEGOTIATION_MILESTONES: NegotiationMilestone[] = [
+const NEGOTIATION_MILESTONES: NegotiationMilestone[] = [
   // ── DEFA ──────────────────────────────────────────────────────
   {
     id: "defa-001", framework: "DEFA",

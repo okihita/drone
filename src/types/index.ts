@@ -1,7 +1,6 @@
 export type {
   Policy,
   PolicyListItem,
-  PolicySearchItem,
   PolicyRadarEntry,
   PolicyCategory,
   ThreatLevel,

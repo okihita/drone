@@ -132,20 +132,6 @@ export const NEWS_CATEGORIES = [
   "AI GOVERNANCE",
 ] as const;
 
-// ── Extended Categories (Digital 2 Dozen expansion) ────────────────────────
-
-export const EXTENDED_CATEGORIES = [
-  ...POLICY_CATEGORIES,
-  "Technology Sovereignty",
-  "Consumer Protection",
-  "IP & Standards",
-  "Infrastructure & Access",
-  "Encryption & Authentication",
-  "Competition & SOEs",
-] as const;
-
-type ExtendedCategory = (typeof EXTENDED_CATEGORIES)[number];
-
 // ── Digital 2 Dozen: 5 Thematic Clusters ──────────────────────────────────
 
 export const BENCHMARK_CLUSTERS = [
