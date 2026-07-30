@@ -38,7 +38,7 @@ function toNewsItem(row: NewsRow): NewsItem {
     title: row.title,
     slug,
     jurisdiction: row.jurisdiction ?? "",
-    category: row.category ?? "",
+    category: (row.category ?? "") as NewsItem["category"],
     image_url: row.image_url ?? null,
     published_date: row.published_date ?? "",
     read_time: row.read_time ?? null,
@@ -67,7 +67,7 @@ export async function listNews(): Promise<NewsListItem[]> {
     title: row.title,
     slug: slugFrom(row),
     jurisdiction: row.jurisdiction ?? "",
-    category: row.category ?? "",
+    category: (row.category ?? "") as NewsItem["category"],
     image_url: row.image_url,
     published_date: row.published_date ?? "",
   }));
@@ -124,7 +124,7 @@ export async function listStories(limit = 3): Promise<NewsCardItem[]> {
     id: row.id,
     title: row.title,
     slug: slugFrom(row),
-    category: row.category ?? "",
+    category: (row.category ?? "") as NewsItem["category"],
     read_time: row.read_time,
     summary: row.summary ?? "",
     author: row.author,
@@ -145,7 +145,7 @@ export async function listDispatches(limit = 2): Promise<NewsDispatchItem[]> {
     id: row.id,
     title: row.title,
     slug: slugFrom(row),
-    category: row.category ?? "",
+    category: (row.category ?? "") as NewsItem["category"],
     summary: row.summary ?? "",
     image_url: row.image_url,
   }));
@@ -199,10 +199,10 @@ export async function createNewsItem(
 
 export async function updateNewsItem(
   id: string,
-  patch: Partial<NewsItem>,
+  patch: Partial<Omit<NewsItem, "id" | "created_at">>,
   client: SupabaseClient = supabase,
 ): Promise<void> {
-  const payload: Record<string, unknown> = { ...patch };
+  const payload = { ...patch } as Record<string, unknown>;
   if (patch.title && !patch.slug) {
     payload.slug = generateSlug(patch.title);
   }

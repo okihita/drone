@@ -83,7 +83,7 @@ export async function createPolicy(
 
 export async function updatePolicy(
   id: string,
-  patch: Partial<Policy>,
+  patch: Partial<Omit<Policy, "id" | "created_at">>,
   client: SupabaseClient = supabase,
 ): Promise<void> {
   const { error } = await client

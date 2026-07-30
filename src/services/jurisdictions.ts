@@ -44,7 +44,7 @@ export async function getJurisdictionByCode(
 
 export async function updateJurisdiction(
   id: string,
-  patch: Partial<Jurisdiction>,
+  patch: Partial<Omit<Jurisdiction, "id" | "created_at">>,
   client: SupabaseClient = supabase,
 ): Promise<void> {
   const { error } = await client

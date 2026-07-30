@@ -267,7 +267,7 @@ export async function syncEngageMediaContent(perPage = 30): Promise<SyncReport> 
         status: "pending_review", // Staged for Human-In-The-Loop editor review
         title: cleanTitle,
         jurisdiction: classification.jurisdiction,
-        category: classification.category,
+        category: classification.category as NewsItem["category"],
         threat_level: classification.threatLevel,
         summary: classification.summary,
         source_url: post.link,
