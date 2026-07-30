@@ -52,7 +52,9 @@ export default function AdminIngesterWorkbench() {
   };
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- standard data-fetching on mount
     fetchStagedItems();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const selectedItem = stagedItems.find((item) => item.id === selectedId) || stagedItems[0] || null;

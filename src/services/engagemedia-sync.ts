@@ -1,4 +1,4 @@
-import { supabase, getServiceClient } from "@/lib/supabase";
+import { getServiceClient } from "@/lib/supabase";
 import { generateSlug, decodeHtmlEntities } from "@/lib/text";
 import type { NewsItem } from "@/types";
 

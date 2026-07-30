@@ -128,12 +128,12 @@ export default function RichTextEditor({ content, onChange, placeholder }: RichT
   });
 
   const contentRef = useRef(content);
-  const readTime = useRef(calculateReadTime(content));
+  const [readTime, setReadTime] = useState(calculateReadTime(content));
 
   useEffect(() => {
     if (editor && content !== contentRef.current) {
       contentRef.current = content;
-      readTime.current = calculateReadTime(content);
+      setReadTime(calculateReadTime(content));
       editor.commands.setContent(content);
     }
   }, [editor, content]);
@@ -142,7 +142,7 @@ export default function RichTextEditor({ content, onChange, placeholder }: RichT
   useEffect(() => {
     if (!editor) return;
     const updateReadTime = () => {
-      readTime.current = calculateReadTime(editor.getHTML());
+      setReadTime(calculateReadTime(editor.getHTML()));
     };
     editor.on("update", updateReadTime);
     return () => { editor.off("update", updateReadTime); };
@@ -269,7 +269,7 @@ export default function RichTextEditor({ content, onChange, placeholder }: RichT
           {/* Read time indicator */}
           <span className="text-[10px] text-slate-400 dark:text-slate-500 font-sans flex items-center gap-1 px-2">
             <Clock className="w-3 h-3" />
-            {readTime.current}
+            {readTime}
           </span>
 
           {/* Preview toggle */}

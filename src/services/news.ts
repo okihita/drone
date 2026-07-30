@@ -195,6 +195,7 @@ export async function createNewsItem(
   if (error) {
     // If insert fails because slug column doesn't exist, retry without slug
     if ((error as { code?: string }).code === "42703") {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { slug: _slug, ...rest } = payload;
       const { data: d2, error: e2 } = await client
         .from("news_items")

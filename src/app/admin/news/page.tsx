@@ -33,6 +33,7 @@ export default function NewsList() {
   }, []);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- standard data-fetching on mount
     fetchItems();
   }, [fetchItems]);
 
