@@ -5,6 +5,11 @@ import type { BenchmarkCountrySummary, BenchmarkPrinciple } from "@/types/benchm
 import { BENCHMARK_CLUSTERS } from "@/lib/constants";
 import PrincipleDetailPopover from "./PrincipleDetailPopover";
 import { ChevronRight, ChevronDown } from "lucide-react";
+import { ID, MY, SG, PH, TH, VN, KH, LA, MM, BN, TL } from "country-flag-icons/react/3x2";
+
+const FLAG_COMPONENTS: Record<string, React.ComponentType<{ className?: string }>> = {
+  ID, MY, SG, PH, TH, VN, KH, LA, MM, BN, TL,
+};
 
 interface Props {
   summaries: BenchmarkCountrySummary[];
@@ -92,18 +97,25 @@ export default function BenchmarkHeatmap({ summaries, principles }: Props) {
             <thead>
               <tr>
                 <th className={`${headerBg} p-2 text-left min-w-[220px] rounded-tl-xl`}>Principle</th>
-                {summaries.map((s) => (
-                  <th
-                    key={s.countryCode}
-                    className={`${headerBg} p-2 text-center min-w-[60px] cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors ${
-                      selectedCountry === s.countryCode ? "bg-asean-yellow/20 dark:bg-asean-yellow/10" : ""
-                    }`}
-                    onClick={() => setSelectedCountry(selectedCountry === s.countryCode ? null : s.countryCode)}
-                  >
-                    <div className="font-mono text-[10px] font-extrabold">{s.countryCode}</div>
-                    <div className="text-[9px] font-normal truncate max-w-[60px]">{s.countryName}</div>
-                  </th>
-                ))}
+                {summaries.map((s) => {
+                  const FlagIcon = FLAG_COMPONENTS[s.countryCode];
+                  return (
+                    <th
+                      key={s.countryCode}
+                      className={`${headerBg} px-1 py-2 text-center min-w-[44px] cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors ${
+                        selectedCountry === s.countryCode ? "bg-asean-yellow/20 dark:bg-asean-yellow/10" : ""
+                      }`}
+                      onClick={() => setSelectedCountry(selectedCountry === s.countryCode ? null : s.countryCode)}
+                      title={`${s.countryName} (${s.countryCode})`}
+                    >
+                      {FlagIcon ? (
+                        <FlagIcon className="w-5 h-3.5 rounded-xs mx-auto" />
+                      ) : (
+                        <span className="font-mono text-[10px] font-extrabold">{s.countryCode}</span>
+                      )}
+                    </th>
+                  );
+                })}
               </tr>
             </thead>
             <tbody>
@@ -146,7 +158,7 @@ export default function BenchmarkHeatmap({ summaries, principles }: Props) {
                         return (
                           <td
                             key={s.countryCode}
-                            className={`p-1 text-center align-middle ${isSelected ? "ring-2 ring-asean-yellow ring-inset" : ""}`}
+                            className={`px-0.5 py-1 text-center align-middle ${isSelected ? "ring-2 ring-asean-yellow ring-inset" : ""}`}
                             onClick={(e) => {
                               e.stopPropagation();
                               setSelectedCountry(selectedCountry === s.countryCode ? null : s.countryCode);
@@ -192,7 +204,7 @@ export default function BenchmarkHeatmap({ summaries, principles }: Props) {
                       return (
                         <td
                           key={s.countryCode}
-                          className={`p-1 text-center align-middle cursor-pointer transition-all ${isSelected ? "ring-2 ring-asean-yellow ring-inset" : ""}`}
+                          className={`px-0.5 py-1 text-center align-middle cursor-pointer transition-all ${isSelected ? "ring-2 ring-asean-yellow ring-inset" : ""}`}
                           onClick={() => setSelectedCountry(selectedCountry === s.countryCode ? null : s.countryCode)}
                         >
                           <span
