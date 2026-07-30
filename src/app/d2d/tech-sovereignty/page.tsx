@@ -65,6 +65,37 @@ export default function TechSovereigntyPage() {
         </div>
       </section>
 
+      {/* Intro — what this page measures */}
+      <section className="px-4 sm:px-6 lg:px-8 py-8 border-b border-slate-200 dark:border-slate-800 bg-slate-50/80 dark:bg-slate-900/40">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="font-serif-editorial text-lg font-bold text-slate-900 dark:text-white mb-1">
+            How free is each ASEAN country to use and build technology?
+          </h2>
+          <p className="text-sm text-slate-500 dark:text-slate-400 max-w-3xl mb-6">
+            This page answers that question. The radar chart below measures five dimensions of government tech control across 11 countries. A <strong className="text-slate-700 dark:text-slate-300">larger pentagon shape means more freedom</strong> — companies can keep their code private, use strong encryption, and choose their own tech. A <strong className="text-slate-700 dark:text-slate-300">smaller shape means more government restrictions</strong> — forced technology transfers, mandatory source code disclosure, and encryption backdoors.
+          </p>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
+            {[
+              { label: "No Forced Tech Transfer", desc: "Can foreign companies enter without handing over their technology to local partners?" },
+              { label: "Source Code Protection", desc: "Can companies keep their software secret, or must they reveal it to the government?" },
+              { label: "Technology Choice", desc: "Can businesses pick the best tech, or are they forced to use government-approved alternatives?" },
+              { label: "Authentication Methods", desc: "Can people use standard digital signatures, or are they locked into government-only ID platforms?" },
+              { label: "Encryption Products", desc: "Can citizens freely use VPNs and secure messaging, or does the government ban or weaken them?" },
+            ].map((item) => (
+              <div key={item.label} className="p-3 rounded-lg bg-white dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700">
+                <span className="block text-xs font-bold text-slate-800 dark:text-slate-200 mb-1">{item.label}</span>
+                <span className="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">{item.desc}</span>
+              </div>
+            ))}
+          </div>
+
+          <p className="text-xs text-slate-400 dark:text-slate-500 mt-5 max-w-3xl">
+            <strong className="text-slate-500 dark:text-slate-400">How to read the radar:</strong> Select up to 4 countries from the toggles. Each axis ranges from 0 (worst) to 100 (best). Countries scoring below 40 are flagged as <span className="text-asean-red font-medium">high risk</span>. The timeline below the radar logs real-world laws and decrees — red dots signal high-impact restrictions, green dots signal positive developments.
+          </p>
+        </div>
+      </section>
+
       <main className="flex-1">
         <TechSovereigntyRadar summaries={allSummaries} principles={techPrinciples} />
         <ViolationTimeline events={encryptionEvents} />
