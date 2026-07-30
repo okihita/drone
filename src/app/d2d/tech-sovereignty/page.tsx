@@ -28,7 +28,7 @@ export default function TechSovereigntyPage() {
       {/* Hero Banner */}
       <section className="relative border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/60 py-10 sm:py-14 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+          <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-6 mb-8">
             <div className="flex-1">
               <div className="flex items-center gap-2 text-xs font-sans uppercase tracking-widest text-asean-amber font-bold mb-2">
                 <Cpu className="h-4 w-4 text-asean-amber animate-pulse" />
@@ -39,8 +39,8 @@ export default function TechSovereigntyPage() {
               <h1 className="font-serif-editorial text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
                 Technology Sovereignty Radar
               </h1>
-              <p className="mt-2 text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-3xl font-sans">
-                Tracking forced technology transfers, mandatory source code disclosure, encryption mandates, technology choice restrictions, and authentication barriers across Southeast Asia. Each axis represents a Digital 2 Dozen principle scored 0–100.
+              <p className="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-2xl font-sans leading-relaxed">
+                How free is each ASEAN country to use and build technology? This radar measures five dimensions of government tech control across 11 countries. A <strong className="text-slate-800 dark:text-slate-200">larger pentagon means more freedom</strong> — companies keep their code private, use strong encryption, and choose their own tech. A <strong className="text-slate-800 dark:text-slate-200">smaller shape means more restrictions</strong> — forced transfers, mandatory source disclosure, and encryption backdoors.
               </p>
             </div>
 
@@ -62,35 +62,32 @@ export default function TechSovereigntyPage() {
               </div>
             </div>
           </div>
-        </div>
-      </section>
 
-      {/* Intro — what this page measures */}
-      <section className="px-4 sm:px-6 lg:px-8 py-8 border-b border-slate-200 dark:border-slate-800 bg-slate-50/80 dark:bg-slate-900/40">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="font-serif-editorial text-lg font-bold text-slate-900 dark:text-white mb-1">
-            How free is each ASEAN country to use and build technology?
-          </h2>
-          <p className="text-sm text-slate-500 dark:text-slate-400 max-w-3xl mb-6">
-            This page answers that question. The radar chart below measures five dimensions of government tech control across 11 countries. A <strong className="text-slate-700 dark:text-slate-300">larger pentagon shape means more freedom</strong> — companies can keep their code private, use strong encryption, and choose their own tech. A <strong className="text-slate-700 dark:text-slate-300">smaller shape means more government restrictions</strong> — forced technology transfers, mandatory source code disclosure, and encryption backdoors.
-          </p>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
-            {[
-              { label: "No Forced Tech Transfer", desc: "Can foreign companies enter without handing over their technology to local partners?" },
-              { label: "Source Code Protection", desc: "Can companies keep their software secret, or must they reveal it to the government?" },
-              { label: "Technology Choice", desc: "Can businesses pick the best tech, or are they forced to use government-approved alternatives?" },
-              { label: "Authentication Methods", desc: "Can people use standard digital signatures, or are they locked into government-only ID platforms?" },
-              { label: "Encryption Products", desc: "Can citizens freely use VPNs and secure messaging, or does the government ban or weaken them?" },
-            ].map((item) => (
-              <div key={item.label} className="p-3 rounded-lg bg-white dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700">
-                <span className="block text-xs font-bold text-slate-800 dark:text-slate-200 mb-1">{item.label}</span>
-                <span className="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">{item.desc}</span>
-              </div>
-            ))}
+          {/* Axis concept cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 mb-5">
+            <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700 text-sm text-slate-600 dark:text-slate-400">
+              <strong className="block text-slate-800 dark:text-slate-200 mb-1">No Forced Tech Transfer</strong>
+              Can foreign companies enter without handing over their technology to local partners?
+            </div>
+            <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700 text-sm text-slate-600 dark:text-slate-400">
+              <strong className="block text-slate-800 dark:text-slate-200 mb-1">Source Code Protection</strong>
+              Can companies keep their software secret, or must they reveal it to the government?
+            </div>
+            <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700 text-sm text-slate-600 dark:text-slate-400">
+              <strong className="block text-slate-800 dark:text-slate-200 mb-1">Technology Choice</strong>
+              Can businesses pick the best tech, or are they forced to use government-approved alternatives?
+            </div>
+            <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700 text-sm text-slate-600 dark:text-slate-400">
+              <strong className="block text-slate-800 dark:text-slate-200 mb-1">Authentication Methods</strong>
+              Can people use standard digital signatures, or are they locked into government-only ID platforms?
+            </div>
+            <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700 text-sm text-slate-600 dark:text-slate-400">
+              <strong className="block text-slate-800 dark:text-slate-200 mb-1">Encryption Products</strong>
+              Can citizens freely use VPNs and secure messaging, or does the government ban or weaken them?
+            </div>
           </div>
 
-          <p className="text-xs text-slate-400 dark:text-slate-500 mt-5 max-w-3xl">
+          <p className="text-xs text-slate-400 dark:text-slate-500 max-w-3xl">
             <strong className="text-slate-500 dark:text-slate-400">How to read the radar:</strong> Select up to 4 countries from the toggles. Each axis ranges from 0 (worst) to 100 (best). Countries scoring below 40 are flagged as <span className="text-asean-red font-medium">high risk</span>. The timeline below the radar logs real-world laws and decrees — red dots signal high-impact restrictions, green dots signal positive developments.
           </p>
         </div>

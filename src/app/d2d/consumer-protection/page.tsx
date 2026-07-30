@@ -16,7 +16,7 @@ export default function ConsumerProtectionPage() {
     <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-200 font-sans selection:bg-asean-yellow/30 selection:text-slate-900 transition-colors">
       <section className="relative border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/60 py-10 sm:py-14 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+          <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-6 mb-8">
             <div className="flex-1">
               <div className="flex items-center gap-2 text-xs font-sans uppercase tracking-widest text-asean-emerald font-bold mb-2">
                 <Shield className="h-4 w-4 text-asean-emerald animate-pulse" />
@@ -27,17 +27,39 @@ export default function ConsumerProtectionPage() {
               <h1 className="font-serif-editorial text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
                 Consumer Protection Dashboard
               </h1>
-              <p className="mt-2 text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-3xl font-sans">
-                Tracking platform intermediary liability, algorithmic transparency audits, data breach notification mandates, spam regulation, and dark pattern restrictions across Southeast Asia.
+              <p className="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-2xl font-sans leading-relaxed">
+                How well are ASEAN consumers protected online? This dashboard scores each country on five dimensions of digital consumer rights — from platform accountability and data breach notifications to protections against deceptive design. <strong className="text-slate-800 dark:text-slate-200">Higher scores mean stronger safeguards</strong> against exploitative digital practices.
               </p>
             </div>
+
             <div className="shrink-0 p-4 rounded-2xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 shadow-sm">
               <span className="block font-mono text-[10px] text-slate-400 uppercase font-bold">Regional Average</span>
               <span className="font-bold text-2xl text-slate-900 dark:text-white">{avgScore}/100</span>
             </div>
           </div>
+
+          {/* Dimension concept cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 mb-5">
+            {[
+              { label: "Intermediary Liability", desc: "Are platforms held responsible for user content, or do safe harbors protect free expression?" },
+              { label: "Algorithmic Audits", desc: "Are companies required to disclose how their recommendation and ranking algorithms work?" },
+              { label: "Breach Notification", desc: "Must companies alert users and regulators when their personal data is compromised?" },
+              { label: "Spam Regulation", desc: "Are unsolicited commercial messages regulated, and are consumers protected from spam?" },
+              { label: "Dark Pattern Restrictions", desc: "Are deceptive design tricks — like hidden fees or forced subscriptions — prohibited?" },
+            ].map((item) => (
+              <div key={item.label} className="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700 text-sm text-slate-600 dark:text-slate-400">
+                <strong className="block text-slate-800 dark:text-slate-200 mb-1">{item.label}</strong>
+                {item.desc}
+              </div>
+            ))}
+          </div>
+
+          <p className="text-xs text-slate-400 dark:text-slate-500 max-w-3xl">
+            <strong className="text-slate-500 dark:text-slate-400">How to read:</strong> Each country card shows a composite score (0–100) and five dimension breakdowns. Green scores (≥60) indicate strong protections; amber (35–59) indicate moderate frameworks; red (&lt;35) indicate weak or absent safeguards.
+          </p>
         </div>
       </section>
+
       <main className="flex-1 px-4 sm:px-6 lg:px-8 py-6">
         <div className="max-w-7xl mx-auto space-y-6">
           <h2 className="font-serif-editorial text-xl font-bold text-slate-900 dark:text-white">Country Profiles</h2>
@@ -54,12 +76,10 @@ export default function ConsumerProtectionPage() {
                   </span>
                 </div>
 
-                {/* Progress bar */}
                 <div className="h-2 w-full rounded-full bg-slate-200 dark:bg-slate-700 mb-3">
                   <div className="h-full rounded-full" style={{ width: `${policy.compositeScore}%`, backgroundColor: policy.compositeScore >= 60 ? "#059669" : policy.compositeScore >= 35 ? "#d97706" : "#dc2626" }} />
                 </div>
 
-                {/* 5 dimension scores */}
                 <div className="space-y-1.5 text-[11px]">
                   {[
                     { label: "Intermediary Liability", score: policy.intermediaryLiabilityScore },

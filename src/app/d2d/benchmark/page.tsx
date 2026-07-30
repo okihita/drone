@@ -101,8 +101,12 @@ export default function BenchmarkPage() {
                 <p className="text-[11px] text-slate-600 dark:text-slate-400 leading-snug">Click cells for detail · Hover for TPP text · Filter by cluster</p>
               </div>
             </div>
+            </div>
           </div>
-        </div>
+
+          <p className="text-xs text-slate-400 dark:text-slate-500 mt-6 max-w-3xl">
+            <strong className="text-slate-500 dark:text-slate-400">How to read:</strong> Click any country on the map to see its detailed scores. Hover over heatmap cells for the original TPP provision text. Filter by cluster to focus on specific policy areas. Green cells (80+) indicate full compliance; red cells (&lt;20) indicate severe non-compliance. Export the full dataset via the button in the sidebar.
+          </p>
       </section>
 
       {/* Geographic Compliance Map + Heatmap — two-way synced via shared state */}
