@@ -23,12 +23,6 @@ export default function EncryptionPage() {
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-6 mb-8">
             <div className="flex-1">
-              <div className="flex flex-wrap items-center gap-x-2 gap-y-0 text-xs font-sans uppercase tracking-widest text-asean-red font-bold mb-2">
-                <Lock className="h-4 w-4 text-asean-red animate-pulse" />
-                <span>Digital 2 Dozen · Principle 12</span>
-                <span className="hidden sm:inline">·</span>
-                <span className="text-slate-500 font-sans">Encryption Observatory</span>
-              </div>
               <h1 className="font-serif-editorial text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
                 Encryption & Digital Security Observatory
               </h1>

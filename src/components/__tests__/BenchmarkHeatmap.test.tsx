@@ -78,7 +78,6 @@ describe("BenchmarkHeatmap", () => {
     );
 
     expect(screen.getByText("Compliance Heatmap")).toBeInTheDocument();
-    expect(screen.getByText("PRINCIPLE-BY-PRINCIPLE SCORES")).toBeInTheDocument();
   });
 
   it("renders principle short titles in the table", () => {

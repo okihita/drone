@@ -60,12 +60,6 @@ export default function DefaChapterHeatmap() {
         <div className="max-w-7xl mx-auto space-y-6">
           <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-6">
             <div className="flex-1">
-              <div className="flex flex-wrap items-center gap-x-2 gap-y-0 text-xs font-sans uppercase tracking-widest text-asean-yellow font-bold mb-2">
-                <Sparkles className="h-4 w-4 text-asean-amber animate-pulse" />
-                <span>DEFA Observatory · SEOM Telemetry</span>
-                <span className="hidden sm:inline">·</span>
-                <span className="text-slate-500 font-mono">July 2026 Legal Scrubbing</span>
-              </div>
               <h1 className="font-serif-editorial text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
                 DEFA 9-Chapter Ratification Telemetry Matrix
               </h1>
