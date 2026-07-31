@@ -25,7 +25,7 @@ export default function ConsumerProtectionPage() {
           <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-6 mb-8">
             <div className="flex-1">
               <h1 className="font-serif-editorial text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
-                Consumer Protection Dashboard
+                Consumer Rights Matrix
               </h1>
               <p className="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-2xl font-sans leading-relaxed">
                 How well are ASEAN consumers protected online? This dashboard scores each country on five dimensions of digital consumer rights — from platform accountability and data breach notifications to protections against deceptive design. <strong className="text-slate-800 dark:text-slate-200">Higher scores mean stronger safeguards</strong> against exploitative digital practices.

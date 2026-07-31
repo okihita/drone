@@ -19,7 +19,7 @@ export default function DefaCivilSocietyView() {
           <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-6">
             <div className="flex-1">
               <h1 className="font-serif-editorial text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
-                Civil Society Threat Matrix &amp; DEFA Readiness
+                Civil Society Threat Matrix
               </h1>
               <p className="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-3xl font-sans leading-relaxed">
                 While DEFA promises <strong className="text-slate-800 dark:text-slate-200">US$2 Trillion</strong> in economic expansion, civil society advocates warn of deep democratic deficits. Conducted behind closed doors by Senior Economic Officials (SEOM), DEFA negotiations risk corporate deregulatory capture—banning mandatory source code audits and digital taxation while co-opting security clauses for state surveillance. This dashboard tracks transparency, Big Tech lobby pressure, and the 11-nation digital divide.

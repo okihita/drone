@@ -17,7 +17,7 @@ export default function DefaPaymentsCyberView() {
           <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-6">
             <div className="flex-1">
               <h1 className="font-serif-editorial text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
-                Regional Payment Connectivity &amp; Cyber Defense
+                Payments &amp; Cyber Defense
               </h1>
               <p className="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-3xl font-sans leading-relaxed">
                 Financial connectivity and digital resilience form the operational spine of ASEAN DEFA. This dashboard monitors the integration of the <strong className="text-slate-800 dark:text-slate-200">ASEAN Regional Payment Connectivity (RPC)</strong> framework—linking national QR payment systems (QRIS, DuitNow, PayNow, PromptPay) across borders—alongside national CERT cybersecurity incident notification windows and financial data surveillance risks.

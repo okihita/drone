@@ -61,7 +61,7 @@ export default function DefaChapterHeatmap() {
           <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-6">
             <div className="flex-1">
               <h1 className="font-serif-editorial text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
-                DEFA 9-Chapter Ratification Telemetry Matrix
+                DEFA Ratification Tracker
               </h1>
               <p className="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-3xl font-sans leading-relaxed">
                 Following the conclusion of official text negotiations at the 57th Senior Economic Officials Meeting (SEOM) in Manila (May 2026), DEFA has entered its critical <strong className="text-slate-800 dark:text-slate-200">Legal Scrubbing</strong> phase. This telemetry matrix maps the ratification and legal alignment of all 11 ASEAN member states across DEFA’s 9 core chapters—tracking progress toward formal treaty execution at the 49th ASEAN Summit in November 2026.

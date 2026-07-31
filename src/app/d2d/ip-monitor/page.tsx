@@ -32,7 +32,7 @@ export default function IPMonitorPage() {
           <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-6 mb-8">
             <div className="flex-1">
               <h1 className="font-serif-editorial text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
-                IP & Trade Secret Risk Monitor
+                IP Risk Monitor
               </h1>
               <p className="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-2xl font-sans leading-relaxed">
                 How safe is your intellectual property in ASEAN? This monitor scores each country on four dimensions of IP protection — from trade secret laws and copyright safe harbors to patent enforcement and AI training data risks. <strong className="text-slate-800 dark:text-slate-200">Higher scores mean stronger IP protections</strong> for creators, innovators, and businesses operating in the region.

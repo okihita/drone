@@ -32,7 +32,7 @@ export default function BenchmarkPage() {
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">
             <div className="flex-1">
               <h1 className="font-serif-editorial text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
-                Digital 2 Dozen Compliance Matrix
+                Compliance Matrix
               </h1>
             </div>
 

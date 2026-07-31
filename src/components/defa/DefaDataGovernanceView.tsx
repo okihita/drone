@@ -35,7 +35,7 @@ export default function DefaDataGovernanceView() {
           <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-6">
             <div className="flex-1">
               <h1 className="font-serif-editorial text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
-                Cross-Border Data Flows &amp; Localization Regimes
+                Cross-Border Data &amp; Localization
               </h1>
               <p className="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-3xl font-sans leading-relaxed">
                 Cross-border data movement is the central economic engine of DEFA, projected to unlock <strong className="text-slate-800 dark:text-slate-200">$2 Trillion USD</strong> in regional value by 2030. However, data flows represent Southeast Asia&apos;s most contentious policy battlefield. This dashboard evaluates the 3-tier regulatory spectrum across all 11 ASEAN nations—contrasting open data transfer regimes against conditional models and strict domestic server localization mandates that restrict civil society and digital rights.
