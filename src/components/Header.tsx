@@ -188,7 +188,7 @@ export default function Header() {
 
       {/* Desktop Navigation */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 font-sans">
-        <nav className="hidden md:flex items-center justify-center gap-1 py-3 text-xs font-sans" ref={dropdownRef}>
+        <nav className="hidden md:flex items-center justify-start lg:justify-center gap-1 py-3 text-xs font-sans overflow-x-auto no-scrollbar" ref={dropdownRef}>
           {NAV_GROUPS.map((item) => {
             if (isNavGroup(item)) {
               const isOpen = openDropdown === item.href;
@@ -323,14 +323,14 @@ export default function Header() {
                           href={child.href}
                           onClick={() => closeSheet()}
                           aria-current={active ? "page" : undefined}
-                          className={`flex items-center gap-3 pl-9 pr-3 py-2 rounded-lg font-medium transition-colors ${
+                          className={`flex items-center gap-2.5 pl-7 pr-3 py-2 rounded-lg font-medium transition-colors text-xs sm:text-sm ${
                             active
                               ? "bg-asean-yellow/10 text-asean-yellow"
                               : "text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
                           }`}
                         >
-                          <child.icon className={`w-3.5 h-3.5 ${child.iconColor}`} />
-                          {child.label}
+                          <child.icon className={`w-3.5 h-3.5 shrink-0 ${child.iconColor}`} />
+                          <span className="truncate">{child.label}</span>
                         </Link>
                       );
                     })}
