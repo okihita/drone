@@ -176,7 +176,7 @@ export default function BenchmarkHeatmap({ summaries, principles, selectedCountr
       </div>
 
       {hoveredPrinciple && popoverPos && (
-        <PrincipleDetailPopover principle={hoveredPrinciple} position={popoverPos} />
+        <PrincipleDetailPopover principle={hoveredPrinciple} position={popoverPos} onClose={() => setHoveredPrinciple(null)} />
       )}
     </section>
   );
