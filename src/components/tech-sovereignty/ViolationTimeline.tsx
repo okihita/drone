@@ -80,8 +80,8 @@ export default function ViolationTimeline({ events }: Props) {
         </div>
 
         {/* Vertical Timeline Track */}
-        <div className="relative pl-6 sm:pl-8 border-l-2 border-slate-200 dark:border-slate-800 space-y-6 my-6 ml-3 sm:ml-4">
-          {filteredEvents.map((event) => {
+        <div className="relative pl-6 sm:pl-8 space-y-6 my-6 ml-3 sm:ml-4">
+          {filteredEvents.map((event, idx) => {
             const FlagIcon = FLAG_COMPONENTS[event.countryCode];
             const formattedDate = new Date(event.eventDate).toLocaleDateString("en-US", {
               year: "numeric",
@@ -96,11 +96,27 @@ export default function ViolationTimeline({ events }: Props) {
               ? ASEAN_COLORS.amber
               : ASEAN_COLORS.emerald;
 
+            const isFirst = idx === 0;
+            const isLast = idx === filteredEvents.length - 1;
+
             return (
               <div key={event.id} className="relative group">
-                {/* Vertical Stem Marker Node (Exactly centered on border-l-2) */}
+                {/* Bounded Stem Line Segment (Starts at first dot, terminates at last dot) */}
+                {filteredEvents.length > 1 && (
+                  <div
+                    className={`absolute -left-[26px] sm:-left-[34px] w-0.5 bg-slate-200 dark:bg-slate-800 z-0 ${
+                      isFirst
+                        ? "top-6 -bottom-6"
+                        : isLast
+                        ? "top-0 h-6"
+                        : "top-0 -bottom-6"
+                    }`}
+                  />
+                )}
+
+                {/* Vertical Stem Marker Node (Exactly centered on line) */}
                 <div
-                  className={`absolute -left-[33px] sm:-left-[41px] top-4 w-4 h-4 rounded-full border-2 border-white dark:border-slate-950 flex items-center justify-center transition-transform group-hover:scale-125 ${
+                  className={`absolute -left-[33px] sm:-left-[41px] top-4 w-4 h-4 rounded-full border-2 border-white dark:border-slate-950 flex items-center justify-center z-10 transition-transform group-hover:scale-125 ${
                     isHighSeverity ? "animate-pulse" : ""
                   }`}
                   style={{ backgroundColor: nodeColor }}
