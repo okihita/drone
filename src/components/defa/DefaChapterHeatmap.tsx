@@ -145,16 +145,18 @@ export default function DefaChapterHeatmap() {
 
         {/* 11 Member State x 9 Chapter Heatmap Grid */}
         <div className="overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-md">
-          <table className="w-full border-collapse text-left text-xs font-sans min-w-[900px]">
+          <table className="w-full border-collapse text-left text-xs font-sans min-w-[1050px]">
             <thead>
-              <tr className="border-b border-slate-200 dark:border-slate-800 bg-slate-100/70 dark:bg-slate-950/70 text-slate-700 dark:text-slate-300 uppercase tracking-wider font-bold">
-                <th className="p-3 sticky left-0 z-20 bg-slate-100 dark:bg-slate-950 min-w-[140px] shadow-sm">
+              <tr className="border-b border-slate-200 dark:border-slate-800 bg-slate-100/80 dark:bg-slate-950/80 text-slate-700 dark:text-slate-300 uppercase tracking-wider font-bold">
+                <th className="p-3.5 sticky left-0 z-20 bg-slate-100 dark:bg-slate-950 min-w-[160px] max-w-[180px] border-r border-slate-200 dark:border-slate-800 shadow-[2px_0_6px_rgba(0,0,0,0.04)]">
                   ASEAN Nation
                 </th>
                 {DEFA_CHAPTERS.map((ch) => (
-                  <th key={ch.id} className="p-3 text-center min-w-[100px] max-w-[120px]">
-                    <div className="font-mono text-[10px] text-asean-blue font-bold">{ch.code}</div>
-                    <div className="truncate text-[11px] font-semibold text-slate-800 dark:text-slate-200 mt-0.5">
+                  <th key={ch.id} className="p-3 text-center min-w-[130px] sm:min-w-[145px] max-w-[160px] align-bottom">
+                    <span className="inline-block px-1.5 py-0.5 rounded bg-asean-blue/10 dark:bg-asean-blue/20 text-asean-blue dark:text-asean-yellow font-mono text-[9px] font-extrabold mb-1">
+                      {ch.code}
+                    </span>
+                    <div className="text-[11px] font-bold leading-snug text-slate-800 dark:text-slate-200 whitespace-normal line-clamp-2 text-balance">
                       {ch.shortName}
                     </div>
                   </th>
@@ -164,9 +166,9 @@ export default function DefaChapterHeatmap() {
             <tbody className="divide-y divide-slate-200 dark:divide-slate-800">
               {ASEAN_MEMBER_STATES.map((country) => (
                 <tr key={country.code} className="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
-                  <td className="p-3 sticky left-0 z-10 bg-white dark:bg-slate-900 font-bold text-slate-900 dark:text-white flex items-center gap-2 border-r border-slate-200 dark:border-slate-800">
-                    <country.Flag className="w-5 h-3.5 object-cover rounded-[2px] shadow-xs" />
-                    <span>{country.name}</span>
+                  <td className="p-3 sticky left-0 z-10 bg-white dark:bg-slate-900 font-bold text-slate-900 dark:text-white flex items-center gap-2.5 border-r border-slate-200 dark:border-slate-800 min-w-[160px] max-w-[180px] shadow-[2px_0_6px_rgba(0,0,0,0.04)] h-full">
+                    <country.Flag className="w-5 h-3.5 object-cover rounded-[2px] shadow-xs shrink-0" />
+                    <span className="truncate">{country.name}</span>
                   </td>
                   {DEFA_CHAPTERS.map((ch) => {
                     const st = getCellStatus(country.code, ch.id);
@@ -174,16 +176,16 @@ export default function DefaChapterHeatmap() {
                     const isSelected = selectedCell?.countryCode === country.code && selectedCell?.chapterId === ch.id;
 
                     return (
-                      <td key={ch.id} className="p-2 text-center">
+                      <td key={ch.id} className="p-1 sm:p-1.5 text-center align-stretch">
                         <button
                           type="button"
                           onClick={() => setSelectedCell({ countryCode: country.code, chapterId: ch.id })}
-                          className={`w-full py-2 px-1.5 rounded-lg border flex flex-col items-center justify-center transition-all ${badge.className} ${
-                            isSelected ? "ring-2 ring-asean-yellow ring-offset-2 dark:ring-offset-slate-900 scale-105 shadow-md" : "hover:scale-102"
+                          className={`w-full h-full min-h-[54px] py-2 px-1.5 rounded-lg border flex flex-col items-center justify-between transition-all ${badge.className} ${
+                            isSelected ? "ring-2 ring-asean-yellow ring-offset-2 dark:ring-offset-slate-900 scale-105 shadow-md z-10 relative" : "hover:scale-[1.02] hover:shadow-xs"
                           }`}
                         >
-                          <badge.icon className="w-3.5 h-3.5 mb-1" />
-                          <span className="font-mono text-[10px] font-bold">{st?.progressPercent}%</span>
+                          <badge.icon className="w-3.5 h-3.5" />
+                          <span className="font-mono text-[10px] font-extrabold mt-0.5">{st?.progressPercent}%</span>
                         </button>
                       </td>
                     );
