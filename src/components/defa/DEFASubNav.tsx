@@ -10,7 +10,7 @@ export default function DEFASubNav() {
 
   return (
     <div
-      className="sticky top-[calc(var(--drone-admin-bar-h,0px)+var(--drone-header-h,135px))] z-30 border-b border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-slate-950/95 backdrop-blur-md animate-[slideDown_0.25s_ease-out]"
+      className="relative md:sticky md:top-[calc(var(--drone-admin-bar-h,0px)+var(--drone-header-h,135px))] z-30 border-b border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-slate-950/95 backdrop-blur-md animate-[slideDown_0.25s_ease-out]"
     >
       <div className="w-full overflow-x-auto no-scrollbar">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-w-max flex items-center justify-start xl:justify-center gap-1.5 py-2">

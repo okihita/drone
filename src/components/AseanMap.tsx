@@ -7,9 +7,17 @@ import { ASEAN_COLORS } from "@/lib/colors";
 import { REGIME_FILL_COLORS, MAP_FILTER_MODES, REGIME_TYPES } from "@/lib/constants";
 import type { MapFilterMode } from "@/lib/constants";
 
+import { ID, MY, SG, PH, TH, VN, KH, LA, MM, BN, TL } from "country-flag-icons/react/3x2";
+
+const FLAG_COMPONENTS: Record<string, React.ComponentType<{ className?: string }>> = {
+  ID, MY, SG, PH, TH, VN, KH, LA, MM, BN, TL,
+};
+
 // ── Country Dossier Modal ────────────────────────────────────────────────────
 
 function CountryDossierModal({ country, onClose }: { country: GeoCountryData; onClose: () => void }) {
+  const FlagIcon = FLAG_COMPONENTS[country.code];
+
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 dark:bg-black/80 backdrop-blur-md font-sans"
@@ -24,7 +32,11 @@ function CountryDossierModal({ country, onClose }: { country: GeoCountryData; on
         </button>
 
         <div className="flex items-center gap-3 mb-4 font-sans">
-          <MapPin className="w-6 h-6 text-asean-yellow" />
+          {FlagIcon ? (
+            <FlagIcon className="w-7 h-5 rounded-xs shrink-0 shadow-xs" />
+          ) : (
+            <MapPin className="w-6 h-6 text-asean-yellow" />
+          )}
           <div>
             <h3 id="modal-country-name" className="font-serif-editorial text-2xl font-bold text-slate-900 dark:text-white">{country.name}</h3>
             <span className="text-xs text-slate-500 dark:text-slate-400 font-sans">Capital: {country.capital} &bull; ISO: {country.code}</span>

@@ -6,6 +6,25 @@ import { Search, Filter, ShieldAlert, CheckCircle, FileText } from "lucide-react
 import { listPolicies } from "@/services/policies";
 import { POLICY_CATEGORIES, THREAT_ACCENT_COLORS, THREAT_BADGE_CONTAINER_CLASSES } from "@/lib/constants";
 import type { PolicyListItem } from "@/types";
+import { ID, MY, SG, PH, TH, VN, KH, LA, MM, BN, TL } from "country-flag-icons/react/3x2";
+
+const FLAG_COMPONENTS: Record<string, React.ComponentType<{ className?: string }>> = {
+  ID, MY, SG, PH, TH, VN, KH, LA, MM, BN, TL,
+};
+
+const COUNTRY_NAME_TO_CODE: Record<string, string> = {
+  Singapore: "SG",
+  Malaysia: "MY",
+  Vietnam: "VN",
+  Indonesia: "ID",
+  Thailand: "TH",
+  Philippines: "PH",
+  Myanmar: "MM",
+  Cambodia: "KH",
+  Laos: "LA",
+  Brunei: "BN",
+  "Timor-Leste": "TL",
+};
 
 const THREAT_ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
   "High Alert": ShieldAlert,
@@ -110,10 +129,15 @@ export default function PolicyLedgerTable() {
               {filtered.map((item) => {
                 const Icon = THREAT_ICON_MAP[item.threat_level] ?? FileText;
                 const accent = THREAT_ACCENT_COLORS[item.threat_level] ?? "text-slate-500";
+                const cCode = COUNTRY_NAME_TO_CODE[item.jurisdiction];
+                const FlagIcon = cCode ? FLAG_COMPONENTS[cCode] : null;
                 return (
                   <tr key={item.id} className="hover:bg-slate-50 dark:hover:bg-slate-900/50 transition-colors">
                     <td className="py-4 px-4 align-top whitespace-nowrap">
-                      <span className="font-bold text-slate-900 dark:text-white font-sans text-xs">{item.jurisdiction}</span>
+                      <div className="flex items-center gap-2">
+                        {FlagIcon && <FlagIcon className="w-4 h-3 rounded-xs shrink-0 shadow-xs" />}
+                        <span className="font-bold text-slate-900 dark:text-white font-sans text-xs">{item.jurisdiction}</span>
+                      </div>
                       <span className="text-[10px] text-slate-500 dark:text-slate-400 block mt-0.5">{item.date}</span>
                     </td>
                     <td className="py-4 px-4 align-top max-w-md">
