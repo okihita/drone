@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { DEFA_CHAPTERS, getDefaChapterStatuses } from "@/services/defa";
 import { ASEAN_MEMBER_STATES, ASEANCountryCode } from "@/lib/countries";
 import { DefaRatificationStatus } from "@/types/defa";
-import { FileText, CheckCircle2, AlertTriangle, Clock, Lock, Sparkles } from "lucide-react";
+import { FileText, CheckCircle2, AlertTriangle, Clock, Lock } from "lucide-react";
 import Footer from "@/components/Footer";
 import DefaExplainerCard from "@/components/defa/DefaExplainerCard";
 

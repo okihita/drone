@@ -3,7 +3,6 @@
 import React from "react";
 import { getDefaPaymentStates } from "@/services/defa";
 import { ASEAN_MEMBER_STATES } from "@/lib/countries";
-import { CreditCard } from "lucide-react";
 import Footer from "@/components/Footer";
 
 export default function DefaPaymentsCyberView() {

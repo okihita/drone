@@ -4,7 +4,7 @@ import TechSovereigntyRadar from "@/components/tech-sovereignty/TechSovereigntyR
 import ViolationTimeline from "@/components/tech-sovereignty/ViolationTimeline";
 import { listAllBenchmarks } from "@/services/benchmark";
 import { fetchEncryptionEvents } from "@/services/encryption";
-import { Cpu, Lock, AlertTriangle } from "lucide-react";
+import { Lock, AlertTriangle } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Technology Sovereignty Radar — ASEAN Digital Rights | D.R.O.N.E.",

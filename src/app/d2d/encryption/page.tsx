@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Footer from "@/components/Footer";
 import { fetchEncryptionEvents, fetchEncryptionSummary } from "@/services/encryption";
-import { Lock, AlertTriangle, ShieldCheck } from "lucide-react";
+import { AlertTriangle, ShieldCheck } from "lucide-react";
 import EncryptionEventList from "@/components/encryption/EncryptionEventList";
 import EncryptionSummaryStats from "@/components/encryption/EncryptionSummaryStats";
 

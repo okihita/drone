@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import BenchmarkHeroMap from "./BenchmarkHeroMap";
 import BenchmarkHeatmap from "./BenchmarkHeatmap";
@@ -18,14 +18,16 @@ export default function BenchmarkClientShell({ summaries, principles }: Props) {
   const pathname = usePathname();
 
   const urlCountry = searchParams.get("country");
-  const [selectedCountry, setSelectedCountry] = useState<string | null>(
+  const validUrlCountry =
     urlCountry && summaries.some((s) => s.countryCode === urlCountry.toUpperCase())
       ? urlCountry.toUpperCase()
-      : "ID",
-  );
+      : null;
+
+  const [overrideCountry, setOverrideCountry] = useState<string | null>(null);
+  const selectedCountry = overrideCountry ?? validUrlCountry ?? "ID";
 
   const handleSelectCountry = (code: string | null) => {
-    setSelectedCountry(code);
+    setOverrideCountry(code);
     const params = new URLSearchParams(searchParams.toString());
     if (code) {
       params.set("country", code);
@@ -35,12 +37,6 @@ export default function BenchmarkClientShell({ summaries, principles }: Props) {
     const queryString = params.toString();
     router.replace(queryString ? `${pathname}?${queryString}` : pathname, { scroll: false });
   };
-
-  useEffect(() => {
-    if (urlCountry && summaries.some((s) => s.countryCode === urlCountry.toUpperCase())) {
-      setSelectedCountry(urlCountry.toUpperCase());
-    }
-  }, [urlCountry, summaries]);
 
   return (
     <>

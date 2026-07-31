@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Footer from "@/components/Footer";
-import { FileKey } from "lucide-react";
 import { ID, MY, SG, PH, TH, VN, KH, LA, MM, BN, TL } from "country-flag-icons/react/3x2";
 import { ASEAN_COLORS } from "@/lib/colors";
 import { fetchIPProfiles } from "@/services/ip_monitor";

@@ -3,7 +3,7 @@ import Footer from "@/components/Footer";
 import { fetchNegotiations, fetchNegotiationsGrouped } from "@/services/negotiation";
 import { FRAMEWORK_LABELS, FRAMEWORK_COLORS } from "@/types/negotiation";
 import type { NegotiationFramework, NegotiationMilestone } from "@/types/negotiation";
-import { Calendar, CheckCircle, Clock, AlertTriangle } from "lucide-react";
+import { CheckCircle, Clock, AlertTriangle } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Digital Trade Negotiations Timeline — ASEAN | D.R.O.N.E.",

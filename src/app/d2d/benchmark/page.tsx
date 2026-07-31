@@ -4,7 +4,7 @@ import Footer from "@/components/Footer";
 import BenchmarkClientShell from "@/components/benchmark/BenchmarkClientShell";
 import D2DTimeline from "@/components/benchmark/D2DTimeline";
 import { listAllBenchmarks, listPrinciples } from "@/services/benchmark";
-import { BarChart3, Globe, Shield } from "lucide-react";
+import { Globe, Shield } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Digital 2 Dozen Benchmark — ASEAN Digital Trade Compliance | D.R.O.N.E.",

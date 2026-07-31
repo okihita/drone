@@ -3,7 +3,7 @@
 import React from "react";
 import { getDefaCivilSocietyStates } from "@/services/defa";
 import { ASEAN_MEMBER_STATES } from "@/lib/countries";
-import { Shield, ShieldAlert } from "lucide-react";
+import { ShieldAlert } from "lucide-react";
 import DEFARadarChart from "@/components/defa/DEFARadarChart";
 import DEFABenchmarkExport from "@/components/defa/DEFABenchmarkExport";
 import Footer from "@/components/Footer";

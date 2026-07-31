@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { getDefaDataGovernanceStates } from "@/services/defa";
 import { ASEAN_MEMBER_STATES } from "@/lib/countries";
 import { DataRegimeTier } from "@/types/defa";
-import { Globe, Layers } from "lucide-react";
+import { Layers } from "lucide-react";
 import Footer from "@/components/Footer";
 
 export default function DefaDataGovernanceView() {
