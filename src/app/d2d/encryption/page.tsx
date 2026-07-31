@@ -27,7 +27,7 @@ export default function EncryptionPage() {
                 <Lock className="h-4 w-4 text-asean-red animate-pulse" />
                 <span>Digital 2 Dozen · Principle 12</span>
                 <span className="hidden sm:inline">·</span>
-                <span className="text-slate-500 font-mono">Encryption Observatory</span>
+                <span className="text-slate-500 font-sans">Encryption Observatory</span>
               </div>
               <h1 className="font-serif-editorial text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
                 Encryption & Digital Security Observatory
@@ -40,12 +40,12 @@ export default function EncryptionPage() {
             <div className="shrink-0 flex flex-wrap items-center gap-4 p-4 rounded-2xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 shadow-sm text-xs font-sans">
               <div className="flex items-center gap-2">
                 <AlertTriangle className="h-5 w-5 text-asean-red" />
-                <div><span className="block font-mono text-[10px] text-slate-400 uppercase font-bold">High Severity</span><span className="font-bold text-slate-900 dark:text-white">{highSeverityCount} Events</span></div>
+                <div><span className="block font-sans text-[10px] text-slate-400 uppercase font-bold">High Severity</span><span className="font-bold text-slate-900 dark:text-white">{highSeverityCount} Events</span></div>
               </div>
               <div className="h-8 w-px bg-slate-300 dark:bg-slate-700" />
               <div className="flex items-center gap-2">
                 <ShieldCheck className="h-5 w-5 text-asean-emerald" />
-                <div><span className="block font-mono text-[10px] text-slate-400 uppercase font-bold">Countries</span><span className="font-bold text-slate-900 dark:text-white">{totalCountries} Tracked</span></div>
+                <div><span className="block font-sans text-[10px] text-slate-400 uppercase font-bold">Countries</span><span className="font-bold text-slate-900 dark:text-white">{totalCountries} Tracked</span></div>
               </div>
             </div>
           </div>

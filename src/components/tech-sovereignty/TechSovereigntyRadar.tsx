@@ -95,7 +95,7 @@ export default function TechSovereigntyRadar({ summaries, principles }: Props) {
                       <text
                         x={cx + 8}
                         y={cy - ((i + 1) / levels) * radius + 3}
-                        className="fill-slate-400 dark:fill-slate-500 text-[8px] font-mono"
+                        className="fill-slate-400 dark:fill-slate-500 text-[8px] font-sans"
                       >
                         {(i + 1) * 20}
                       </text>
@@ -234,7 +234,7 @@ export default function TechSovereigntyRadar({ summaries, principles }: Props) {
               <div key={s.countryCode} className="p-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50">
                 <div className="flex justify-between items-center mb-2">
                   <span className="text-xs font-bold text-slate-800 dark:text-slate-200">{s.countryName}</span>
-                  <span className={`text-xs font-mono font-bold ${
+                  <span className={`text-xs font-sans font-bold ${
                     avgTech >= 60 ? "text-asean-emerald"
                     : avgTech >= 35 ? "text-asean-amber"
                     : "text-asean-red"
@@ -245,7 +245,7 @@ export default function TechSovereigntyRadar({ summaries, principles }: Props) {
                 {techScores.sort((a, b) => a.principleId - b.principleId).map((sc) => (
                   <div key={sc.principleId} className="flex items-center justify-between py-0.5 text-[10px]">
                     <span className="text-slate-600 dark:text-slate-400">{AXIS_LABELS[sc.principleId] ?? `#${sc.principleId}`}</span>
-                    <span className="font-mono font-bold text-slate-800 dark:text-slate-200">{sc.score}</span>
+                    <span className="font-sans font-bold text-slate-800 dark:text-slate-200">{sc.score}</span>
                   </div>
                 ))}
               </div>

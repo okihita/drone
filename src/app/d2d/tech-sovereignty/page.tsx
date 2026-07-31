@@ -34,7 +34,7 @@ export default function TechSovereigntyPage() {
                 <Cpu className="h-4 w-4 text-asean-amber animate-pulse" />
                 <span>Digital 2 Dozen · Principles 6–9, 12</span>
                 <span className="hidden sm:inline">·</span>
-                <span className="text-slate-500 font-mono">Technology Sovereignty</span>
+                <span className="text-slate-500 font-sans">Technology Sovereignty</span>
               </div>
               <h1 className="font-serif-editorial text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
                 Technology Sovereignty Radar
@@ -48,7 +48,7 @@ export default function TechSovereigntyPage() {
               <div className="flex items-center gap-2">
                 <AlertTriangle className="h-5 w-5 text-asean-red" />
                 <div>
-                  <span className="block font-mono text-[10px] text-slate-400 uppercase font-bold">High Risk</span>
+                  <span className="block font-sans text-[10px] text-slate-400 uppercase font-bold">High Risk</span>
                   <span className="font-bold text-slate-900 dark:text-white">{highRiskCount} of 11 Countries</span>
                 </div>
               </div>
@@ -56,7 +56,7 @@ export default function TechSovereigntyPage() {
               <div className="flex items-center gap-2">
                 <Lock className="h-5 w-5 text-asean-blue" />
                 <div>
-                  <span className="block font-mono text-[10px] text-slate-400 uppercase font-bold">Encryption Events</span>
+                  <span className="block font-sans text-[10px] text-slate-400 uppercase font-bold">Encryption Events</span>
                   <span className="font-bold text-slate-900 dark:text-white">{encryptionEvents.length} Tracked</span>
                 </div>
               </div>

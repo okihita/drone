@@ -28,7 +28,7 @@ export default function ConsumerProtectionPage() {
                 <Shield className="h-4 w-4 text-asean-emerald animate-pulse" />
                 <span>Digital 2 Dozen · Principle 10</span>
                 <span className="hidden sm:inline">·</span>
-                <span className="text-slate-500 font-mono">Consumer Protections</span>
+                <span className="text-slate-500 font-sans">Consumer Protections</span>
               </div>
               <h1 className="font-serif-editorial text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
                 Consumer Protection Dashboard
@@ -39,7 +39,7 @@ export default function ConsumerProtectionPage() {
             </div>
 
             <div className="shrink-0 p-4 rounded-2xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 shadow-sm">
-              <span className="block font-mono text-[10px] text-slate-400 uppercase font-bold">Regional Average</span>
+              <span className="block font-sans text-[10px] text-slate-400 uppercase font-bold">Regional Average</span>
               <span className="font-bold text-2xl text-slate-900 dark:text-white">{avgScore}/100</span>
             </div>
           </div>
@@ -75,10 +75,10 @@ export default function ConsumerProtectionPage() {
                 <div className="flex items-center justify-between mb-2">
                 <div className="flex items-center gap-1.5">
                   {(() => { const FlagIcon = FLAG_COMPONENTS[policy.countryCode]; return FlagIcon ? <FlagIcon className="w-4 h-3 rounded-xs shrink-0" /> : null; })()}
-                  <span className="font-mono text-[10px] px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-800 font-extrabold">{policy.countryCode}</span>
+                  <span className="font-sans text-[10px] px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-800 font-extrabold">{policy.countryCode}</span>
                     <span className="ml-2 text-sm font-bold text-slate-800 dark:text-slate-200">{policy.countryName}</span>
                   </div>
-                  <span className={`text-sm font-mono font-extrabold ${policy.compositeScore >= 60 ? "text-asean-emerald" : policy.compositeScore >= 35 ? "text-asean-amber" : "text-asean-red"}`}>
+                  <span className={`text-sm font-sans font-extrabold ${policy.compositeScore >= 60 ? "text-asean-emerald" : policy.compositeScore >= 35 ? "text-asean-amber" : "text-asean-red"}`}>
                     {policy.compositeScore}/100
                   </span>
                 </div>
@@ -97,7 +97,7 @@ export default function ConsumerProtectionPage() {
                   ].map((d) => (
                     <div key={d.label} className="flex items-center justify-between">
                       <span className="text-slate-600 dark:text-slate-400">{d.label}</span>
-                      <span className={`font-mono font-bold ${d.score >= 60 ? "text-asean-emerald" : d.score >= 35 ? "text-asean-amber" : "text-asean-red"}`}>
+                      <span className={`font-sans font-bold ${d.score >= 60 ? "text-asean-emerald" : d.score >= 35 ? "text-asean-amber" : "text-asean-red"}`}>
                         {d.score}
                       </span>
                     </div>

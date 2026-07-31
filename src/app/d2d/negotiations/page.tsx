@@ -41,7 +41,7 @@ export default function NegotiationsPage() {
                 <Calendar className="h-4 w-4 text-asean-sky animate-pulse" />
                 <span>Digital Trade Negotiations</span>
                 <span className="hidden sm:inline">·</span>
-                <span className="text-slate-500 font-mono">DEFA · CPTPP · DEPA · IPEF</span>
+                <span className="text-slate-500 font-sans">DEFA · CPTPP · DEPA · IPEF</span>
               </div>
               <h1 className="font-serif-editorial text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
                 Digital Trade Negotiations Timeline
@@ -52,9 +52,9 @@ export default function NegotiationsPage() {
             </div>
 
             <div className="shrink-0 flex items-center gap-4 p-4 rounded-2xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 shadow-sm text-xs font-sans">
-              <div className="flex items-center gap-2"><CheckCircle className="h-5 w-5 text-asean-emerald" /><div><span className="block font-mono text-[10px] text-slate-400 uppercase font-bold">Completed</span><span className="font-bold text-slate-900 dark:text-white">{completedCount}</span></div></div>
+              <div className="flex items-center gap-2"><CheckCircle className="h-5 w-5 text-asean-emerald" /><div><span className="block font-sans text-[10px] text-slate-400 uppercase font-bold">Completed</span><span className="font-bold text-slate-900 dark:text-white">{completedCount}</span></div></div>
               <div className="h-8 w-px bg-slate-300 dark:bg-slate-700" />
-              <div className="flex items-center gap-2"><Clock className="h-5 w-5 text-asean-amber" /><div><span className="block font-mono text-[10px] text-slate-400 uppercase font-bold">In Progress</span><span className="font-bold text-slate-900 dark:text-white">{inProgressCount}</span></div></div>
+              <div className="flex items-center gap-2"><Clock className="h-5 w-5 text-asean-amber" /><div><span className="block font-sans text-[10px] text-slate-400 uppercase font-bold">In Progress</span><span className="font-bold text-slate-900 dark:text-white">{inProgressCount}</span></div></div>
             </div>
           </div>
 
@@ -108,7 +108,7 @@ export default function NegotiationsPage() {
                           </span>
                         </div>
                         <p className="text-xs text-slate-600 dark:text-slate-400">{m.description}</p>
-                        <div className="flex items-center gap-2 mt-1 text-[10px] text-slate-400 font-mono">
+                        <div className="flex items-center gap-2 mt-1 text-[10px] text-slate-400 font-sans">
                           <span>{new Date(m.milestoneDate).toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" })}</span>
                           {m.endDate && <span>→ {new Date(m.endDate).toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" })}</span>}
                           <span className="text-slate-500">· {m.countries.join(", ")}</span>

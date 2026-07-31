@@ -95,9 +95,9 @@ export default function BenchmarkHeatmap({ summaries, principles, selectedCountr
                         {FlagIcon ? (
                           <FlagIcon className="w-5 h-3.5 rounded-xs" />
                         ) : (
-                          <span className="font-mono text-[10px] font-extrabold">{s.countryCode}</span>
+                          <span className="font-sans text-[10px] font-extrabold">{s.countryCode}</span>
                         )}
-                        <span className="font-mono text-[9px] font-bold text-slate-500 dark:text-slate-400">{s.countryCode}</span>
+                        <span className="font-sans text-[9px] font-bold text-slate-500 dark:text-slate-400">{s.countryCode}</span>
                       </div>
                     </th>
                   );
@@ -134,7 +134,7 @@ export default function BenchmarkHeatmap({ summaries, principles, selectedCountr
                         }
                       }}
                     >
-                      <span className="font-mono text-[10px] text-slate-400 dark:text-slate-500 mr-1.5">
+                      <span className="font-sans text-[10px] text-slate-400 dark:text-slate-500 mr-1.5">
                         #{principle.id}
                       </span>
                       <span className="font-bold text-slate-800 dark:text-slate-200 leading-tight">
@@ -159,7 +159,7 @@ export default function BenchmarkHeatmap({ summaries, principles, selectedCountr
                           onClick={() => onSelectCountry(selectedCountry === s.countryCode ? null : s.countryCode)}
                         >
                           <span
-                            className={`inline-flex items-center justify-center w-10 h-7 rounded-md font-mono text-[11px] font-bold ${scoreColor(score)} text-white`}
+                            className={`inline-flex items-center justify-center w-10 h-7 rounded-md font-sans text-[11px] font-bold ${scoreColor(score)} text-white`}
                             title={`${s.countryName}: ${score}/100 — ${principle.shortTitle}`}
                           >
                             {score}

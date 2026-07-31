@@ -22,9 +22,9 @@ export default function EncryptionSummaryStats({ summary }: Props) {
               <div className="flex items-center justify-between mb-1">
                 <div className="flex items-center gap-1">
                   {(() => { const FlagIcon = FLAG_COMPONENTS[code]; return FlagIcon ? <FlagIcon className="w-4 h-3 rounded-xs" /> : null; })()}
-                  <span className="font-mono text-[10px] font-extrabold text-slate-400">{code}</span>
+                  <span className="font-sans text-[10px] font-extrabold text-slate-400">{code}</span>
                 </div>
-                <span className={`font-mono text-sm font-extrabold ${data.avgSeverity >= 70 ? "text-asean-red" : data.avgSeverity >= 40 ? "text-asean-amber" : "text-asean-emerald"}`}>
+                <span className={`font-sans text-sm font-extrabold ${data.avgSeverity >= 70 ? "text-asean-red" : data.avgSeverity >= 40 ? "text-asean-amber" : "text-asean-emerald"}`}>
                   {data.avgSeverity}
                 </span>
               </div>

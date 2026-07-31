@@ -165,8 +165,8 @@ export default function BenchmarkHeroMap({ selectedCountryCode, onSelectCountry 
                           : "border-slate-200 bg-slate-100/80 text-slate-700 hover:border-slate-300 hover:bg-slate-200 hover:text-slate-900 dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-300 dark:hover:border-white/25 dark:hover:bg-white/15 dark:hover:text-white"
                       }`}
                     >
-                      {FlagIcon ? <FlagIcon className="w-4 h-3 rounded-xs object-cover shadow-xs" /> : <span className="font-mono text-[10px]">[{c.code}]</span>}
-                      <span className="font-mono text-[11px]">{c.code}</span>
+                      {FlagIcon ? <FlagIcon className="w-4 h-3 rounded-xs object-cover shadow-xs" /> : <span className="font-sans text-[10px]">[{c.code}]</span>}
+                      <span className="font-sans text-[11px]">{c.code}</span>
                       {c.threatScore >= 4 && <span className="h-1.5 w-1.5 rounded-full bg-asean-red animate-pulse" />}
                     </button>
                   );
@@ -180,7 +180,7 @@ export default function BenchmarkHeroMap({ selectedCountryCode, onSelectCountry 
             <div className="lg:w-60 shrink-0 p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm animate-[slideInRight_0.2s_ease-out]">
               <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center gap-2">
-                  <span className="font-mono text-lg font-extrabold text-slate-900 dark:text-white">{selectedSummary.countryCode}</span>
+                  <span className="font-sans text-lg font-extrabold text-slate-900 dark:text-white">{selectedSummary.countryCode}</span>
                   <span className="text-xs font-bold text-slate-700 dark:text-slate-300">{selectedSummary.countryName}</span>
                 </div>
                 <button onClick={() => onSelectCountry(null)} className="p-0.5 rounded hover:bg-slate-100 dark:hover:bg-slate-800">
@@ -192,7 +192,7 @@ export default function BenchmarkHeroMap({ selectedCountryCode, onSelectCountry 
               <div className="mb-3">
                 <div className="flex items-center justify-between text-[10px] mb-1">
                   <span className="text-slate-500">Overall</span>
-                  <span className={`font-mono font-extrabold ${scoreBadge(selectedSummary.overallScore)}`}>
+                  <span className={`font-sans font-extrabold ${scoreBadge(selectedSummary.overallScore)}`}>
                     {selectedSummary.overallScore}/100
                   </span>
                 </div>
@@ -213,14 +213,14 @@ export default function BenchmarkHeroMap({ selectedCountryCode, onSelectCountry 
                         <span className="text-slate-500">Best</span>
                         <div className="flex items-center justify-between mt-0.5">
                           <span className="font-bold text-slate-800 dark:text-slate-200 truncate mr-1">{best.clusterLabel}</span>
-                          <span className="font-mono font-bold text-asean-emerald shrink-0">{best.averageScore}</span>
+                          <span className="font-sans font-bold text-asean-emerald shrink-0">{best.averageScore}</span>
                         </div>
                       </div>
                       <div>
                         <span className="text-slate-500">Worst</span>
                         <div className="flex items-center justify-between mt-0.5">
                           <span className="font-bold text-slate-800 dark:text-slate-200 truncate mr-1">{worst.clusterLabel}</span>
-                          <span className="font-mono font-bold text-asean-red shrink-0">{worst.averageScore}</span>
+                          <span className="font-sans font-bold text-asean-red shrink-0">{worst.averageScore}</span>
                         </div>
                       </div>
                     </>

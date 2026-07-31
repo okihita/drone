@@ -34,7 +34,7 @@ export default function BenchmarkPage() {
                 <BarChart3 className="h-4 w-4 text-asean-blue animate-pulse" />
                 <span>USTR Digital 2 Dozen — TPP Benchmark</span>
                 <span className="hidden sm:inline">·</span>
-                <span className="text-slate-500 font-mono">24 Principles × 11 States</span>
+                <span className="text-slate-500 font-sans">24 Principles × 11 States</span>
               </div>
               <h1 className="font-serif-editorial text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
                 Digital 2 Dozen Compliance Matrix
@@ -45,7 +45,7 @@ export default function BenchmarkPage() {
               <div className="flex items-center gap-2">
                 <Globe className="h-5 w-5 text-asean-emerald" />
                 <div>
-                  <span className="block font-mono text-[10px] text-slate-400 uppercase font-bold">ASEAN Avg</span>
+                  <span className="block font-sans text-[10px] text-slate-400 uppercase font-bold">ASEAN Avg</span>
                   <span className="font-bold text-slate-900 dark:text-white">{globalAverage}/100</span>
                 </div>
               </div>
@@ -53,7 +53,7 @@ export default function BenchmarkPage() {
               <div className="flex items-center gap-2">
                 <Shield className="h-5 w-5 text-asean-blue" />
                 <div>
-                  <span className="block font-mono text-[10px] text-slate-400 uppercase font-bold">Highest</span>
+                  <span className="block font-sans text-[10px] text-slate-400 uppercase font-bold">Highest</span>
                   <span className="font-bold text-slate-900 dark:text-white">{highestCountry.countryName} ({highestCountry.overallScore})</span>
                 </div>
               </div>
@@ -61,7 +61,7 @@ export default function BenchmarkPage() {
               <div className="flex items-center gap-2">
                 <Shield className="h-5 w-5 text-asean-red" />
                 <div>
-                  <span className="block font-mono text-[10px] text-slate-400 uppercase font-bold">Lowest</span>
+                  <span className="block font-sans text-[10px] text-slate-400 uppercase font-bold">Lowest</span>
                   <span className="font-bold text-slate-900 dark:text-white">{lowestCountry.countryName} ({lowestCountry.overallScore})</span>
                 </div>
               </div>
