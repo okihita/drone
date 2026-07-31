@@ -45,7 +45,7 @@ export default function EncryptionPage() {
           </div>
 
           {/* Event type concept cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3 mb-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2.5 mb-5">
             {[
               { label: "VPN Ban", desc: "Government criminalizes or restricts VPN usage for citizens." },
               { label: "Backdoor Mandate", desc: "Companies forced to build decryption access for authorities." },
@@ -54,8 +54,8 @@ export default function EncryptionPage() {
               { label: "E2EE Restriction", desc: "End-to-end encryption limited or weakened by regulation." },
               { label: "Capacity Building", desc: "Positive: training, standards, and cooperative security efforts." },
             ].map((item) => (
-              <div key={item.label} className="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700 text-sm text-slate-600 dark:text-slate-400">
-                <strong className="block text-slate-800 dark:text-slate-200 mb-1">{item.label}</strong>
+              <div key={item.label} className="p-2.5 rounded-lg bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/80 text-xs text-slate-600 dark:text-slate-400 leading-snug">
+                <strong className="block text-slate-800 dark:text-slate-200 font-bold mb-0.5">{item.label}</strong>
                 {item.desc}
               </div>
             ))}
