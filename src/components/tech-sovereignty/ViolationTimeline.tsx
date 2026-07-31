@@ -132,8 +132,11 @@ export default function ViolationTimeline({ events }: Props) {
                         {event.countryName} ({event.countryCode})
                       </span>
                       <span
-                        className="text-[10px] px-2 py-0.5 rounded font-sans font-bold text-white shadow-xs"
-                        style={{ backgroundColor: nodeColor }}
+                        className={`text-[10px] px-2 py-0.5 rounded font-sans font-bold shadow-xs ${
+                          event.eventType === "CAPACITY_BUILDING"
+                            ? "bg-asean-sky/15 text-asean-sky border border-asean-sky/30"
+                            : "bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700"
+                        }`}
                       >
                         {ENCRYPTION_EVENT_LABELS[event.eventType] ?? event.eventType}
                       </span>

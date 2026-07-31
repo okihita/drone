@@ -49,7 +49,13 @@ export default function EncryptionEventList({ events }: Props) {
                 <div className="flex items-center gap-2 mb-0.5">
                   {(() => { const FlagIcon = FLAG_COMPONENTS[event.countryCode]; return FlagIcon ? <FlagIcon className="w-4 h-3 rounded-xs shrink-0" /> : null; })()}
                   <span className="font-sans text-[10px] px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-800">{event.countryCode}</span>
-                  <span className="text-[10px] px-1.5 py-0.5 rounded font-bold text-white" style={{ backgroundColor: event.severityScore >= 70 ? ASEAN_COLORS.red : event.severityScore >= 40 ? ASEAN_COLORS.amber : ASEAN_COLORS.emerald }}>
+                  <span
+                    className={`text-[10px] px-1.5 py-0.5 rounded font-bold ${
+                      event.eventType === "CAPACITY_BUILDING"
+                        ? "bg-asean-sky/15 text-asean-sky border border-asean-sky/30"
+                        : "bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700"
+                    }`}
+                  >
                     {ENCRYPTION_EVENT_LABELS[event.eventType]}
                   </span>
                   <span className="text-[10px] text-slate-400 font-sans">{new Date(event.eventDate).toLocaleDateString("en-US", { year: "numeric", month: "short" })}</span>
