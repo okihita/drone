@@ -349,10 +349,21 @@ function getCountryBenchmarkSummary(countryCode: string, countryName: string): B
 /** Build summaries for all 11 ASEAN countries. */
 export function getAllBenchmarkSummaries(): BenchmarkCountrySummary[] {
   const countries = [
-    { code: "SG", name: "Singapore" }, { code: "MY", name: "Malaysia" }, { code: "VN", name: "Vietnam" },
-    { code: "ID", name: "Indonesia" }, { code: "TH", name: "Thailand" }, { code: "PH", name: "Philippines" },
-    { code: "MM", name: "Myanmar" }, { code: "KH", name: "Cambodia" }, { code: "LA", name: "Laos" },
-    { code: "BN", name: "Brunei" }, { code: "TL", name: "Timor-Leste" },
+    { code: "SG", name: "Singapore", tradeAgreementStatus: "CPTPP Member · DEPA Co-Founder" },
+    { code: "MY", name: "Malaysia", tradeAgreementStatus: "CPTPP Member (Ratified Nov 2022)" },
+    { code: "VN", name: "Vietnam", tradeAgreementStatus: "CPTPP Member (Strict Localization)" },
+    { code: "ID", name: "Indonesia", tradeAgreementStatus: "DEFA Negotiating State · PSE Regulated" },
+    { code: "TH", name: "Thailand", tradeAgreementStatus: "DEFA Negotiating State · PDPA 2019" },
+    { code: "PH", name: "Philippines", tradeAgreementStatus: "DEFA Negotiating State · DPA 2012" },
+    { code: "MM", name: "Myanmar", tradeAgreementStatus: "DEFA Negotiating State (Special Focus)" },
+    { code: "KH", name: "Cambodia", tradeAgreementStatus: "DEFA Negotiating State · E-Commerce 2019" },
+    { code: "LA", name: "Laos", tradeAgreementStatus: "DEFA Negotiating State · Cyber Law 2015" },
+    { code: "BN", name: "Brunei", tradeAgreementStatus: "CPTPP Member (Ratified May 2023)" },
+    { code: "TL", name: "Timor-Leste", tradeAgreementStatus: "ASEAN 11th Accession State (2025/26 Roadmap)" },
   ];
-  return countries.map((c) => getCountryBenchmarkSummary(c.code, c.name));
+  return countries.map((c) => {
+    const summary = getCountryBenchmarkSummary(c.code, c.name);
+    summary.tradeAgreementStatus = c.tradeAgreementStatus;
+    return summary;
+  });
 }

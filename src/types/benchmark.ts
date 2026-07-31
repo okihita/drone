@@ -34,6 +34,7 @@ interface BenchmarkClusterSummary {
 export interface BenchmarkCountrySummary {
   countryCode: string;
   countryName: string;
+  tradeAgreementStatus?: string;
   overallScore: number; // average of all 24 principles
   clusters: BenchmarkClusterSummary[];
   scores: BenchmarkScore[];
