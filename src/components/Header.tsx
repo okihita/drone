@@ -262,7 +262,7 @@ export default function Header() {
 
     {/* ── Mobile Side Sheet (renders outside header so it overlays page content) ── */}
     {mobileMenuOpen && (
-      <div className="md:hidden fixed inset-0 z-40 flex">
+      <div className="md:hidden fixed inset-0 z-[60] flex">
         {/* Backdrop */}
         <div
           className="absolute inset-0 bg-black/40 animate-[fadeIn_0.2s_ease-out]"

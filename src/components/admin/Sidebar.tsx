@@ -110,7 +110,7 @@ export default function AdminDashboardLayout({ children }: { children: React.Rea
       {/* Mobile overlay */}
       {sidebarOpen && (
         <div
-          className="fixed inset-0 z-40 bg-black/50 lg:hidden"
+          className="fixed inset-0 z-[60] bg-black/50 lg:hidden"
           onClick={() => toggleSidebar(false)}
         />
       )}
@@ -122,7 +122,7 @@ export default function AdminDashboardLayout({ children }: { children: React.Rea
         aria-modal={sidebarOpen ? true : undefined}
         aria-label="Admin navigation"
         className={`
-          fixed lg:sticky top-[var(--drone-admin-bar-h,0px)] left-0 z-50 h-[calc(100vh-var(--drone-admin-bar-h,0px))]
+          fixed lg:sticky top-[var(--drone-admin-bar-h,0px)] left-0 z-[60] h-[calc(100vh-var(--drone-admin-bar-h,0px))]
           bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800
           flex flex-col transition-all duration-200
           w-56 ${collapsed ? "lg:w-14" : ""}
