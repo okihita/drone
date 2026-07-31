@@ -70,7 +70,7 @@ export default function BenchmarkHeatmap({ summaries, principles, selectedCountr
         </div>
 
         {/* Centered table inside card container */}
-        <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm overflow-x-auto flex justify-center">
+        <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm overflow-x-auto">
           <table className="w-full border-collapse text-xs font-sans">
             <caption className="sr-only">
               Digital 2 Dozen Compliance Heatmap — principle scores across 11 ASEAN countries

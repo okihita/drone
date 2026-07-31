@@ -31,6 +31,7 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [closing, setClosing] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const headerRef = useRef<HTMLElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const sheetRef = useRef<HTMLDivElement>(null);
   const hamburgerRef = useRef<HTMLButtonElement>(null);
@@ -41,6 +42,22 @@ export default function Header() {
 
   const isSubmenuActive = (group: NavGroup) =>
     group.children.some((child) => isActive(child.href));
+
+  // ── Measure header height dynamically ──────────────────────────────────
+  useEffect(() => {
+    if (!headerRef.current) return;
+    const el = headerRef.current;
+    const updateHeaderHeight = () => {
+      document.documentElement.style.setProperty(
+        "--drone-header-h",
+        `${el.offsetHeight}px`
+      );
+    };
+    updateHeaderHeight();
+    const observer = new ResizeObserver(updateHeaderHeight);
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   // ── Close with exit animation ─────────────────────────────────────────
   const closeSheet = useCallback(() => {
@@ -130,7 +147,7 @@ export default function Header() {
 
   return (
     <>
-    <header className="w-full border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 transition-colors sticky top-[var(--drone-admin-bar-h,0px)] z-50 backdrop-blur-md bg-slate-50/95 dark:bg-slate-950/95 font-sans">
+    <header ref={headerRef} className="w-full border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 transition-colors sticky top-[var(--drone-admin-bar-h,0px)] z-50 backdrop-blur-md bg-slate-50/95 dark:bg-slate-950/95 font-sans">
       {/* Masthead */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 border-b border-slate-200/80 dark:border-slate-800/60 font-sans">
         {/* Row 1: Logo + tagline */}
