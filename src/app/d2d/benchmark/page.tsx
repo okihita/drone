@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import type { Metadata } from "next";
 import Footer from "@/components/Footer";
 import BenchmarkClientShell from "@/components/benchmark/BenchmarkClientShell";
+import D2DTimeline from "@/components/benchmark/D2DTimeline";
 import { listAllBenchmarks, listPrinciples } from "@/services/benchmark";
 import { BarChart3, Globe, Shield } from "lucide-react";
 
@@ -92,6 +93,8 @@ export default function BenchmarkPage() {
               </div>
             </div>
           </div>
+
+          <D2DTimeline />
 
           <p className="text-xs text-slate-400 dark:text-slate-500 mt-6 max-w-3xl">
             <strong className="text-slate-500 dark:text-slate-400">How to read</strong>: Click any country on the map to see its detailed scores. Hover over heatmap cells for the original TPP provision text. Filter by cluster to focus on specific policy areas. Green cells (80+) indicate full compliance; red cells (&lt;20) indicate severe non-compliance. Export the full dataset via the button in the sidebar.
