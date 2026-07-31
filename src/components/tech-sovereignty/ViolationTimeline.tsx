@@ -32,7 +32,7 @@ export default function ViolationTimeline({ events }: Props) {
   return (
     <section className="px-4 sm:px-6 lg:px-8 py-8">
       <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+        <div className="mb-6 space-y-4">
           <div>
             <div className="flex items-center gap-2 mb-1">
               <Clock className="h-5 w-5 text-asean-blue shrink-0" />
@@ -40,19 +40,19 @@ export default function ViolationTimeline({ events }: Props) {
                 Technology Sovereignty &amp; Interventions Timeline
               </h2>
             </div>
-            <p className="text-xs text-slate-600 dark:text-slate-400 font-sans max-w-2xl">
+            <p className="text-xs text-slate-600 dark:text-slate-400 font-sans max-w-3xl">
               Chronological vertical log of government tech interventions, source code disclosure mandates, VPN bans, and encryption backdoors across ASEAN.
             </p>
           </div>
 
-          {/* Filter Pills */}
-          <div className="flex flex-wrap items-center gap-1.5 shrink-0">
-            <span className="text-xs text-slate-400 dark:text-slate-500 font-sans flex items-center gap-1 mr-1">
-              <Filter className="h-3 w-3" /> Filter:
+          {/* Filter Pills Bar */}
+          <div className="flex flex-wrap items-center gap-1.5 pt-3 border-t border-slate-200/80 dark:border-slate-800/80">
+            <span className="text-xs font-bold text-slate-500 dark:text-slate-400 font-sans flex items-center gap-1 mr-1">
+              <Filter className="h-3.5 w-3.5 text-asean-blue" /> Filter by Country:
             </span>
             <button
               onClick={() => setSelectedCountry("ALL")}
-              className={`px-2.5 py-1 rounded-full text-[11px] font-sans font-bold transition-colors ${
+              className={`px-3 py-1 rounded-full text-[11px] font-sans font-bold transition-colors ${
                 selectedCountry === "ALL"
                   ? "bg-slate-900 dark:bg-white text-white dark:text-slate-900 shadow-xs"
                   : "bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-300 dark:hover:bg-slate-700"
@@ -66,7 +66,7 @@ export default function ViolationTimeline({ events }: Props) {
                 <button
                   key={code}
                   onClick={() => setSelectedCountry(code)}
-                  className={`px-2.5 py-1 rounded-full text-[11px] font-sans font-bold transition-colors flex items-center gap-1 ${
+                  className={`px-3 py-1 rounded-full text-[11px] font-sans font-bold transition-colors flex items-center gap-1 ${
                     selectedCountry === code
                       ? "bg-asean-blue text-white shadow-xs"
                       : "bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-300 dark:hover:bg-slate-700"
@@ -80,10 +80,9 @@ export default function ViolationTimeline({ events }: Props) {
         </div>
 
         {/* Vertical Timeline Track */}
-        <div className="relative pl-6 sm:pl-8 border-l-2 border-slate-200 dark:border-slate-800 space-y-6 my-4 ml-2 sm:ml-4">
-          {filteredEvents.map((event, idx) => {
+        <div className="relative pl-6 sm:pl-8 border-l-2 border-slate-200 dark:border-slate-800 space-y-6 my-6 ml-3 sm:ml-4">
+          {filteredEvents.map((event) => {
             const FlagIcon = FLAG_COMPONENTS[event.countryCode];
-            const eventYear = new Date(event.eventDate).getFullYear();
             const formattedDate = new Date(event.eventDate).toLocaleDateString("en-US", {
               year: "numeric",
               month: "short",
@@ -99,9 +98,9 @@ export default function ViolationTimeline({ events }: Props) {
 
             return (
               <div key={event.id} className="relative group">
-                {/* Vertical Stem Marker Node */}
+                {/* Vertical Stem Marker Node (Exactly centered on border-l-2) */}
                 <div
-                  className={`absolute -left-[31px] sm:-left-[39px] top-1.5 w-4 h-4 rounded-full border-2 border-white dark:border-slate-950 flex items-center justify-center transition-transform group-hover:scale-125 ${
+                  className={`absolute -left-[33px] sm:-left-[41px] top-4 w-4 h-4 rounded-full border-2 border-white dark:border-slate-950 flex items-center justify-center transition-transform group-hover:scale-125 ${
                     isHighSeverity ? "animate-pulse" : ""
                   }`}
                   style={{ backgroundColor: nodeColor }}
