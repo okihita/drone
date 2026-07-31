@@ -57,24 +57,9 @@ export default function PolicyLedgerTable() {
   return (
     <section
       id="policy-ledger"
-      className="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-slate-200 dark:border-slate-800 font-sans"
+      className="py-4 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto font-sans"
     >
-      <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-8 gap-4">
-        <div>
-          <span className="text-[11px] font-sans uppercase tracking-wider text-asean-yellow dark:text-asean-yellow font-bold block mb-1">
-            VERIFIED REGULATORY REPOSITORY
-          </span>
-          <h2 className="font-serif-editorial text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-            ASEAN Digital Trade &amp; Policy Ledger
-          </h2>
-          <p className="text-slate-600 dark:text-slate-400 text-xs sm:text-sm mt-1 max-w-2xl">
-            A 100% source-verified registry of ingested legislative acts,
-            cross-border decrees, and AI governance guidelines. Every entry
-            links directly to primary official gazettes.
-          </p>
-        </div>
-
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 w-full lg:w-auto max-w-full">
+      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between mb-6 gap-3 max-w-full">
           <div className="relative flex-1 sm:w-64 shrink-0">
             <input
               type="text"
@@ -103,7 +88,6 @@ export default function PolicyLedgerTable() {
             ))}
           </div>
         </div>
-      </div>
 
       <div className="rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-x-auto shadow-xs transition-colors">
         {error && (
