@@ -77,7 +77,7 @@ export default function BenchmarkHeatmap({ summaries, principles, selectedCountr
             </caption>
             <thead>
               <tr>
-                <th scope="col" className={`${headerBg} p-2 text-left rounded-tl-xl`}>Principle</th>
+                <th scope="col" className={`${headerBg} p-2 text-left rounded-tl-xl sticky left-0 z-20 shadow-[1px_0_0_0_rgba(226,232,240,1)] dark:shadow-[1px_0_0_0_rgba(30,41,59,1)]`}>Principle</th>
                 <th scope="col" className={`${headerBg} p-2 text-left`}>Cluster</th>
                 {summaries.map((s) => {
                   const FlagIcon = FLAG_COMPONENTS[s.countryCode];
@@ -117,7 +117,7 @@ export default function BenchmarkHeatmap({ summaries, principles, selectedCountr
                     }`}
                   >
                     <td
-                      className="p-2 align-middle cursor-pointer"
+                      className="p-2 align-middle cursor-pointer sticky left-0 z-10 bg-white dark:bg-slate-900 shadow-[1px_0_0_0_rgba(226,232,240,1)] dark:shadow-[1px_0_0_0_rgba(30,41,59,1)] min-w-[130px]"
                       onMouseEnter={(e) => {
                         setHoveredPrinciple(principle);
                         setPopoverPos({ x: e.clientX, y: e.clientY });
