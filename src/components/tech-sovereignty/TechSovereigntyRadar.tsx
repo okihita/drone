@@ -227,30 +227,39 @@ export default function TechSovereigntyRadar({ summaries, principles }: Props) {
           </div>
 
           {/* Per-Principle Scorecards for selected countries */}
-          {selectedSummaries.map((s) => {
-            const techScores = s.scores.filter((sc) => principles.includes(sc.principleId));
-            const avgTech = Math.round(techScores.reduce((sum, sc) => sum + sc.score, 0) / techScores.length);
-            return (
-              <div key={s.countryCode} className="p-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50">
-                <div className="flex justify-between items-center mb-2">
-                  <span className="text-xs font-bold text-slate-800 dark:text-slate-200">{s.countryName}</span>
-                  <span className={`text-xs font-sans font-bold ${
-                    avgTech >= 60 ? "text-asean-emerald"
-                    : avgTech >= 35 ? "text-asean-amber"
-                    : "text-asean-red"
-                  }`}>
-                    Avg: {avgTech}/100
-                  </span>
-                </div>
-                {techScores.sort((a, b) => a.principleId - b.principleId).map((sc) => (
-                  <div key={sc.principleId} className="flex items-center justify-between py-0.5 text-[10px]">
-                    <span className="text-slate-600 dark:text-slate-400">{AXIS_LABELS[sc.principleId] ?? `#${sc.principleId}`}</span>
-                    <span className="font-sans font-bold text-slate-800 dark:text-slate-200">{sc.score}</span>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-2.5">
+            {selectedSummaries.map((s) => {
+              const techScores = s.scores.filter((sc) => principles.includes(sc.principleId));
+              const avgTech = Math.round(techScores.reduce((sum, sc) => sum + sc.score, 0) / techScores.length);
+              return (
+                <div key={s.countryCode} className="p-2.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-2xs">
+                  <div className="flex justify-between items-center mb-1.5 pb-1 border-b border-slate-100 dark:border-slate-800">
+                    <span className="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1">
+                      <span className="font-sans text-[10px] font-bold px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">{s.countryCode}</span>
+                      {s.countryName}
+                    </span>
+                    <span className={`text-xs font-sans font-extrabold ${
+                      avgTech >= 60 ? "text-asean-emerald"
+                      : avgTech >= 35 ? "text-asean-amber"
+                      : "text-asean-red"
+                    }`}>
+                      Avg {avgTech}/100
+                    </span>
                   </div>
-                ))}
-              </div>
-            );
-          })}
+                  <div className="space-y-1">
+                    {techScores.sort((a, b) => a.principleId - b.principleId).map((sc) => (
+                      <div key={sc.principleId} className="flex items-center justify-between gap-2 text-[11px]">
+                        <span className="text-slate-600 dark:text-slate-400 font-sans truncate">{AXIS_LABELS[sc.principleId] ?? `#${sc.principleId}`}</span>
+                        <span className={`font-sans font-bold shrink-0 text-[11px] ${
+                          sc.score >= 70 ? "text-asean-emerald" : sc.score >= 40 ? "text-asean-amber" : "text-asean-red"
+                        }`}>{sc.score}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>

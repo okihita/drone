@@ -58,26 +58,26 @@ export default function TechSovereigntyPage() {
           </div>
 
           {/* Axis concept cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 mb-5">
-            <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700 text-sm text-slate-600 dark:text-slate-400">
-              <strong className="block text-slate-800 dark:text-slate-200 mb-1">No Forced Tech Transfer</strong>
-              Can foreign companies enter without handing over their technology to local partners?
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2.5 mb-5">
+            <div className="p-2.5 rounded-lg bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/80 text-xs text-slate-600 dark:text-slate-400 leading-snug">
+              <strong className="block text-slate-800 dark:text-slate-200 font-bold mb-0.5">No Forced Tech Transfer</strong>
+              Can foreign firms enter without giving tech to local partners?
             </div>
-            <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700 text-sm text-slate-600 dark:text-slate-400">
-              <strong className="block text-slate-800 dark:text-slate-200 mb-1">Source Code Protection</strong>
-              Can companies keep their software secret, or must they reveal it to the government?
+            <div className="p-2.5 rounded-lg bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/80 text-xs text-slate-600 dark:text-slate-400 leading-snug">
+              <strong className="block text-slate-800 dark:text-slate-200 font-bold mb-0.5">Source Code Protection</strong>
+              Can firms keep code private without government disclosure?
             </div>
-            <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700 text-sm text-slate-600 dark:text-slate-400">
-              <strong className="block text-slate-800 dark:text-slate-200 mb-1">Technology Choice</strong>
-              Can businesses pick the best tech, or are they forced to use government-approved alternatives?
+            <div className="p-2.5 rounded-lg bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/80 text-xs text-slate-600 dark:text-slate-400 leading-snug">
+              <strong className="block text-slate-800 dark:text-slate-200 font-bold mb-0.5">Technology Choice</strong>
+              Can firms pick best tech or forced onto local standards?
             </div>
-            <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700 text-sm text-slate-600 dark:text-slate-400">
-              <strong className="block text-slate-800 dark:text-slate-200 mb-1">Authentication Methods</strong>
-              Can people use standard digital signatures, or are they locked into government-only ID platforms?
+            <div className="p-2.5 rounded-lg bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/80 text-xs text-slate-600 dark:text-slate-400 leading-snug">
+              <strong className="block text-slate-800 dark:text-slate-200 font-bold mb-0.5">Authentication Methods</strong>
+              Can users use open e-signatures or locked to state IDs?
             </div>
-            <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700 text-sm text-slate-600 dark:text-slate-400">
-              <strong className="block text-slate-800 dark:text-slate-200 mb-1">Encryption Products</strong>
-              Can citizens freely use VPNs and secure messaging, or does the government ban or weaken them?
+            <div className="p-2.5 rounded-lg bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/80 text-xs text-slate-600 dark:text-slate-400 leading-snug">
+              <strong className="block text-slate-800 dark:text-slate-200 font-bold mb-0.5">Encryption Products</strong>
+              Can citizens freely use VPNs and encryption tools?
             </div>
           </div>
 
