@@ -139,22 +139,9 @@ export default function ViolationTimeline({ events }: Props) {
                       </span>
                     </div>
 
-                    <div className="flex items-center gap-3">
-                      <span className="text-[11px] font-sans font-bold text-slate-400 dark:text-slate-500">
-                        {formattedDate}
-                      </span>
-                      <span
-                        className={`text-xs font-sans font-extrabold ${
-                          isHighSeverity
-                            ? "text-asean-red"
-                            : event.severityScore >= 40
-                            ? "text-asean-amber"
-                            : "text-asean-emerald"
-                        }`}
-                      >
-                        {event.severityScore}/100 Risk
-                      </span>
-                    </div>
+                    <span className="text-[11px] font-sans font-bold text-slate-400 dark:text-slate-500">
+                      {formattedDate}
+                    </span>
                   </div>
 
                   <h3 className="text-sm font-bold text-slate-900 dark:text-white leading-snug group-hover:text-asean-blue transition-colors">
@@ -164,19 +151,43 @@ export default function ViolationTimeline({ events }: Props) {
                     {event.summary}
                   </p>
 
-                  {event.sourceUrl && (
-                    <div className="mt-3 pt-2 border-t border-slate-100 dark:border-slate-800/60 flex items-center justify-between text-[11px] font-sans">
-                      <span className="text-slate-400 text-[10px]">Verified Regulatory Telemetry</span>
+                  <div className="mt-3 pt-2.5 border-t border-slate-100 dark:border-slate-800/60 flex flex-wrap items-center justify-between gap-2 text-[11px] font-sans">
+                    {/* Visual Risk Meter */}
+                    <div className="flex items-center gap-2">
+                      <span className="text-[10px] font-bold text-slate-500 dark:text-slate-400">Risk Meter</span>
+                      <div className="w-24 sm:w-32 h-2 rounded-full bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700/60 overflow-hidden relative shrink-0">
+                        <div
+                          className="h-full rounded-full transition-all duration-500"
+                          style={{
+                            width: `${event.severityScore}%`,
+                            backgroundColor: nodeColor,
+                          }}
+                        />
+                      </div>
+                      <span
+                        className={`text-xs font-sans font-extrabold ${
+                          isHighSeverity
+                            ? "text-asean-red"
+                            : event.severityScore >= 40
+                            ? "text-asean-amber"
+                            : "text-asean-emerald"
+                        }`}
+                      >
+                        {event.severityScore}/100
+                      </span>
+                    </div>
+
+                    {event.sourceUrl && (
                       <a
                         href={event.sourceUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-asean-blue dark:text-asean-sky hover:underline font-bold inline-flex items-center gap-1"
+                        className="text-asean-blue dark:text-asean-sky hover:underline font-bold inline-flex items-center gap-1 text-[11px] ml-auto"
                       >
                         Official Document <ExternalLink className="h-3 w-3" />
                       </a>
-                    </div>
-                  )}
+                    )}
+                  </div>
                 </div>
               </div>
             );
