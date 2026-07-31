@@ -216,11 +216,9 @@ export default function NegotiationTimeline({ milestones }: Props) {
                         {m.countries.map((cCode) => {
                           const FlagIcon = FLAG_COMPONENTS[cCode];
                           return FlagIcon ? (
-                            <FlagIcon
-                              key={cCode}
-                              className="w-4 h-3 rounded-xs shrink-0 shadow-xs"
-                              title={cCode}
-                            />
+                            <span key={cCode} title={cCode}>
+                              <FlagIcon className="w-4 h-3 rounded-xs shrink-0 shadow-xs" />
+                            </span>
                           ) : null;
                         })}
                       </div>
