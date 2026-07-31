@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import type { Metadata } from "next";
 import Footer from "@/components/Footer";
 import BenchmarkClientShell from "@/components/benchmark/BenchmarkClientShell";
@@ -104,7 +105,9 @@ export default function BenchmarkPage() {
         </div>
       </section>
 
-      <BenchmarkClientShell summaries={allSummaries} principles={principles} />
+      <Suspense fallback={null}>
+        <BenchmarkClientShell summaries={allSummaries} principles={principles} />
+      </Suspense>
 
       <Footer />
     </div>
