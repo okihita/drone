@@ -1,13 +1,7 @@
 import type { Metadata } from "next";
 import Footer from "@/components/Footer";
 import { fetchConsumerProtectionPolicies } from "@/services/consumer_protection";
-import { Shield } from "lucide-react";
-import { ID, MY, SG, PH, TH, VN, KH, LA, MM, BN, TL } from "country-flag-icons/react/3x2";
-import { ASEAN_COLORS } from "@/lib/colors";
-
-const FLAG_COMPONENTS: Record<string, React.ComponentType<{ className?: string }>> = {
-  ID, MY, SG, PH, TH, VN, KH, LA, MM, BN, TL,
-};
+import ConsumerProtectionClientShell from "@/components/consumer-protection/ConsumerProtectionClientShell";
 
 export const metadata: Metadata = {
   title: "Consumer Protection Dashboard — ASEAN Digital Rights | D.R.O.N.E.",
@@ -20,18 +14,12 @@ export default function ConsumerProtectionPage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-200 font-sans selection:bg-asean-yellow/30 selection:text-slate-900 transition-colors">
-      <section className="relative border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/60 py-10 sm:py-14 px-4 sm:px-6 lg:px-8">
+      <section className="relative border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/60 py-6 sm:py-9 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-6 mb-8">
             <div className="flex-1">
-              <div className="flex flex-wrap items-center gap-x-2 gap-y-0 text-xs font-sans uppercase tracking-widest text-asean-emerald font-bold mb-2">
-                <Shield className="h-4 w-4 text-asean-emerald animate-pulse" />
-                <span>Digital 2 Dozen · Principle 10</span>
-                <span className="hidden sm:inline">·</span>
-                <span className="text-slate-500 font-mono">Consumer Protections</span>
-              </div>
               <h1 className="font-serif-editorial text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
-                Consumer Protection Dashboard
+                Consumer Rights Matrix
               </h1>
               <p className="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-2xl font-sans leading-relaxed">
                 How well are ASEAN consumers protected online? This dashboard scores each country on five dimensions of digital consumer rights — from platform accountability and data breach notifications to protections against deceptive design. <strong className="text-slate-800 dark:text-slate-200">Higher scores mean stronger safeguards</strong> against exploitative digital practices.
@@ -39,13 +27,13 @@ export default function ConsumerProtectionPage() {
             </div>
 
             <div className="shrink-0 p-4 rounded-2xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 shadow-sm">
-              <span className="block font-mono text-[10px] text-slate-400 uppercase font-bold">Regional Average</span>
+              <span className="block font-sans text-[10px] text-slate-400 uppercase font-bold">Regional Average</span>
               <span className="font-bold text-2xl text-slate-900 dark:text-white">{avgScore}/100</span>
             </div>
           </div>
 
           {/* Dimension concept cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 mb-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2.5 mb-5">
             {[
               { label: "Intermediary Liability", desc: "Are platforms held responsible for user content, or do safe harbors protect free expression?" },
               { label: "Algorithmic Audits", desc: "Are companies required to disclose how their recommendation and ranking algorithms work?" },
@@ -53,8 +41,8 @@ export default function ConsumerProtectionPage() {
               { label: "Spam Regulation", desc: "Are unsolicited commercial messages regulated, and are consumers protected from spam?" },
               { label: "Dark Pattern Restrictions", desc: "Are deceptive design tricks — like hidden fees or forced subscriptions — prohibited?" },
             ].map((item) => (
-              <div key={item.label} className="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700 text-sm text-slate-600 dark:text-slate-400">
-                <strong className="block text-slate-800 dark:text-slate-200 mb-1">{item.label}</strong>
+              <div key={item.label} className="p-2.5 rounded-lg bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/80 text-xs text-slate-600 dark:text-slate-400 leading-snug">
+                <strong className="block text-slate-800 dark:text-slate-200 font-bold mb-0.5">{item.label}</strong>
                 {item.desc}
               </div>
             ))}
@@ -69,43 +57,7 @@ export default function ConsumerProtectionPage() {
       <main className="flex-1 px-4 sm:px-6 lg:px-8 py-6">
         <div className="max-w-7xl mx-auto space-y-6">
           <h2 className="font-serif-editorial text-xl font-bold text-slate-900 dark:text-white">Country Profiles</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {policies.map((policy) => (
-              <div key={policy.id} className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm">
-                <div className="flex items-center justify-between mb-2">
-                <div className="flex items-center gap-1.5">
-                  {(() => { const FlagIcon = FLAG_COMPONENTS[policy.countryCode]; return FlagIcon ? <FlagIcon className="w-4 h-3 rounded-xs shrink-0" /> : null; })()}
-                  <span className="font-mono text-[10px] px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-800 font-extrabold">{policy.countryCode}</span>
-                    <span className="ml-2 text-sm font-bold text-slate-800 dark:text-slate-200">{policy.countryName}</span>
-                  </div>
-                  <span className={`text-sm font-mono font-extrabold ${policy.compositeScore >= 60 ? "text-asean-emerald" : policy.compositeScore >= 35 ? "text-asean-amber" : "text-asean-red"}`}>
-                    {policy.compositeScore}/100
-                  </span>
-                </div>
-
-                <div className="h-2 w-full rounded-full bg-slate-200 dark:bg-slate-700 mb-3">
-                  <div className="h-full rounded-full" style={{ width: `${policy.compositeScore}%`, backgroundColor: policy.compositeScore >= 60 ? ASEAN_COLORS.emerald : policy.compositeScore >= 35 ? ASEAN_COLORS.amber : ASEAN_COLORS.red }} />
-                </div>
-
-                <div className="space-y-1.5 text-[11px]">
-                  {[
-                    { label: "Intermediary Liability", score: policy.intermediaryLiabilityScore },
-                    { label: "Algorithmic Audits", score: policy.algorithmicAuditScore },
-                    { label: "Breach Notification", score: policy.breachNotificationScore },
-                    { label: "Spam Regulation", score: policy.spamRegulationScore },
-                    { label: "Dark Pattern Restrictions", score: policy.darkPatternScore },
-                  ].map((d) => (
-                    <div key={d.label} className="flex items-center justify-between">
-                      <span className="text-slate-600 dark:text-slate-400">{d.label}</span>
-                      <span className={`font-mono font-bold ${d.score >= 60 ? "text-asean-emerald" : d.score >= 35 ? "text-asean-amber" : "text-asean-red"}`}>
-                        {d.score}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
+          <ConsumerProtectionClientShell policies={policies} />
         </div>
       </main>
       <Footer />

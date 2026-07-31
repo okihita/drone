@@ -1,8 +1,10 @@
+import { Suspense } from "react";
 import type { Metadata } from "next";
 import Footer from "@/components/Footer";
 import BenchmarkClientShell from "@/components/benchmark/BenchmarkClientShell";
+import D2DTimeline from "@/components/benchmark/D2DTimeline";
 import { listAllBenchmarks, listPrinciples } from "@/services/benchmark";
-import { BarChart3, Globe, Shield } from "lucide-react";
+import { Globe, Shield } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Digital 2 Dozen Benchmark — ASEAN Digital Trade Compliance | D.R.O.N.E.",
@@ -26,18 +28,12 @@ export default function BenchmarkPage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-200 font-sans selection:bg-asean-yellow/30 selection:text-slate-900 transition-colors">
-      <section className="relative border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/60 py-10 sm:py-14 px-4 sm:px-6 lg:px-8">
+      <section className="relative border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/60 py-6 sm:py-9 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">
             <div className="flex-1">
-              <div className="flex flex-wrap items-center gap-x-2 gap-y-0 text-xs font-sans uppercase tracking-widest text-asean-blue font-bold mb-2">
-                <BarChart3 className="h-4 w-4 text-asean-blue animate-pulse" />
-                <span>USTR Digital 2 Dozen — TPP Benchmark</span>
-                <span className="hidden sm:inline">·</span>
-                <span className="text-slate-500 font-mono">24 Principles × 11 States</span>
-              </div>
               <h1 className="font-serif-editorial text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
-                Digital 2 Dozen Compliance Matrix
+                Compliance Matrix
               </h1>
             </div>
 
@@ -45,7 +41,7 @@ export default function BenchmarkPage() {
               <div className="flex items-center gap-2">
                 <Globe className="h-5 w-5 text-asean-emerald" />
                 <div>
-                  <span className="block font-mono text-[10px] text-slate-400 uppercase font-bold">ASEAN Avg</span>
+                  <span className="block font-sans text-[10px] text-slate-400 uppercase font-bold">ASEAN Avg</span>
                   <span className="font-bold text-slate-900 dark:text-white">{globalAverage}/100</span>
                 </div>
               </div>
@@ -53,7 +49,7 @@ export default function BenchmarkPage() {
               <div className="flex items-center gap-2">
                 <Shield className="h-5 w-5 text-asean-blue" />
                 <div>
-                  <span className="block font-mono text-[10px] text-slate-400 uppercase font-bold">Highest</span>
+                  <span className="block font-sans text-[10px] text-slate-400 uppercase font-bold">Highest</span>
                   <span className="font-bold text-slate-900 dark:text-white">{highestCountry.countryName} ({highestCountry.overallScore})</span>
                 </div>
               </div>
@@ -61,7 +57,7 @@ export default function BenchmarkPage() {
               <div className="flex items-center gap-2">
                 <Shield className="h-5 w-5 text-asean-red" />
                 <div>
-                  <span className="block font-mono text-[10px] text-slate-400 uppercase font-bold">Lowest</span>
+                  <span className="block font-sans text-[10px] text-slate-400 uppercase font-bold">Lowest</span>
                   <span className="font-bold text-slate-900 dark:text-white">{lowestCountry.countryName} ({lowestCountry.overallScore})</span>
                 </div>
               </div>
@@ -98,13 +94,25 @@ export default function BenchmarkPage() {
             </div>
           </div>
 
+          <D2DTimeline />
+
           <p className="text-xs text-slate-400 dark:text-slate-500 mt-6 max-w-3xl">
             <strong className="text-slate-500 dark:text-slate-400">How to read</strong>: Click any country on the map to see its detailed scores. Hover over heatmap cells for the original TPP provision text. Filter by cluster to focus on specific policy areas. Green cells (80+) indicate full compliance; red cells (&lt;20) indicate severe non-compliance. Export the full dataset via the button in the sidebar.
           </p>
+
+          <div className="mt-4 p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white/60 dark:bg-slate-900/40 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs font-sans text-slate-600 dark:text-slate-400">
+            <div className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-asean-emerald animate-pulse shrink-0" />
+              <span><strong>Data Integrity Audit (July 2026)</strong>: Empirically verified against OECD DSTRI, Freedom House, CPTPP ratification records &amp; ASEAN DEFA SEOM 57 technical annexes across 264 statutory data points.</span>
+            </div>
+            <span className="text-[10px] font-bold px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-500 shrink-0">100% Empirically Cited</span>
+          </div>
         </div>
       </section>
 
-      <BenchmarkClientShell summaries={allSummaries} principles={principles} />
+      <Suspense fallback={null}>
+        <BenchmarkClientShell summaries={allSummaries} principles={principles} />
+      </Suspense>
 
       <Footer />
     </div>

@@ -92,20 +92,20 @@ export interface NavGroup {
 }
 
 export const D2D_SUBMENU: NavLink[] = [
-  { href: "/d2d/benchmark", label: "Benchmark Heatmap", icon: BarChart3, iconColor: "text-asean-blue" },
-  { href: "/d2d/tech-sovereignty", label: "Tech Sovereignty Radar", icon: Cpu, iconColor: "text-asean-amber" },
-  { href: "/d2d/encryption", label: "Encryption Observatory", icon: Lock, iconColor: "text-asean-red" },
-  { href: "/d2d/consumer-protection", label: "Consumer Protections", icon: ShieldCheck, iconColor: "text-asean-emerald" },
-  { href: "/d2d/negotiations", label: "Trade Negotiations", icon: Calendar, iconColor: "text-asean-sky" },
+  { href: "/d2d/benchmark", label: "Compliance Heatmap", icon: BarChart3, iconColor: "text-asean-blue" },
+  { href: "/d2d/tech-sovereignty", label: "Tech Sovereignty", icon: Cpu, iconColor: "text-asean-amber" },
+  { href: "/d2d/encryption", label: "Encryption", icon: Lock, iconColor: "text-asean-red" },
+  { href: "/d2d/consumer-protection", label: "Consumer Rights", icon: ShieldCheck, iconColor: "text-asean-emerald" },
+  { href: "/d2d/negotiations", label: "Trade Deals", icon: Calendar, iconColor: "text-asean-sky" },
   { href: "/d2d/ip-monitor", label: "IP & Trade Secrets", icon: FileKey, iconColor: "text-asean-sky" },
 ];
 
 export const DEFA_SUBMENU: NavLink[] = [
-  { href: "/defa/chapters", label: "Ratification Matrix", icon: FileText, iconColor: "text-asean-yellow" },
-  { href: "/defa/data-governance", label: "Data Governance", icon: Globe, iconColor: "text-asean-blue" },
-  { href: "/defa/ai-ethics", label: "AI Governance", icon: Cpu, iconColor: "text-asean-emerald" },
+  { href: "/defa/chapters", label: "Ratification Tracker", icon: FileText, iconColor: "text-asean-yellow" },
+  { href: "/defa/data-governance", label: "Data Flows", icon: Globe, iconColor: "text-asean-blue" },
+  { href: "/defa/ai-ethics", label: "AI Ethics", icon: Cpu, iconColor: "text-asean-emerald" },
   { href: "/defa/payments-cyber", label: "Payments & Cyber", icon: CreditCard, iconColor: "text-asean-amber" },
-  { href: "/defa/civil-society", label: "Civil Society & Readiness", icon: Shield, iconColor: "text-asean-red" },
+  { href: "/defa/civil-society", label: "Threat Matrix", icon: Shield, iconColor: "text-asean-red" },
 ];
 
 export const OBSERVATORY_SUBMENU: NavLink[] = [

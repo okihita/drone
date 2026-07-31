@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { DEFA_CHAPTERS, getDefaChapterStatuses } from "@/services/defa";
 import { ASEAN_MEMBER_STATES, ASEANCountryCode } from "@/lib/countries";
 import { DefaRatificationStatus } from "@/types/defa";
-import { FileText, CheckCircle2, AlertTriangle, Clock, Lock, Sparkles } from "lucide-react";
+import { FileText, CheckCircle2, AlertTriangle, Clock, Lock } from "lucide-react";
 import Footer from "@/components/Footer";
 import DefaExplainerCard from "@/components/defa/DefaExplainerCard";
 
@@ -56,18 +56,12 @@ export default function DefaChapterHeatmap() {
   return (
     <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-200 font-sans">
       {/* SEOM Manila Legal Scrubbing Hero Banner */}
-      <section className="relative border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/60 py-10 sm:py-14 px-4 sm:px-6 lg:px-8">
+      <section className="relative border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/60 py-6 sm:py-9 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto space-y-6">
           <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-6">
             <div className="flex-1">
-              <div className="flex flex-wrap items-center gap-x-2 gap-y-0 text-xs font-sans uppercase tracking-widest text-asean-yellow font-bold mb-2">
-                <Sparkles className="h-4 w-4 text-asean-amber animate-pulse" />
-                <span>DEFA Observatory · SEOM Telemetry</span>
-                <span className="hidden sm:inline">·</span>
-                <span className="text-slate-500 font-mono">July 2026 Legal Scrubbing</span>
-              </div>
               <h1 className="font-serif-editorial text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
-                DEFA 9-Chapter Ratification Telemetry Matrix
+                DEFA Ratification Tracker
               </h1>
               <p className="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-3xl font-sans leading-relaxed">
                 Following the conclusion of official text negotiations at the 57th Senior Economic Officials Meeting (SEOM) in Manila (May 2026), DEFA has entered its critical <strong className="text-slate-800 dark:text-slate-200">Legal Scrubbing</strong> phase. This telemetry matrix maps the ratification and legal alignment of all 11 ASEAN member states across DEFA’s 9 core chapters—tracking progress toward formal treaty execution at the 49th ASEAN Summit in November 2026.

@@ -21,6 +21,7 @@ const CONSUMER_PROTECTION_POLICIES: ConsumerProtectionPolicy[] = [
     darkPatternScore: 60,
     compositeScore: 76,
     lastUpdated: "2026-07-29",
+    sourceUrl: "https://sso.agc.gov.sg/Act/PDPA2012",
   },
   {
     id: "cp-my",
@@ -37,6 +38,7 @@ const CONSUMER_PROTECTION_POLICIES: ConsumerProtectionPolicy[] = [
     darkPatternScore: 40,
     compositeScore: 55,
     lastUpdated: "2026-07-29",
+    sourceUrl: "https://www.pdp.gov.my/jpdpv2/laws-of-malaysia-act-709/personal-data-protection-act-2010/",
   },
   {
     id: "cp-vn",
@@ -53,6 +55,7 @@ const CONSUMER_PROTECTION_POLICIES: ConsumerProtectionPolicy[] = [
     darkPatternScore: 20,
     compositeScore: 33,
     lastUpdated: "2026-07-29",
+    sourceUrl: "https://vanban.chinhphu.vn/?pageid=27160&docid=207707",
   },
   {
     id: "cp-id",
@@ -69,6 +72,7 @@ const CONSUMER_PROTECTION_POLICIES: ConsumerProtectionPolicy[] = [
     darkPatternScore: 35,
     compositeScore: 45,
     lastUpdated: "2026-07-29",
+    sourceUrl: "https://peraturan.bpk.go.id/Details/229798/uu-no-27-tahun-2022",
   },
   {
     id: "cp-th",
@@ -85,6 +89,7 @@ const CONSUMER_PROTECTION_POLICIES: ConsumerProtectionPolicy[] = [
     darkPatternScore: 45,
     compositeScore: 61,
     lastUpdated: "2026-07-29",
+    sourceUrl: "https://www.mdes.go.th/law/detail/4442",
   },
   {
     id: "cp-ph",
@@ -101,6 +106,7 @@ const CONSUMER_PROTECTION_POLICIES: ConsumerProtectionPolicy[] = [
     darkPatternScore: 40,
     compositeScore: 56,
     lastUpdated: "2026-07-29",
+    sourceUrl: "https://www.privacy.gov.ph/republic-act-10173-data-privacy-act-of-2012/",
   },
   {
     id: "cp-mm",
@@ -117,6 +123,7 @@ const CONSUMER_PROTECTION_POLICIES: ConsumerProtectionPolicy[] = [
     darkPatternScore: 5,
     compositeScore: 7,
     lastUpdated: "2026-07-29",
+    sourceUrl: "https://www.burmalibrary.org/",
   },
   {
     id: "cp-kh",
@@ -133,6 +140,7 @@ const CONSUMER_PROTECTION_POLICIES: ConsumerProtectionPolicy[] = [
     darkPatternScore: 10,
     compositeScore: 18,
     lastUpdated: "2026-07-29",
+    sourceUrl: "https://www.moc.gov.kh/",
   },
   {
     id: "cp-la",
@@ -149,6 +157,7 @@ const CONSUMER_PROTECTION_POLICIES: ConsumerProtectionPolicy[] = [
     darkPatternScore: 10,
     compositeScore: 13,
     lastUpdated: "2026-07-29",
+    sourceUrl: "https://www.mict.gov.la/",
   },
   {
     id: "cp-bn",
@@ -165,6 +174,7 @@ const CONSUMER_PROTECTION_POLICIES: ConsumerProtectionPolicy[] = [
     darkPatternScore: 25,
     compositeScore: 41,
     lastUpdated: "2026-07-29",
+    sourceUrl: "https://www.aiti.gov.bn/",
   },
   {
     id: "cp-tl",
@@ -181,6 +191,7 @@ const CONSUMER_PROTECTION_POLICIES: ConsumerProtectionPolicy[] = [
     darkPatternScore: 10,
     compositeScore: 14,
     lastUpdated: "2026-07-29",
+    sourceUrl: "https://www.mj.gov.tl/",
   },
 ];
 
