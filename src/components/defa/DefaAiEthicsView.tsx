@@ -114,9 +114,11 @@ export default function DefaAiEthicsView() {
 
                 return (
                   <tr key={st.countryCode} className="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
-                    <td className="p-4 font-bold text-slate-900 dark:text-white flex items-center gap-2.5">
-                      {country && <country.Flag className="w-5 h-3.5 object-cover rounded-[2px]" />}
-                      <span>{country?.name}</span>
+                    <td className="p-4 font-bold text-slate-900 dark:text-white align-middle">
+                      <div className="flex items-center gap-2.5">
+                        {country && <country.Flag className="w-5 h-3.5 object-cover rounded-[2px]" />}
+                        <span>{country?.name}</span>
+                      </div>
                     </td>
                     <td className="p-4">
                       <span

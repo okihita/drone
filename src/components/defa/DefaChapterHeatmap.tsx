@@ -166,9 +166,11 @@ export default function DefaChapterHeatmap() {
             <tbody className="divide-y divide-slate-200 dark:divide-slate-800">
               {ASEAN_MEMBER_STATES.map((country) => (
                 <tr key={country.code} className="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
-                  <td className="p-3 sticky left-0 z-10 bg-white dark:bg-slate-900 font-bold text-slate-900 dark:text-white flex items-center gap-2.5 border-r border-slate-200 dark:border-slate-800 min-w-[160px] max-w-[180px] shadow-[2px_0_6px_rgba(0,0,0,0.04)] h-full">
-                    <country.Flag className="w-5 h-3.5 object-cover rounded-[2px] shadow-xs shrink-0" />
-                    <span className="truncate">{country.name}</span>
+                  <td className="p-3 sticky left-0 z-10 bg-white dark:bg-slate-900 font-bold text-slate-900 dark:text-white border-r border-slate-200 dark:border-slate-800 min-w-[160px] max-w-[180px] shadow-[2px_0_6px_rgba(0,0,0,0.04)] align-middle">
+                    <div className="flex items-center gap-2.5">
+                      <country.Flag className="w-5 h-3.5 object-cover rounded-[2px] shadow-xs shrink-0" />
+                      <span className="truncate">{country.name}</span>
+                    </div>
                   </td>
                   {DEFA_CHAPTERS.map((ch) => {
                     const st = getCellStatus(country.code, ch.id);
