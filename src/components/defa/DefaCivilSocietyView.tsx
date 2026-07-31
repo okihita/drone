@@ -28,14 +28,14 @@ export default function DefaCivilSocietyView() {
 
             {/* Stat Pill */}
             <div className="shrink-0 p-4 rounded-2xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 shadow-sm text-xs font-sans space-y-1">
-              <span className="block font-mono text-[10px] text-slate-400 uppercase font-bold">Democratic Inclusion Index</span>
+              <span className="block font-sans text-[10px] text-slate-400 uppercase font-bold">Democratic Inclusion Index</span>
               <div className="font-bold text-slate-900 dark:text-white text-sm">SEOM Closed-Door Negotiation</div>
               <span className="text-asean-red font-bold">38 / 100 Regional Transparency Avg</span>
             </div>
           </div>
 
           {/* 5 Concept Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 pt-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2.5 pt-2">
             {[
               { title: "SEOM Transparency", desc: "Measuring civil society inclusion and public consultation accessibility during treaty drafting." },
               { title: "Big Tech Lobby Pressure", desc: "Quantifying corporate efforts to ban source code audits and digital service taxes." },
@@ -43,9 +43,9 @@ export default function DefaCivilSocietyView() {
               { title: "DEFA Readiness Index", desc: "Composite score rating digital infrastructure, legal readiness, and human capital." },
               { title: "Export Telemetry Suite", desc: "One-click CSV and JSON data export for independent researchers and policy analysts." },
             ].map((card) => (
-              <div key={card.title} className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-xs font-sans">
-                <strong className="block text-slate-900 dark:text-white font-bold mb-1">{card.title}</strong>
-                <p className="text-slate-600 dark:text-slate-400 leading-normal">{card.desc}</p>
+              <div key={card.title} className="p-2.5 rounded-lg bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/80 text-xs text-slate-600 dark:text-slate-400 leading-snug">
+                <strong className="block text-slate-800 dark:text-slate-200 font-bold mb-0.5">{card.title}</strong>
+                <p className="text-slate-600 dark:text-slate-400 leading-snug">{card.desc}</p>
               </div>
             ))}
           </div>

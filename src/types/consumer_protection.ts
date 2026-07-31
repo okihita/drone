@@ -20,4 +20,5 @@ export interface ConsumerProtectionPolicy {
   /** Overall consumer protection composite */
   compositeScore: number;
   lastUpdated: string;
+  sourceUrl?: string;
 }

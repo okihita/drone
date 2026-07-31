@@ -25,14 +25,14 @@ export default function DefaPaymentsCyberView() {
 
             {/* Stat Pill */}
             <div className="shrink-0 p-4 rounded-2xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 shadow-sm text-xs font-sans space-y-1">
-              <span className="block font-mono text-[10px] text-slate-400 uppercase font-bold">RPC Payment Connectivity</span>
+              <span className="block font-sans text-[10px] text-slate-400 uppercase font-bold">RPC Payment Connectivity</span>
               <div className="font-bold text-slate-900 dark:text-white text-sm">Cross-Border QR Interoperability</div>
               <span className="text-asean-emerald font-bold">10 Active Corridors</span>
             </div>
           </div>
 
           {/* 5 Concept Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 pt-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2.5 pt-2">
             {[
               { title: "National QR Rails", desc: "Standardized instant payment systems enabling instant cross-border consumer purchases." },
               { title: "Bilateral Corridors", desc: "Operational bilateral QR linkages facilitating real-time currency exchange without USD." },
@@ -40,9 +40,9 @@ export default function DefaPaymentsCyberView() {
               { title: "CERT Disclosure Window", desc: "Statutory time limit (in hours) for companies to report major cyber breaches." },
               { title: "Surveillance & CBDC Risk", desc: "Evaluating state transaction monitoring and consumer financial privacy protections." },
             ].map((card) => (
-              <div key={card.title} className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-xs font-sans">
-                <strong className="block text-slate-900 dark:text-white font-bold mb-1">{card.title}</strong>
-                <p className="text-slate-600 dark:text-slate-400 leading-normal">{card.desc}</p>
+              <div key={card.title} className="p-2.5 rounded-lg bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/80 text-xs text-slate-600 dark:text-slate-400 leading-snug">
+                <strong className="block text-slate-800 dark:text-slate-200 font-bold mb-0.5">{card.title}</strong>
+                <p className="text-slate-600 dark:text-slate-400 leading-snug">{card.desc}</p>
               </div>
             ))}
           </div>

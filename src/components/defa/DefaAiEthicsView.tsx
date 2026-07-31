@@ -26,14 +26,14 @@ export default function DefaAiEthicsView() {
 
             {/* Stat Pill */}
             <div className="shrink-0 p-4 rounded-2xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 shadow-sm text-xs font-sans space-y-1">
-              <span className="block font-mono text-[10px] text-slate-400 uppercase font-bold">Regional Alignment</span>
+              <span className="block font-sans text-[10px] text-slate-400 uppercase font-bold">Regional Alignment</span>
               <div className="font-bold text-slate-900 dark:text-white text-sm">5 Full Adoption Nations</div>
               <span className="text-asean-emerald font-bold">SG, MY, ID, TH, PH</span>
             </div>
           </div>
 
           {/* 5 Concept Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 pt-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2.5 pt-2">
             {[
               { title: "ASEAN AI Guide", desc: "Adoption of regional ethical principles covering fairness, transparency, and human oversight." },
               { title: "AI Copyright Exemption", desc: "Statutory exceptions allowing text and data mining (TDM) for AI model training." },
@@ -41,9 +41,9 @@ export default function DefaAiEthicsView() {
               { title: "State Audit Rights", desc: "Regulating government access to inspect proprietary AI algorithms and training datasets." },
               { title: "Harm Telemetry", desc: "Connecting reported algorithmic discrimination incidents from D.R.O.N.E. Media AI." },
             ].map((card) => (
-              <div key={card.title} className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-xs font-sans">
-                <strong className="block text-slate-900 dark:text-white font-bold mb-1">{card.title}</strong>
-                <p className="text-slate-600 dark:text-slate-400 leading-normal">{card.desc}</p>
+              <div key={card.title} className="p-2.5 rounded-lg bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/80 text-xs text-slate-600 dark:text-slate-400 leading-snug">
+                <strong className="block text-slate-800 dark:text-slate-200 font-bold mb-0.5">{card.title}</strong>
+                <p className="text-slate-600 dark:text-slate-400 leading-snug">{card.desc}</p>
               </div>
             ))}
           </div>
