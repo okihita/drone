@@ -59,7 +59,7 @@ export default function PolicyLedgerTable() {
       id="policy-ledger"
       className="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-slate-200 dark:border-slate-800 font-sans"
     >
-      <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+      <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-8 gap-4">
         <div>
           <span className="text-[11px] font-sans uppercase tracking-wider text-asean-yellow dark:text-asean-yellow font-bold block mb-1">
             VERIFIED REGULATORY REPOSITORY
@@ -74,25 +74,25 @@ export default function PolicyLedgerTable() {
           </p>
         </div>
 
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full md:w-auto">
-          <div className="relative flex-1 sm:w-64">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 w-full lg:w-auto max-w-full">
+          <div className="relative flex-1 sm:w-64 shrink-0">
             <input
               type="text"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="Search by keyword, country..."
-              className="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded px-3 py-1.5 pl-8 text-xs text-slate-900 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-slate-500 font-sans"
+              className="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-1.5 pl-8 text-xs text-slate-900 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-slate-500 font-sans"
             />
             <Search className="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-2.5" />
           </div>
 
-          <div className="flex items-center gap-1 bg-white dark:bg-slate-900 p-1 rounded border border-slate-300 dark:border-slate-800 text-xs">
-            <Filter className="w-3 h-3 text-slate-400 ml-1.5" />
+          <div className="flex items-center gap-1 bg-white dark:bg-slate-900 p-1 rounded-lg border border-slate-300 dark:border-slate-800 text-xs overflow-x-auto no-scrollbar max-w-full shrink-0">
+            <Filter className="w-3 h-3 text-slate-400 ml-1.5 shrink-0" />
             {(["ALL", ...POLICY_CATEGORIES] as const).map((cat) => (
               <button
                 key={cat}
                 onClick={() => setSelectedCategory(cat)}
-                className={`px-2 py-1 rounded text-[10px] font-sans font-semibold transition-colors ${
+                className={`px-2 py-1 rounded text-[10px] font-sans font-semibold transition-colors shrink-0 whitespace-nowrap ${
                   selectedCategory === cat
                     ? "bg-slate-800 text-white dark:bg-slate-700"
                     : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
@@ -105,7 +105,7 @@ export default function PolicyLedgerTable() {
         </div>
       </div>
 
-      <div className="rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-x-auto shadow-sm transition-colors">
+      <div className="rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-x-auto shadow-xs transition-colors">
         {error && (
           <div className="p-12 text-center text-xs text-red-600">
             Failed to load policies.
@@ -116,7 +116,7 @@ export default function PolicyLedgerTable() {
             Loading policy ledger...
           </div>
         ) : (
-          <table className="w-full text-left text-xs font-sans">
+          <table className="w-full min-w-[640px] text-left text-xs font-sans">
             <thead className="bg-slate-50 dark:bg-slate-900/80 border-b border-slate-200 dark:border-slate-800 text-[10px] uppercase tracking-wider text-slate-600 dark:text-slate-400">
               <tr>
                 <th className="py-3 px-4 font-bold">Jurisdiction</th>
