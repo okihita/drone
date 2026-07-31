@@ -68,6 +68,13 @@ export default function EncryptionEventList({ events }: Props) {
               </div>
             </div>
           ))}
+
+          {filtered.length === 0 && (
+            <div className="p-8 text-center border border-dashed border-slate-200 dark:border-slate-800 rounded-xl bg-white/50 dark:bg-slate-900/50">
+              <p className="text-sm font-bold text-slate-700 dark:text-slate-300">No events found matching this filter.</p>
+              <p className="text-xs text-slate-500 mt-1">Try selecting &quot;All Types&quot; to view all tracked encryption regulation events.</p>
+            </div>
+          )}
         </div>
       </div>
     </section>
