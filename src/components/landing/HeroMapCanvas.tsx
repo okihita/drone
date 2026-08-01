@@ -47,6 +47,15 @@ export default function HeroMapCanvas({
   const countries = useMemo(() => getRealAseanCountries(), []);
   const byCode = useMemo(() => new Map(countries.map((c) => [c.code, c])), [countries]);
 
+  const postureCounts = useMemo(
+    () => ({
+      strict: countries.filter((c) => c.regimeType === "Strict Localization").length,
+      hybrid: countries.filter((c) => c.regimeType === "Hybrid").length,
+      open: countries.filter((c) => c.regimeType === "Open Transfer").length,
+    }),
+    [countries],
+  );
+
   const arcs = useMemo(() => {
     return FLOW_ARCS.map(([from, to, label]) => {
       const a = byCode.get(from);
@@ -267,17 +276,17 @@ export default function HeroMapCanvas({
           <div className="flex items-center justify-between gap-1 text-[10px] font-sans font-bold pt-0.5">
             <span className="flex items-center gap-1 text-asean-red">
               <span className="h-1.5 w-1.5 rounded-full bg-asean-red" />
-              2 Strict
+              {postureCounts.strict} Strict
             </span>
             <span className="text-slate-400 dark:text-slate-600">·</span>
             <span className="flex items-center gap-1 text-blue-500 dark:text-blue-400">
               <span className="h-1.5 w-1.5 rounded-full bg-blue-500 dark:bg-blue-400" />
-              5 Hybrid
+              {postureCounts.hybrid} Hybrid
             </span>
             <span className="text-slate-400 dark:text-slate-600">·</span>
             <span className="flex items-center gap-1 text-asean-yellow">
               <span className="h-1.5 w-1.5 rounded-full bg-asean-yellow" />
-              4 Open
+              {postureCounts.open} Open
             </span>
           </div>
         </div>

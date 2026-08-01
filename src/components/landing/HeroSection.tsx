@@ -34,9 +34,23 @@ export default function HeroSection({ leadStory }: HeroSectionProps) {
     }
   };
 
+  const handleTabKeyDown = (e: React.KeyboardEvent, tab: "story" | "dossier") => {
+    if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
+      e.preventDefault();
+      const next = tab === "story" ? "dossier" : "story";
+      setActiveTab(next);
+      if (next === "dossier" && !selectedCountry) setSelectedCountry(countries[0]);
+    } else if (e.key === "Home" || e.key === "End") {
+      e.preventDefault();
+      const next = e.key === "Home" ? "story" : "dossier";
+      setActiveTab(next);
+      if (next === "dossier" && !selectedCountry) setSelectedCountry(countries[0]);
+    }
+  };
+
   return (
     <section
-      className="relative flex w-full flex-col overflow-hidden border-b border-slate-200 bg-slate-50 text-slate-900 selection:bg-asean-yellow/30 dark:border-slate-800 dark:bg-slate-950 dark:text-white"
+      className="relative flex w-full flex-col overflow-hidden border-b border-slate-200 bg-slate-50 text-slate-900 dark:border-slate-800 dark:bg-slate-950 dark:text-white"
     >
       {/* ===== Main Command Center Grid: Side-by-Side (Map Unobstructed) ===== */}
       <div className="relative z-20 flex-1 px-4 py-6 sm:px-8 lg:px-12 lg:py-8">
@@ -48,13 +62,14 @@ export default function HeroSection({ leadStory }: HeroSectionProps) {
               <div>
                 {/* Header Tabs */}
                 <div className="mb-4 flex items-center justify-between border-b border-slate-200 pb-3 dark:border-white/10">
-                  <div role="tablist" className="flex items-center gap-2">
+                  <div role="tablist" aria-orientation="horizontal" aria-label="Hero content tabs" className="flex items-center gap-2">
                     <button
                       role="tab"
                       aria-selected={activeTab === "story"}
                       tabIndex={activeTab === "story" ? 0 : -1}
                       onClick={() => setActiveTab("story")}
-                      className={`rounded-lg px-3 py-1.5 font-sans text-xs font-bold transition-all ${
+                      onKeyDown={(e) => handleTabKeyDown(e, "story")}
+                      className={`rounded-lg px-3 py-1.5 font-sans text-xs font-bold transition-all focus-visible:ring-2 focus-visible:ring-asean-yellow ${
                         activeTab === "story"
                           ? "bg-slate-100 text-slate-900 border border-slate-300 dark:bg-white/10 dark:text-white dark:border-white/20"
                           : "text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200"
@@ -70,7 +85,8 @@ export default function HeroSection({ leadStory }: HeroSectionProps) {
                         if (!selectedCountry) setSelectedCountry(countries[0]);
                         setActiveTab("dossier");
                       }}
-                      className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 font-sans text-xs font-bold transition-all ${
+                      onKeyDown={(e) => handleTabKeyDown(e, "dossier")}
+                      className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 font-sans text-xs font-bold transition-all focus-visible:ring-2 focus-visible:ring-asean-yellow ${
                         activeTab === "dossier"
                           ? "bg-asean-yellow/20 text-asean-yellow border border-asean-yellow/40"
                           : "text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200"

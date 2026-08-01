@@ -1,37 +1,36 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import useSWR from "swr";
 import { listStories } from "@/services/news";
-import type { NewsCardItem } from "@/types";
 import { getExcerpt } from "@/lib/text";
+import { Skeleton } from "@/components/ui/skeleton";
+
+const fetcher = () => listStories(10);
 
 export default function InvestigationsList() {
-  const [articles, setArticles] = useState<NewsCardItem[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    listStories(10)
-      .then(setArticles)
-      .catch(() => {})
-      .finally(() => setLoading(false));
-  }, []);
+  const { data: articles = [], isLoading } = useSWR("investigations-list", fetcher, {
+    revalidateOnFocus: false,
+    dedupingInterval: 60_000,
+  });
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12 font-sans">
-      {loading
+      {isLoading
         ? Array.from({ length: 3 }).map((_, i) => (
             <div
               key={i}
-              className="rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-hidden animate-pulse"
+              className="rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-hidden"
+              aria-hidden="true"
             >
-              <div className="aspect-[16/9] bg-slate-200 dark:bg-slate-800" />
+              <Skeleton className="aspect-[16/9] w-full rounded-none" />
               <div className="p-6 space-y-3">
-                <div className="h-3 bg-slate-200 dark:bg-slate-800 rounded w-1/3" />
-                <div className="h-5 bg-slate-200 dark:bg-slate-800 rounded w-full" />
-                <div className="h-4 bg-slate-200 dark:bg-slate-800 rounded w-2/3" />
-                <div className="h-4 bg-slate-200 dark:bg-slate-800 rounded w-1/2" />
+                <Skeleton className="h-3 w-1/3" />
+                <Skeleton className="h-5 w-full" />
+                <Skeleton className="h-4 w-2/3" />
+                <Skeleton className="h-4 w-1/2" />
               </div>
             </div>
           ))
@@ -47,7 +46,6 @@ export default function InvestigationsList() {
                     src={article.image_url}
                     alt={article.title}
                     fill
-                    unoptimized
                     sizes="(max-width: 767px) 100vw, 33vw"
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
                   />

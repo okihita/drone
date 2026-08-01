@@ -7,6 +7,10 @@ import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import type { NewsCardItem } from "@/types";
 import { getExcerpt } from "@/lib/text";
 
+const prefersReducedMotion = () =>
+  typeof window !== "undefined" &&
+  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
 export default function FeaturedCarousel({
   stories,
 }: {
@@ -18,7 +22,7 @@ export default function FeaturedCarousel({
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   useEffect(() => {
-    if (isPaused || stories.length === 0) return;
+    if (isPaused || stories.length === 0 || prefersReducedMotion()) return;
     intervalRef.current = setInterval(() => {
       setActiveSlideIndex((prev) => (prev + 1) % stories.length);
     }, 6000);
@@ -26,6 +30,16 @@ export default function FeaturedCarousel({
       if (intervalRef.current) clearInterval(intervalRef.current);
     };
   }, [isPaused, stories.length]);
+
+  useEffect(() => {
+    if (prefersReducedMotion()) return;
+    const handleVisibility = () => {
+      if (document.hidden) setIsPaused(true);
+      else setIsPaused(false);
+    };
+    document.addEventListener("visibilitychange", handleVisibility);
+    return () => document.removeEventListener("visibilitychange", handleVisibility);
+  }, []);
 
   const handleDotClick = (idx: number) => {
     setActiveSlideIndex(idx);
@@ -49,8 +63,15 @@ export default function FeaturedCarousel({
   if (stories.length === 0) return null;
 
   return (
-    <section className="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-b border-slate-200 dark:border-slate-800">
-      {/* ... exact same JSX as original, omitting for brevity ... */}
+    <section
+      className="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-b border-slate-200 dark:border-slate-800"
+      aria-roledescription="carousel"
+      aria-label="Featured investigations"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+      onFocusCapture={() => setIsPaused(true)}
+      onBlurCapture={() => setIsPaused(false)}
+    >
       <div className="relative px-0 lg:px-14">
         <button
           onClick={handlePrevSlide}
@@ -69,6 +90,8 @@ export default function FeaturedCarousel({
 
         <div
           className="group relative rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm dark:shadow-none transition-all duration-300 min-h-[380px] sm:min-h-[450px] lg:h-[500px]"
+          aria-live="polite"
+          aria-roledescription="slide"
         >
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 items-stretch h-full">
             <div className="lg:col-span-7 relative min-h-[280px] lg:min-h-full h-full bg-slate-950 overflow-hidden">
@@ -81,7 +104,6 @@ export default function FeaturedCarousel({
                     src={activeStory.image_url}
                     alt={activeStory.title}
                     fill
-                    unoptimized
                     sizes="(max-width: 1023px) 100vw, 50vw"
                     priority
                     className="object-cover"
