@@ -1,7 +1,7 @@
 /* eslint-disable max-lines */
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, useState, useEffect, useRef } from "react";
 import { getRealAseanCountries, type GeoCountryData } from "@/lib/aseanGeo";
 import { REGIME_FILL_COLORS } from "@/lib/constants";
 import { ASEAN_COLORS } from "@/lib/colors";
@@ -44,6 +44,20 @@ export default function HeroMapCanvas({
   activeLayer,
   onSelectLayer,
 }: HeroMapCanvasProps) {
+  const [isInView, setIsInView] = useState(true);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el || typeof IntersectionObserver === "undefined") return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsInView(entry.isIntersecting),
+      { rootMargin: "200px 0px" },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   const countries = useMemo(() => getRealAseanCountries(), []);
   const byCode = useMemo(() => new Map(countries.map((c) => [c.code, c])), [countries]);
 
@@ -74,7 +88,8 @@ export default function HeroMapCanvas({
 
   return (
     <div
-      className="absolute inset-0 z-0 overflow-hidden bg-slate-100 text-slate-900 select-none dark:bg-slate-950 dark:text-white"
+      ref={containerRef}
+      className={`absolute inset-0 z-0 overflow-hidden bg-slate-100 text-slate-900 select-none dark:bg-slate-950 dark:text-white ${isInView ? "" : "hero-anim-paused"}`}
       aria-label="Interactive Cartographic Map"
     >
       {/* ===== Tactical Grid Background ===== */}

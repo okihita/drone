@@ -394,6 +394,16 @@ svg [tabindex]:focus-visible {
   }
 }
 
+/* Pause continuous hero-map animations while the map is off-screen */
+.hero-anim-paused .animate-hero-flow,
+.hero-anim-paused .animate-hero-flow-fast,
+.hero-anim-paused .animate-hero-sweep,
+.hero-anim-paused .animate-hero-ping,
+.hero-anim-paused .animate-threat-sonar,
+.hero-anim-paused .animate-pulse {
+  animation-play-state: paused !important;
+}
+
 @theme inline {
   --font-heading: var(--font-sans);
   --font-serif: var(--font-serif);
