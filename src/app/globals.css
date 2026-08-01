@@ -22,8 +22,9 @@
   html {
     @apply font-sans;
   }
-  /* Mobile performance: eliminate 300ms tap delay, prevent pull-to-refresh on modals */
-  a, button, [role="button"], input, select, textarea {
+  /* Mobile performance: eliminate 300ms tap delay, prevent pull-to-refresh on modals.
+     `select` is excluded: touch-action manipulation can break the native picker wheel on iOS. */
+  a, button, [role="button"], input, textarea {
     touch-action: manipulation;
   }
   [role="dialog"], .modal, .drawer {

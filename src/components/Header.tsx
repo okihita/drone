@@ -147,7 +147,7 @@ export default function Header() {
 
   return (
     <>
-    <header ref={headerRef} className="w-full border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 transition-colors sticky top-[var(--drone-admin-bar-h,0px)] z-50 backdrop-blur-md bg-slate-50/95 dark:bg-slate-950/95 font-sans">
+    <header ref={headerRef} className="w-full border-b border-slate-200 dark:border-slate-800 sticky top-[var(--drone-admin-bar-h,0px)] z-50 backdrop-blur-md bg-slate-50/95 dark:bg-slate-950/95 transition-colors font-sans">
       {/* Masthead */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 border-b border-slate-200/80 dark:border-slate-800/60 font-sans">
         {/* Row 1: Logo + tagline */}
