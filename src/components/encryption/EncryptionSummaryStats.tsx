@@ -1,14 +1,9 @@
 import { ASEAN_COLORS } from "@/lib/colors";
+import { FLAG_COMPONENTS } from "@/lib/flags";
 
 interface Props {
   summary: Record<string, { countryName: string; totalEvents: number; avgSeverity: number; worstEvent: string }>;
 }
-
-import { ID, MY, SG, PH, TH, VN, KH, LA, MM, BN, TL } from "country-flag-icons/react/3x2";
-
-const FLAG_COMPONENTS: Record<string, React.ComponentType<{ className?: string }>> = {
-  ID, MY, SG, PH, TH, VN, KH, LA, MM, BN, TL,
-};
 
 export default function EncryptionSummaryStats({ summary }: Props) {
   const entries = Object.entries(summary).sort((a, b) => b[1].avgSeverity - a[1].avgSeverity);

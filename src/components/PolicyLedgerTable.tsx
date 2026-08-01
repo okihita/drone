@@ -6,11 +6,7 @@ import { Search, Filter, ShieldAlert, CheckCircle, FileText } from "lucide-react
 import { listPolicies } from "@/services/policies";
 import { POLICY_CATEGORIES, THREAT_ACCENT_COLORS, THREAT_BADGE_CONTAINER_CLASSES } from "@/lib/constants";
 import type { PolicyListItem } from "@/types";
-import { ID, MY, SG, PH, TH, VN, KH, LA, MM, BN, TL } from "country-flag-icons/react/3x2";
-
-const FLAG_COMPONENTS: Record<string, React.ComponentType<{ className?: string }>> = {
-  ID, MY, SG, PH, TH, VN, KH, LA, MM, BN, TL,
-};
+import { FLAG_COMPONENTS } from "@/lib/flags";
 
 const COUNTRY_NAME_TO_CODE: Record<string, string> = {
   Singapore: "SG",

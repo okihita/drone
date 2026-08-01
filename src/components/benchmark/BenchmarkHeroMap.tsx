@@ -1,18 +1,14 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import { useState, useMemo } from "react";
 import { getRealAseanCountries } from "@/lib/aseanGeo";
 import { listAllBenchmarks } from "@/services/benchmark";
 import type { BenchmarkCountrySummary } from "@/types/benchmark";
-import { ID, MY, SG, PH, TH, VN, KH, LA, MM, BN, TL } from "country-flag-icons/react/3x2";
 import { ArrowRight, X } from "lucide-react";
 import Link from "next/link";
 
 import { ASEAN_COLORS } from "@/lib/colors";
-
-const FLAG_COMPONENTS: Record<string, React.ComponentType<{ className?: string }>> = {
-  ID, MY, SG, PH, TH, VN, KH, LA, MM, BN, TL,
-};
+import { FLAG_COMPONENTS } from "@/lib/flags";
 
 function scoreColor(score: number): string {
   if (score >= 80) return ASEAN_COLORS.emerald;

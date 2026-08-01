@@ -1,14 +1,10 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
 import type { ConsumerProtectionPolicy } from "@/types/consumer_protection";
-import { ID, MY, SG, PH, TH, VN, KH, LA, MM, BN, TL } from "country-flag-icons/react/3x2";
 import { ASEAN_COLORS } from "@/lib/colors";
+import { FLAG_COMPONENTS } from "@/lib/flags";
 import { ExternalLink, Filter } from "lucide-react";
-
-const FLAG_COMPONENTS: Record<string, React.ComponentType<{ className?: string }>> = {
-  ID, MY, SG, PH, TH, VN, KH, LA, MM, BN, TL,
-};
 
 interface Props {
   policies: ConsumerProtectionPolicy[];

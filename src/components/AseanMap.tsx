@@ -1,17 +1,12 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import { useState, useMemo } from "react";
 import { MapPin, ExternalLink, X, Filter } from "lucide-react";
 import { getRealAseanCountries, type GeoCountryData } from "@/lib/aseanGeo";
 import { ASEAN_COLORS } from "@/lib/colors";
 import { REGIME_FILL_COLORS, MAP_FILTER_MODES, REGIME_TYPES } from "@/lib/constants";
 import type { MapFilterMode } from "@/lib/constants";
-
-import { ID, MY, SG, PH, TH, VN, KH, LA, MM, BN, TL } from "country-flag-icons/react/3x2";
-
-const FLAG_COMPONENTS: Record<string, React.ComponentType<{ className?: string }>> = {
-  ID, MY, SG, PH, TH, VN, KH, LA, MM, BN, TL,
-};
+import { FLAG_COMPONENTS } from "@/lib/flags";
 
 // ── Country Dossier Modal ────────────────────────────────────────────────────
 
