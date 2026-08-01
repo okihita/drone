@@ -19,11 +19,9 @@
 | HeroCountryDossier | `src/components/landing/HeroCountryDossier.tsx` | Client | Country detail card in hero section |
 | FeaturedCarousel | `src/components/landing/FeaturedCarousel.tsx` | Client | Featured story carousel with pagination |
 | EditorialGrid | `src/components/landing/EditorialGrid.tsx` | Server | Editorial insights grid with executive analysis and policy radar |
-| BenchmarkPreview | `src/components/landing/BenchmarkPreview.tsx` | Client | D2D benchmark snapshot preview |
+| BenchmarkPreview | `src/components/landing/BenchmarkPreview.tsx` | Server | D2D benchmark snapshot preview |
 | InvestigationsList | `src/components/landing/InvestigationsList.tsx` | Client | Investigation articles listing |
-| PolicyMatrixFeed | `src/components/landing/PolicyMatrixFeed.tsx` | Client | Policy radar feed component |
-| DefaChapterTracker | `src/components/landing/DefaChapterTracker.tsx` | Client | DEFA negotiation chapter progress |
-| JurisdictionComparator | `src/components/landing/JurisdictionComparator.tsx` | Client | Side-by-side country comparison |
+| HomeSections | `src/components/landing/HomeSections.tsx` | Server | Streams hero/carousel/editorial sections with Suspense skeletons |
 
 ## Map & Observatory
 
