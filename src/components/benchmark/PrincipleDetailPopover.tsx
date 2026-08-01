@@ -32,9 +32,22 @@ export default function PrincipleDetailPopover({ principle, position, onClose }:
     return () => window.removeEventListener("resize", updatePosition);
   }, [position]);
 
+  useEffect(() => {
+    if (!onClose) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [onClose]);
+
   if (isMobile) {
     return (
-      <div className="fixed inset-x-0 bottom-0 z-50 p-4 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 shadow-2xl rounded-t-2xl animate-[slideInUp_0.2s_ease-out]">
+      <div
+        role="dialog"
+        aria-label={`${principle.title} — principle details`}
+        className="fixed inset-x-0 bottom-0 z-50 p-4 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 shadow-2xl rounded-t-2xl animate-[slideInUp_0.2s_ease-out]"
+      >
         <div className="flex items-center justify-between mb-2">
           <div className="flex items-center gap-2">
             <span className="font-sans text-[10px] px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-800 font-extrabold text-slate-700 dark:text-slate-300">
@@ -63,6 +76,8 @@ export default function PrincipleDetailPopover({ principle, position, onClose }:
 
   return (
     <div
+      role="dialog"
+      aria-label={`${principle.title} — principle details`}
       className="fixed z-40 w-80 p-4 rounded-xl shadow-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs font-sans pointer-events-none animate-[fadeIn_0.15s_ease-out]"
       style={{ left: `${coords.left}px`, top: `${coords.top}px` }}
     >

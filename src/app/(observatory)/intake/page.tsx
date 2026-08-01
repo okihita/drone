@@ -1,20 +1,30 @@
 "use client";
 
 import React, { useState } from "react";
-import Footer from "@/components/Footer";
 import { Upload, Send, CheckCircle2, Shield, Lock, FileText, EyeOff } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+
+const FIELD_CLASS =
+  "bg-slate-50 dark:bg-slate-900 border-slate-300 dark:border-slate-800 text-xs font-sans focus-visible:ring-asean-red/30 focus-visible:border-asean-red";
 
 export default function IntakePage() {
   const [submitted, setSubmitted] = useState(false);
+  const [fileName, setFileName] = useState<string | null>(null);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitted(true);
   };
 
+  const handleFileDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    setFileName(e.dataTransfer.files?.[0]?.name ?? null);
+  };
+
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-200 font-sans transition-colors">
-      <main className="flex-1 py-8">
+    <main className="flex-1 py-8">
         {/* Main Header Banner */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6">
           <div className="border-b border-slate-200 dark:border-slate-800 pb-4 font-sans">
@@ -62,8 +72,8 @@ export default function IntakePage() {
                 Your submission has been safely encrypted and routed to EngageMedia’s senior policy editorial team for source-verification.
               </p>
               <button
-                onClick={() => setSubmitted(false)}
-                className="px-4 py-2 rounded-lg bg-slate-900 dark:bg-slate-800 text-white font-sans text-xs font-semibold hover:bg-slate-800 transition-colors"
+                onClick={() => { setSubmitted(false); setFileName(null); }}
+                className="px-4 py-2 rounded-lg bg-slate-900 dark:bg-slate-800 text-white font-sans text-xs font-semibold hover:bg-slate-800 focus-visible:ring-2 focus-visible:ring-asean-yellow transition-colors"
               >
                 Submit Another Dossier
               </button>
@@ -74,11 +84,11 @@ export default function IntakePage() {
                 <label className="block text-xs font-sans font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
                   Document / Alert Title *
                 </label>
-                <input
+                <Input
                   type="text"
                   required
                   placeholder="e.g. Leaked Draft DEFA Chapter 5 on Data Localization..."
-                  className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-xs text-slate-900 dark:text-slate-200 focus:outline-none focus:border-asean-red font-sans"
+                  className={FIELD_CLASS}
                 />
               </div>
 
@@ -87,31 +97,41 @@ export default function IntakePage() {
                   <label className="block text-xs font-sans font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
                     Target Jurisdiction *
                   </label>
-                  <select className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-xs text-slate-900 dark:text-slate-200 focus:outline-none focus:border-asean-red font-sans">
-                    <option value="ASEAN">ASEAN Regional</option>
-                    <option value="ID">Indonesia</option>
-                    <option value="SG">Singapore</option>
-                    <option value="PH">Philippines</option>
-                    <option value="TH">Thailand</option>
-                    <option value="VN">Vietnam</option>
-                    <option value="MY">Malaysia</option>
-                    <option value="KH">Cambodia</option>
-                    <option value="LA">Laos</option>
-                    <option value="MM">Myanmar</option>
-                    <option value="BN">Brunei</option>
-                    <option value="TL">Timor-Leste</option>
-                  </select>
+                  <Select defaultValue="ASEAN">
+                    <SelectTrigger aria-label="Target Jurisdiction" className={`w-full ${FIELD_CLASS}`}>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="ASEAN">ASEAN Regional</SelectItem>
+                      <SelectItem value="ID">Indonesia</SelectItem>
+                      <SelectItem value="SG">Singapore</SelectItem>
+                      <SelectItem value="PH">Philippines</SelectItem>
+                      <SelectItem value="TH">Thailand</SelectItem>
+                      <SelectItem value="VN">Vietnam</SelectItem>
+                      <SelectItem value="MY">Malaysia</SelectItem>
+                      <SelectItem value="KH">Cambodia</SelectItem>
+                      <SelectItem value="LA">Laos</SelectItem>
+                      <SelectItem value="MM">Myanmar</SelectItem>
+                      <SelectItem value="BN">Brunei</SelectItem>
+                      <SelectItem value="TL">Timor-Leste</SelectItem>
+                    </SelectContent>
+                  </Select>
                 </div>
 
                 <div className="space-y-1.5 font-sans">
                   <label className="block text-xs font-sans font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
                     Attribution Preference *
                   </label>
-                  <select className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-xs text-slate-900 dark:text-slate-200 focus:outline-none focus:border-asean-red font-sans">
-                    <option value="anonymous">🔒 Anonymous Defender Protection</option>
-                    <option value="cobrand">🤝 Co-Branded Regional Partner</option>
-                    <option value="public">🌐 Public Author Credit</option>
-                  </select>
+                  <Select defaultValue="anonymous">
+                    <SelectTrigger aria-label="Attribution Preference" className={`w-full ${FIELD_CLASS}`}>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="anonymous">Anonymous Defender Protection</SelectItem>
+                      <SelectItem value="cobrand">Co-Branded Regional Partner</SelectItem>
+                      <SelectItem value="public">Public Author Credit</SelectItem>
+                    </SelectContent>
+                  </Select>
                 </div>
               </div>
 
@@ -119,11 +139,11 @@ export default function IntakePage() {
                 <label className="block text-xs font-sans font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
                   Summary &amp; Human Rights Context *
                 </label>
-                <textarea
+                <Textarea
                   rows={4}
                   required
                   placeholder="Explain the policy threat, legislative context, or key clause of concern..."
-                  className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-xs text-slate-900 dark:text-slate-200 focus:outline-none focus:border-asean-red font-sans"
+                  className={FIELD_CLASS}
                 />
               </div>
 
@@ -131,15 +151,28 @@ export default function IntakePage() {
                 <label className="block text-xs font-sans font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
                   Attach File (PDF, DOCX, Leaked Text)
                 </label>
-                <div className="border-2 border-dashed border-slate-300 dark:border-slate-800 rounded-lg p-6 text-center bg-slate-50 dark:bg-slate-900/50 hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-colors cursor-pointer">
-                  <Upload className="w-6 h-6 text-slate-400 mx-auto mb-2" />
-                  <span className="text-xs text-slate-500 font-sans">Drag &amp; drop file or click to browse</span>
-                </div>
+                <label className="flex flex-col items-center justify-center border-2 border-dashed border-slate-300 dark:border-slate-800 rounded-lg p-6 text-center bg-slate-50 dark:bg-slate-900/50 hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-colors cursor-pointer focus-within:ring-2 focus-within:ring-asean-red/30 focus-within:border-asean-red/50"
+                  onDragOver={(e) => e.preventDefault()}
+                  onDrop={handleFileDrop}
+                >
+                  <Upload className="w-6 h-6 text-slate-400 mb-2" />
+                  <input
+                    type="file"
+                    accept=".pdf,.doc,.docx,.txt"
+                    className="sr-only"
+                    onChange={(e) => setFileName(e.target.files?.[0]?.name ?? null)}
+                  />
+                  {fileName ? (
+                    <span className="text-xs text-slate-900 dark:text-white font-bold break-all max-w-full">{fileName}</span>
+                  ) : (
+                    <span className="text-xs text-slate-500 font-sans">Drag &amp; drop file or click to browse</span>
+                  )}
+                </label>
               </div>
 
               <button
                 type="submit"
-                className="w-full py-3 rounded-lg bg-asean-red hover:bg-asean-red/90 text-white font-sans font-bold text-xs transition-colors flex items-center justify-center gap-2 shadow-xs"
+                className="w-full py-3 rounded-lg bg-asean-red hover:bg-asean-red/90 text-white font-sans font-bold text-xs transition-colors flex items-center justify-center gap-2 shadow-xs focus-visible:ring-2 focus-visible:ring-asean-red/50 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-slate-900"
               >
                 <Send className="w-4 h-4" />
                 <span>Submit Encrypted Dossier</span>
@@ -147,8 +180,6 @@ export default function IntakePage() {
             </form>
           )}
         </div>
-      </main>
-      <Footer />
-    </div>
+    </main>
   );
 }

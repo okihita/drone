@@ -4,13 +4,8 @@ import { useState } from "react";
 import type { BenchmarkCountrySummary, BenchmarkPrinciple } from "@/types/benchmark";
 import { BENCHMARK_CLUSTERS } from "@/lib/constants";
 import PrincipleDetailPopover from "./PrincipleDetailPopover";
-import { ID, MY, SG, PH, TH, VN, KH, LA, MM, BN, TL } from "country-flag-icons/react/3x2";
-
-const FLAG_COMPONENTS: Record<string, React.ComponentType<{ className?: string }>> = {
-  ID, MY, SG, PH, TH, VN, KH, LA, MM, BN, TL,
-};
-
-import { ASEAN_COLORS } from "@/lib/colors";
+import { FLAG_COMPONENTS } from "@/lib/flags";
+import { heatmapCellClass } from "@/lib/colors";
 
 interface Props {
   summaries: BenchmarkCountrySummary[];
@@ -19,21 +14,12 @@ interface Props {
   onSelectCountry: (code: string | null) => void;
 }
 
-function scoreColor(score: number): string {
-  if (score >= 80) return "bg-asean-emerald";
-  if (score >= 65) return "bg-asean-emerald/80";
-  if (score >= 50) return "bg-asean-amber";
-  if (score >= 35) return "bg-asean-amber/80";
-  if (score >= 20) return "bg-asean-red/80";
-  return "bg-asean-red";
-}
-
-const CLUSTER_COLORS: Record<string, string> = {
-  "asean-red": ASEAN_COLORS.red,
-  "asean-blue": ASEAN_COLORS.blue,
-  "asean-amber": ASEAN_COLORS.amber,
-  "asean-emerald": ASEAN_COLORS.emerald,
-  "asean-sky": ASEAN_COLORS.sky,
+const CLUSTER_CHIP_CLASSES: Record<string, string> = {
+  "asean-red": "bg-asean-red",
+  "asean-blue": "bg-asean-blue",
+  "asean-amber": "bg-asean-amber",
+  "asean-emerald": "bg-asean-emerald",
+  "asean-sky": "bg-asean-sky",
 };
 
 export default function BenchmarkHeatmap({ summaries, principles, selectedCountry, onSelectCountry }: Props) {
@@ -42,8 +28,23 @@ export default function BenchmarkHeatmap({ summaries, principles, selectedCountr
 
   const headerBg = "sticky top-0 z-10 bg-slate-100 dark:bg-slate-800 font-sans text-xs font-bold text-slate-700 dark:text-slate-300";
 
+  const showPrinciple = (principle: BenchmarkPrinciple, x: number, y: number) => {
+    setHoveredPrinciple(principle);
+    setPopoverPos({ x, y });
+  };
+
+  const hidePrinciple = () => {
+    setHoveredPrinciple(null);
+    setPopoverPos(null);
+  };
+
+  const togglePrinciple = (principle: BenchmarkPrinciple, x: number, y: number) => {
+    if (hoveredPrinciple?.id === principle.id) hidePrinciple();
+    else showPrinciple(principle, x, y);
+  };
+
   return (
-    <section className="px-4 sm:px-6 lg:px-8 py-6 max-w-full">
+    <section id="compliance-heatmap" className="px-4 sm:px-6 lg:px-8 py-6 max-w-full scroll-mt-[calc(var(--drone-admin-bar-h,0px)_+_var(--drone-header-h,135px)_+_52px)]">
       <div className="max-w-7xl mx-auto">
         <h2 className="font-serif-editorial text-xl font-bold text-slate-900 dark:text-white mb-4">
           Compliance Heatmap
@@ -82,10 +83,20 @@ export default function BenchmarkHeatmap({ summaries, principles, selectedCountr
                     <th
                       key={s.countryCode}
                       scope="col"
-                      className={`${headerBg} px-1 py-2 text-center cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors ${
+                      className={`${headerBg} px-1 py-2 text-center cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors focus-visible:ring-2 focus-visible:ring-asean-yellow/80 ${
                         selectedCountry === s.countryCode ? "bg-asean-yellow/20 dark:bg-asean-yellow/10" : ""
                       }`}
+                      tabIndex={0}
+                      role="button"
+                      aria-pressed={selectedCountry === s.countryCode}
+                      aria-label={`Select ${s.countryName} (${s.countryCode})`}
                       onClick={() => onSelectCountry(selectedCountry === s.countryCode ? null : s.countryCode)}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          e.preventDefault();
+                          onSelectCountry(selectedCountry === s.countryCode ? null : s.countryCode);
+                        }
+                      }}
                       title={`${s.countryName} (${s.countryCode})`}
                     >
                       <div className="flex flex-col items-center gap-0.5">
@@ -114,20 +125,19 @@ export default function BenchmarkHeatmap({ summaries, principles, selectedCountr
                     }`}
                   >
                     <td
-                      className="p-2 align-middle cursor-pointer sticky left-0 z-10 bg-white dark:bg-slate-900 shadow-[1px_0_0_0_rgba(226,232,240,1)] dark:shadow-[1px_0_0_0_rgba(30,41,59,1)] min-w-[130px]"
-                      onMouseEnter={(e) => {
-                        setHoveredPrinciple(principle);
-                        setPopoverPos({ x: e.clientX, y: e.clientY });
-                      }}
-                      onMouseLeave={() => { setHoveredPrinciple(null); setPopoverPos(null); }}
-                      onClick={(e) => {
-                        // Touch fallback: toggle popover on tap
-                        if (hoveredPrinciple?.id === principle.id) {
-                          setHoveredPrinciple(null);
-                          setPopoverPos(null);
-                        } else {
-                          setHoveredPrinciple(principle);
-                          setPopoverPos({ x: e.clientX, y: e.clientY });
+                      className="p-2 align-middle cursor-pointer sticky left-0 z-10 bg-white dark:bg-slate-900 shadow-[1px_0_0_0_rgba(226,232,240,1)] dark:shadow-[1px_0_0_0_rgba(30,41,59,1)] min-w-[130px] focus-visible:ring-2 focus-visible:ring-asean-yellow/80"
+                      tabIndex={0}
+                      role="button"
+                      aria-haspopup="dialog"
+                      aria-expanded={hoveredPrinciple?.id === principle.id}
+                      onMouseEnter={(e) => showPrinciple(principle, e.clientX, e.clientY)}
+                      onMouseLeave={hidePrinciple}
+                      onClick={(e) => togglePrinciple(principle, e.clientX, e.clientY)}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          e.preventDefault();
+                          const rect = e.currentTarget.getBoundingClientRect();
+                          togglePrinciple(principle, rect.right - 8, rect.top + rect.height / 2);
                         }
                       }}
                     >
@@ -140,8 +150,7 @@ export default function BenchmarkHeatmap({ summaries, principles, selectedCountr
                     </td>
                     <td className="p-2 align-middle">
                       <span
-                        className="inline-block px-1.5 py-0.5 rounded text-[9px] font-bold text-white"
-                        style={{ backgroundColor: CLUSTER_COLORS[clusterInfo?.color ?? ""] ?? ASEAN_COLORS.textMutedLight }}
+                        className={`inline-block px-1.5 py-0.5 rounded text-[9px] font-bold text-white ${CLUSTER_CHIP_CLASSES[clusterInfo?.color ?? ""] ?? "bg-slate-500"}`}
                       >
                         {clusterInfo?.label ?? principle.cluster}
                       </span>
@@ -152,11 +161,23 @@ export default function BenchmarkHeatmap({ summaries, principles, selectedCountr
                       return (
                         <td
                           key={s.countryCode}
-                          className={`px-0.5 py-1 text-center align-middle cursor-pointer transition-all ${isSelected ? "ring-2 ring-asean-yellow ring-inset" : ""}`}
+                          className={`px-0.5 py-1 text-center align-middle cursor-pointer transition-all focus-visible:ring-2 focus-visible:ring-asean-yellow/80 ${
+                            isSelected ? "ring-2 ring-asean-yellow ring-inset" : ""
+                          }`}
+                          tabIndex={0}
+                          role="button"
+                          aria-label={`${s.countryName}: ${score}/100 — ${principle.shortTitle}`}
+                          aria-pressed={isSelected}
                           onClick={() => onSelectCountry(selectedCountry === s.countryCode ? null : s.countryCode)}
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter" || e.key === " ") {
+                              e.preventDefault();
+                              onSelectCountry(selectedCountry === s.countryCode ? null : s.countryCode);
+                            }
+                          }}
                         >
                           <span
-                            className={`inline-flex items-center justify-center w-10 h-7 rounded-md font-sans text-[11px] font-bold ${scoreColor(score)} text-white`}
+                            className={`inline-flex items-center justify-center w-10 h-7 rounded-md font-sans text-[11px] font-bold ${heatmapCellClass(score)} text-white`}
                             title={`${s.countryName}: ${score}/100 — ${principle.shortTitle}`}
                           >
                             {score}

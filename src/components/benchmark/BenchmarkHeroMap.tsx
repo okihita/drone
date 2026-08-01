@@ -1,32 +1,17 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import { useState, useMemo } from "react";
 import { getRealAseanCountries } from "@/lib/aseanGeo";
 import { listAllBenchmarks } from "@/services/benchmark";
 import type { BenchmarkCountrySummary } from "@/types/benchmark";
-import { ID, MY, SG, PH, TH, VN, KH, LA, MM, BN, TL } from "country-flag-icons/react/3x2";
 import { ArrowRight, X } from "lucide-react";
 import Link from "next/link";
 
-import { ASEAN_COLORS } from "@/lib/colors";
-
-const FLAG_COMPONENTS: Record<string, React.ComponentType<{ className?: string }>> = {
-  ID, MY, SG, PH, TH, VN, KH, LA, MM, BN, TL,
-};
-
-function scoreColor(score: number): string {
-  if (score >= 80) return ASEAN_COLORS.emerald;
-  if (score >= 65) return ASEAN_COLORS.emeraldLight;
-  if (score >= 50) return ASEAN_COLORS.yellow;
-  if (score >= 35) return ASEAN_COLORS.amber;
-  if (score >= 20) return ASEAN_COLORS.red;
-  return ASEAN_COLORS.redDark;
-}
+import { ASEAN_COLORS, heatmapHex, scoreTone, toneTextClass } from "@/lib/colors";
+import { FLAG_COMPONENTS } from "@/lib/flags";
 
 function scoreBadge(score: number): string {
-  if (score >= 65) return "text-asean-emerald";
-  if (score >= 40) return "text-asean-amber";
-  return "text-asean-red";
+  return toneTextClass(scoreTone(score, 65, 40));
 }
 
 const SCORE_LEGEND = [
@@ -57,7 +42,7 @@ export default function BenchmarkHeroMap({ selectedCountryCode, onSelectCountry 
   const countryColors = useMemo(() => {
     const map = new Map<string, string>();
     for (const s of allSummaries) {
-      map.set(s.countryCode, scoreColor(s.overallScore));
+      map.set(s.countryCode, heatmapHex(s.overallScore));
     }
     return map;
   }, [allSummaries]);
@@ -120,10 +105,20 @@ export default function BenchmarkHeroMap({ selectedCountryCode, onSelectCountry 
                         stroke={isHovered || isSelected ? ASEAN_COLORS.white : "transparent"}
                         strokeWidth={isHovered || isSelected ? 2 : 0}
                         strokeLinejoin="round"
-                        className="cursor-pointer transition-all duration-200"
+                        className="cursor-pointer transition-all duration-200 focus-visible:stroke-asean-yellow focus-visible:stroke-2"
+                        role="button"
+                        tabIndex={0}
+                        aria-label={`${country.name} — ${scoreMap.get(country.code)?.overallScore ?? "n/a"}/100 compliance`}
+                        aria-pressed={isSelected}
                         onMouseEnter={() => setHoveredCode(country.code)}
                         onMouseLeave={() => setHoveredCode(null)}
                         onClick={() => onSelectCountry(selectedCountryCode === country.code ? null : country.code)}
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter" || e.key === " ") {
+                            e.preventDefault();
+                            onSelectCountry(selectedCountryCode === country.code ? null : country.code);
+                          }
+                        }}
                       />
                       <circle cx={country.centerPos.x} cy={country.centerPos.y} r={isSelected || isHovered ? 5 : 3.5} fill={ASEAN_COLORS.white} stroke={color} strokeWidth="1.5" className="pointer-events-none" />
                       <text x={country.centerPos.x} y={country.centerPos.y + 14} textAnchor="middle" className="pointer-events-none font-sans text-[9px] font-bold uppercase select-none" fill={ASEAN_COLORS.white} style={{ textShadow: "0 1px 3px rgba(0,0,0,0.8)" }}>
@@ -229,7 +224,7 @@ export default function BenchmarkHeroMap({ selectedCountryCode, onSelectCountry 
               </div>
 
               <Link
-                href={`/d2d/benchmark`}
+                href={`/d2d/benchmark#compliance-heatmap`}
                 className="flex items-center justify-center gap-1 w-full py-1.5 rounded-lg bg-asean-blue text-white text-[10px] font-sans font-bold hover:bg-asean-blue/90 transition-colors"
               >
                 View in Heatmap <ArrowRight className="h-3 w-3" />

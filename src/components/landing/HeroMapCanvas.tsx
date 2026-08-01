@@ -1,12 +1,12 @@
 /* eslint-disable max-lines */
 "use client";
 
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import { getRealAseanCountries, type GeoCountryData } from "@/lib/aseanGeo";
 import { REGIME_FILL_COLORS } from "@/lib/constants";
 import { ASEAN_COLORS } from "@/lib/colors";
+import { FLAG_COMPONENTS } from "@/lib/flags";
 import { Zap, AlertTriangle, ShieldCheck, Layers } from "lucide-react";
-import { ID, MY, SG, PH, TH, VN, KH, LA, MM, BN, TL } from "country-flag-icons/react/3x2";
 
 const FLOW_ARCS: ReadonlyArray<readonly [string, string, string]> = [
   ["MY", "VN", "Cross-Border Cloud Directive"],
@@ -37,10 +37,6 @@ interface HeroMapCanvasProps {
   activeLayer: MapLayerMode;
   onSelectLayer?: (layer: MapLayerMode) => void;
 }
-
-const FLAG_COMPONENTS: Record<string, React.ComponentType<{ className?: string }>> = {
-  ID, MY, SG, PH, TH, VN, KH, LA, MM, BN, TL,
-};
 
 export default function HeroMapCanvas({
   activeCountry,

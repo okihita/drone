@@ -1,15 +1,11 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
 import type { EncryptionEvent } from "@/types/encryption";
 import { ENCRYPTION_EVENT_LABELS } from "@/types/encryption";
-import { ID, MY, SG, PH, TH, VN, KH, LA, MM, BN, TL } from "country-flag-icons/react/3x2";
-import { ASEAN_COLORS } from "@/lib/colors";
+import { riskTone, toneHex, toneTextClass } from "@/lib/colors";
+import { FLAG_COMPONENTS } from "@/lib/flags";
 import { Clock, ExternalLink, Filter } from "lucide-react";
-
-const FLAG_COMPONENTS: Record<string, React.ComponentType<{ className?: string }>> = {
-  ID, MY, SG, PH, TH, VN, KH, LA, MM, BN, TL,
-};
 
 interface Props {
   events: EncryptionEvent[];
@@ -125,12 +121,10 @@ export default function EncryptionEventList({ events }: Props) {
               day: "numeric",
             });
 
-            const isHighSeverity = event.severityScore >= 70;
-            const nodeColor = isHighSeverity
-              ? ASEAN_COLORS.red
-              : event.severityScore >= 40
-              ? ASEAN_COLORS.amber
-              : ASEAN_COLORS.emerald;
+            const tone = riskTone(event.severityScore, 39, 69);
+            const isHighSeverity = tone === "danger";
+            const nodeColor = toneHex(tone);
+            const severityTextClass = toneTextClass(tone);
 
             const isFirst = idx === 0;
             const isLast = idx === filteredEvents.length - 1;
@@ -204,13 +198,7 @@ export default function EncryptionEventList({ events }: Props) {
                         />
                       </div>
                       <span
-                        className={`text-xs font-sans font-extrabold ${
-                          isHighSeverity
-                            ? "text-asean-red"
-                            : event.severityScore >= 40
-                            ? "text-asean-amber"
-                            : "text-asean-emerald"
-                        }`}
+                        className={`text-xs font-sans font-extrabold ${severityTextClass}`}
                       >
                         {event.severityScore}/100
                       </span>

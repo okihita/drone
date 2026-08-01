@@ -57,4 +57,77 @@ export const ASEAN_COLORS = {
   textMutedDark: "#94a3b8",
 } as const;
 
+/**
+ * Semantic status tone shared by all observatory widgets.
+ * "positive" is always the ASEAN emerald, "warning" the amber, "danger" the red.
+ */
+export type StatusTone = "positive" | "warning" | "danger";
+
+/** Higher-is-better scoring (compliance indexes): >= good → positive, >= bad → warning, else danger. */
+export function scoreTone(score: number, good: number, bad: number): StatusTone {
+  if (score >= good) return "positive";
+  if (score >= bad) return "warning";
+  return "danger";
+}
+
+/** Higher-is-worse risk scoring (severity, friction, surveillance): <= good → positive, <= bad → warning, else danger. */
+export function riskTone(score: number, good: number, bad: number): StatusTone {
+  if (score <= good) return "positive";
+  if (score <= bad) return "warning";
+  return "danger";
+}
+
+export function toneHex(tone: StatusTone): string {
+  switch (tone) {
+    case "positive":
+      return ASEAN_COLORS.emerald;
+    case "warning":
+      return ASEAN_COLORS.amber;
+    case "danger":
+      return ASEAN_COLORS.red;
+  }
+}
+
+export function toneTextClass(tone: StatusTone): string {
+  switch (tone) {
+    case "positive":
+      return "text-status-positive";
+    case "warning":
+      return "text-status-warning";
+    case "danger":
+      return "text-status-danger";
+  }
+}
+
+export function toneBarClass(tone: StatusTone): string {
+  switch (tone) {
+    case "positive":
+      return "bg-status-positive";
+    case "warning":
+      return "bg-status-warning";
+    case "danger":
+      return "bg-status-danger";
+  }
+}
+
+/** Six-band compliance cell classes used by the Digital 2 Dozen heatmap. */
+export function heatmapCellClass(score: number): string {
+  if (score >= 80) return "bg-asean-emerald";
+  if (score >= 65) return "bg-asean-emerald/80";
+  if (score >= 50) return "bg-asean-amber";
+  if (score >= 35) return "bg-asean-amber/80";
+  if (score >= 20) return "bg-asean-red/80";
+  return "bg-asean-red";
+}
+
+/** Six-band hex fills for the SVG geographic overview map. */
+export function heatmapHex(score: number): string {
+  if (score >= 80) return ASEAN_COLORS.emerald;
+  if (score >= 65) return ASEAN_COLORS.emeraldLight;
+  if (score >= 50) return ASEAN_COLORS.yellow;
+  if (score >= 35) return ASEAN_COLORS.amber;
+  if (score >= 20) return ASEAN_COLORS.red;
+  return ASEAN_COLORS.redDark;
+}
+
 

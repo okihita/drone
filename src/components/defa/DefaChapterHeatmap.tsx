@@ -5,8 +5,8 @@ import { DEFA_CHAPTERS, getDefaChapterStatuses } from "@/services/defa";
 import { ASEAN_MEMBER_STATES, ASEANCountryCode } from "@/lib/countries";
 import { DefaRatificationStatus } from "@/types/defa";
 import { FileText, CheckCircle2, AlertTriangle, Clock, Lock } from "lucide-react";
-import Footer from "@/components/Footer";
 import DefaExplainerCard from "@/components/defa/DefaExplainerCard";
+import HeroBanner from "@/components/layout/HeroBanner";
 
 export default function DefaChapterHeatmap() {
   const statuses = getDefaChapterStatuses();
@@ -14,6 +14,10 @@ export default function DefaChapterHeatmap() {
     countryCode: ASEANCountryCode;
     chapterId: string;
   } | null>(null);
+
+  const avgProgress = Math.round(
+    statuses.reduce((sum, s) => sum + s.progressPercent, 0) / Math.max(statuses.length, 1),
+  );
 
   const getCellStatus = (code: ASEANCountryCode, chapterId: string) => {
     return statuses.find((s) => s.countryCode === code && s.chapterId === chapterId);
@@ -54,58 +58,42 @@ export default function DefaChapterHeatmap() {
   const activeCountry = selectedCell ? ASEAN_MEMBER_STATES.find((m) => m.code === selectedCell.countryCode) : null;
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-200 font-sans">
-      {/* SEOM Manila Legal Scrubbing Hero Banner */}
-      <section className="relative border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/60 py-6 sm:py-9 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto space-y-6">
-          <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-6">
-            <div className="flex-1">
-              <h1 className="font-serif-editorial text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
-                DEFA Ratification Tracker
-              </h1>
-              <p className="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-3xl font-sans leading-relaxed">
-                Following the conclusion of official text negotiations at the 57th Senior Economic Officials Meeting (SEOM) in Manila (May 2026), DEFA has entered its critical <strong className="text-slate-800 dark:text-slate-200">Legal Scrubbing</strong> phase. This telemetry matrix maps the ratification and legal alignment of all 11 ASEAN member states across DEFA’s 9 core chapters—tracking progress toward formal treaty execution at the 49th ASEAN Summit in November 2026.
-              </p>
+    <>
+      <HeroBanner
+        title="DEFA Ratification Tracker"
+        description={
+          <>
+            Following the conclusion of official text negotiations at the 57th Senior Economic Officials Meeting (SEOM) in Manila (May 2026), DEFA has entered its critical <strong className="text-slate-800 dark:text-slate-200">Legal Scrubbing</strong> phase. This telemetry matrix maps the ratification and legal alignment of all 11 ASEAN member states across DEFA&rsquo;s 9 core chapters—tracking progress toward formal treaty execution at the 49th ASEAN Summit in November 2026.
+          </>
+        }
+        rightSlot={
+          <div className="shrink-0 p-5 rounded-2xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 shadow-sm text-xs font-sans space-y-3 min-w-[280px]">
+            <div className="flex items-center justify-between">
+              <span className="font-bold uppercase tracking-wider text-slate-500 text-[10px]">Legal Scrubbing Phase</span>
+              <span className="font-bold text-asean-blue font-mono text-xs">{avgProgress}% Complete</span>
             </div>
-
-            {/* SEOM Manila Progress Widget */}
-            <div className="shrink-0 p-5 rounded-2xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 shadow-sm text-xs font-sans space-y-3 min-w-[280px]">
-              <div className="flex items-center justify-between">
-                <span className="font-bold uppercase tracking-wider text-slate-500 text-[10px]">Legal Scrubbing Phase</span>
-                <span className="font-bold text-asean-blue font-mono text-xs">82% Complete</span>
-              </div>
-              <div className="w-full h-2 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden">
-                <div className="h-full bg-gradient-to-r from-asean-blue via-asean-emerald to-asean-yellow w-[82%]" />
-              </div>
-              <div className="flex items-center justify-between text-[11px] text-slate-500 pt-1 border-t border-slate-200 dark:border-slate-700">
-                <span>SEOM Manila: May 2026</span>
-                <span className="font-bold text-slate-900 dark:text-white">Signing: Nov 2026</span>
-              </div>
+            <div className="w-full h-2 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden">
+              <div className="h-full bg-gradient-to-r from-asean-blue via-asean-emerald to-asean-yellow" style={{ width: `${avgProgress}%` }} />
+            </div>
+            <div className="flex items-center justify-between text-[11px] text-slate-500 pt-1 border-t border-slate-200 dark:border-slate-700">
+              <span>SEOM Manila: May 2026</span>
+              <span className="font-bold text-slate-900 dark:text-white">Signing: Nov 2026</span>
             </div>
           </div>
-
-          {/* 5 DEFA Dimension Concept Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 pt-2">
-            {[
-              { title: "Paperless Customs", desc: "Eliminating paper customs docs and standardizing cross-border e-signatures." },
-              { title: "Data Flows (DFFT)", desc: "Enabling Data Free Flow with Trust while restricting domestic server mandates." },
-              { title: "Cybersecurity & CII", desc: "Threat intelligence sharing and mandatory CERT breach reporting windows." },
-              { title: "Digital Payments", desc: "Integrating Regional Payment Connectivity (RPC) and cross-border QR networks." },
-              { title: "AI & Emerging Tech", desc: "Harmonizing AI safety baselines with the ASEAN Guide on AI Ethics 2024." },
-            ].map((card) => (
-              <div key={card.title} className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-xs font-sans">
-                <strong className="block text-slate-900 dark:text-white font-bold mb-1">{card.title}</strong>
-                <p className="text-slate-600 dark:text-slate-400 leading-normal">{card.desc}</p>
-              </div>
-            ))}
-          </div>
-
-          {/* How to Read Guidance Note */}
-          <p className="text-xs text-slate-500 dark:text-slate-400 font-sans leading-relaxed max-w-4xl pt-1">
-            <strong className="text-slate-700 dark:text-slate-300 font-bold">How to read</strong>: Each matrix cell displays real-time legal scrubbing progress (% completion). <span className="text-asean-emerald font-bold">Green badges (100%)</span> represent concluded chapter ratifications; <span className="text-asean-blue font-bold">Blue (75–90%)</span> represent active legal scrubbing; <span className="text-asean-amber font-bold">Amber (60–70%)</span> indicate provisional reservations; <span className="text-asean-red font-bold">Red (&lt;50%)</span> signal pending domestic consultations. Click any cell for TPP text comparisons and gazette citations.
-          </p>
-        </div>
-      </section>
+        }
+        concepts={[
+          { title: "Paperless Customs", desc: "Eliminating paper customs docs and standardizing cross-border e-signatures." },
+          { title: "Data Flows (DFFT)", desc: "Enabling Data Free Flow with Trust while restricting domestic server mandates." },
+          { title: "Cybersecurity & CII", desc: "Threat intelligence sharing and mandatory CERT breach reporting windows." },
+          { title: "Digital Payments", desc: "Integrating Regional Payment Connectivity (RPC) and cross-border QR networks." },
+          { title: "AI & Emerging Tech", desc: "Harmonizing AI safety baselines with the ASEAN Guide on AI Ethics 2024." },
+        ]}
+        howToRead={
+          <>
+            Each matrix cell displays real-time legal scrubbing progress (% completion). <span className="text-asean-emerald font-bold">Green badges (100%)</span> represent concluded chapter ratifications; <span className="text-asean-blue font-bold">Blue (75–90%)</span> represent active legal scrubbing; <span className="text-asean-amber font-bold">Amber (60–70%)</span> indicate provisional reservations; <span className="text-asean-red font-bold">Red (&lt;50%)</span> signal pending domestic consultations. Click any cell for TPP text comparisons and gazette citations.
+          </>
+        }
+      />
 
       {/* Main Heatmap Workspace */}
       <main className="flex-1 px-4 sm:px-6 lg:px-8 py-8 font-sans">
@@ -142,11 +130,11 @@ export default function DefaChapterHeatmap() {
           <table className="w-full border-collapse text-left text-xs font-sans min-w-[1050px]">
             <thead>
               <tr className="border-b border-slate-200 dark:border-slate-800 bg-slate-100/80 dark:bg-slate-950/80 text-slate-700 dark:text-slate-300 uppercase tracking-wider font-bold">
-                <th className="p-3.5 sticky left-0 z-20 bg-slate-100 dark:bg-slate-950 min-w-[160px] max-w-[180px] border-r border-slate-200 dark:border-slate-800 shadow-[2px_0_6px_rgba(0,0,0,0.04)]">
+                <th className="p-3.5 sticky top-0 left-0 z-30 bg-slate-100 dark:bg-slate-950 min-w-[160px] max-w-[180px] border-r border-slate-200 dark:border-slate-800 shadow-[2px_0_6px_rgba(0,0,0,0.04)]">
                   ASEAN Nation
                 </th>
                 {DEFA_CHAPTERS.map((ch) => (
-                  <th key={ch.id} className="p-3 text-center min-w-[130px] sm:min-w-[145px] max-w-[160px] align-bottom">
+                  <th key={ch.id} className="p-3 text-center min-w-[130px] sm:min-w-[145px] max-w-[160px] align-bottom sticky top-0 z-20 bg-slate-100 dark:bg-slate-950 shadow-[0_2px_4px_rgba(0,0,0,0.04)]">
                     <span className="inline-block px-1.5 py-0.5 rounded bg-asean-blue/10 dark:bg-asean-blue/20 text-asean-blue dark:text-asean-yellow font-mono text-[9px] font-extrabold mb-1">
                       {ch.code}
                     </span>
@@ -228,8 +216,6 @@ export default function DefaChapterHeatmap() {
         )}
         </div>
       </main>
-
-      <Footer />
-    </div>
+    </>
   );
 }

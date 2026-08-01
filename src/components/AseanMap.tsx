@@ -1,22 +1,60 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import { MapPin, ExternalLink, X, Filter } from "lucide-react";
 import { getRealAseanCountries, type GeoCountryData } from "@/lib/aseanGeo";
 import { ASEAN_COLORS } from "@/lib/colors";
 import { REGIME_FILL_COLORS, MAP_FILTER_MODES, REGIME_TYPES } from "@/lib/constants";
 import type { MapFilterMode } from "@/lib/constants";
-
-import { ID, MY, SG, PH, TH, VN, KH, LA, MM, BN, TL } from "country-flag-icons/react/3x2";
-
-const FLAG_COMPONENTS: Record<string, React.ComponentType<{ className?: string }>> = {
-  ID, MY, SG, PH, TH, VN, KH, LA, MM, BN, TL,
-};
+import { FLAG_COMPONENTS } from "@/lib/flags";
 
 // ── Country Dossier Modal ────────────────────────────────────────────────────
 
 function CountryDossierModal({ country, onClose }: { country: GeoCountryData; onClose: () => void }) {
   const FlagIcon = FLAG_COMPONENTS[country.code];
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const onCloseRef = useRef(onClose);
+
+  useEffect(() => {
+    onCloseRef.current = onClose;
+  });
+
+  useEffect(() => {
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    closeButtonRef.current?.focus({ preventScroll: true });
+
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") {
+        onCloseRef.current();
+        return;
+      }
+      if (e.key !== "Tab" || !dialogRef.current) return;
+      const focusable = dialogRef.current.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
+      );
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (!first || !last) return;
+      if (!dialogRef.current.contains(document.activeElement)) {
+        e.preventDefault();
+        (e.shiftKey ? last : first).focus();
+      } else if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = previousOverflow;
+    };
+  }, []);
 
   return (
     <div
@@ -24,10 +62,10 @@ function CountryDossierModal({ country, onClose }: { country: GeoCountryData; on
       role="dialog"
       aria-modal="true"
       aria-labelledby="modal-country-name"
-      onKeyDown={(e) => { if (e.key === "Escape") onClose(); }}
+      onClick={(e) => { if (e.target === e.currentTarget) onCloseRef.current(); }}
     >
-      <div className="relative w-full max-w-2xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded-xl p-6 shadow-sm">
-        <button onClick={onClose} className="absolute top-4 right-4 p-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white" aria-label="Close modal">
+      <div ref={dialogRef} className="relative w-full max-w-2xl max-h-[85vh] overflow-y-auto bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded-xl p-6 shadow-sm">
+        <button ref={closeButtonRef} onClick={onClose} className="absolute top-4 right-4 p-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white focus-visible:ring-2 focus-visible:ring-asean-yellow" aria-label="Close modal">
           <X className="w-5 h-5" />
         </button>
 
@@ -43,7 +81,7 @@ function CountryDossierModal({ country, onClose }: { country: GeoCountryData; on
           </div>
         </div>
 
-        <div className="grid grid-cols-3 gap-3 mb-4 text-xs font-sans">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4 text-xs font-sans">
           <StatCard label="DATA REGIME" value={country.regimeType} />
           <StatCard label="THREAT SCORE" value={`${country.threatScore} / 5`} accent />
           <StatCard label="INGESTED DECREES" value={`${country.activePoliciesCount} Acts`} />
@@ -69,7 +107,7 @@ function CountryDossierModal({ country, onClose }: { country: GeoCountryData; on
             <span>Access Primary Source Decree</span>
             <ExternalLink className="w-3.5 h-3.5" />
           </a>
-          <button onClick={onClose} className="px-4 py-2 rounded-lg bg-slate-900 dark:bg-slate-800 text-white font-sans text-xs font-semibold hover:bg-slate-800 transition-colors">
+          <button onClick={onClose} className="px-4 py-2 rounded-lg bg-slate-900 dark:bg-slate-800 text-white font-sans text-xs font-semibold hover:bg-slate-800 focus-visible:ring-2 focus-visible:ring-asean-yellow transition-colors">
             Close Brief
           </button>
         </div>
@@ -137,7 +175,7 @@ export default function AseanMap() {
   return (
     <section
       id="asean-map"
-      className="py-4 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto font-sans"
+      className="py-4 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto font-sans scroll-mt-[calc(var(--drone-admin-bar-h,0px)_+_var(--drone-header-h,135px)_+_52px)]"
     >
       <div className="flex items-center justify-end mb-4">
         <MapFilterControls
@@ -216,7 +254,7 @@ export default function AseanMap() {
                     fill={fillColor}
                     stroke={strokeColor}
                     strokeWidth={isSelected || isHovered ? "2" : "0.75"}
-                    className="transition-all duration-200"
+                    className="transition-all duration-200 focus-visible:stroke-asean-yellow focus-visible:stroke-2"
                     role="button"
                     tabIndex={0}
                     aria-label={`${country.name} (${country.regimeType})`}

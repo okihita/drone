@@ -3,11 +3,7 @@
 import { useState } from "react";
 import type { BenchmarkCountrySummary } from "@/types/benchmark";
 import { ASEAN_COLORS } from "@/lib/colors";
-import { ID, MY, SG, PH, TH, VN, KH, LA, MM, BN, TL } from "country-flag-icons/react/3x2";
-
-const FLAG_COMPONENTS: Record<string, React.ComponentType<{ className?: string }>> = {
-  ID, MY, SG, PH, TH, VN, KH, LA, MM, BN, TL,
-};
+import { FLAG_COMPONENTS } from "@/lib/flags";
 
 interface Props {
   summaries: BenchmarkCountrySummary[];

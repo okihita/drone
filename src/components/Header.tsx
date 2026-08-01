@@ -16,7 +16,7 @@ const LINK_BASE =
   "after:absolute after:left-0 after:-bottom-0.5 after:h-0.5 after:w-full after:rounded-full after:origin-left " +
   "after:scale-x-0 after:bg-asean-yellow after:transition-transform after:duration-200 after:ease-out";
 
-const LINK_ACTIVE = "text-asean-yellow after:scale-x-100";
+const LINK_ACTIVE = "text-slate-900 dark:text-asean-yellow after:scale-x-100";
 
 const LINK_IDLE =
   "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white " +
@@ -31,12 +31,21 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [closing, setClosing] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [scrolled, setScrolled] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const sheetRef = useRef<HTMLDivElement>(null);
   const hamburgerRef = useRef<HTMLButtonElement>(null);
   const touchStartX = useRef(0);
   const pathname = usePathname();
+
+  // ── Compress the masthead once the page is scrolled ─────────────────────
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   const isActive = (path: string) => pathname === path;
 
@@ -147,16 +156,16 @@ export default function Header() {
 
   return (
     <>
-    <header ref={headerRef} className="w-full border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 transition-colors sticky top-[var(--drone-admin-bar-h,0px)] z-50 backdrop-blur-md bg-slate-50/95 dark:bg-slate-950/95 font-sans">
+    <header ref={headerRef} className="w-full border-b border-slate-200 dark:border-slate-800 sticky top-[var(--drone-admin-bar-h,0px)] z-50 backdrop-blur-md bg-slate-50/95 dark:bg-slate-950/95 transition-colors font-sans">
       {/* Masthead */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 border-b border-slate-200/80 dark:border-slate-800/60 font-sans">
+      <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 transition-all duration-200 border-b border-slate-200/80 dark:border-slate-800/60 font-sans ${scrolled ? "py-2 sm:py-3" : "py-4 sm:py-6"}`}>
         {/* Row 1: Logo + tagline */}
         <div className="flex items-center justify-center md:justify-between">
           <Link href="/" className="group flex items-center gap-3 sm:gap-4 min-w-0">
-            <span className="font-serif-editorial text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white group-hover:text-asean-yellow transition-colors leading-none select-none shrink-0">
+            <span className={`font-serif-editorial font-extrabold tracking-tight text-slate-900 dark:text-white group-hover:text-asean-yellow transition-all leading-none select-none shrink-0 ${scrolled ? "text-2xl sm:text-3xl lg:text-4xl" : "text-3xl sm:text-4xl lg:text-5xl"}`}>
               DRONE
             </span>
-            <div className="border-l border-slate-300 dark:border-slate-700 pl-3 sm:pl-4 text-left flex flex-col justify-center text-[10px] sm:text-xs font-sans text-slate-500 dark:text-slate-400 uppercase tracking-wider font-semibold leading-none space-y-1 min-w-0">
+            <div className={`border-l border-slate-300 dark:border-slate-700 pl-3 sm:pl-4 text-left text-[10px] sm:text-xs font-sans text-slate-500 dark:text-slate-400 uppercase tracking-wider font-semibold leading-none space-y-1 min-w-0 transition-opacity duration-200 ${scrolled ? "hidden md:flex flex-col justify-center opacity-0" : "flex flex-col justify-center opacity-100"}`}>
               <span className="leading-none block truncate">Digital Rights Oversight</span>
               <span className="leading-none block truncate">&amp; Network Evaluator</span>
             </div>
@@ -168,7 +177,7 @@ export default function Header() {
         </div>
 
         {/* Row 2: Mobile controls */}
-        <div className="md:hidden flex items-center justify-between mt-3 pt-3 border-t border-slate-200/60 dark:border-slate-800/40">
+        <div className={`md:hidden flex items-center justify-between transition-all duration-200 ${scrolled ? "mt-1 pt-1 border-t border-slate-200/60 dark:border-slate-800/40" : "mt-3 pt-3 border-t border-slate-200/60 dark:border-slate-800/40"}`}>
           <div className="flex items-center gap-2">
             <ThemeToggle />
             <LanguageSwitcher />
@@ -212,7 +221,7 @@ export default function Header() {
                       aria-label={isOpen ? "Close submenu" : "Open submenu"}
                     >
                       <ChevronDown className={`w-3 h-3 transition-transform ${isOpen ? "rotate-180" : ""} ${
-                        active || isOpen ? "text-asean-yellow" : "text-slate-400 dark:text-slate-500"
+                        active || isOpen ? "text-amber-700 dark:text-asean-yellow" : "text-slate-400 dark:text-slate-500"
                       }`} />
                     </button>
                   </div>
@@ -228,7 +237,7 @@ export default function Header() {
                             onClick={() => setOpenDropdown(null)}
                             className={`flex items-center gap-3 px-4 py-2.5 text-xs font-semibold transition-colors ${
                               active
-                                ? "bg-asean-yellow/10 text-asean-yellow"
+                                ? "bg-asean-yellow/10 text-amber-700 dark:text-asean-yellow"
                                 : "text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
                             }`}
                           >
@@ -308,7 +317,7 @@ export default function Header() {
                       aria-current={groupActive ? "page" : undefined}
                       className={`flex items-center gap-3 px-3 py-2.5 rounded-lg font-bold transition-colors ${
                         groupActive
-                          ? "bg-asean-yellow/10 text-asean-yellow"
+                          ? "bg-asean-yellow/10 text-amber-700 dark:text-asean-yellow"
                           : "text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800"
                       }`}
                     >
@@ -325,7 +334,7 @@ export default function Header() {
                           aria-current={active ? "page" : undefined}
                           className={`flex items-center gap-2.5 pl-7 pr-3 py-2 rounded-lg font-medium transition-colors text-xs sm:text-sm ${
                             active
-                              ? "bg-asean-yellow/10 text-asean-yellow"
+                              ? "bg-asean-yellow/10 text-amber-700 dark:text-asean-yellow"
                               : "text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
                           }`}
                         >
@@ -346,7 +355,7 @@ export default function Header() {
                   aria-current={active ? "page" : undefined}
                   className={`flex items-center gap-3 px-3 py-2.5 rounded-lg font-bold transition-colors ${
                     active
-                      ? "bg-asean-yellow/10 text-asean-yellow"
+                      ? "bg-asean-yellow/10 text-amber-700 dark:text-asean-yellow"
                       : "text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800"
                   }`}
                 >
