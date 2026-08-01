@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import React from "react";
-import Header from "@/components/Header";
-import ObservatorySubNav from "@/components/observatory/ObservatorySubNav";
 import PolicyLedgerTable from "@/components/PolicyLedgerTable";
 import Footer from "@/components/Footer";
 
@@ -13,8 +11,6 @@ export const metadata: Metadata = {
 export default function LedgerPage() {
   return (
     <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-200 font-sans transition-colors">
-      <Header />
-      <ObservatorySubNav />
       <main className="flex-1 py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6">
           <div className="border-b border-slate-200 dark:border-slate-800 pb-4 font-sans">
