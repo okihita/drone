@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import type { NewsCardItem } from "@/types";
-import { getExcerpt } from "@/lib/text";
+import { getExcerpt, isSvgUrl } from "@/lib/text";
 
 const prefersReducedMotion = () =>
   typeof window !== "undefined" &&
@@ -20,6 +20,12 @@ export default function FeaturedCarousel({
   const [isPaused, setIsPaused] = useState(false);
   const pauseTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const hoverRef = useRef(false);
+  const focusRef = useRef(false);
+
+  const syncPause = () => {
+    setIsPaused(hoverRef.current || focusRef.current || document.hidden);
+  };
 
   useEffect(() => {
     if (isPaused || stories.length === 0 || prefersReducedMotion()) return;
@@ -34,8 +40,7 @@ export default function FeaturedCarousel({
   useEffect(() => {
     if (prefersReducedMotion()) return;
     const handleVisibility = () => {
-      if (document.hidden) setIsPaused(true);
-      else setIsPaused(false);
+      setIsPaused(hoverRef.current || focusRef.current || document.hidden);
     };
     document.addEventListener("visibilitychange", handleVisibility);
     return () => document.removeEventListener("visibilitychange", handleVisibility);
@@ -45,7 +50,11 @@ export default function FeaturedCarousel({
     setActiveSlideIndex(idx);
     setIsPaused(true);
     if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current);
-    pauseTimeoutRef.current = setTimeout(() => setIsPaused(false), 8000);
+    pauseTimeoutRef.current = setTimeout(() => {
+      if (!hoverRef.current && !focusRef.current && !document.hidden) {
+        setIsPaused(false);
+      }
+    }, 8000);
   };
 
   const activeStory = stories[activeSlideIndex];
@@ -67,10 +76,22 @@ export default function FeaturedCarousel({
       className="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-b border-slate-200 dark:border-slate-800"
       aria-roledescription="carousel"
       aria-label="Featured investigations"
-      onMouseEnter={() => setIsPaused(true)}
-      onMouseLeave={() => setIsPaused(false)}
-      onFocusCapture={() => setIsPaused(true)}
-      onBlurCapture={() => setIsPaused(false)}
+      onMouseEnter={() => {
+        hoverRef.current = true;
+        syncPause();
+      }}
+      onMouseLeave={() => {
+        hoverRef.current = false;
+        syncPause();
+      }}
+      onFocusCapture={() => {
+        focusRef.current = true;
+        syncPause();
+      }}
+      onBlurCapture={() => {
+        focusRef.current = false;
+        syncPause();
+      }}
     >
       <div className="relative px-0 lg:px-14">
         <button
@@ -89,6 +110,7 @@ export default function FeaturedCarousel({
         </button>
 
         <div
+          role="group"
           className="group relative rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm dark:shadow-none transition-all duration-300 min-h-[380px] sm:min-h-[450px] lg:h-[500px]"
           aria-live="polite"
           aria-roledescription="slide"
@@ -106,6 +128,7 @@ export default function FeaturedCarousel({
                     fill
                     sizes="(max-width: 1023px) 100vw, 50vw"
                     priority
+                    unoptimized={isSvgUrl(activeStory.image_url)}
                     className="object-cover"
                   />
                 ) : (

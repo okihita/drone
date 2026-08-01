@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useRef } from "react";
 import Link from "next/link";
 import {
   ArrowRight,
@@ -34,17 +34,22 @@ export default function HeroSection({ leadStory }: HeroSectionProps) {
     }
   };
 
+  const storyTabRef = useRef<HTMLButtonElement>(null);
+  const dossierTabRef = useRef<HTMLButtonElement>(null);
+
+  const activateTab = (next: "story" | "dossier") => {
+    setActiveTab(next);
+    if (next === "dossier" && !selectedCountry) setSelectedCountry(countries[0]);
+    (next === "story" ? storyTabRef : dossierTabRef).current?.focus();
+  };
+
   const handleTabKeyDown = (e: React.KeyboardEvent, tab: "story" | "dossier") => {
     if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
       e.preventDefault();
-      const next = tab === "story" ? "dossier" : "story";
-      setActiveTab(next);
-      if (next === "dossier" && !selectedCountry) setSelectedCountry(countries[0]);
+      activateTab(tab === "story" ? "dossier" : "story");
     } else if (e.key === "Home" || e.key === "End") {
       e.preventDefault();
-      const next = e.key === "Home" ? "story" : "dossier";
-      setActiveTab(next);
-      if (next === "dossier" && !selectedCountry) setSelectedCountry(countries[0]);
+      activateTab(e.key === "Home" ? "story" : "dossier");
     }
   };
 
@@ -64,6 +69,7 @@ export default function HeroSection({ leadStory }: HeroSectionProps) {
                 <div className="mb-4 flex items-center justify-between border-b border-slate-200 pb-3 dark:border-white/10">
                   <div role="tablist" aria-orientation="horizontal" aria-label="Hero content tabs" className="flex items-center gap-2">
                     <button
+                      ref={storyTabRef}
                       role="tab"
                       aria-selected={activeTab === "story"}
                       tabIndex={activeTab === "story" ? 0 : -1}
@@ -78,6 +84,7 @@ export default function HeroSection({ leadStory }: HeroSectionProps) {
                       Featured Lead Story
                     </button>
                     <button
+                      ref={dossierTabRef}
                       role="tab"
                       aria-selected={activeTab === "dossier"}
                       tabIndex={activeTab === "dossier" ? 0 : -1}

@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import useSWR from "swr";
 import { listStories } from "@/services/news";
-import { getExcerpt } from "@/lib/text";
+import { getExcerpt, isSvgUrl } from "@/lib/text";
 import { Skeleton } from "@/components/ui/skeleton";
 
 const fetcher = () => listStories(10);
@@ -47,6 +47,7 @@ export default function InvestigationsList() {
                     alt={article.title}
                     fill
                     sizes="(max-width: 767px) 100vw, 33vw"
+                    unoptimized={isSvgUrl(article.image_url)}
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                 ) : (

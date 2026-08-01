@@ -18,7 +18,7 @@
 | HeroMapCanvas | `src/components/landing/HeroMapCanvas.tsx` | Client | Interactive SVG ASEAN map with arc/threat/regime layers |
 | HeroCountryDossier | `src/components/landing/HeroCountryDossier.tsx` | Client | Country detail card in hero section |
 | FeaturedCarousel | `src/components/landing/FeaturedCarousel.tsx` | Client | Featured story carousel with pagination |
-| EditorialGrid | `src/components/landing/EditorialGrid.tsx` | Client | Editorial insights grid with executive analysis and policy radar |
+| EditorialGrid | `src/components/landing/EditorialGrid.tsx` | Server | Editorial insights grid with executive analysis and policy radar |
 | BenchmarkPreview | `src/components/landing/BenchmarkPreview.tsx` | Client | D2D benchmark snapshot preview |
 | InvestigationsList | `src/components/landing/InvestigationsList.tsx` | Client | Investigation articles listing |
 | PolicyMatrixFeed | `src/components/landing/PolicyMatrixFeed.tsx` | Client | Policy radar feed component |

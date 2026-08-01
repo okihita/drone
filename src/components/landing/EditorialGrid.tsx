@@ -5,7 +5,7 @@ import { ArrowRight } from "lucide-react";
 import { EXECUTIVE_INSIGHTS } from "@/lib/landingContent";
 import { THREAT_ACCENT_COLORS } from "@/lib/constants";
 import type { NewsDispatchItem, PolicyRadarEntry } from "@/types";
-import { getExcerpt } from "@/lib/text";
+import { getExcerpt, isSvgUrl } from "@/lib/text";
 
 export default function EditorialGrid({
   dispatches,
@@ -80,6 +80,7 @@ export default function EditorialGrid({
                     alt={d.title}
                     fill
                     sizes="(max-width: 1023px) 100vw, 33vw"
+                    unoptimized={isSvgUrl(d.image_url)}
                     className="object-cover transition-opacity duration-500"
                   />
                 ) : (
