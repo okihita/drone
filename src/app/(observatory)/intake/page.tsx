@@ -6,10 +6,19 @@ import { Upload, Send, CheckCircle2, Shield, Lock, FileText, EyeOff } from "luci
 
 export default function IntakePage() {
   const [submitted, setSubmitted] = useState(false);
+  const [fileName, setFileName] = useState<string | null>(null);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitted(true);
+  };
+
+  const inputClass =
+    "w-full bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-xs text-slate-900 dark:text-slate-200 focus:outline-none focus:border-asean-red focus-visible:ring-2 focus-visible:ring-asean-red/30 font-sans transition-shadow";
+
+  const handleFileDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    setFileName(e.dataTransfer.files?.[0]?.name ?? null);
   };
 
   return (
@@ -62,8 +71,8 @@ export default function IntakePage() {
                 Your submission has been safely encrypted and routed to EngageMedia’s senior policy editorial team for source-verification.
               </p>
               <button
-                onClick={() => setSubmitted(false)}
-                className="px-4 py-2 rounded-lg bg-slate-900 dark:bg-slate-800 text-white font-sans text-xs font-semibold hover:bg-slate-800 transition-colors"
+                onClick={() => { setSubmitted(false); setFileName(null); }}
+                className="px-4 py-2 rounded-lg bg-slate-900 dark:bg-slate-800 text-white font-sans text-xs font-semibold hover:bg-slate-800 focus-visible:ring-2 focus-visible:ring-asean-yellow transition-colors"
               >
                 Submit Another Dossier
               </button>
@@ -78,7 +87,7 @@ export default function IntakePage() {
                   type="text"
                   required
                   placeholder="e.g. Leaked Draft DEFA Chapter 5 on Data Localization..."
-                  className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-xs text-slate-900 dark:text-slate-200 focus:outline-none focus:border-asean-red font-sans"
+                  className={inputClass}
                 />
               </div>
 
@@ -87,7 +96,7 @@ export default function IntakePage() {
                   <label className="block text-xs font-sans font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
                     Target Jurisdiction *
                   </label>
-                  <select className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-xs text-slate-900 dark:text-slate-200 focus:outline-none focus:border-asean-red font-sans">
+                  <select className={inputClass}>
                     <option value="ASEAN">ASEAN Regional</option>
                     <option value="ID">Indonesia</option>
                     <option value="SG">Singapore</option>
@@ -107,10 +116,10 @@ export default function IntakePage() {
                   <label className="block text-xs font-sans font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
                     Attribution Preference *
                   </label>
-                  <select className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-xs text-slate-900 dark:text-slate-200 focus:outline-none focus:border-asean-red font-sans">
-                    <option value="anonymous">🔒 Anonymous Defender Protection</option>
-                    <option value="cobrand">🤝 Co-Branded Regional Partner</option>
-                    <option value="public">🌐 Public Author Credit</option>
+                  <select className={inputClass}>
+                    <option value="anonymous">Anonymous Defender Protection</option>
+                    <option value="cobrand">Co-Branded Regional Partner</option>
+                    <option value="public">Public Author Credit</option>
                   </select>
                 </div>
               </div>
@@ -123,7 +132,7 @@ export default function IntakePage() {
                   rows={4}
                   required
                   placeholder="Explain the policy threat, legislative context, or key clause of concern..."
-                  className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-xs text-slate-900 dark:text-slate-200 focus:outline-none focus:border-asean-red font-sans"
+                  className={inputClass}
                 />
               </div>
 
@@ -131,15 +140,28 @@ export default function IntakePage() {
                 <label className="block text-xs font-sans font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
                   Attach File (PDF, DOCX, Leaked Text)
                 </label>
-                <div className="border-2 border-dashed border-slate-300 dark:border-slate-800 rounded-lg p-6 text-center bg-slate-50 dark:bg-slate-900/50 hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-colors cursor-pointer">
-                  <Upload className="w-6 h-6 text-slate-400 mx-auto mb-2" />
-                  <span className="text-xs text-slate-500 font-sans">Drag &amp; drop file or click to browse</span>
-                </div>
+                <label className="flex flex-col items-center justify-center border-2 border-dashed border-slate-300 dark:border-slate-800 rounded-lg p-6 text-center bg-slate-50 dark:bg-slate-900/50 hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-colors cursor-pointer focus-within:ring-2 focus-within:ring-asean-red/30 focus-within:border-asean-red/50"
+                  onDragOver={(e) => e.preventDefault()}
+                  onDrop={handleFileDrop}
+                >
+                  <Upload className="w-6 h-6 text-slate-400 mb-2" />
+                  <input
+                    type="file"
+                    accept=".pdf,.doc,.docx,.txt"
+                    className="sr-only"
+                    onChange={(e) => setFileName(e.target.files?.[0]?.name ?? null)}
+                  />
+                  {fileName ? (
+                    <span className="text-xs text-slate-900 dark:text-white font-bold break-all max-w-full">{fileName}</span>
+                  ) : (
+                    <span className="text-xs text-slate-500 font-sans">Drag &amp; drop file or click to browse</span>
+                  )}
+                </label>
               </div>
 
               <button
                 type="submit"
-                className="w-full py-3 rounded-lg bg-asean-red hover:bg-asean-red/90 text-white font-sans font-bold text-xs transition-colors flex items-center justify-center gap-2 shadow-xs"
+                className="w-full py-3 rounded-lg bg-asean-red hover:bg-asean-red/90 text-white font-sans font-bold text-xs transition-colors flex items-center justify-center gap-2 shadow-xs focus-visible:ring-2 focus-visible:ring-asean-red/50 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-slate-900"
               >
                 <Send className="w-4 h-4" />
                 <span>Submit Encrypted Dossier</span>
