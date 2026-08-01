@@ -54,7 +54,7 @@ export default function PolicyLedgerTable() {
   return (
     <section
       id="policy-ledger"
-      className="py-4 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto font-sans"
+      className="py-4 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto font-sans scroll-mt-[calc(var(--drone-admin-bar-h,0px)_+_var(--drone-header-h,135px)_+_52px)]"
     >
       <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between mb-6 gap-3 max-w-full">
           <div className="relative flex-1 sm:w-64 shrink-0">

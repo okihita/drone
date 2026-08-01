@@ -175,7 +175,7 @@ export default function AseanMap() {
   return (
     <section
       id="asean-map"
-      className="py-4 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto font-sans"
+      className="py-4 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto font-sans scroll-mt-[calc(var(--drone-admin-bar-h,0px)_+_var(--drone-header-h,135px)_+_52px)]"
     >
       <div className="flex items-center justify-end mb-4">
         <MapFilterControls

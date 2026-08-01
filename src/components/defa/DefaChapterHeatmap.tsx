@@ -130,11 +130,11 @@ export default function DefaChapterHeatmap() {
           <table className="w-full border-collapse text-left text-xs font-sans min-w-[1050px]">
             <thead>
               <tr className="border-b border-slate-200 dark:border-slate-800 bg-slate-100/80 dark:bg-slate-950/80 text-slate-700 dark:text-slate-300 uppercase tracking-wider font-bold">
-                <th className="p-3.5 sticky left-0 z-20 bg-slate-100 dark:bg-slate-950 min-w-[160px] max-w-[180px] border-r border-slate-200 dark:border-slate-800 shadow-[2px_0_6px_rgba(0,0,0,0.04)]">
+                <th className="p-3.5 sticky top-0 left-0 z-30 bg-slate-100 dark:bg-slate-950 min-w-[160px] max-w-[180px] border-r border-slate-200 dark:border-slate-800 shadow-[2px_0_6px_rgba(0,0,0,0.04)]">
                   ASEAN Nation
                 </th>
                 {DEFA_CHAPTERS.map((ch) => (
-                  <th key={ch.id} className="p-3 text-center min-w-[130px] sm:min-w-[145px] max-w-[160px] align-bottom">
+                  <th key={ch.id} className="p-3 text-center min-w-[130px] sm:min-w-[145px] max-w-[160px] align-bottom sticky top-0 z-20 bg-slate-100 dark:bg-slate-950 shadow-[0_2px_4px_rgba(0,0,0,0.04)]">
                     <span className="inline-block px-1.5 py-0.5 rounded bg-asean-blue/10 dark:bg-asean-blue/20 text-asean-blue dark:text-asean-yellow font-mono text-[9px] font-extrabold mb-1">
                       {ch.code}
                     </span>
