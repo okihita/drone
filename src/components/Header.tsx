@@ -31,12 +31,21 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [closing, setClosing] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [scrolled, setScrolled] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const sheetRef = useRef<HTMLDivElement>(null);
   const hamburgerRef = useRef<HTMLButtonElement>(null);
   const touchStartX = useRef(0);
   const pathname = usePathname();
+
+  // ── Compress the masthead once the page is scrolled ─────────────────────
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   const isActive = (path: string) => pathname === path;
 
@@ -149,14 +158,14 @@ export default function Header() {
     <>
     <header ref={headerRef} className="w-full border-b border-slate-200 dark:border-slate-800 sticky top-[var(--drone-admin-bar-h,0px)] z-50 backdrop-blur-md bg-slate-50/95 dark:bg-slate-950/95 transition-colors font-sans">
       {/* Masthead */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 border-b border-slate-200/80 dark:border-slate-800/60 font-sans">
+      <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 transition-all duration-200 border-b border-slate-200/80 dark:border-slate-800/60 font-sans ${scrolled ? "py-2 sm:py-3" : "py-4 sm:py-6"}`}>
         {/* Row 1: Logo + tagline */}
         <div className="flex items-center justify-center md:justify-between">
           <Link href="/" className="group flex items-center gap-3 sm:gap-4 min-w-0">
-            <span className="font-serif-editorial text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white group-hover:text-asean-yellow transition-colors leading-none select-none shrink-0">
+            <span className={`font-serif-editorial font-extrabold tracking-tight text-slate-900 dark:text-white group-hover:text-asean-yellow transition-all leading-none select-none shrink-0 ${scrolled ? "text-2xl sm:text-3xl lg:text-4xl" : "text-3xl sm:text-4xl lg:text-5xl"}`}>
               DRONE
             </span>
-            <div className="border-l border-slate-300 dark:border-slate-700 pl-3 sm:pl-4 text-left flex flex-col justify-center text-[10px] sm:text-xs font-sans text-slate-500 dark:text-slate-400 uppercase tracking-wider font-semibold leading-none space-y-1 min-w-0">
+            <div className={`border-l border-slate-300 dark:border-slate-700 pl-3 sm:pl-4 text-left text-[10px] sm:text-xs font-sans text-slate-500 dark:text-slate-400 uppercase tracking-wider font-semibold leading-none space-y-1 min-w-0 transition-opacity duration-200 ${scrolled ? "hidden md:flex flex-col justify-center opacity-0" : "flex flex-col justify-center opacity-100"}`}>
               <span className="leading-none block truncate">Digital Rights Oversight</span>
               <span className="leading-none block truncate">&amp; Network Evaluator</span>
             </div>
@@ -168,7 +177,7 @@ export default function Header() {
         </div>
 
         {/* Row 2: Mobile controls */}
-        <div className="md:hidden flex items-center justify-between mt-3 pt-3 border-t border-slate-200/60 dark:border-slate-800/40">
+        <div className={`md:hidden flex items-center justify-between transition-all duration-200 ${scrolled ? "mt-1 pt-1 border-t border-slate-200/60 dark:border-slate-800/40" : "mt-3 pt-3 border-t border-slate-200/60 dark:border-slate-800/40"}`}>
           <div className="flex items-center gap-2">
             <ThemeToggle />
             <LanguageSwitcher />
