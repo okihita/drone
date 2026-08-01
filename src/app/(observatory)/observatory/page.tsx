@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import React from "react";
-import Header from "@/components/Header";
-import ObservatorySubNav from "@/components/observatory/ObservatorySubNav";
 import AseanMap from "@/components/AseanMap";
 import Footer from "@/components/Footer";
 
@@ -13,20 +11,18 @@ export const metadata: Metadata = {
 export default function ObservatoryPage() {
   return (
     <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-200 font-sans transition-colors">
-      <Header />
-      <ObservatorySubNav />
       <main className="flex-1 py-8">
-        {/* Map Section */}
+        {/* Map Section Header */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-4">
           <div className="border-b border-slate-200 dark:border-slate-800 pb-4 font-sans">
             <span className="text-xs font-sans text-asean-yellow font-bold uppercase tracking-wider">
-              D.R.O.N.E. SPECIAL TOOL MODULE
+              REGIONAL MAP &amp; THREAT MATRIX
             </span>
             <h1 className="font-serif-editorial text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white mt-1">
-              Cartographic Jurisdiction Observatory
+              Cartographic Observatory &amp; Digital Rights Threat Matrix
             </h1>
-            <p className="text-slate-600 dark:text-slate-400 text-xs sm:text-sm mt-1 max-w-3xl font-sans">
-              An interactive vector SVG mapping tool documenting data localization mandates, cross-border data transfer legal regimes, and digital rights threat scores across 11 Southeast Asian nations.
+            <p className="text-slate-600 dark:text-slate-400 text-xs sm:text-sm mt-1.5 max-w-3xl font-sans leading-relaxed">
+              An interactive vector mapping observatory documenting data localization mandates, cross-border transfer legal regimes, and civil society risk scores across 11 Southeast Asian nations — evaluating data sovereignty erosion, algorithmic audit bans, and surveillance weaponization.
             </p>
           </div>
         </div>
@@ -35,16 +31,13 @@ export default function ObservatoryPage() {
 
         {/* Threat Matrix Section */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 font-sans">
-          <div className="border-b border-slate-200 dark:border-slate-800 pb-6 mb-8 font-sans">
+          <div className="border-b border-slate-200 dark:border-slate-800 pb-4 mb-8 font-sans">
             <span className="text-xs font-sans text-asean-red font-bold uppercase tracking-wider">
-              RISK ASSESSMENT MATRIX
+              STRUCTURAL RISK DIMENSIONS
             </span>
             <h2 className="font-serif-editorial text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-1">
-              Civil Society Digital Rights Threat Matrix
+              Civil Society Digital Rights Assessment
             </h2>
-            <p className="text-slate-600 dark:text-slate-400 text-xs sm:text-sm mt-2 max-w-3xl leading-relaxed font-sans">
-              Evaluating structural human rights risks, data sovereignty erosion, algorithmic audit bans, and surveillance weaponization across ASEAN digital trade agreements and legislative decrees.
-            </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12 font-sans">
