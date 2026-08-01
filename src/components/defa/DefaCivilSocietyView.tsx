@@ -6,14 +6,13 @@ import { ASEAN_MEMBER_STATES } from "@/lib/countries";
 import { ShieldAlert } from "lucide-react";
 import DEFARadarChart from "@/components/defa/DEFARadarChart";
 import DEFABenchmarkExport from "@/components/defa/DEFABenchmarkExport";
-import Footer from "@/components/Footer";
 import HeroBanner from "@/components/layout/HeroBanner";
 
 export default function DefaCivilSocietyView() {
   const csStates = getDefaCivilSocietyStates();
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-200 font-sans">
+    <>
       <HeroBanner
         title="Civil Society Threat Matrix"
         description={
@@ -123,8 +122,6 @@ export default function DefaCivilSocietyView() {
         <DEFABenchmarkExport />
         </div>
       </main>
-
-      <Footer />
-    </div>
+    </>
   );
 }

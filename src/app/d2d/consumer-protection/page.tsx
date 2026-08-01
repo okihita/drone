@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Footer from "@/components/Footer";
 import HeroBanner from "@/components/layout/HeroBanner";
 import { fetchConsumerProtectionPolicies } from "@/services/consumer_protection";
 import ConsumerProtectionClientShell from "@/components/consumer-protection/ConsumerProtectionClientShell";
@@ -14,7 +13,7 @@ export default function ConsumerProtectionPage() {
   const avgScore = Math.round(policies.reduce((s, p) => s + p.compositeScore, 0) / policies.length);
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-200 font-sans selection:bg-asean-yellow/30 selection:text-slate-900 transition-colors">
+    <>
       <HeroBanner
         title="Consumer Rights Matrix"
         description={
@@ -48,7 +47,6 @@ export default function ConsumerProtectionPage() {
           <ConsumerProtectionClientShell policies={policies} />
         </div>
       </main>
-      <Footer />
-    </div>
+    </>
   );
 }

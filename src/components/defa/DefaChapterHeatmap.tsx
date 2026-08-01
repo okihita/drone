@@ -5,7 +5,6 @@ import { DEFA_CHAPTERS, getDefaChapterStatuses } from "@/services/defa";
 import { ASEAN_MEMBER_STATES, ASEANCountryCode } from "@/lib/countries";
 import { DefaRatificationStatus } from "@/types/defa";
 import { FileText, CheckCircle2, AlertTriangle, Clock, Lock } from "lucide-react";
-import Footer from "@/components/Footer";
 import DefaExplainerCard from "@/components/defa/DefaExplainerCard";
 import HeroBanner from "@/components/layout/HeroBanner";
 
@@ -59,7 +58,7 @@ export default function DefaChapterHeatmap() {
   const activeCountry = selectedCell ? ASEAN_MEMBER_STATES.find((m) => m.code === selectedCell.countryCode) : null;
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-200 font-sans">
+    <>
       <HeroBanner
         title="DEFA Ratification Tracker"
         description={
@@ -217,8 +216,6 @@ export default function DefaChapterHeatmap() {
         )}
         </div>
       </main>
-
-      <Footer />
-    </div>
+    </>
   );
 }

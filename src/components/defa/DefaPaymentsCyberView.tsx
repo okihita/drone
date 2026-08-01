@@ -4,7 +4,6 @@ import React from "react";
 import { getDefaPaymentStates } from "@/services/defa";
 import { ASEAN_MEMBER_STATES } from "@/lib/countries";
 import { riskTone, toneTextClass, toneBarClass } from "@/lib/colors";
-import Footer from "@/components/Footer";
 import HeroBanner from "@/components/layout/HeroBanner";
 
 export default function DefaPaymentsCyberView() {
@@ -18,7 +17,7 @@ export default function DefaPaymentsCyberView() {
   const activeCorridorCount = activeCorridorSet.size;
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-200 font-sans">
+    <>
       <HeroBanner
         title="Payments &amp; Cyber Defense"
         description={
@@ -121,8 +120,6 @@ export default function DefaPaymentsCyberView() {
         </div>
         </div>
       </main>
-
-      <Footer />
-    </div>
+    </>
   );
 }

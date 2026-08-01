@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Footer from "@/components/Footer";
 import HeroBanner from "@/components/layout/HeroBanner";
 import { fetchEncryptionEvents, fetchEncryptionSummary } from "@/services/encryption";
 import { AlertTriangle, ShieldCheck } from "lucide-react";
@@ -19,7 +18,7 @@ export default function EncryptionPage() {
   const totalCountries = Object.keys(summary).length;
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-200 font-sans selection:bg-asean-yellow/30 selection:text-slate-900 transition-colors">
+    <>
       <HeroBanner
         title="Encryption & Digital Security Observatory"
         description={
@@ -51,8 +50,6 @@ export default function EncryptionPage() {
         <EncryptionSummaryStats summary={summary} />
         <EncryptionEventList events={events} />
       </main>
-
-      <Footer />
-    </div>
+    </>
   );
 }

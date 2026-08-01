@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Footer from "@/components/Footer";
 import { fetchNegotiations } from "@/services/negotiation";
 import { CheckCircle, Clock } from "lucide-react";
 import NegotiationTimeline from "@/components/negotiations/NegotiationTimeline";
@@ -17,7 +16,7 @@ export default function NegotiationsPage() {
   const inProgressCount = milestones.filter((m) => m.status === "IN_PROGRESS").length;
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-200 font-sans selection:bg-asean-yellow/30 selection:text-slate-900 transition-colors">
+    <>
       <HeroBanner
         title="Digital Trade Negotiations Timeline"
         description={
@@ -46,7 +45,6 @@ export default function NegotiationsPage() {
       <main className="flex-1">
         <NegotiationTimeline milestones={milestones} />
       </main>
-      <Footer />
-    </div>
+    </>
   );
 }

@@ -6,7 +6,6 @@ import { ASEAN_MEMBER_STATES } from "@/lib/countries";
 import { DataRegimeTier } from "@/types/defa";
 import { Layers } from "lucide-react";
 import { riskTone, toneTextClass, toneBarClass } from "@/lib/colors";
-import Footer from "@/components/Footer";
 import HeroBanner from "@/components/layout/HeroBanner";
 
 export default function DefaDataGovernanceView() {
@@ -30,7 +29,7 @@ export default function DefaDataGovernanceView() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-200 font-sans">
+    <>
       <HeroBanner
         title="Cross-Border Data &amp; Localization"
         description={
@@ -183,8 +182,6 @@ export default function DefaDataGovernanceView() {
         </div>
         </div>
       </main>
-
-      <Footer />
-    </div>
+    </>
   );
 }

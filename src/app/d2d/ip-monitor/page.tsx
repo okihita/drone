@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Footer from "@/components/Footer";
 import HeroBanner from "@/components/layout/HeroBanner";
 import { fetchIPProfiles } from "@/services/ip_monitor";
 import IPMonitorClientShell from "@/components/ip-monitor/IPMonitorClientShell";
@@ -14,7 +13,7 @@ export default function IPMonitorPage() {
   const avgScore = Math.round(profiles.reduce((s, p) => s + p.compositeScore, 0) / profiles.length);
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-200 font-sans selection:bg-asean-yellow/30 selection:text-slate-900 transition-colors">
+    <>
       <HeroBanner
         title="IP Risk Monitor"
         description={
@@ -48,7 +47,6 @@ export default function IPMonitorPage() {
           <IPMonitorClientShell profiles={profiles} />
         </div>
       </main>
-      <Footer />
-    </div>
+    </>
   );
 }

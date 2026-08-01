@@ -4,7 +4,6 @@ import React from "react";
 import { getDefaAiEthicsStates } from "@/services/defa";
 import { ASEAN_MEMBER_STATES } from "@/lib/countries";
 import { Cpu, Check, X, ShieldCheck, Activity } from "lucide-react";
-import Footer from "@/components/Footer";
 import HeroBanner from "@/components/layout/HeroBanner";
 
 export default function DefaAiEthicsView() {
@@ -15,7 +14,7 @@ export default function DefaAiEthicsView() {
   const totalHarmIncidents = aiStates.reduce((sum, s) => sum + s.mmaiHarmIncidentsCount, 0);
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-200 font-sans">
+    <>
       <HeroBanner
         title="AI Ethics &amp; Governance"
         description={
@@ -151,8 +150,6 @@ export default function DefaAiEthicsView() {
         </div>
         </div>
       </main>
-
-      <Footer />
-    </div>
+    </>
   );
 }

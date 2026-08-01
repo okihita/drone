@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import React from "react";
 import AseanMap from "@/components/AseanMap";
-import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "Cartographic Observatory & Threat Matrix — DRONE",
@@ -10,8 +9,7 @@ export const metadata: Metadata = {
 
 export default function ObservatoryPage() {
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-200 font-sans transition-colors">
-      <main className="flex-1 py-8">
+    <main className="flex-1 py-8">
         {/* Map Section Header */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-4">
           <div className="border-b border-slate-200 dark:border-slate-800 pb-4 font-sans">
@@ -98,8 +96,6 @@ export default function ObservatoryPage() {
             </div>
           </div>
         </div>
-      </main>
-      <Footer />
-    </div>
+    </main>
   );
 }

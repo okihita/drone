@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import Footer from "@/components/Footer";
 import { Upload, Send, CheckCircle2, Shield, Lock, FileText, EyeOff } from "lucide-react";
 
 export default function IntakePage() {
@@ -22,8 +21,7 @@ export default function IntakePage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-200 font-sans transition-colors">
-      <main className="flex-1 py-8">
+    <main className="flex-1 py-8">
         {/* Main Header Banner */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6">
           <div className="border-b border-slate-200 dark:border-slate-800 pb-4 font-sans">
@@ -169,8 +167,6 @@ export default function IntakePage() {
             </form>
           )}
         </div>
-      </main>
-      <Footer />
-    </div>
+    </main>
   );
 }

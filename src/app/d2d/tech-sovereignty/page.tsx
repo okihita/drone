@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Footer from "@/components/Footer";
 import TechSovereigntyRadar from "@/components/tech-sovereignty/TechSovereigntyRadar";
 import ViolationTimeline from "@/components/tech-sovereignty/ViolationTimeline";
 import HeroBanner from "@/components/layout/HeroBanner";
@@ -25,7 +24,7 @@ export default function TechSovereigntyPage() {
   }).length;
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-200 font-sans selection:bg-asean-yellow/30 selection:text-slate-900 transition-colors">
+    <>
       <HeroBanner
         title="Technology Sovereignty Radar"
         description={
@@ -55,8 +54,6 @@ export default function TechSovereigntyPage() {
         <TechSovereigntyRadar summaries={allSummaries} principles={techPrinciples} />
         <ViolationTimeline events={encryptionEvents} />
       </main>
-
-      <Footer />
-    </div>
+    </>
   );
 }

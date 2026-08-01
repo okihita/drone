@@ -108,7 +108,7 @@ export default function BenchmarkHeroMap({ selectedCountryCode, onSelectCountry 
                         className="cursor-pointer transition-all duration-200 focus-visible:stroke-asean-yellow focus-visible:stroke-2"
                         role="button"
                         tabIndex={0}
-                        aria-label={`${country.name} — ${country.overallScore}/100 compliance`}
+                        aria-label={`${country.name} — ${scoreMap.get(country.code)?.overallScore ?? "n/a"}/100 compliance`}
                         aria-pressed={isSelected}
                         onMouseEnter={() => setHoveredCode(country.code)}
                         onMouseLeave={() => setHoveredCode(null)}

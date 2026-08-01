@@ -1,6 +1,5 @@
 import { Suspense } from "react";
 import type { Metadata } from "next";
-import Footer from "@/components/Footer";
 import BenchmarkClientShell from "@/components/benchmark/BenchmarkClientShell";
 import D2DTimeline from "@/components/benchmark/D2DTimeline";
 import HeroBanner from "@/components/layout/HeroBanner";
@@ -28,7 +27,7 @@ export default function BenchmarkPage() {
   );
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-200 font-sans selection:bg-asean-yellow/30 selection:text-slate-900 transition-colors">
+    <>
       <HeroBanner
         title="Compliance Matrix"
         stats={[
@@ -85,8 +84,6 @@ export default function BenchmarkPage() {
       <Suspense fallback={null}>
         <BenchmarkClientShell summaries={allSummaries} principles={principles} />
       </Suspense>
-
-      <Footer />
-    </div>
+    </>
   );
 }
