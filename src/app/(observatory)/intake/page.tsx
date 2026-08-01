@@ -2,6 +2,12 @@
 
 import React, { useState } from "react";
 import { Upload, Send, CheckCircle2, Shield, Lock, FileText, EyeOff } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+
+const FIELD_CLASS =
+  "bg-slate-50 dark:bg-slate-900 border-slate-300 dark:border-slate-800 text-xs font-sans focus-visible:ring-asean-red/30 focus-visible:border-asean-red";
 
 export default function IntakePage() {
   const [submitted, setSubmitted] = useState(false);
@@ -11,9 +17,6 @@ export default function IntakePage() {
     e.preventDefault();
     setSubmitted(true);
   };
-
-  const inputClass =
-    "w-full bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-2 text-xs text-slate-900 dark:text-slate-200 focus:outline-none focus:border-asean-red focus-visible:ring-2 focus-visible:ring-asean-red/30 font-sans transition-shadow";
 
   const handleFileDrop = (e: React.DragEvent) => {
     e.preventDefault();
@@ -81,11 +84,11 @@ export default function IntakePage() {
                 <label className="block text-xs font-sans font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
                   Document / Alert Title *
                 </label>
-                <input
+                <Input
                   type="text"
                   required
                   placeholder="e.g. Leaked Draft DEFA Chapter 5 on Data Localization..."
-                  className={inputClass}
+                  className={FIELD_CLASS}
                 />
               </div>
 
@@ -94,31 +97,41 @@ export default function IntakePage() {
                   <label className="block text-xs font-sans font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
                     Target Jurisdiction *
                   </label>
-                  <select className={inputClass}>
-                    <option value="ASEAN">ASEAN Regional</option>
-                    <option value="ID">Indonesia</option>
-                    <option value="SG">Singapore</option>
-                    <option value="PH">Philippines</option>
-                    <option value="TH">Thailand</option>
-                    <option value="VN">Vietnam</option>
-                    <option value="MY">Malaysia</option>
-                    <option value="KH">Cambodia</option>
-                    <option value="LA">Laos</option>
-                    <option value="MM">Myanmar</option>
-                    <option value="BN">Brunei</option>
-                    <option value="TL">Timor-Leste</option>
-                  </select>
+                  <Select defaultValue="ASEAN">
+                    <SelectTrigger aria-label="Target Jurisdiction" className={`w-full ${FIELD_CLASS}`}>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="ASEAN">ASEAN Regional</SelectItem>
+                      <SelectItem value="ID">Indonesia</SelectItem>
+                      <SelectItem value="SG">Singapore</SelectItem>
+                      <SelectItem value="PH">Philippines</SelectItem>
+                      <SelectItem value="TH">Thailand</SelectItem>
+                      <SelectItem value="VN">Vietnam</SelectItem>
+                      <SelectItem value="MY">Malaysia</SelectItem>
+                      <SelectItem value="KH">Cambodia</SelectItem>
+                      <SelectItem value="LA">Laos</SelectItem>
+                      <SelectItem value="MM">Myanmar</SelectItem>
+                      <SelectItem value="BN">Brunei</SelectItem>
+                      <SelectItem value="TL">Timor-Leste</SelectItem>
+                    </SelectContent>
+                  </Select>
                 </div>
 
                 <div className="space-y-1.5 font-sans">
                   <label className="block text-xs font-sans font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
                     Attribution Preference *
                   </label>
-                  <select className={inputClass}>
-                    <option value="anonymous">Anonymous Defender Protection</option>
-                    <option value="cobrand">Co-Branded Regional Partner</option>
-                    <option value="public">Public Author Credit</option>
-                  </select>
+                  <Select defaultValue="anonymous">
+                    <SelectTrigger aria-label="Attribution Preference" className={`w-full ${FIELD_CLASS}`}>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="anonymous">Anonymous Defender Protection</SelectItem>
+                      <SelectItem value="cobrand">Co-Branded Regional Partner</SelectItem>
+                      <SelectItem value="public">Public Author Credit</SelectItem>
+                    </SelectContent>
+                  </Select>
                 </div>
               </div>
 
@@ -126,11 +139,11 @@ export default function IntakePage() {
                 <label className="block text-xs font-sans font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
                   Summary &amp; Human Rights Context *
                 </label>
-                <textarea
+                <Textarea
                   rows={4}
                   required
                   placeholder="Explain the policy threat, legislative context, or key clause of concern..."
-                  className={inputClass}
+                  className={FIELD_CLASS}
                 />
               </div>
 

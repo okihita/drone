@@ -8,6 +8,7 @@ import { POLICY_CATEGORIES, THREAT_ACCENT_COLORS, THREAT_BADGE_CONTAINER_CLASSES
 import type { PolicyListItem } from "@/types";
 import { FLAG_COMPONENTS } from "@/lib/flags";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Input } from "@/components/ui/input";
 
 const COUNTRY_NAME_TO_CODE: Record<string, string> = {
   Singapore: "SG",
@@ -113,12 +114,13 @@ export default function PolicyLedgerTable() {
     >
       <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between mb-6 gap-3 max-w-full">
           <div className="relative flex-1 sm:w-64 shrink-0">
-            <input
+            <Input
               type="text"
               value={searchTerm}
               onChange={(e) => { setSearchTerm(e.target.value); setExpandedId(null); }}
               placeholder="Search by keyword, country..."
-              className="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded-lg px-3 py-1.5 pl-8 text-xs text-slate-900 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-slate-500 font-sans"
+              className="pl-8 bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-800 text-xs font-sans"
+              aria-label="Search the policy ledger"
             />
             <Search className="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-2.5" />
           </div>
