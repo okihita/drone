@@ -367,6 +367,12 @@ figcaption.image-caption-text {
   scrollbar-width: none;
 }
 
+/* Visible focus for keyboard users on SVG map shapes */
+svg [tabindex]:focus-visible {
+  outline: 2px solid var(--color-asean-yellow, #ffcc00);
+  outline-offset: 3px;
+}
+
 @theme inline {
   --font-heading: var(--font-sans);
   --font-serif: var(--font-serif);

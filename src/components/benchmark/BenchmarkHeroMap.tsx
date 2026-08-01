@@ -105,10 +105,20 @@ export default function BenchmarkHeroMap({ selectedCountryCode, onSelectCountry 
                         stroke={isHovered || isSelected ? ASEAN_COLORS.white : "transparent"}
                         strokeWidth={isHovered || isSelected ? 2 : 0}
                         strokeLinejoin="round"
-                        className="cursor-pointer transition-all duration-200"
+                        className="cursor-pointer transition-all duration-200 focus-visible:stroke-asean-yellow focus-visible:stroke-2"
+                        role="button"
+                        tabIndex={0}
+                        aria-label={`${country.name} — ${country.overallScore}/100 compliance`}
+                        aria-pressed={isSelected}
                         onMouseEnter={() => setHoveredCode(country.code)}
                         onMouseLeave={() => setHoveredCode(null)}
                         onClick={() => onSelectCountry(selectedCountryCode === country.code ? null : country.code)}
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter" || e.key === " ") {
+                            e.preventDefault();
+                            onSelectCountry(selectedCountryCode === country.code ? null : country.code);
+                          }
+                        }}
                       />
                       <circle cx={country.centerPos.x} cy={country.centerPos.y} r={isSelected || isHovered ? 5 : 3.5} fill={ASEAN_COLORS.white} stroke={color} strokeWidth="1.5" className="pointer-events-none" />
                       <text x={country.centerPos.x} y={country.centerPos.y + 14} textAnchor="middle" className="pointer-events-none font-sans text-[9px] font-bold uppercase select-none" fill={ASEAN_COLORS.white} style={{ textShadow: "0 1px 3px rgba(0,0,0,0.8)" }}>

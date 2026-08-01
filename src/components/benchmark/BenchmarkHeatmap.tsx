@@ -28,6 +28,21 @@ export default function BenchmarkHeatmap({ summaries, principles, selectedCountr
 
   const headerBg = "sticky top-0 z-10 bg-slate-100 dark:bg-slate-800 font-sans text-xs font-bold text-slate-700 dark:text-slate-300";
 
+  const showPrinciple = (principle: BenchmarkPrinciple, x: number, y: number) => {
+    setHoveredPrinciple(principle);
+    setPopoverPos({ x, y });
+  };
+
+  const hidePrinciple = () => {
+    setHoveredPrinciple(null);
+    setPopoverPos(null);
+  };
+
+  const togglePrinciple = (principle: BenchmarkPrinciple, x: number, y: number) => {
+    if (hoveredPrinciple?.id === principle.id) hidePrinciple();
+    else showPrinciple(principle, x, y);
+  };
+
   return (
     <section className="px-4 sm:px-6 lg:px-8 py-6 max-w-full">
       <div className="max-w-7xl mx-auto">
@@ -68,10 +83,20 @@ export default function BenchmarkHeatmap({ summaries, principles, selectedCountr
                     <th
                       key={s.countryCode}
                       scope="col"
-                      className={`${headerBg} px-1 py-2 text-center cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors ${
+                      className={`${headerBg} px-1 py-2 text-center cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors focus-visible:ring-2 focus-visible:ring-asean-yellow/80 ${
                         selectedCountry === s.countryCode ? "bg-asean-yellow/20 dark:bg-asean-yellow/10" : ""
                       }`}
+                      tabIndex={0}
+                      role="button"
+                      aria-pressed={selectedCountry === s.countryCode}
+                      aria-label={`Select ${s.countryName} (${s.countryCode})`}
                       onClick={() => onSelectCountry(selectedCountry === s.countryCode ? null : s.countryCode)}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          e.preventDefault();
+                          onSelectCountry(selectedCountry === s.countryCode ? null : s.countryCode);
+                        }
+                      }}
                       title={`${s.countryName} (${s.countryCode})`}
                     >
                       <div className="flex flex-col items-center gap-0.5">
@@ -100,20 +125,19 @@ export default function BenchmarkHeatmap({ summaries, principles, selectedCountr
                     }`}
                   >
                     <td
-                      className="p-2 align-middle cursor-pointer sticky left-0 z-10 bg-white dark:bg-slate-900 shadow-[1px_0_0_0_rgba(226,232,240,1)] dark:shadow-[1px_0_0_0_rgba(30,41,59,1)] min-w-[130px]"
-                      onMouseEnter={(e) => {
-                        setHoveredPrinciple(principle);
-                        setPopoverPos({ x: e.clientX, y: e.clientY });
-                      }}
-                      onMouseLeave={() => { setHoveredPrinciple(null); setPopoverPos(null); }}
-                      onClick={(e) => {
-                        // Touch fallback: toggle popover on tap
-                        if (hoveredPrinciple?.id === principle.id) {
-                          setHoveredPrinciple(null);
-                          setPopoverPos(null);
-                        } else {
-                          setHoveredPrinciple(principle);
-                          setPopoverPos({ x: e.clientX, y: e.clientY });
+                      className="p-2 align-middle cursor-pointer sticky left-0 z-10 bg-white dark:bg-slate-900 shadow-[1px_0_0_0_rgba(226,232,240,1)] dark:shadow-[1px_0_0_0_rgba(30,41,59,1)] min-w-[130px] focus-visible:ring-2 focus-visible:ring-asean-yellow/80"
+                      tabIndex={0}
+                      role="button"
+                      aria-haspopup="dialog"
+                      aria-expanded={hoveredPrinciple?.id === principle.id}
+                      onMouseEnter={(e) => showPrinciple(principle, e.clientX, e.clientY)}
+                      onMouseLeave={hidePrinciple}
+                      onClick={(e) => togglePrinciple(principle, e.clientX, e.clientY)}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          e.preventDefault();
+                          const rect = e.currentTarget.getBoundingClientRect();
+                          togglePrinciple(principle, rect.right - 8, rect.top + rect.height / 2);
                         }
                       }}
                     >
@@ -138,8 +162,20 @@ export default function BenchmarkHeatmap({ summaries, principles, selectedCountr
                       return (
                         <td
                           key={s.countryCode}
-                          className={`px-0.5 py-1 text-center align-middle cursor-pointer transition-all ${isSelected ? "ring-2 ring-asean-yellow ring-inset" : ""}`}
+                          className={`px-0.5 py-1 text-center align-middle cursor-pointer transition-all focus-visible:ring-2 focus-visible:ring-asean-yellow/80 ${
+                            isSelected ? "ring-2 ring-asean-yellow ring-inset" : ""
+                          }`}
+                          tabIndex={0}
+                          role="button"
+                          aria-label={`${s.countryName}: ${score}/100 — ${principle.shortTitle}`}
+                          aria-pressed={isSelected}
                           onClick={() => onSelectCountry(selectedCountry === s.countryCode ? null : s.countryCode)}
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter" || e.key === " ") {
+                              e.preventDefault();
+                              onSelectCountry(selectedCountry === s.countryCode ? null : s.countryCode);
+                            }
+                          }}
                         >
                           <span
                             className={`inline-flex items-center justify-center w-10 h-7 rounded-md font-sans text-[11px] font-bold ${heatmapCellClass(score)} text-white`}

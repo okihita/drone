@@ -211,7 +211,7 @@ export default function AseanMap() {
                     fill={fillColor}
                     stroke={strokeColor}
                     strokeWidth={isSelected || isHovered ? "2" : "0.75"}
-                    className="transition-all duration-200"
+                    className="transition-all duration-200 focus-visible:stroke-asean-yellow focus-visible:stroke-2"
                     role="button"
                     tabIndex={0}
                     aria-label={`${country.name} (${country.regimeType})`}
