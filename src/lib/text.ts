@@ -13,6 +13,17 @@ export function generateSlug(title: string): string {
 }
 
 /**
+ * True when an image URL points at an SVG file. Next's image optimizer
+ * refuses SVGs unless dangerouslyAllowSVG is set, so such URLs must
+ * bypass optimization.
+ */
+export function isSvgUrl(url: string | null | undefined): boolean {
+  if (!url) return false;
+  const clean = url.split("?")[0].split("#")[0].toLowerCase();
+  return clean.endsWith(".svg") || clean.includes("image/svg+xml");
+}
+
+/**
  * Decode all named and numeric HTML entities (e.g. &#8217; → ’, &amp; → &).
  */
 export function decodeHtmlEntities(text: string | null | undefined): string {

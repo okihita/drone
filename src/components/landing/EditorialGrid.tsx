@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -7,7 +5,7 @@ import { ArrowRight } from "lucide-react";
 import { EXECUTIVE_INSIGHTS } from "@/lib/landingContent";
 import { THREAT_ACCENT_COLORS } from "@/lib/constants";
 import type { NewsDispatchItem, PolicyRadarEntry } from "@/types";
-import { getExcerpt } from "@/lib/text";
+import { getExcerpt, isSvgUrl } from "@/lib/text";
 
 export default function EditorialGrid({
   dispatches,
@@ -81,8 +79,8 @@ export default function EditorialGrid({
                     src={d.image_url}
                     alt={d.title}
                     fill
-                    unoptimized
                     sizes="(max-width: 1023px) 100vw, 33vw"
+                    unoptimized={isSvgUrl(d.image_url)}
                     className="object-cover transition-opacity duration-500"
                   />
                 ) : (
@@ -107,7 +105,7 @@ export default function EditorialGrid({
         {/* COLUMN 3: Regulatory Radar */}
         <div className="lg:col-span-3 space-y-6 animate-fade-up [animation-delay:300ms]">
           <span className="text-xs font-sans uppercase tracking-widest text-asean-blue font-bold block">
-            03 \u2022 REGULATORY RADAR
+            03 • REGULATORY RADAR
           </span>
           <div className="space-y-4 font-sans">
             {radar.map((entry) => {
