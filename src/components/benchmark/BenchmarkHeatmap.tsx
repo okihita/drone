@@ -5,7 +5,7 @@ import type { BenchmarkCountrySummary, BenchmarkPrinciple } from "@/types/benchm
 import { BENCHMARK_CLUSTERS } from "@/lib/constants";
 import PrincipleDetailPopover from "./PrincipleDetailPopover";
 import { FLAG_COMPONENTS } from "@/lib/flags";
-import { ASEAN_COLORS, heatmapCellClass } from "@/lib/colors";
+import { heatmapCellClass } from "@/lib/colors";
 
 interface Props {
   summaries: BenchmarkCountrySummary[];
@@ -14,12 +14,12 @@ interface Props {
   onSelectCountry: (code: string | null) => void;
 }
 
-const CLUSTER_COLORS: Record<string, string> = {
-  "asean-red": ASEAN_COLORS.red,
-  "asean-blue": ASEAN_COLORS.blue,
-  "asean-amber": ASEAN_COLORS.amber,
-  "asean-emerald": ASEAN_COLORS.emerald,
-  "asean-sky": ASEAN_COLORS.sky,
+const CLUSTER_CHIP_CLASSES: Record<string, string> = {
+  "asean-red": "bg-asean-red",
+  "asean-blue": "bg-asean-blue",
+  "asean-amber": "bg-asean-amber",
+  "asean-emerald": "bg-asean-emerald",
+  "asean-sky": "bg-asean-sky",
 };
 
 export default function BenchmarkHeatmap({ summaries, principles, selectedCountry, onSelectCountry }: Props) {
@@ -150,8 +150,7 @@ export default function BenchmarkHeatmap({ summaries, principles, selectedCountr
                     </td>
                     <td className="p-2 align-middle">
                       <span
-                        className="inline-block px-1.5 py-0.5 rounded text-[9px] font-bold text-white"
-                        style={{ backgroundColor: CLUSTER_COLORS[clusterInfo?.color ?? ""] ?? ASEAN_COLORS.textMutedLight }}
+                        className={`inline-block px-1.5 py-0.5 rounded text-[9px] font-bold text-white ${CLUSTER_CHIP_CLASSES[clusterInfo?.color ?? ""] ?? "bg-slate-500"}`}
                       >
                         {clusterInfo?.label ?? principle.cluster}
                       </span>

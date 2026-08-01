@@ -91,22 +91,22 @@ export function toneHex(tone: StatusTone): string {
 export function toneTextClass(tone: StatusTone): string {
   switch (tone) {
     case "positive":
-      return "text-asean-emerald";
+      return "text-status-positive";
     case "warning":
-      return "text-asean-amber";
+      return "text-status-warning";
     case "danger":
-      return "text-asean-red";
+      return "text-status-danger";
   }
 }
 
 export function toneBarClass(tone: StatusTone): string {
   switch (tone) {
     case "positive":
-      return "bg-asean-emerald";
+      return "bg-status-positive";
     case "warning":
-      return "bg-asean-amber";
+      return "bg-status-warning";
     case "danger":
-      return "bg-asean-red";
+      return "bg-status-danger";
   }
 }
 
