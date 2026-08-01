@@ -137,23 +137,9 @@ export default function AseanMap() {
   return (
     <section
       id="asean-map"
-      className="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-slate-200 dark:border-slate-800 font-sans"
+      className="py-4 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto font-sans"
     >
-      <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
-        <div>
-          <span className="text-[11px] font-sans uppercase tracking-wider text-asean-yellow font-bold block mb-1">
-            CARTOGRAPHIC POLICY OBSERVATORY
-          </span>
-          <h2 className="font-serif-editorial text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-            Southeast Asia Jurisdiction Map &amp; Data Regimes
-          </h2>
-          <p className="text-slate-600 dark:text-slate-400 text-xs sm:text-sm mt-1 max-w-2xl font-sans">
-            Inspect cross-border data transfer laws, legal localization
-            mandates, and active policy decrees across 11 Southeast Asian
-            Member States.
-          </p>
-        </div>
-
+      <div className="flex items-center justify-end mb-4">
         <MapFilterControls
           filterRegime={filterRegime}
           onChange={setFilterRegime}
