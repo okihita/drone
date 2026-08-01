@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import React from "react";
 import AseanMap from "@/components/AseanMap";
+import HeroBanner from "@/components/layout/HeroBanner";
+import { getRealAseanCountries } from "@/lib/aseanGeo";
+import { MapPin, ShieldAlert, Lock } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Cartographic Observatory & Threat Matrix — DRONE",
@@ -8,22 +11,38 @@ export const metadata: Metadata = {
 };
 
 export default function ObservatoryPage() {
+  const countries = getRealAseanCountries();
+  const strictCount = countries.filter((c) => c.regimeType === "Strict Localization").length;
+  const avgThreat =
+    Math.round((countries.reduce((sum, c) => sum + c.threatScore, 0) / Math.max(countries.length, 1)) * 10) / 10;
+
   return (
     <main className="flex-1 py-8">
-        {/* Map Section Header */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-4">
-          <div className="border-b border-slate-200 dark:border-slate-800 pb-4 font-sans">
-            <span className="text-xs font-sans text-asean-yellow font-bold uppercase tracking-wider">
-              REGIONAL MAP &amp; THREAT MATRIX
-            </span>
-            <h1 className="font-serif-editorial text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white mt-1">
-              Cartographic Observatory &amp; Digital Rights Threat Matrix
-            </h1>
-            <p className="text-slate-600 dark:text-slate-400 text-xs sm:text-sm mt-1.5 max-w-3xl font-sans leading-relaxed">
+        <HeroBanner
+          eyebrow="REGIONAL MAP &amp; THREAT MATRIX"
+          title="Cartographic Observatory &amp; Digital Rights Threat Matrix"
+          description={
+            <>
               An interactive vector mapping observatory documenting data localization mandates, cross-border transfer legal regimes, and civil society risk scores across 11 Southeast Asian nations — evaluating data sovereignty erosion, algorithmic audit bans, and surveillance weaponization.
-            </p>
-          </div>
-        </div>
+            </>
+          }
+          stats={[
+            { icon: MapPin, iconClass: "text-asean-blue", label: "Jurisdictions", value: `${countries.length} Tracked` },
+            { icon: Lock, iconClass: "text-asean-red", label: "Strict Localization", value: `${strictCount} Regimes` },
+            { icon: ShieldAlert, iconClass: "text-asean-amber", label: "Avg Threat Score", value: `${avgThreat}/5` },
+          ]}
+          concepts={[
+            { title: "Open Transfer Regime (ASEAN Gold)", desc: "Permitting cross-border data flows by default under comparable privacy baselines." },
+            { title: "Hybrid / Selective Localization (ASEAN Blue)", desc: "Public sector localization paired with private sector contractual transfer safeguards." },
+            { title: "Strict Data Localization (ASEAN Red)", desc: "Mandatory domestic server storage and state law enforcement access mandates." },
+          ]}
+          conceptCols={3}
+          howToRead={
+            <>
+              Click any country on the map to open its full jurisdiction dossier — key digital trade legislation, cross-border data posture, threat score, and primary source decrees. Use the filter to isolate regime types.
+            </>
+          }
+        />
 
         <AseanMap />
 

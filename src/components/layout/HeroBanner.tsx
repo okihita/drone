@@ -53,6 +53,8 @@ function ConceptCards({ cards, cols = 5 }: { cards: ConceptCardData[]; cols?: nu
 }
 
 interface HeroBannerProps {
+  eyebrow?: string;
+  eyebrowClass?: string;
   title: React.ReactNode;
   description?: React.ReactNode;
   stats?: StatPillData[];
@@ -64,6 +66,8 @@ interface HeroBannerProps {
 }
 
 export default function HeroBanner({
+  eyebrow,
+  eyebrowClass = "text-asean-yellow",
   title,
   description,
   stats,
@@ -78,7 +82,12 @@ export default function HeroBanner({
       <div className="max-w-7xl mx-auto space-y-6">
         <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-6">
           <div className="flex-1">
-            <h1 className="font-serif-editorial text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
+            {eyebrow && (
+              <span className={`text-xs font-sans font-bold uppercase tracking-wider ${eyebrowClass}`}>
+                {eyebrow}
+              </span>
+            )}
+            <h1 className={`font-serif-editorial text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight ${eyebrow ? "mt-1" : ""}`}>
               {title}
             </h1>
             {description && (
