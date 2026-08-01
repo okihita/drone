@@ -9,6 +9,10 @@ import Footer from "@/components/Footer";
 export default function DefaAiEthicsView() {
   const aiStates = getDefaAiEthicsStates();
 
+  const fullAdoptionStates = aiStates.filter((s) => s.aseanAiGuideAlignment === "Full Adoption");
+  const copyrightExemptionStates = aiStates.filter((s) => s.aiTrainingCopyrightExemption);
+  const totalHarmIncidents = aiStates.reduce((sum, s) => sum + s.mmaiHarmIncidentsCount, 0);
+
   return (
     <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-200 font-sans">
       {/* Header Banner */}
@@ -27,8 +31,8 @@ export default function DefaAiEthicsView() {
             {/* Stat Pill */}
             <div className="shrink-0 p-4 rounded-2xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 shadow-sm text-xs font-sans space-y-1">
               <span className="block font-sans text-[10px] text-slate-400 uppercase font-bold">Regional Alignment</span>
-              <div className="font-bold text-slate-900 dark:text-white text-sm">5 Full Adoption Nations</div>
-              <span className="text-asean-emerald font-bold">SG, MY, ID, TH, PH</span>
+              <div className="font-bold text-slate-900 dark:text-white text-sm">{fullAdoptionStates.length} Full Adoption Nations</div>
+              <span className="text-asean-emerald font-bold">{fullAdoptionStates.map((s) => s.countryCode).join(", ")}</span>
             </div>
           </div>
 
@@ -63,8 +67,8 @@ export default function DefaAiEthicsView() {
           <div className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm flex items-center justify-between">
             <div>
               <span className="font-mono text-[10px] uppercase font-bold text-slate-400">Full AI Guide Adoption</span>
-              <div className="font-serif-editorial text-3xl font-bold text-asean-emerald mt-1">5 Nations</div>
-              <span className="text-[11px] text-slate-500">SG, MY, ID, TH, PH</span>
+              <div className="font-serif-editorial text-3xl font-bold text-asean-emerald mt-1">{fullAdoptionStates.length} Nations</div>
+              <span className="text-[11px] text-slate-500">{fullAdoptionStates.map((s) => s.countryCode).join(", ")}</span>
             </div>
             <ShieldCheck className="w-8 h-8 text-asean-emerald opacity-80" />
           </div>
@@ -72,8 +76,8 @@ export default function DefaAiEthicsView() {
           <div className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm flex items-center justify-between">
             <div>
               <span className="font-mono text-[10px] uppercase font-bold text-slate-400">AI Copyright Exemption</span>
-              <div className="font-serif-editorial text-3xl font-bold text-asean-blue mt-1">3 Nations</div>
-              <span className="text-[11px] text-slate-500">SG, MY, TH</span>
+              <div className="font-serif-editorial text-3xl font-bold text-asean-blue mt-1">{copyrightExemptionStates.length} Nations</div>
+              <span className="text-[11px] text-slate-500">{copyrightExemptionStates.map((s) => s.countryCode).join(", ")}</span>
             </div>
             <Cpu className="w-8 h-8 text-asean-blue opacity-80" />
           </div>
@@ -81,7 +85,7 @@ export default function DefaAiEthicsView() {
           <div className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm flex items-center justify-between">
             <div>
               <span className="font-mono text-[10px] uppercase font-bold text-slate-400">Recorded Algorithmic Harms</span>
-              <div className="font-serif-editorial text-3xl font-bold text-asean-amber mt-1">173 Incidents</div>
+              <div className="font-serif-editorial text-3xl font-bold text-asean-amber mt-1">{totalHarmIncidents} Incidents</div>
               <span className="text-[11px] text-slate-500">MMAI Telemetry Feed</span>
             </div>
             <Activity className="w-8 h-8 text-asean-amber opacity-80" />

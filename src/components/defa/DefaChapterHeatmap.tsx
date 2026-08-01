@@ -15,6 +15,10 @@ export default function DefaChapterHeatmap() {
     chapterId: string;
   } | null>(null);
 
+  const avgProgress = Math.round(
+    statuses.reduce((sum, s) => sum + s.progressPercent, 0) / Math.max(statuses.length, 1),
+  );
+
   const getCellStatus = (code: ASEANCountryCode, chapterId: string) => {
     return statuses.find((s) => s.countryCode === code && s.chapterId === chapterId);
   };
@@ -72,10 +76,10 @@ export default function DefaChapterHeatmap() {
             <div className="shrink-0 p-5 rounded-2xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 shadow-sm text-xs font-sans space-y-3 min-w-[280px]">
               <div className="flex items-center justify-between">
                 <span className="font-bold uppercase tracking-wider text-slate-500 text-[10px]">Legal Scrubbing Phase</span>
-                <span className="font-bold text-asean-blue font-mono text-xs">82% Complete</span>
+                <span className="font-bold text-asean-blue font-mono text-xs">{avgProgress}% Complete</span>
               </div>
               <div className="w-full h-2 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden">
-                <div className="h-full bg-gradient-to-r from-asean-blue via-asean-emerald to-asean-yellow w-[82%]" />
+                <div className="h-full bg-gradient-to-r from-asean-blue via-asean-emerald to-asean-yellow" style={{ width: `${avgProgress}%` }} />
               </div>
               <div className="flex items-center justify-between text-[11px] text-slate-500 pt-1 border-t border-slate-200 dark:border-slate-700">
                 <span>SEOM Manila: May 2026</span>

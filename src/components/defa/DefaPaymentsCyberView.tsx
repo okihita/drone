@@ -8,6 +8,13 @@ import Footer from "@/components/Footer";
 
 export default function DefaPaymentsCyberView() {
   const paymentStates = getDefaPaymentStates();
+  const activeCorridorSet = new Set<string>();
+  paymentStates.forEach((st) =>
+    st.crossBorderRpcCorridors.forEach((target) => {
+      activeCorridorSet.add([st.countryCode, target].sort().join("-"));
+    }),
+  );
+  const activeCorridorCount = activeCorridorSet.size;
 
   return (
     <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-200 font-sans">
@@ -28,7 +35,7 @@ export default function DefaPaymentsCyberView() {
             <div className="shrink-0 p-4 rounded-2xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 shadow-sm text-xs font-sans space-y-1">
               <span className="block font-sans text-[10px] text-slate-400 uppercase font-bold">RPC Payment Connectivity</span>
               <div className="font-bold text-slate-900 dark:text-white text-sm">Cross-Border QR Interoperability</div>
-              <span className="text-asean-emerald font-bold">10 Active Corridors</span>
+              <span className="text-asean-emerald font-bold">{activeCorridorCount} Active Corridors</span>
             </div>
           </div>
 
