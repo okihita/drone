@@ -44,7 +44,7 @@ export default function BenchmarkHeatmap({ summaries, principles, selectedCountr
   };
 
   return (
-    <section className="px-4 sm:px-6 lg:px-8 py-6 max-w-full">
+    <section id="compliance-heatmap" className="px-4 sm:px-6 lg:px-8 py-6 max-w-full scroll-mt-28">
       <div className="max-w-7xl mx-auto">
         <h2 className="font-serif-editorial text-xl font-bold text-slate-900 dark:text-white mb-4">
           Compliance Heatmap
