@@ -22,9 +22,9 @@ export default function ObservatorySubNav() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`flex items-center gap-1.5 shrink-0 px-3 py-1.5 rounded-lg text-[11px] font-bold font-sans transition-all duration-150 ${
+                className={`flex items-center gap-1.5 shrink-0 px-3 py-1.5 rounded-lg text-[11px] font-bold font-sans transition-all duration-150 focus-visible:ring-2 focus-visible:ring-asean-yellow/70 ${
                   active
-                    ? "bg-slate-200 dark:bg-slate-800 text-slate-900 dark:text-white shadow-xs"
+                    ? "bg-slate-200 dark:bg-slate-800 text-slate-900 dark:text-asean-yellow shadow-xs"
                     : "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60"
                 }`}
               >
