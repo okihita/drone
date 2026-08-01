@@ -3,6 +3,7 @@
 import React from "react";
 import { getDefaPaymentStates } from "@/services/defa";
 import { ASEAN_MEMBER_STATES } from "@/lib/countries";
+import { riskTone, toneTextClass, toneBarClass } from "@/lib/colors";
 import Footer from "@/components/Footer";
 
 export default function DefaPaymentsCyberView() {
@@ -111,13 +112,13 @@ export default function DefaPaymentsCyberView() {
                 <div className="pt-3 border-t border-slate-100 dark:border-slate-800 space-y-1.5">
                   <div className="flex items-center justify-between text-[11px] font-sans">
                     <span className="text-slate-500 font-semibold">Financial Surveillance &amp; CBDC Risk</span>
-                    <span className={`font-mono font-bold ${st.financialSurveillanceScore > 60 ? "text-asean-red" : "text-asean-emerald"}`}>
+                    <span className={`font-mono font-bold ${toneTextClass(riskTone(st.financialSurveillanceScore, 60, 60))}`}>
                       {st.financialSurveillanceScore} / 100
                     </span>
                   </div>
                   <div className="w-full h-1.5 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
                     <div
-                      className={`h-full ${st.financialSurveillanceScore > 60 ? "bg-asean-red" : "bg-asean-emerald"}`}
+                      className={`h-full ${toneBarClass(riskTone(st.financialSurveillanceScore, 60, 60))}`}
                       style={{ width: `${st.financialSurveillanceScore}%` }}
                     />
                   </div>

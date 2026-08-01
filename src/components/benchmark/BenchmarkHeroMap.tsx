@@ -7,22 +7,11 @@ import type { BenchmarkCountrySummary } from "@/types/benchmark";
 import { ArrowRight, X } from "lucide-react";
 import Link from "next/link";
 
-import { ASEAN_COLORS } from "@/lib/colors";
+import { ASEAN_COLORS, heatmapHex, scoreTone, toneTextClass } from "@/lib/colors";
 import { FLAG_COMPONENTS } from "@/lib/flags";
 
-function scoreColor(score: number): string {
-  if (score >= 80) return ASEAN_COLORS.emerald;
-  if (score >= 65) return ASEAN_COLORS.emeraldLight;
-  if (score >= 50) return ASEAN_COLORS.yellow;
-  if (score >= 35) return ASEAN_COLORS.amber;
-  if (score >= 20) return ASEAN_COLORS.red;
-  return ASEAN_COLORS.redDark;
-}
-
 function scoreBadge(score: number): string {
-  if (score >= 65) return "text-asean-emerald";
-  if (score >= 40) return "text-asean-amber";
-  return "text-asean-red";
+  return toneTextClass(scoreTone(score, 65, 40));
 }
 
 const SCORE_LEGEND = [
@@ -53,7 +42,7 @@ export default function BenchmarkHeroMap({ selectedCountryCode, onSelectCountry 
   const countryColors = useMemo(() => {
     const map = new Map<string, string>();
     for (const s of allSummaries) {
-      map.set(s.countryCode, scoreColor(s.overallScore));
+      map.set(s.countryCode, heatmapHex(s.overallScore));
     }
     return map;
   }, [allSummaries]);

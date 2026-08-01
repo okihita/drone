@@ -5,23 +5,13 @@ import type { BenchmarkCountrySummary, BenchmarkPrinciple } from "@/types/benchm
 import { BENCHMARK_CLUSTERS } from "@/lib/constants";
 import PrincipleDetailPopover from "./PrincipleDetailPopover";
 import { FLAG_COMPONENTS } from "@/lib/flags";
-
-import { ASEAN_COLORS } from "@/lib/colors";
+import { ASEAN_COLORS, heatmapCellClass } from "@/lib/colors";
 
 interface Props {
   summaries: BenchmarkCountrySummary[];
   principles: BenchmarkPrinciple[];
   selectedCountry: string | null;
   onSelectCountry: (code: string | null) => void;
-}
-
-function scoreColor(score: number): string {
-  if (score >= 80) return "bg-asean-emerald";
-  if (score >= 65) return "bg-asean-emerald/80";
-  if (score >= 50) return "bg-asean-amber";
-  if (score >= 35) return "bg-asean-amber/80";
-  if (score >= 20) return "bg-asean-red/80";
-  return "bg-asean-red";
 }
 
 const CLUSTER_COLORS: Record<string, string> = {
@@ -152,7 +142,7 @@ export default function BenchmarkHeatmap({ summaries, principles, selectedCountr
                           onClick={() => onSelectCountry(selectedCountry === s.countryCode ? null : s.countryCode)}
                         >
                           <span
-                            className={`inline-flex items-center justify-center w-10 h-7 rounded-md font-sans text-[11px] font-bold ${scoreColor(score)} text-white`}
+                            className={`inline-flex items-center justify-center w-10 h-7 rounded-md font-sans text-[11px] font-bold ${heatmapCellClass(score)} text-white`}
                             title={`${s.countryName}: ${score}/100 — ${principle.shortTitle}`}
                           >
                             {score}

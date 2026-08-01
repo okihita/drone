@@ -5,6 +5,7 @@ import { getDefaDataGovernanceStates } from "@/services/defa";
 import { ASEAN_MEMBER_STATES } from "@/lib/countries";
 import { DataRegimeTier } from "@/types/defa";
 import { Layers } from "lucide-react";
+import { riskTone, toneTextClass, toneBarClass } from "@/lib/colors";
 import Footer from "@/components/Footer";
 
 export default function DefaDataGovernanceView() {
@@ -180,17 +181,13 @@ export default function DefaDataGovernanceView() {
                 <div className="pt-3 border-t border-slate-100 dark:border-slate-800 space-y-1.5">
                   <div className="flex items-center justify-between text-[11px] font-sans">
                     <span className="text-slate-500 font-semibold">Legal Data Friction Score</span>
-                    <span className={`font-mono font-bold ${
-                      state.legalFrictionScore > 70 ? "text-asean-red" : state.legalFrictionScore > 40 ? "text-asean-amber" : "text-asean-emerald"
-                    }`}>
+                    <span className={`font-mono font-bold ${toneTextClass(riskTone(state.legalFrictionScore, 40, 70))}`}>
                       {state.legalFrictionScore} / 100
                     </span>
                   </div>
                   <div className="w-full h-1.5 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
                     <div
-                      className={`h-full ${
-                        state.legalFrictionScore > 70 ? "bg-asean-red" : state.legalFrictionScore > 40 ? "bg-asean-amber" : "bg-asean-emerald"
-                      }`}
+                      className={`h-full ${toneBarClass(riskTone(state.legalFrictionScore, 40, 70))}`}
                       style={{ width: `${state.legalFrictionScore}%` }}
                     />
                   </div>

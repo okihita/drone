@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import type { IPProfile } from "@/services/ip_monitor";
-import { ASEAN_COLORS } from "@/lib/colors";
+import { scoreTone, toneHex, toneTextClass } from "@/lib/colors";
 import { FLAG_COMPONENTS } from "@/lib/flags";
 import { ExternalLink, Filter } from "lucide-react";
 
@@ -16,6 +16,9 @@ const DIMENSIONS = [
 interface Props {
   profiles: IPProfile[];
 }
+
+const GOOD_SCORE = 55;
+const BAD_SCORE = 35;
 
 export default function IPMonitorClientShell({ profiles }: Props) {
   const [selectedCountry, setSelectedCountry] = useState<string>("ALL");
@@ -66,6 +69,7 @@ export default function IPMonitorClientShell({ profiles }: Props) {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {filtered.map((profile) => {
           const FlagIcon = FLAG_COMPONENTS[profile.countryCode];
+          const compositeTone = scoreTone(profile.compositeScore, GOOD_SCORE, BAD_SCORE);
           return (
             <div key={profile.countryCode} className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-xs flex flex-col justify-between hover:border-slate-300 dark:hover:border-slate-700 transition-all">
               <div>
@@ -77,13 +81,13 @@ export default function IPMonitorClientShell({ profiles }: Props) {
                     </span>
                     <span className="text-sm font-bold text-slate-900 dark:text-white">{profile.countryName}</span>
                   </div>
-                  <span className={`text-sm font-sans font-extrabold ${profile.compositeScore >= 55 ? "text-asean-emerald" : profile.compositeScore >= 35 ? "text-asean-amber" : "text-asean-red"}`}>
+                  <span className={`text-sm font-sans font-extrabold ${toneTextClass(compositeTone)}`}>
                     {profile.compositeScore}/100
                   </span>
                 </div>
 
                 <div className="h-2 w-full rounded-full bg-slate-100 dark:bg-slate-800 border border-slate-200/60 dark:border-slate-700/60 mb-3 overflow-hidden">
-                  <div className="h-full rounded-full transition-all duration-500" style={{ width: `${profile.compositeScore}%`, backgroundColor: profile.compositeScore >= 55 ? ASEAN_COLORS.emerald : profile.compositeScore >= 35 ? ASEAN_COLORS.amber : ASEAN_COLORS.red }} />
+                  <div className="h-full rounded-full transition-all duration-500" style={{ width: `${profile.compositeScore}%`, backgroundColor: toneHex(compositeTone) }} />
                 </div>
 
                 <div className="space-y-1.5 text-[11px] font-sans">
@@ -92,7 +96,7 @@ export default function IPMonitorClientShell({ profiles }: Props) {
                     return (
                       <div key={d.key} className="flex items-center justify-between">
                         <span className="text-slate-600 dark:text-slate-400">{d.label}</span>
-                        <span className={`font-sans font-bold ${score >= 55 ? "text-asean-emerald" : score >= 35 ? "text-asean-amber" : "text-asean-red"}`}>
+                        <span className={`font-sans font-bold ${toneTextClass(scoreTone(score, GOOD_SCORE, BAD_SCORE))}`}>
                           {score}
                         </span>
                       </div>
