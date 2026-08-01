@@ -2,11 +2,12 @@
 
 import React, { useState } from "react";
 import useSWR from "swr";
-import { Search, Filter, ShieldAlert, CheckCircle, FileText } from "lucide-react";
+import { Search, Filter, ShieldAlert, CheckCircle, FileText, AlertTriangle, X } from "lucide-react";
 import { listPolicies } from "@/services/policies";
 import { POLICY_CATEGORIES, THREAT_ACCENT_COLORS, THREAT_BADGE_CONTAINER_CLASSES } from "@/lib/constants";
 import type { PolicyListItem } from "@/types";
 import { FLAG_COMPONENTS } from "@/lib/flags";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const COUNTRY_NAME_TO_CODE: Record<string, string> = {
   Singapore: "SG",
@@ -85,17 +86,50 @@ export default function PolicyLedgerTable() {
           </div>
         </div>
 
+      <div className="flex items-center justify-between mb-3 text-[11px] font-sans text-slate-500 dark:text-slate-400" aria-live="polite">
+        <span>
+          {error
+            ? "The ledger is unavailable."
+            : isLoading && policies.length === 0
+              ? "Loading ledger entries..."
+              : `${filtered.length} of ${policies.length} verified entr${filtered.length === 1 ? "y" : "ies"}`}
+        </span>
+      </div>
+
       <div className="rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-x-auto shadow-xs transition-colors">
         {error && (
-          <div className="p-12 text-center text-xs text-red-600">
-            Failed to load policies.
+          <div className="p-12 text-center">
+            <AlertTriangle className="w-8 h-8 text-asean-red mx-auto mb-3" />
+            <p className="text-sm font-bold text-slate-800 dark:text-slate-200">Failed to load the policy ledger.</p>
+            <p className="text-xs text-slate-500 mt-1">This may be a temporary network issue. Try refreshing the page.</p>
           </div>
         )}
-        {isLoading && policies.length === 0 ? (
-          <div className="p-12 text-center text-xs text-slate-500">
-            Loading policy ledger...
+        {!error && isLoading && policies.length === 0 ? (
+          <div className="p-4" aria-hidden="true">
+            {[1, 2, 3, 4].map((row) => (
+              <div key={row} className="flex items-center gap-4 py-3 border-b border-slate-100 dark:border-slate-800 last:border-b-0">
+                <Skeleton className="h-4 w-24" />
+                <Skeleton className="h-4 w-1/3" />
+                <Skeleton className="h-4 w-20" />
+                <Skeleton className="h-4 w-24" />
+              </div>
+            ))}
           </div>
-        ) : (
+        ) : !error && filtered.length === 0 ? (
+          <div className="p-12 text-center border border-dashed border-slate-200 dark:border-slate-800 m-4 rounded-xl">
+            <FileText className="w-8 h-8 text-slate-300 dark:text-slate-600 mx-auto mb-3" />
+            <p className="text-sm font-bold text-slate-700 dark:text-slate-300">
+              No verified entries match your search.
+            </p>
+            <p className="text-xs text-slate-500 mt-1">Try a different keyword or category filter.</p>
+            <button
+              onClick={() => { setSearchTerm(""); setSelectedCategory("ALL"); }}
+              className="mt-4 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-xs font-bold text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors"
+            >
+              <X className="w-3.5 h-3.5" /> Clear filters
+            </button>
+          </div>
+        ) : !error ? (
           <table className="w-full min-w-[640px] text-left text-xs font-sans">
             <thead className="bg-slate-50 dark:bg-slate-900/80 border-b border-slate-200 dark:border-slate-800 text-[10px] uppercase tracking-wider text-slate-600 dark:text-slate-400">
               <tr>
@@ -137,7 +171,7 @@ export default function PolicyLedgerTable() {
               })}
             </tbody>
           </table>
-        )}
+        ) : null}
       </div>
     </section>
   );
