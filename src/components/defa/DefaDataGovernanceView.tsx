@@ -7,6 +7,7 @@ import { DataRegimeTier } from "@/types/defa";
 import { Layers } from "lucide-react";
 import { riskTone, toneTextClass, toneBarClass } from "@/lib/colors";
 import Footer from "@/components/Footer";
+import HeroBanner from "@/components/layout/HeroBanner";
 
 export default function DefaDataGovernanceView() {
   const dataStates = getDefaDataGovernanceStates();
@@ -30,49 +31,33 @@ export default function DefaDataGovernanceView() {
 
   return (
     <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-200 font-sans">
-      {/* Header Banner */}
-      <section className="relative border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/60 py-6 sm:py-9 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto space-y-6">
-          <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-6">
-            <div className="flex-1">
-              <h1 className="font-serif-editorial text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
-                Cross-Border Data &amp; Localization
-              </h1>
-              <p className="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-3xl font-sans leading-relaxed">
-                Cross-border data movement is the central economic engine of DEFA, projected to unlock <strong className="text-slate-800 dark:text-slate-200">$2 Trillion USD</strong> in regional value by 2030. However, data flows represent Southeast Asia&apos;s most contentious policy battlefield. This dashboard evaluates the 3-tier regulatory spectrum across all 11 ASEAN nations—contrasting open data transfer regimes against conditional models and strict domestic server localization mandates that restrict civil society and digital rights.
-              </p>
-            </div>
-
-            {/* Stat Pill */}
-            <div className="shrink-0 p-4 rounded-2xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 shadow-sm text-xs font-sans space-y-1">
-              <span className="block font-sans text-[10px] text-slate-400 uppercase font-bold">Data Regime Spectrum</span>
-              <div className="font-bold text-slate-900 dark:text-white text-sm">3 Tiers Across 11 Nations</div>
-              <span className="text-asean-emerald font-bold">3 Open</span> · <span className="text-asean-amber font-bold">4 Hybrid</span> · <span className="text-asean-red font-bold">4 Strict</span>
-            </div>
+      <HeroBanner
+        title="Cross-Border Data &amp; Localization"
+        description={
+          <>
+            Cross-border data movement is the central economic engine of DEFA, projected to unlock <strong className="text-slate-800 dark:text-slate-200">$2 Trillion USD</strong> in regional value by 2030. However, data flows represent Southeast Asia&apos;s most contentious policy battlefield. This dashboard evaluates the 3-tier regulatory spectrum across all 11 ASEAN nations—contrasting open data transfer regimes against conditional models and strict domestic server localization mandates that restrict civil society and digital rights.
+          </>
+        }
+        rightSlot={
+          <div className="shrink-0 p-4 rounded-2xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 shadow-sm text-xs font-sans space-y-1">
+            <span className="block font-sans text-[10px] text-slate-400 uppercase font-bold">Data Regime Spectrum</span>
+            <div className="font-bold text-slate-900 dark:text-white text-sm">3 Tiers Across 11 Nations</div>
+            <span className="text-asean-emerald font-bold">3 Open</span> · <span className="text-asean-amber font-bold">4 Hybrid</span> · <span className="text-asean-red font-bold">4 Strict</span>
           </div>
-
-          {/* 5 Concept Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2.5 pt-2">
-            {[
-              { title: "Open Transfer Regimes", desc: "Permitting cross-border data flows by default under comparable privacy baselines (SG, PH, MY)." },
-              { title: "Hybrid Regimes", desc: "Public sector data localization paired with private sector contractual transfer safeguards (ID, TH)." },
-              { title: "Strict Localization", desc: "Mandatory domestic server storage and state law enforcement access mandates (VN, MM, KH)." },
-              { title: "ASEAN Model Clauses", desc: "Voluntary regional template clauses facilitating legally compliant personal data transfers." },
-              { title: "Legal Data Friction", desc: "Quantitative index rating cross-border data restrictions for NGOs, journalists, and cloud services." },
-            ].map((card) => (
-              <div key={card.title} className="p-2.5 rounded-lg bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/80 text-xs text-slate-600 dark:text-slate-400 leading-snug">
-                <strong className="block text-slate-800 dark:text-slate-200 font-bold mb-0.5">{card.title}</strong>
-                <p className="text-slate-600 dark:text-slate-400 leading-snug">{card.desc}</p>
-              </div>
-            ))}
-          </div>
-
-          {/* How to Read Note */}
-          <p className="text-xs text-slate-500 dark:text-slate-400 font-sans leading-relaxed max-w-4xl pt-1">
-            <strong className="text-slate-700 dark:text-slate-300 font-bold">How to read</strong>: Each country card breaks down primary data protection laws, localization decrees, and ASEAN MCC integration. <span className="text-asean-emerald font-bold">Low friction scores (0–30)</span> indicate open data regimes; <span className="text-asean-amber font-bold">Moderate scores (31–65)</span> represent hybrid regimes; <span className="text-asean-red font-bold">High scores (&gt;65)</span> flag heavy data localization mandates and elevated state surveillance risks.
-          </p>
-        </div>
-      </section>
+        }
+        concepts={[
+          { title: "Open Transfer Regimes", desc: "Permitting cross-border data flows by default under comparable privacy baselines (SG, PH, MY)." },
+          { title: "Hybrid Regimes", desc: "Public sector data localization paired with private sector contractual transfer safeguards (ID, TH)." },
+          { title: "Strict Localization", desc: "Mandatory domestic server storage and state law enforcement access mandates (VN, MM, KH)." },
+          { title: "ASEAN Model Clauses", desc: "Voluntary regional template clauses facilitating legally compliant personal data transfers." },
+          { title: "Legal Data Friction", desc: "Quantitative index rating cross-border data restrictions for NGOs, journalists, and cloud services." },
+        ]}
+        howToRead={
+          <>
+            Each country card breaks down primary data protection laws, localization decrees, and ASEAN MCC integration. <span className="text-asean-emerald font-bold">Low friction scores (0–30)</span> indicate open data regimes; <span className="text-asean-amber font-bold">Moderate scores (31–65)</span> represent hybrid regimes; <span className="text-asean-red font-bold">High scores (&gt;65)</span> flag heavy data localization mandates and elevated state surveillance risks.
+          </>
+        }
+      />
 
       {/* Main Workspace */}
       <main className="flex-1 px-4 sm:px-6 lg:px-8 py-8 font-sans">

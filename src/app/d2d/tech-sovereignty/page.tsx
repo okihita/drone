@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Footer from "@/components/Footer";
 import TechSovereigntyRadar from "@/components/tech-sovereignty/TechSovereigntyRadar";
 import ViolationTimeline from "@/components/tech-sovereignty/ViolationTimeline";
+import HeroBanner from "@/components/layout/HeroBanner";
 import { listAllBenchmarks } from "@/services/benchmark";
 import { fetchEncryptionEvents } from "@/services/encryption";
 import { Lock, AlertTriangle } from "lucide-react";
@@ -25,67 +26,30 @@ export default function TechSovereigntyPage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-200 font-sans selection:bg-asean-yellow/30 selection:text-slate-900 transition-colors">
-      {/* Hero Banner */}
-      <section className="relative border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/60 py-6 sm:py-9 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-6 mb-8">
-            <div className="flex-1">
-              <h1 className="font-serif-editorial text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
-                Technology Sovereignty Radar
-              </h1>
-              <p className="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-2xl font-sans leading-relaxed">
-                How free is each ASEAN country to use and build technology? This radar measures five dimensions of government tech control across 11 countries. A <strong className="text-slate-800 dark:text-slate-200">larger pentagon means more freedom</strong> — companies keep their code private, use strong encryption, and choose their own tech. A <strong className="text-slate-800 dark:text-slate-200">smaller shape means more restrictions</strong> — forced transfers, mandatory source disclosure, and encryption backdoors.
-              </p>
-            </div>
-
-            <div className="shrink-0 flex flex-wrap items-center gap-4 p-4 rounded-2xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 shadow-sm text-xs font-sans">
-              <div className="flex items-center gap-2">
-                <AlertTriangle className="h-5 w-5 text-asean-red" />
-                <div>
-                  <span className="block font-sans text-[10px] text-slate-400 uppercase font-bold">High Risk</span>
-                  <span className="font-bold text-slate-900 dark:text-white">{highRiskCount} of 11 Countries</span>
-                </div>
-              </div>
-              <div className="h-8 w-px bg-slate-300 dark:bg-slate-700" />
-              <div className="flex items-center gap-2">
-                <Lock className="h-5 w-5 text-asean-blue" />
-                <div>
-                  <span className="block font-sans text-[10px] text-slate-400 uppercase font-bold">Encryption Events</span>
-                  <span className="font-bold text-slate-900 dark:text-white">{encryptionEvents.length} Tracked</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Axis concept cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2.5 mb-5">
-            <div className="p-2.5 rounded-lg bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/80 text-xs text-slate-600 dark:text-slate-400 leading-snug">
-              <strong className="block text-slate-800 dark:text-slate-200 font-bold mb-0.5">No Forced Tech Transfer</strong>
-              Can foreign firms enter without giving tech to local partners?
-            </div>
-            <div className="p-2.5 rounded-lg bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/80 text-xs text-slate-600 dark:text-slate-400 leading-snug">
-              <strong className="block text-slate-800 dark:text-slate-200 font-bold mb-0.5">Source Code Protection</strong>
-              Can firms keep code private without government disclosure?
-            </div>
-            <div className="p-2.5 rounded-lg bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/80 text-xs text-slate-600 dark:text-slate-400 leading-snug">
-              <strong className="block text-slate-800 dark:text-slate-200 font-bold mb-0.5">Technology Choice</strong>
-              Can firms pick best tech or forced onto local standards?
-            </div>
-            <div className="p-2.5 rounded-lg bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/80 text-xs text-slate-600 dark:text-slate-400 leading-snug">
-              <strong className="block text-slate-800 dark:text-slate-200 font-bold mb-0.5">Authentication Methods</strong>
-              Can users use open e-signatures or locked to state IDs?
-            </div>
-            <div className="p-2.5 rounded-lg bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/80 text-xs text-slate-600 dark:text-slate-400 leading-snug">
-              <strong className="block text-slate-800 dark:text-slate-200 font-bold mb-0.5">Encryption Products</strong>
-              Can citizens freely use VPNs and encryption tools?
-            </div>
-          </div>
-
-          <p className="text-xs text-slate-400 dark:text-slate-500 max-w-3xl">
-            <strong className="text-slate-500 dark:text-slate-400">How to read the radar</strong>: Select up to 4 countries from the toggles. Each axis ranges from 0 (worst) to 100 (best). Countries scoring below 40 are flagged as <span className="text-asean-red font-medium">high risk</span>. The timeline below the radar logs real-world laws and decrees — red dots signal high-impact restrictions, green dots signal positive developments.
-          </p>
-        </div>
-      </section>
+      <HeroBanner
+        title="Technology Sovereignty Radar"
+        description={
+          <>
+            How free is each ASEAN country to use and build technology? This radar measures five dimensions of government tech control across 11 countries. A <strong className="text-slate-800 dark:text-slate-200">larger pentagon means more freedom</strong> — companies keep their code private, use strong encryption, and choose their own tech. A <strong className="text-slate-800 dark:text-slate-200">smaller shape means more restrictions</strong> — forced transfers, mandatory source disclosure, and encryption backdoors.
+          </>
+        }
+        stats={[
+          { icon: AlertTriangle, iconClass: "text-asean-red", label: "High Risk", value: `${highRiskCount} of 11 Countries` },
+          { icon: Lock, iconClass: "text-asean-blue", label: "Encryption Events", value: `${encryptionEvents.length} Tracked` },
+        ]}
+        concepts={[
+          { title: "No Forced Tech Transfer", desc: "Can foreign firms enter without giving tech to local partners?" },
+          { title: "Source Code Protection", desc: "Can firms keep code private without government disclosure?" },
+          { title: "Technology Choice", desc: "Can firms pick best tech or forced onto local standards?" },
+          { title: "Authentication Methods", desc: "Can users use open e-signatures or locked to state IDs?" },
+          { title: "Encryption Products", desc: "Can citizens freely use VPNs and encryption tools?" },
+        ]}
+        howToRead={
+          <>
+            Select up to 4 countries from the toggles. Each axis ranges from 0 (worst) to 100 (best). Countries scoring below 40 are flagged as <span className="text-asean-red font-medium">high risk</span>. The timeline below the radar logs real-world laws and decrees — red dots signal high-impact restrictions, green dots signal positive developments.
+          </>
+        }
+      />
 
       <main className="flex-1">
         <TechSovereigntyRadar summaries={allSummaries} principles={techPrinciples} />
