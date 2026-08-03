@@ -16,16 +16,18 @@ export default function Footer() {
             href="https://engagemedia.org"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block shrink-0"
+            className="inline-flex items-center gap-3 shrink-0 group"
           >
             <Image
-              src="/images/engagemedia-logo.png"
+              src="/images/Logomark_Red_800px.png"
               alt="EngageMedia"
-              width={768}
-              height={230}
-              sizes="(max-width: 640px) 240px, 320px"
-              className="h-14 sm:h-16 w-auto object-contain"
+              width={800}
+              height={800}
+              className="h-10 sm:h-12 w-auto object-contain group-hover:scale-105 transition-transform duration-200"
             />
+            <span className="text-xl sm:text-2xl font-bold tracking-tight text-slate-900 dark:text-white group-hover:text-asean-yellow transition-colors font-sans">
+              EngageMedia
+            </span>
           </Link>
 
           <p className="text-slate-600 dark:text-slate-400 text-xs leading-relaxed max-w-lg font-sans">

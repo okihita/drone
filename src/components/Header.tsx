@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import LanguageSwitcher from "./LanguageSwitcher";
 import ThemeToggle from "./ThemeToggle";
@@ -162,6 +163,14 @@ export default function Header() {
         {/* Row 1: Logo + tagline */}
         <div className="flex items-center justify-center md:justify-between">
           <Link href="/" className="group flex items-center gap-3 sm:gap-4 min-w-0">
+            <Image
+              src="/images/Logomark_Red_800px.png"
+              alt="EngageMedia D.R.O.N.E."
+              width={800}
+              height={800}
+              priority
+              className={`w-auto object-contain shrink-0 group-hover:scale-105 transition-all duration-200 ${scrolled ? "h-7 sm:h-8 lg:h-9" : "h-8 sm:h-10 lg:h-11"}`}
+            />
             <span className={`font-serif-editorial font-extrabold tracking-tight text-slate-900 dark:text-white group-hover:text-asean-yellow transition-all leading-none select-none shrink-0 ${scrolled ? "text-2xl sm:text-3xl lg:text-4xl" : "text-3xl sm:text-4xl lg:text-5xl"}`}>
               DRONE
             </span>
