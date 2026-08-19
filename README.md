@@ -58,6 +58,7 @@ The repository maintains an authoritative, living documentation suite:
 * 📄 **[`AGENTS.md`](file:///c:/Users/Okihita/WebstormProjects/drone/AGENTS.md)** — **Mandatory AI & Maintainer Guardrails (Branding, ASEAN color tokens, map rules, typography)**
 * 📄 **[`docs/ARCHITECTURE.md`](file:///c:/Users/Okihita/WebstormProjects/drone/docs/ARCHITECTURE.md)** — System architecture, Next.js App Router layout, database schema, and caching
 * 📄 **[`docs/BRAND_AND_DESIGN.md`](file:///c:/Users/Okihita/WebstormProjects/drone/docs/BRAND_AND_DESIGN.md)** — ASEAN logo palette tokens, typography rules, and editorial voice
+* 📄 **[`docs/MAINTAINER_GUIDE.md`](file:///c:/Users/Okihita/WebstormProjects/drone/docs/MAINTAINER_GUIDE.md)** — Maintainer hygiene standards & cognitive load reduction guide
 * 📂 **[`docs/specs/`](file:///c:/Users/Okihita/WebstormProjects/drone/docs/specs/)** — Active feature specifications (`defa-suite.md`, `digital-2-dozen.md`, `content-ingester.md`, `cartography.md`)
 
 ---
