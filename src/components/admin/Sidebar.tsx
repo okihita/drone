@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
   FileText, Newspaper, Globe, LogOut, LayoutDashboard,
   Menu, X, PanelLeftClose, PanelLeft, DownloadCloud,
@@ -54,6 +54,7 @@ function NavItem({
 
 export default function AdminDashboardLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
   const sidebarRef = useRef<HTMLElement>(null);
@@ -102,7 +103,8 @@ export default function AdminDashboardLayout({ children }: { children: React.Rea
 
   const handleLogout = async () => {
     await getBrowserClient().auth.signOut();
-    window.location.href = "/admin/login";
+    router.push("/admin/login");
+    router.refresh();
   };
 
   return (
