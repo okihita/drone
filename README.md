@@ -87,8 +87,8 @@ All background research, benchmarking analyses, strategic frameworks, engineerin
 
 ```bash
 cd ~/WebstormProjects/drone
-npm install
-npm run dev
+pnpm install
+pnpm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) in your browser.
