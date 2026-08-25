@@ -30,7 +30,7 @@ export default function HeroSection() {
         
         {/* TOP: Centered High-Impact SaaS Hero Heading */}
         <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12 space-y-4">
-          <div className="inline-flex items-center gap-2 rounded-full border border-asean-yellow/40 bg-asean-yellow/10 px-3 py-1 font-sans text-xs font-bold text-asean-yellow">
+          <div className="inline-flex items-center gap-2 rounded-full border border-asean-yellow/50 bg-asean-yellow/15 px-3.5 py-1 font-sans text-xs font-bold text-asean-yellow-dark dark:text-asean-yellow">
             <span className="h-2 w-2 rounded-full bg-asean-yellow animate-pulse" />
             11 Southeast Asian Member States Live
           </div>
@@ -103,7 +103,7 @@ export default function HeroSection() {
               <div className="grid grid-cols-3 gap-2 font-sans mb-3">
                 <div className="rounded-lg border border-slate-200 bg-slate-50 p-2 dark:border-white/10 dark:bg-white/5 text-center">
                   <span className="block text-[9px] uppercase font-bold text-slate-500">Threat</span>
-                  <span className="font-extrabold text-asean-yellow text-xs flex items-center justify-center gap-0.5">
+                  <span className="font-extrabold text-asean-yellow-dark dark:text-asean-yellow text-xs flex items-center justify-center gap-0.5">
                     <AlertTriangle className="h-3 w-3" />
                     {selectedCountry.threatScore}/5
                   </span>
@@ -127,7 +127,7 @@ export default function HeroSection() {
                   href={selectedCountry.primaryLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-xs text-slate-500 hover:text-slate-900 dark:hover:text-white"
+                  className="inline-flex items-center gap-1 text-xs text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white font-medium"
                 >
                   <span>Portal</span>
                   <ExternalLink className="h-3 w-3" />

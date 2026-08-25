@@ -11,8 +11,8 @@ export default function MissionCTA() {
         <div className="pointer-events-none absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-96 bg-asean-yellow/10 rounded-full blur-3xl" />
 
         <div className="relative z-10 space-y-6 max-w-2xl mx-auto">
-          <div className="inline-flex items-center gap-2 rounded-full border border-asean-yellow/40 bg-asean-yellow/10 px-3.5 py-1 text-xs font-bold text-asean-yellow font-sans">
-            <ShieldCheck className="w-4 h-4" />
+          <div className="inline-flex items-center gap-2 rounded-full border border-asean-yellow/50 bg-asean-yellow/15 px-4 py-1 text-xs font-bold text-asean-yellow-dark dark:text-asean-yellow font-sans">
+            <ShieldCheck className="w-4 h-4 text-asean-yellow-dark dark:text-asean-yellow" />
             Independent Civil Society Observatory
           </div>
 

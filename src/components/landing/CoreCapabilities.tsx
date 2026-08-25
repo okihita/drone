@@ -106,10 +106,10 @@ export default function CoreCapabilities() {
                       <Icon className="h-6 w-6 text-slate-700 dark:text-slate-200 group-hover:text-asean-yellow transition-colors" />
                     </div>
                     <div>
-                      <span className="font-sans text-xs font-bold text-asean-yellow block">
+                      <span className="font-sans text-xs font-bold text-asean-yellow-dark dark:text-asean-yellow block">
                         MODULE {feat.number}
                       </span>
-                      <span className="font-sans text-xs text-slate-400">
+                      <span className="font-sans text-xs text-slate-500 dark:text-slate-400">
                         {feat.tagline}
                       </span>
                     </div>
@@ -119,7 +119,7 @@ export default function CoreCapabilities() {
                     <span className="font-sans text-base font-extrabold text-slate-900 dark:text-white block">
                       {feat.stat}
                     </span>
-                    <span className="text-[10px] text-slate-400 font-sans block">
+                    <span className="text-[10px] text-slate-500 dark:text-slate-400 font-sans block font-medium">
                       {feat.statLabel}
                     </span>
                   </div>
