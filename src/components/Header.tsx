@@ -230,7 +230,7 @@ export default function Header() {
                       aria-label={isOpen ? "Close submenu" : "Open submenu"}
                     >
                       <ChevronDown className={`w-3 h-3 transition-transform ${isOpen ? "rotate-180" : ""} ${
-                        active || isOpen ? "text-amber-700 dark:text-asean-yellow" : "text-slate-400 dark:text-slate-500"
+                        active || isOpen ? "text-asean-amber dark:text-asean-yellow" : "text-slate-400 dark:text-slate-500"
                       }`} />
                     </button>
                   </div>
@@ -246,7 +246,7 @@ export default function Header() {
                             onClick={() => setOpenDropdown(null)}
                             className={`flex items-center gap-3 px-4 py-2.5 text-xs font-semibold transition-colors ${
                               active
-                                ? "bg-asean-yellow/10 text-amber-700 dark:text-asean-yellow"
+                                ? "bg-asean-yellow/10 text-asean-amber dark:text-asean-yellow"
                                 : "text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
                             }`}
                           >
@@ -326,7 +326,7 @@ export default function Header() {
                       aria-current={groupActive ? "page" : undefined}
                       className={`flex items-center gap-3 px-3 py-2.5 rounded-lg font-bold transition-colors ${
                         groupActive
-                          ? "bg-asean-yellow/10 text-amber-700 dark:text-asean-yellow"
+                          ? "bg-asean-yellow/10 text-asean-amber dark:text-asean-yellow"
                           : "text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800"
                       }`}
                     >
@@ -343,7 +343,7 @@ export default function Header() {
                           aria-current={active ? "page" : undefined}
                           className={`flex items-center gap-2.5 pl-7 pr-3 py-2 rounded-lg font-medium transition-colors text-xs sm:text-sm ${
                             active
-                              ? "bg-asean-yellow/10 text-amber-700 dark:text-asean-yellow"
+                              ? "bg-asean-yellow/10 text-asean-amber dark:text-asean-yellow"
                               : "text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
                           }`}
                         >
@@ -364,7 +364,7 @@ export default function Header() {
                   aria-current={active ? "page" : undefined}
                   className={`flex items-center gap-3 px-3 py-2.5 rounded-lg font-bold transition-colors ${
                     active
-                      ? "bg-asean-yellow/10 text-amber-700 dark:text-asean-yellow"
+                      ? "bg-asean-yellow/10 text-asean-amber dark:text-asean-yellow"
                       : "text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800"
                   }`}
                 >

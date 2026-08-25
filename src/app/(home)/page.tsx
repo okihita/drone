@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import BenchmarkPreview from "@/components/landing/BenchmarkPreview";
 import HomeSections from "@/components/landing/HomeSections";
 
 export const revalidate = 3600; // ISR: regenerate page at most once per hour
@@ -14,7 +13,6 @@ export default function Home() {
   return (
     <main className="flex-1">
       <HomeSections />
-      <BenchmarkPreview />
     </main>
   );
 }

@@ -15,7 +15,7 @@ export default function HeroCountryDossier({ country }: HeroCountryDossierProps)
       <div className="flex items-center justify-between">
         <div>
           <div className="flex items-center gap-2 font-sans text-xs text-slate-500 dark:text-slate-400">
-            <span className="font-mono text-asean-yellow font-bold">[{country.code}]</span>
+            <span className="font-sans text-asean-yellow font-bold">[{country.code}]</span>
             <span>Capital: <strong>{country.capital}</strong></span>
           </div>
           <h2 className="font-serif-editorial text-3xl font-extrabold text-slate-900 dark:text-white">
