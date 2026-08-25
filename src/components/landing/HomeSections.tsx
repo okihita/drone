@@ -1,7 +1,6 @@
 import { Suspense } from "react";
 import HeroSection from "@/components/landing/HeroSection";
 import CoreCapabilities from "@/components/landing/CoreCapabilities";
-import BenchmarkPreview from "@/components/landing/BenchmarkPreview";
 import { Skeleton } from "@/components/ui/skeleton";
 
 function HeroSkeleton() {
@@ -34,7 +33,6 @@ export default function HomeSections() {
         <HeroSection />
       </Suspense>
       <CoreCapabilities />
-      <BenchmarkPreview />
     </>
   );
 }
