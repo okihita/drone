@@ -6,10 +6,6 @@ import {
   Activity,
   Database,
   ArrowRight,
-  ShieldCheck,
-  FileCheck,
-  Globe2,
-  Lock,
 } from "lucide-react";
 
 interface FeatureBlock {

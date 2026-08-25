@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import {
   ArrowRight,
@@ -9,15 +9,12 @@ import {
   ExternalLink,
   ChevronRight,
   AlertTriangle,
-  Layers,
-  Zap,
 } from "lucide-react";
 import HeroMapCanvas, { type MapLayerMode } from "./HeroMapCanvas";
-import { getRealAseanCountries, type GeoCountryData } from "@/lib/aseanGeo";
+import type { GeoCountryData } from "@/lib/aseanGeo";
 import { FLAG_COMPONENTS } from "@/lib/flags";
 
 export default function HeroSection() {
-  const countries = useMemo(() => getRealAseanCountries(), []);
   const [selectedCountry, setSelectedCountry] = useState<GeoCountryData | null>(null);
   const [activeLayer, setActiveLayer] = useState<MapLayerMode>("arcs");
 
