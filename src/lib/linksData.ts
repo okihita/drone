@@ -144,6 +144,7 @@ export const CURATED_LINKS: CuratedLinkItem[] = [
     jurisdiction: "ID",
     publishedDate: "2026-02",
     excerpt: "Civil society editorial reviewing the democratic deficit and digital rights erosion embedded in closed-door bilateral trade pacts.",
+    ogImage: "https://omong-omong.com/wp-content/uploads/2026/02/1000214798hhhg.jpg",
   },
   {
     id: "kompas-data-transfer-fate",
@@ -214,6 +215,7 @@ export const CURATED_LINKS: CuratedLinkItem[] = [
     jurisdiction: "ASEAN",
     publishedDate: "2025",
     excerpt: "Macro-economic digital market data tracking cross-border e-commerce, cloud infrastructure investment, and digital payment corridors in ASEAN.",
+    ogImage: "https://www.bain.com/contentassets/d867c2c6619346a0a7feae13f69f9367/media-center-2021-16_9.jpg",
   },
   {
     id: "griffith-malaysia-us-rta",
@@ -330,6 +332,7 @@ export const CURATED_LINKS: CuratedLinkItem[] = [
     jurisdiction: "Global",
     publishedDate: "2026-06-26",
     excerpt: "Official trade statement covering e-commerce provisions, cross-border digital identity interoperability, and accession guidelines.",
+    ogImage: "https://www.gov.uk/assets/frontend/govuk-opengraph-image-4196a4d6333cf92aaf720047f56cfd91b3532d7635fc21ebcf0d5897df6b5f77.png",
   },
   {
     id: "ekon-indonesia-defa-nov",
@@ -364,7 +367,7 @@ export const CURATED_LINKS: CuratedLinkItem[] = [
     jurisdiction: "ASEAN",
     publishedDate: "2026-04",
     excerpt: "Field report on gig economy workers, content moderators, and tech labor unions demanding algorithmic transparency and collective bargaining rights.",
-    ogImage: "https://cdn.sanity.io/images/3tzzh18d/production/1bfb2828884f658864fa6eed14a17909c9eda2bf-1200x675.png",
+    ogImage: "https://cdn.sanity.io/images/3tzzh18d/production/6646adcf69b355f4a9c22874480de850fb3b7630-1200x675.png",
   },
   {
     id: "dta-nte-statement",
