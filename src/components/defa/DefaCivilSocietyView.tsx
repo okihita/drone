@@ -21,8 +21,8 @@ export default function DefaCivilSocietyView() {
           </>
         }
         rightSlot={
-          <div className="shrink-0 p-4 rounded-2xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 shadow-sm text-xs font-sans space-y-1">
-            <span className="block font-sans text-[10px] text-slate-400 uppercase font-bold">Democratic Inclusion Index</span>
+          <div className="shrink-0 p-4 rounded-2xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 shadow-sm text-sm font-sans space-y-1">
+            <span className="block font-sans text-sm text-slate-400 uppercase font-bold">Democratic Inclusion Index</span>
             <div className="font-bold text-slate-900 dark:text-white text-sm">SEOM Closed-Door Negotiation</div>
             <span className="text-asean-red font-bold">38 / 100 Regional Transparency Avg</span>
           </div>
@@ -45,7 +45,7 @@ export default function DefaCivilSocietyView() {
       <main className="flex-1 px-4 sm:px-6 lg:px-8 py-8 font-sans">
         <div className="max-w-7xl mx-auto space-y-8">
           {/* Civil Society Warning Callout */}
-        <div className="p-5 rounded-2xl bg-asean-red/10 border border-asean-red/30 text-slate-900 dark:text-white flex items-start gap-4 text-xs font-sans">
+        <div className="p-5 rounded-2xl bg-asean-red/10 border border-asean-red/30 text-slate-900 dark:text-white flex items-start gap-4 text-sm font-sans">
           <ShieldAlert className="w-6 h-6 text-asean-red shrink-0 mt-0.5" />
           <div className="space-y-1">
             <h4 className="font-bold text-sm text-asean-red uppercase tracking-wider">
@@ -77,12 +77,12 @@ export default function DefaCivilSocietyView() {
                       {country?.name}
                     </h4>
                   </div>
-                  <span className="font-mono text-xs font-bold text-asean-blue bg-asean-blue/10 px-2.5 py-0.5 rounded-full border border-asean-blue/30">
+                  <span className="font-mono text-sm font-bold text-asean-blue bg-asean-blue/10 px-2.5 py-0.5 rounded-full border border-asean-blue/30">
                     Readiness: {st.overallReadinessIndex}/100
                   </span>
                 </div>
 
-                <div className="space-y-3 text-xs font-sans">
+                <div className="space-y-3 text-sm font-sans">
                   <div>
                     <div className="flex justify-between text-slate-600 dark:text-slate-400 mb-1">
                       <span>SEOM Negotiation Transparency</span>

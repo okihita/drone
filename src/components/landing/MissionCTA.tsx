@@ -11,7 +11,7 @@ export default function MissionCTA() {
         <div className="pointer-events-none absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-96 bg-asean-yellow/10 rounded-full blur-3xl" />
 
         <div className="relative z-10 space-y-6 max-w-2xl mx-auto">
-          <div className="inline-flex items-center gap-2 rounded-full border border-asean-yellow/50 bg-asean-yellow/15 px-4 py-1 text-xs font-bold text-asean-yellow-dark dark:text-asean-yellow font-sans">
+          <div className="inline-flex items-center gap-2 rounded-full border border-asean-yellow/50 bg-asean-yellow/15 px-4 py-1 text-sm font-bold text-asean-yellow-dark dark:text-asean-yellow font-sans">
             <ShieldCheck className="w-4 h-4 text-asean-yellow-dark dark:text-asean-yellow" />
             Independent Civil Society Observatory
           </div>
@@ -27,7 +27,7 @@ export default function MissionCTA() {
           <div className="flex flex-wrap items-center justify-center gap-3 pt-2 font-sans">
             <Link
               href="/observatory"
-              className="inline-flex items-center gap-2 rounded-xl bg-asean-yellow px-6 py-3 text-xs sm:text-sm font-bold text-slate-950 shadow-md transition-all hover:bg-asean-yellow-hover hover:scale-105"
+              className="inline-flex items-center gap-2 rounded-xl bg-asean-yellow px-6 py-3 text-sm sm:text-sm font-bold text-slate-950 shadow-md transition-all hover:bg-asean-yellow-hover hover:scale-105"
             >
               <Map className="h-4 w-4" />
               <span>Explore Regional Map</span>
@@ -36,7 +36,7 @@ export default function MissionCTA() {
 
             <Link
               href="/intake"
-              className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-slate-50 px-6 py-3 text-xs sm:text-sm font-semibold text-slate-800 transition-colors hover:bg-slate-100 dark:border-white/15 dark:bg-slate-800/80 dark:text-slate-200 dark:hover:bg-slate-800"
+              className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-slate-50 px-6 py-3 text-sm sm:text-sm font-semibold text-slate-800 transition-colors hover:bg-slate-100 dark:border-white/15 dark:bg-slate-800/80 dark:text-slate-200 dark:hover:bg-slate-800"
             >
               <Database className="h-4 w-4 text-asean-red" />
               <span>Submit Leaked Dossier</span>

@@ -52,6 +52,7 @@ Every pull request and build enforces color tokens via:
 ```bash
 pnpm run lint:colors
 ```
-* **Rule 1**: Zero hardcoded hex colors outside `colors.ts` and `globals.css`.
+* **Rule 1**: Zero hardcoded hex colors outside `colors.ts` and `globals.css` (`pnpm run lint:colors`).
 * **Rule 2**: Zero generic Tailwind colors (`amber-*`, `emerald-*`, `green-*`, `indigo-*`, `cyan-*`).
 * **Rule 3**: Zero monospace fonts (`font-mono`) in the user interface.
+* **Rule 4**: **Minimum Typography Size**: `text-xs` (12px) and sub-13px font sizes (`text-[9px]`, `text-[10px]`, `text-[11px]`) are strictly forbidden across the website. Minimum allowed font size is `text-sm` (14px) for optimal readability and accessibility (`pnpm run lint:typography`).

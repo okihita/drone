@@ -23,8 +23,8 @@ export default function DefaAiEthicsView() {
           </>
         }
         rightSlot={
-          <div className="shrink-0 p-4 rounded-2xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 shadow-sm text-xs font-sans space-y-1">
-            <span className="block font-sans text-[10px] text-slate-400 uppercase font-bold">Regional Alignment</span>
+          <div className="shrink-0 p-4 rounded-2xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 shadow-sm text-sm font-sans space-y-1">
+            <span className="block font-sans text-sm text-slate-400 uppercase font-bold">Regional Alignment</span>
             <div className="font-bold text-slate-900 dark:text-white text-sm">{fullAdoptionStates.length} Full Adoption Nations</div>
             <span className="text-asean-emerald font-bold">{fullAdoptionStates.map((s) => s.countryCode).join(", ")}</span>
           </div>
@@ -50,27 +50,27 @@ export default function DefaAiEthicsView() {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 font-sans">
           <div className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm flex items-center justify-between">
             <div>
-              <span className="font-mono text-[10px] uppercase font-bold text-slate-400">Full AI Guide Adoption</span>
+              <span className="font-mono text-sm uppercase font-bold text-slate-400">Full AI Guide Adoption</span>
               <div className="font-serif-editorial text-3xl font-bold text-asean-emerald mt-1">{fullAdoptionStates.length} Nations</div>
-              <span className="text-[11px] text-slate-500">{fullAdoptionStates.map((s) => s.countryCode).join(", ")}</span>
+              <span className="text-sm text-slate-500">{fullAdoptionStates.map((s) => s.countryCode).join(", ")}</span>
             </div>
             <ShieldCheck className="w-8 h-8 text-asean-emerald opacity-80" />
           </div>
 
           <div className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm flex items-center justify-between">
             <div>
-              <span className="font-mono text-[10px] uppercase font-bold text-slate-400">AI Copyright Exemption</span>
+              <span className="font-mono text-sm uppercase font-bold text-slate-400">AI Copyright Exemption</span>
               <div className="font-serif-editorial text-3xl font-bold text-asean-blue mt-1">{copyrightExemptionStates.length} Nations</div>
-              <span className="text-[11px] text-slate-500">{copyrightExemptionStates.map((s) => s.countryCode).join(", ")}</span>
+              <span className="text-sm text-slate-500">{copyrightExemptionStates.map((s) => s.countryCode).join(", ")}</span>
             </div>
             <Cpu className="w-8 h-8 text-asean-blue opacity-80" />
           </div>
 
           <div className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm flex items-center justify-between">
             <div>
-              <span className="font-mono text-[10px] uppercase font-bold text-slate-400">Recorded Algorithmic Harms</span>
+              <span className="font-mono text-sm uppercase font-bold text-slate-400">Recorded Algorithmic Harms</span>
               <div className="font-serif-editorial text-3xl font-bold text-asean-amber mt-1">{totalHarmIncidents} Incidents</div>
-              <span className="text-[11px] text-slate-500">MMAI Telemetry Feed</span>
+              <span className="text-sm text-slate-500">MMAI Telemetry Feed</span>
             </div>
             <Activity className="w-8 h-8 text-asean-amber opacity-80" />
           </div>
@@ -78,7 +78,7 @@ export default function DefaAiEthicsView() {
 
         {/* AI Alignment Table */}
         <div className="overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-md">
-          <table className="w-full text-left text-xs font-sans">
+          <table className="w-full text-left text-sm font-sans">
             <thead>
               <tr className="border-b border-slate-200 dark:border-slate-800 bg-slate-100/70 dark:bg-slate-950/70 text-slate-700 dark:text-slate-300 uppercase tracking-wider font-bold">
                 <th className="p-4">ASEAN Member State</th>
@@ -104,7 +104,7 @@ export default function DefaAiEthicsView() {
                     </td>
                     <td className="p-4">
                       <span
-                        className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold border ${
+                        className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-sm font-bold border ${
                           st.aseanAiGuideAlignment === "Full Adoption"
                             ? "bg-asean-emerald/15 text-asean-emerald border-asean-emerald/40"
                             : st.aseanAiGuideAlignment === "Draft Framework"

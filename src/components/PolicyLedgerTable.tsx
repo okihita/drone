@@ -51,12 +51,12 @@ function PolicyDetailRow({ item }: { item: PolicyListItem }) {
           </div>
         )}
         {error && (
-          <p className="text-xs text-asean-red font-sans font-bold">
+          <p className="text-sm text-asean-red font-sans font-bold">
             Could not load policy details. Please try again later.
           </p>
         )}
         {data && (
-          <div className="space-y-2 text-xs font-sans">
+          <div className="space-y-2 text-sm font-sans">
             <p className="text-slate-600 dark:text-slate-400 leading-relaxed max-w-3xl">{data.summary}</p>
             <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
               {data.source_authority && (
@@ -119,19 +119,19 @@ export default function PolicyLedgerTable() {
               value={searchTerm}
               onChange={(e) => { setSearchTerm(e.target.value); setExpandedId(null); }}
               placeholder="Search by keyword, country..."
-              className="pl-8 bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-800 text-xs font-sans"
+              className="pl-8 bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-800 text-sm font-sans"
               aria-label="Search the policy ledger"
             />
             <Search className="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-2.5" />
           </div>
 
-          <div className="flex items-center gap-1 bg-white dark:bg-slate-900 p-1 rounded-lg border border-slate-300 dark:border-slate-800 text-xs overflow-x-auto no-scrollbar max-w-full shrink-0">
+          <div className="flex items-center gap-1 bg-white dark:bg-slate-900 p-1 rounded-lg border border-slate-300 dark:border-slate-800 text-sm overflow-x-auto no-scrollbar max-w-full shrink-0">
             <Filter className="w-3 h-3 text-slate-400 ml-1.5 shrink-0" />
             {(["ALL", ...POLICY_CATEGORIES] as const).map((cat) => (
               <button
                 key={cat}
                 onClick={() => { setSelectedCategory(cat); setExpandedId(null); }}
-                className={`px-2 py-1 rounded text-[10px] font-sans font-semibold transition-colors shrink-0 whitespace-nowrap ${
+                className={`px-2 py-1 rounded text-sm font-sans font-semibold transition-colors shrink-0 whitespace-nowrap ${
                   selectedCategory === cat
                     ? "bg-slate-800 text-white dark:bg-slate-700"
                     : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
@@ -143,7 +143,7 @@ export default function PolicyLedgerTable() {
           </div>
         </div>
 
-      <div className="flex items-center justify-between mb-3 text-[11px] font-sans text-slate-500 dark:text-slate-400" aria-live="polite">
+      <div className="flex items-center justify-between mb-3 text-sm font-sans text-slate-500 dark:text-slate-400" aria-live="polite">
         <span>
           {error
             ? "The ledger is unavailable."
@@ -158,7 +158,7 @@ export default function PolicyLedgerTable() {
           <div className="p-12 text-center">
             <AlertTriangle className="w-8 h-8 text-asean-red mx-auto mb-3" />
             <p className="text-sm font-bold text-slate-800 dark:text-slate-200">Failed to load the policy ledger.</p>
-            <p className="text-xs text-slate-500 mt-1">This may be a temporary network issue. Try refreshing the page.</p>
+            <p className="text-sm text-slate-500 mt-1">This may be a temporary network issue. Try refreshing the page.</p>
           </div>
         )}
         {!error && isLoading && policies.length === 0 ? (
@@ -178,17 +178,17 @@ export default function PolicyLedgerTable() {
             <p className="text-sm font-bold text-slate-700 dark:text-slate-300">
               No verified entries match your search.
             </p>
-            <p className="text-xs text-slate-500 mt-1">Try a different keyword or category filter.</p>
+            <p className="text-sm text-slate-500 mt-1">Try a different keyword or category filter.</p>
             <button
               onClick={() => { setSearchTerm(""); setSelectedCategory("ALL"); setExpandedId(null); }}
-              className="mt-4 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-xs font-bold text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors"
+              className="mt-4 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm font-bold text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors"
             >
               <X className="w-3.5 h-3.5" /> Clear filters
             </button>
           </div>
         ) : !error ? (
-          <table className="w-full min-w-[640px] text-left text-xs font-sans">
-            <thead className="bg-slate-50 dark:bg-slate-900/80 border-b border-slate-200 dark:border-slate-800 text-[10px] uppercase tracking-wider text-slate-600 dark:text-slate-400">
+          <table className="w-full min-w-[640px] text-left text-sm font-sans">
+            <thead className="bg-slate-50 dark:bg-slate-900/80 border-b border-slate-200 dark:border-slate-800 text-sm uppercase tracking-wider text-slate-600 dark:text-slate-400">
               <tr>
                 <th className="py-3 px-4 font-bold">Jurisdiction</th>
                 <th className="py-3 px-4 font-bold">Title &amp; Key Decree Summary</th>
@@ -209,9 +209,9 @@ export default function PolicyLedgerTable() {
                       <td className="py-4 px-4 align-top whitespace-nowrap">
                         <div className="flex items-center gap-2">
                           {FlagIcon && <FlagIcon className="w-4 h-3 rounded-xs shrink-0 shadow-xs" />}
-                          <span className="font-bold text-slate-900 dark:text-white font-sans text-xs">{item.jurisdiction}</span>
+                          <span className="font-bold text-slate-900 dark:text-white font-sans text-sm">{item.jurisdiction}</span>
                         </div>
-                        <span className="text-[10px] text-slate-500 dark:text-slate-400 block mt-0.5">{item.date}</span>
+                        <span className="text-sm text-slate-500 dark:text-slate-400 block mt-0.5">{item.date}</span>
                       </td>
                       <td className="py-4 px-4 align-top max-w-md">
                         <button
@@ -229,10 +229,10 @@ export default function PolicyLedgerTable() {
                         </button>
                       </td>
                       <td className="py-4 px-4 align-top whitespace-nowrap">
-                        <span className="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-[10px] font-sans font-semibold border border-slate-200 dark:border-slate-700">{item.category}</span>
+                        <span className="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-sm font-sans font-semibold border border-slate-200 dark:border-slate-700">{item.category}</span>
                       </td>
                       <td className="py-4 px-4 align-top whitespace-nowrap">
-                        <span className={`inline-flex items-center gap-1 ${accent} px-2 py-0.5 rounded text-[10px] font-bold border ${THREAT_BADGE_CONTAINER_CLASSES[item.threat_level] ?? ""}`}>
+                        <span className={`inline-flex items-center gap-1 ${accent} px-2 py-0.5 rounded text-sm font-bold border ${THREAT_BADGE_CONTAINER_CLASSES[item.threat_level] ?? ""}`}>
                           <Icon className="w-3 h-3" />
                           <span>[{item.threat_level === "Rights Verified" ? "Verified" : item.threat_level}]</span>
                         </span>

@@ -113,8 +113,8 @@ export default function NewNewsItem() {
             <div>
               <label className="text-sm font-medium mb-1 block">Featured Image</label>
               <Input type="file" accept="image/*" onChange={handleUpload} />
-              {uploading && <p className="text-xs text-muted-foreground mt-1">Uploading...</p>}
-              {form.image_url && <p className="text-xs text-asean-yellow mt-1">Uploaded</p>}
+              {uploading && <p className="text-sm text-muted-foreground mt-1">Uploading...</p>}
+              {form.image_url && <p className="text-sm text-asean-yellow mt-1">Uploaded</p>}
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">

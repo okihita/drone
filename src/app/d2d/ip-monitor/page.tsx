@@ -23,7 +23,7 @@ export default function IPMonitorPage() {
         }
         rightSlot={
           <div className="shrink-0 p-4 rounded-2xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 shadow-sm">
-            <span className="block font-sans text-[10px] text-slate-400 uppercase font-bold">ASEAN IP Average</span>
+            <span className="block font-sans text-sm text-slate-400 uppercase font-bold">ASEAN IP Average</span>
             <span className="font-bold text-2xl text-slate-900 dark:text-white">{avgScore}/100</span>
           </div>
         }

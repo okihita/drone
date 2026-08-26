@@ -51,14 +51,14 @@ export default function InvestigationsList() {
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                 ) : (
-                  <div className="w-full h-full flex items-center justify-center text-slate-400 dark:text-slate-600 font-sans text-xs">
+                  <div className="w-full h-full flex items-center justify-center text-slate-400 dark:text-slate-600 font-sans text-sm">
                     DRONE Investigation
                   </div>
                 )}
               </div>
               <div className="p-6 flex-1 flex flex-col justify-between space-y-4 font-sans">
                 <div className="space-y-2">
-                  <div className="flex items-center justify-between text-[10px] font-sans">
+                  <div className="flex items-center justify-between text-sm font-sans">
                     <span className="text-asean-yellow font-bold uppercase">
                       {article.category}
                     </span>
@@ -69,11 +69,11 @@ export default function InvestigationsList() {
                   <h2 className="font-serif-editorial text-xl font-bold text-slate-900 dark:text-white group-hover:text-asean-yellow transition-colors leading-snug">
                     {article.title}
                   </h2>
-                  <p className="text-slate-600 dark:text-slate-400 text-xs line-clamp-3 leading-relaxed font-sans">
+                  <p className="text-slate-600 dark:text-slate-400 text-sm line-clamp-3 leading-relaxed font-sans">
                     {getExcerpt(article.summary, 180)}
                   </p>
                 </div>
-                <div className="pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs font-sans text-slate-500">
+                <div className="pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-sm font-sans text-slate-500">
                   <span>By {article.author}</span>
                   <span className="text-asean-yellow font-bold group-hover:translate-x-1 transition-transform flex items-center gap-1 font-sans">
                     Read Report &rarr;

@@ -61,7 +61,7 @@ function ToolbarSelect({
       <Button
         variant={active ? "secondary" : "ghost"}
         size="sm"
-        className="h-8 text-xs font-sans gap-1"
+        className="h-8 text-sm font-sans gap-1"
         onClick={(e) => { e.preventDefault(); setOpen(!open); }}
         type="button"
       >
@@ -78,7 +78,7 @@ function ToolbarSelect({
               <button
                 key={opt.label}
                 onClick={(e) => { e.preventDefault(); opt.action(); setOpen(false); }}
-                className={`w-full text-left px-3 py-1.5 text-xs font-sans rounded ${
+                className={`w-full text-left px-3 py-1.5 text-sm font-sans rounded ${
                   opt.isActive
                     ? "bg-slate-100 dark:bg-slate-800 font-bold"
                     : "hover:bg-slate-50 dark:hover:bg-slate-800"
@@ -267,7 +267,7 @@ export default function RichTextEditor({ content, onChange, placeholder }: RichT
           <div className="flex-1" />
 
           {/* Read time indicator */}
-          <span className="text-[10px] text-slate-400 dark:text-slate-500 font-sans flex items-center gap-1 px-2">
+          <span className="text-sm text-slate-400 dark:text-slate-500 font-sans flex items-center gap-1 px-2">
             <Clock className="w-3 h-3" />
             {readTime}
           </span>
@@ -276,7 +276,7 @@ export default function RichTextEditor({ content, onChange, placeholder }: RichT
           <Button
             variant={previewOpen ? "secondary" : "ghost"}
             size="sm"
-            className="h-8 text-xs gap-1"
+            className="h-8 text-sm gap-1"
             onClick={() => setPreviewOpen(!previewOpen)}
             type="button"
           >
@@ -286,7 +286,7 @@ export default function RichTextEditor({ content, onChange, placeholder }: RichT
         </div>
 
         {uploading && (
-          <div className="px-4 py-1.5 text-xs text-asean-yellow bg-asean-yellow/5 border-b border-asean-yellow/20">
+          <div className="px-4 py-1.5 text-sm text-asean-yellow bg-asean-yellow/5 border-b border-asean-yellow/20">
             Uploading image...
           </div>
         )}

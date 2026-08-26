@@ -9,6 +9,7 @@
     "start": "next start",
     "lint": "eslint",
     "lint:colors": "node scripts/check-colors.js",
+    "lint:typography": "node scripts/check-typography.js",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage"

@@ -48,36 +48,36 @@ export default function BenchmarkPage() {
 
           <div className="grid grid-cols-2 gap-2">
             <div className="p-3 rounded-xl bg-asean-blue/5 dark:bg-asean-blue/10 border border-asean-blue/20">
-              <div className="text-[10px] uppercase tracking-wider font-bold text-asean-blue mb-0.5">Origin</div>
-              <p className="text-[11px] text-slate-600 dark:text-slate-400 leading-snug">USTR 2016 · TPP · 12 Pacific Rim nations</p>
+              <div className="text-sm uppercase tracking-wider font-bold text-asean-blue mb-0.5">Origin</div>
+              <p className="text-sm text-slate-600 dark:text-slate-400 leading-snug">USTR 2016 · TPP · 12 Pacific Rim nations</p>
             </div>
             <div className="p-3 rounded-xl bg-asean-amber/5 dark:bg-asean-amber/10 border border-asean-amber/20">
-              <div className="text-[10px] uppercase tracking-wider font-bold text-asean-amber mb-0.5">Scope</div>
-              <p className="text-[11px] text-slate-600 dark:text-slate-400 leading-snug">24 principles · 5 clusters · 11 countries</p>
+              <div className="text-sm uppercase tracking-wider font-bold text-asean-amber mb-0.5">Scope</div>
+              <p className="text-sm text-slate-600 dark:text-slate-400 leading-snug">24 principles · 5 clusters · 11 countries</p>
             </div>
             <div className="p-3 rounded-xl bg-asean-emerald/5 dark:bg-asean-emerald/10 border border-asean-emerald/20">
-              <div className="text-[10px] uppercase tracking-wider font-bold text-asean-emerald mb-0.5">Why</div>
-              <p className="text-[11px] text-slate-600 dark:text-slate-400 leading-snug">DEFA will bind 680M people. This is the yardstick.</p>
+              <div className="text-sm uppercase tracking-wider font-bold text-asean-emerald mb-0.5">Why</div>
+              <p className="text-sm text-slate-600 dark:text-slate-400 leading-snug">DEFA will bind 680M people. This is the yardstick.</p>
             </div>
             <div className="p-3 rounded-xl bg-asean-red/5 dark:bg-asean-red/10 border border-asean-red/20">
-              <div className="text-[10px] uppercase tracking-wider font-bold text-asean-red mb-0.5">How</div>
-              <p className="text-[11px] text-slate-600 dark:text-slate-400 leading-snug">Click cells for detail · Hover for TPP text · Filter by cluster</p>
+              <div className="text-sm uppercase tracking-wider font-bold text-asean-red mb-0.5">How</div>
+              <p className="text-sm text-slate-600 dark:text-slate-400 leading-snug">Click cells for detail · Hover for TPP text · Filter by cluster</p>
             </div>
           </div>
         </div>
 
         <D2DTimeline />
 
-        <p className="text-xs text-slate-400 dark:text-slate-500 mt-6 max-w-3xl">
+        <p className="text-sm text-slate-400 dark:text-slate-500 mt-6 max-w-3xl">
           <strong className="text-slate-500 dark:text-slate-400">How to read</strong>: Click any country on the map to see its detailed scores. Hover over heatmap cells for the original TPP provision text. Filter by cluster to focus on specific policy areas. Green cells (80+) indicate full compliance; red cells (&lt;20) indicate severe non-compliance. Export the full dataset via the button in the sidebar.
         </p>
 
-        <div className="mt-4 p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white/60 dark:bg-slate-900/40 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs font-sans text-slate-600 dark:text-slate-400">
+        <div className="mt-4 p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white/60 dark:bg-slate-900/40 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-sm font-sans text-slate-600 dark:text-slate-400">
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-asean-emerald animate-pulse motion-reduce:animate-none shrink-0" />
             <span><strong>Data Integrity Audit (July 2026)</strong>: Empirically verified against OECD DSTRI, Freedom House, CPTPP ratification records &amp; ASEAN DEFA SEOM 57 technical annexes across 264 statutory data points.</span>
           </div>
-          <span className="text-[10px] font-bold px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-500 shrink-0">100% Empirically Cited</span>
+          <span className="text-sm font-bold px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-500 shrink-0">100% Empirically Cited</span>
         </div>
       </HeroBanner>
 

@@ -61,7 +61,7 @@ export default function DEFABenchmarkExport() {
         <h4 className="font-bold text-slate-900 dark:text-white flex items-center gap-2 text-sm">
           <Download className="w-4 h-4 text-asean-emerald" /> Export DEFA Regional Telemetry Dataset
         </h4>
-        <p className="text-xs text-slate-500">
+        <p className="text-sm text-slate-500">
           Download real-time SEOM legal scrubbing, DFFT regime tiers, and readiness metrics across 11 nations.
         </p>
       </div>
@@ -71,7 +71,7 @@ export default function DEFABenchmarkExport() {
           type="button"
           onClick={handleExportCSV}
           disabled={downloading !== null}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs font-bold text-slate-800 dark:text-slate-200 hover:bg-slate-100 transition-all shadow-xs"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-sm font-bold text-slate-800 dark:text-slate-200 hover:bg-slate-100 transition-all shadow-xs"
         >
           <FileSpreadsheet className="w-4 h-4 text-asean-emerald" />
           {downloading === "csv" ? "Exporting..." : "Export CSV"}
@@ -81,7 +81,7 @@ export default function DEFABenchmarkExport() {
           type="button"
           onClick={handleExportJSON}
           disabled={downloading !== null}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs font-bold text-slate-800 dark:text-slate-200 hover:bg-slate-100 transition-all shadow-xs"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-sm font-bold text-slate-800 dark:text-slate-200 hover:bg-slate-100 transition-all shadow-xs"
         >
           <FileJson className="w-4 h-4 text-asean-blue" />
           {downloading === "json" ? "Exporting..." : "Export JSON"}

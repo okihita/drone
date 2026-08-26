@@ -142,11 +142,11 @@ export default function FeaturedCarousel({
 
             <div className="lg:col-span-5 p-6 sm:p-8 flex flex-col justify-between h-full space-y-4 relative z-20">
               <div className="space-y-4 flex-1 flex flex-col justify-center">
-                <div className="flex items-center justify-between gap-2 text-xs font-sans">
+                <div className="flex items-center justify-between gap-2 text-sm font-sans">
                   <span className="bg-asean-yellow/20 text-asean-yellow font-bold px-2.5 py-0.5 rounded border border-asean-yellow/30 uppercase tracking-wider">
                     {activeStory.category}
                   </span>
-                  <span className="text-slate-500 dark:text-slate-400 font-sans text-xs">
+                  <span className="text-slate-500 dark:text-slate-400 font-sans text-sm">
                     {activeStory.read_time}
                   </span>
                 </div>
@@ -158,12 +158,12 @@ export default function FeaturedCarousel({
                 </div>
 
                 <div className="min-h-[5.5rem] flex items-center">
-                  <p className="text-slate-600 dark:text-slate-300 text-xs sm:text-sm leading-relaxed font-serif-editorial italic border-l-2 border-asean-yellow pl-3 line-clamp-4 transition-all duration-300">
+                  <p className="text-slate-600 dark:text-slate-300 text-sm sm:text-sm leading-relaxed font-serif-editorial italic border-l-2 border-asean-yellow pl-3 line-clamp-4 transition-all duration-300">
                     {getExcerpt(activeStory.summary, 180)}
                   </p>
                 </div>
 
-                <div className="text-xs text-slate-500 dark:text-slate-400 font-sans pt-1">
+                <div className="text-sm text-slate-500 dark:text-slate-400 font-sans pt-1">
                   By{" "}
                   <strong className="text-slate-900 dark:text-slate-200">
                     {activeStory.author}
@@ -174,13 +174,13 @@ export default function FeaturedCarousel({
               <div className="pt-4 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between mt-auto">
                 <Link
                   href={activeStory.slug ? `/investigations/${activeStory.slug}` : `/investigations/id/${activeStory.id}`}
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-slate-900 dark:bg-slate-800 hover:bg-slate-800 dark:hover:bg-slate-700 text-white font-semibold text-xs font-sans transition-colors shadow-xs"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-slate-900 dark:bg-slate-800 hover:bg-slate-800 dark:hover:bg-slate-700 text-white font-semibold text-sm font-sans transition-colors shadow-xs"
                 >
                   <span>Read Full Investigation</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
 
-                <span className="text-[10px] uppercase tracking-wider text-slate-400 font-sans font-semibold">
+                <span className="text-sm uppercase tracking-wider text-slate-400 font-sans font-semibold">
                   Story {activeSlideIndex + 1} of {stories.length}
                 </span>
               </div>

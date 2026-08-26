@@ -60,11 +60,11 @@ export default function BenchmarkHeroMap({ selectedCountryCode, onSelectCountry 
             <h2 className="font-serif-editorial text-xl font-extrabold text-slate-900 dark:text-white">
               Geographic Compliance Overview
             </h2>
-            <p className="text-xs text-slate-500 dark:text-slate-400 font-sans mt-0.5">
+            <p className="text-sm text-slate-500 dark:text-slate-400 font-sans mt-0.5">
               Countries colored by overall Digital 2 Dozen compliance score. Click a flag or country to inspect.
             </p>
           </div>
-          <div className="hidden sm:flex items-center gap-2 text-[10px] font-sans text-slate-500 dark:text-slate-400">
+          <div className="hidden sm:flex items-center gap-2 text-sm font-sans text-slate-500 dark:text-slate-400">
             {SCORE_LEGEND.map((val) => (
               <span key={val.range} className="flex items-center gap-1">
                 <span className="w-3 h-3 rounded-sm" style={{ backgroundColor: val.color }} />
@@ -121,13 +121,13 @@ export default function BenchmarkHeroMap({ selectedCountryCode, onSelectCountry 
                         }}
                       />
                       <circle cx={country.centerPos.x} cy={country.centerPos.y} r={isSelected || isHovered ? 5 : 3.5} fill={ASEAN_COLORS.white} stroke={color} strokeWidth="1.5" className="pointer-events-none" />
-                      <text x={country.centerPos.x} y={country.centerPos.y + 14} textAnchor="middle" className="pointer-events-none font-sans text-[9px] font-bold uppercase select-none" fill={ASEAN_COLORS.white} style={{ textShadow: "0 1px 3px rgba(0,0,0,0.8)" }}>
+                      <text x={country.centerPos.x} y={country.centerPos.y + 14} textAnchor="middle" className="pointer-events-none font-sans text-sm font-bold uppercase select-none" fill={ASEAN_COLORS.white} style={{ textShadow: "0 1px 3px rgba(0,0,0,0.8)" }}>
                         {country.code}
                       </text>
                       {isHovered && (
                         <g>
                           <rect x={country.centerPos.x - 36} y={country.centerPos.y - 32} width="72" height="18" rx="4" fill={ASEAN_COLORS.cardDark} fillOpacity="0.92" />
-                          <text x={country.centerPos.x} y={country.centerPos.y - 19} textAnchor="middle" className="fill-white font-sans text-[10px] font-bold">{country.name}</text>
+                          <text x={country.centerPos.x} y={country.centerPos.y - 19} textAnchor="middle" className="fill-white font-sans text-sm font-bold">{country.name}</text>
                         </g>
                       )}
                     </g>
@@ -154,14 +154,14 @@ export default function BenchmarkHeroMap({ selectedCountryCode, onSelectCountry 
                       key={c.code}
                       onClick={() => onSelectCountry(selectedCountryCode === c.code ? null : c.code)}
                       title={`${c.name} — ${c.regimeType}`}
-                      className={`flex shrink-0 items-center gap-1.5 rounded-lg border px-2 py-1 text-[11px] font-bold transition-all ${
+                      className={`flex shrink-0 items-center gap-1.5 rounded-lg border px-2 py-1 text-sm font-bold transition-all ${
                         isSelected
                           ? "border-asean-yellow bg-asean-yellow/25 text-asean-yellow shadow-xs"
                           : "border-slate-200 bg-slate-100/80 text-slate-700 hover:border-slate-300 hover:bg-slate-200 hover:text-slate-900 dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-300 dark:hover:border-white/25 dark:hover:bg-white/15 dark:hover:text-white"
                       }`}
                     >
-                      {FlagIcon ? <FlagIcon className="w-4 h-3 rounded-xs object-cover shadow-xs" /> : <span className="font-sans text-[10px]">[{c.code}]</span>}
-                      <span className="font-sans text-[11px]">{c.code}</span>
+                      {FlagIcon ? <FlagIcon className="w-4 h-3 rounded-xs object-cover shadow-xs" /> : <span className="font-sans text-sm">[{c.code}]</span>}
+                      <span className="font-sans text-sm">{c.code}</span>
                       {c.threatScore >= 4 && <span className="h-1.5 w-1.5 rounded-full bg-asean-red animate-pulse" />}
                     </button>
                   );
@@ -176,7 +176,7 @@ export default function BenchmarkHeroMap({ selectedCountryCode, onSelectCountry 
               <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center gap-2">
                   <span className="font-sans text-lg font-extrabold text-slate-900 dark:text-white">{selectedSummary.countryCode}</span>
-                  <span className="text-xs font-bold text-slate-700 dark:text-slate-300">{selectedSummary.countryName}</span>
+                  <span className="text-sm font-bold text-slate-700 dark:text-slate-300">{selectedSummary.countryName}</span>
                 </div>
                 <button onClick={() => onSelectCountry(null)} className="p-0.5 rounded hover:bg-slate-100 dark:hover:bg-slate-800">
                   <X className="h-3.5 w-3.5 text-slate-400" />
@@ -185,7 +185,7 @@ export default function BenchmarkHeroMap({ selectedCountryCode, onSelectCountry 
 
               {/* Overall score */}
               <div className="mb-3">
-                <div className="flex items-center justify-between text-[10px] mb-1">
+                <div className="flex items-center justify-between text-sm mb-1">
                   <span className="text-slate-500">Overall</span>
                   <span className={`font-sans font-extrabold ${scoreBadge(selectedSummary.overallScore)}`}>
                     {selectedSummary.overallScore}/100
@@ -197,7 +197,7 @@ export default function BenchmarkHeroMap({ selectedCountryCode, onSelectCountry 
               </div>
 
               {/* Best & Worst clusters */}
-              <div className="space-y-2 mb-3 text-[10px]">
+              <div className="space-y-2 mb-3 text-sm">
                 {(() => {
                   const sorted = [...selectedSummary.clusters].sort((a, b) => b.averageScore - a.averageScore);
                   const best = sorted[0];
@@ -225,7 +225,7 @@ export default function BenchmarkHeroMap({ selectedCountryCode, onSelectCountry 
 
               <Link
                 href={`/d2d/benchmark#compliance-heatmap`}
-                className="flex items-center justify-center gap-1 w-full py-1.5 rounded-lg bg-asean-blue text-white text-[10px] font-sans font-bold hover:bg-asean-blue/90 transition-colors"
+                className="flex items-center justify-center gap-1 w-full py-1.5 rounded-lg bg-asean-blue text-white text-sm font-sans font-bold hover:bg-asean-blue/90 transition-colors"
               >
                 View in Heatmap <ArrowRight className="h-3 w-3" />
               </Link>

@@ -26,7 +26,7 @@ export default function BenchmarkHeatmap({ summaries, principles, selectedCountr
   const [hoveredPrinciple, setHoveredPrinciple] = useState<BenchmarkPrinciple | null>(null);
   const [popoverPos, setPopoverPos] = useState<{ x: number; y: number } | null>(null);
 
-  const headerBg = "sticky top-0 z-10 bg-slate-100 dark:bg-slate-800 font-sans text-xs font-bold text-slate-700 dark:text-slate-300";
+  const headerBg = "sticky top-0 z-10 bg-slate-100 dark:bg-slate-800 font-sans text-sm font-bold text-slate-700 dark:text-slate-300";
 
   const showPrinciple = (principle: BenchmarkPrinciple, x: number, y: number) => {
     setHoveredPrinciple(principle);
@@ -51,7 +51,7 @@ export default function BenchmarkHeatmap({ summaries, principles, selectedCountr
         </h2>
 
         {/* Legend */}
-        <div className="flex flex-wrap items-center gap-3 mb-4 text-[11px] font-sans text-slate-500 dark:text-slate-400">
+        <div className="flex flex-wrap items-center gap-3 mb-4 text-sm font-sans text-slate-500 dark:text-slate-400">
           <span>Score:</span>
           {[
             { range: "81–100", color: "bg-asean-emerald" },
@@ -69,7 +69,7 @@ export default function BenchmarkHeatmap({ summaries, principles, selectedCountr
 
         {/* Centered table inside card container */}
         <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm overflow-x-auto">
-          <table className="w-full border-collapse text-xs font-sans">
+          <table className="w-full border-collapse text-sm font-sans">
             <caption className="sr-only">
               Digital 2 Dozen Compliance Heatmap — principle scores across 11 ASEAN countries
             </caption>
@@ -103,9 +103,9 @@ export default function BenchmarkHeatmap({ summaries, principles, selectedCountr
                         {FlagIcon ? (
                           <FlagIcon className="w-5 h-3.5 rounded-xs" />
                         ) : (
-                          <span className="font-sans text-[10px] font-extrabold">{s.countryCode}</span>
+                          <span className="font-sans text-sm font-extrabold">{s.countryCode}</span>
                         )}
-                        <span className="font-sans text-[9px] font-bold text-slate-500 dark:text-slate-400">{s.countryCode}</span>
+                        <span className="font-sans text-sm font-bold text-slate-500 dark:text-slate-400">{s.countryCode}</span>
                       </div>
                     </th>
                   );
@@ -141,7 +141,7 @@ export default function BenchmarkHeatmap({ summaries, principles, selectedCountr
                         }
                       }}
                     >
-                      <span className="font-sans text-[10px] text-slate-400 dark:text-slate-500 mr-1.5">
+                      <span className="font-sans text-sm text-slate-400 dark:text-slate-500 mr-1.5">
                         #{principle.id}
                       </span>
                       <span className="font-bold text-slate-800 dark:text-slate-200 leading-tight">
@@ -150,7 +150,7 @@ export default function BenchmarkHeatmap({ summaries, principles, selectedCountr
                     </td>
                     <td className="p-2 align-middle">
                       <span
-                        className={`inline-block px-1.5 py-0.5 rounded text-[9px] font-bold text-white ${CLUSTER_CHIP_CLASSES[clusterInfo?.color ?? ""] ?? "bg-slate-500"}`}
+                        className={`inline-block px-1.5 py-0.5 rounded text-sm font-bold text-white ${CLUSTER_CHIP_CLASSES[clusterInfo?.color ?? ""] ?? "bg-slate-500"}`}
                       >
                         {clusterInfo?.label ?? principle.cluster}
                       </span>
@@ -177,7 +177,7 @@ export default function BenchmarkHeatmap({ summaries, principles, selectedCountr
                           }}
                         >
                           <span
-                            className={`inline-flex items-center justify-center w-10 h-7 rounded-md font-sans text-[11px] font-bold ${heatmapCellClass(score)} text-white`}
+                            className={`inline-flex items-center justify-center w-10 h-7 rounded-md font-sans text-sm font-bold ${heatmapCellClass(score)} text-white`}
                             title={`${s.countryName}: ${score}/100 — ${principle.shortTitle}`}
                           >
                             {score}

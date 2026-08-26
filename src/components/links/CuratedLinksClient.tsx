@@ -67,12 +67,12 @@ export default function CuratedLinksClient() {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search links by title, organization, or topic..."
-            className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-900 placeholder:text-slate-400 focus:outline-hidden focus:ring-2 focus:ring-asean-yellow dark:border-white/10 dark:bg-slate-950 dark:text-white text-xs sm:text-sm font-sans"
+            className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-900 placeholder:text-slate-400 focus:outline-hidden focus:ring-2 focus:ring-asean-yellow dark:border-white/10 dark:bg-slate-950 dark:text-white text-sm sm:text-sm font-sans"
           />
           {searchQuery && (
             <button
               onClick={() => setSearchQuery("")}
-              className="absolute right-3.5 top-1/2 -translate-y-1/2 text-xs text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 font-bold"
+              className="absolute right-3.5 top-1/2 -translate-y-1/2 text-sm text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 font-bold"
             >
               Clear
             </button>
@@ -84,14 +84,14 @@ export default function CuratedLinksClient() {
           
           {/* Category Chips */}
           <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar max-w-full pb-1">
-            <span className="text-[11px] font-sans font-bold uppercase tracking-wider text-slate-400 pr-1 shrink-0">
+            <span className="text-sm font-sans font-bold uppercase tracking-wider text-slate-400 pr-1 shrink-0">
               Topic:
             </span>
             {CATEGORIES.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setSelectedCategory(cat)}
-                className={`shrink-0 rounded-lg px-2.5 py-1 text-xs font-sans font-bold transition-all ${
+                className={`shrink-0 rounded-lg px-2.5 py-1 text-sm font-sans font-bold transition-all ${
                   selectedCategory === cat
                     ? "bg-slate-900 text-white dark:bg-asean-yellow dark:text-slate-950 shadow-xs"
                     : "bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-white/5 dark:text-slate-400 dark:hover:bg-white/10 dark:hover:text-white"
@@ -104,7 +104,7 @@ export default function CuratedLinksClient() {
 
           {/* Jurisdiction Chips */}
           <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar max-w-full pb-1">
-            <span className="text-[11px] font-sans font-bold uppercase tracking-wider text-slate-400 pr-1 shrink-0">
+            <span className="text-sm font-sans font-bold uppercase tracking-wider text-slate-400 pr-1 shrink-0">
               Region:
             </span>
             {JURISDICTIONS.map((jur) => {
@@ -116,7 +116,7 @@ export default function CuratedLinksClient() {
                 <button
                   key={jur}
                   onClick={() => setSelectedJurisdiction(jur)}
-                  className={`shrink-0 inline-flex items-center gap-1 rounded-lg px-2.5 py-1 text-xs font-sans font-bold transition-all ${
+                  className={`shrink-0 inline-flex items-center gap-1 rounded-lg px-2.5 py-1 text-sm font-sans font-bold transition-all ${
                     selectedJurisdiction === jur
                       ? "bg-asean-yellow text-slate-950 shadow-xs"
                       : "bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-white/5 dark:text-slate-400 dark:hover:bg-white/10 dark:hover:text-white"
@@ -133,7 +133,7 @@ export default function CuratedLinksClient() {
       </div>
 
       {/* Result Count */}
-      <div className="flex items-center justify-between text-xs font-sans text-slate-500 dark:text-slate-400 px-1">
+      <div className="flex items-center justify-between text-sm font-sans text-slate-500 dark:text-slate-400 px-1">
         <span>Showing <strong>{filteredLinks.length}</strong> curated {filteredLinks.length === 1 ? "resource" : "resources"}</span>
         {(selectedCategory !== "ALL" || selectedJurisdiction !== "ALL" || searchQuery) && (
           <button
@@ -181,11 +181,11 @@ export default function CuratedLinksClient() {
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-80" />
                     
                     <div className="absolute bottom-2.5 left-3 right-3 flex items-center justify-between">
-                      <span className="font-sans text-[11px] font-bold text-white drop-shadow-xs truncate max-w-[70%]">
+                      <span className="font-sans text-sm font-bold text-white drop-shadow-xs truncate max-w-[70%]">
                         {item.publisher}
                       </span>
                       {item.isPdf && (
-                        <span className="rounded bg-black/70 border border-white/20 px-1.5 py-0.5 text-[9px] font-sans font-bold text-white backdrop-blur-xs">
+                        <span className="rounded bg-black/70 border border-white/20 px-1.5 py-0.5 text-sm font-sans font-bold text-white backdrop-blur-xs">
                           PDF
                         </span>
                       )}
@@ -197,17 +197,17 @@ export default function CuratedLinksClient() {
                       <div className="p-1.5 rounded-lg bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-white/10 text-slate-500">
                         {item.isPdf ? <FileText className="w-3.5 h-3.5" /> : <Globe className="w-3.5 h-3.5" />}
                       </div>
-                      <span className="font-sans text-xs font-bold text-slate-900 dark:text-white">
+                      <span className="font-sans text-sm font-bold text-slate-900 dark:text-white">
                         {item.publisher}
                       </span>
-                      <span className="text-[11px] text-slate-400 font-sans">·</span>
-                      <span className="text-[11px] text-slate-500 dark:text-slate-400 font-sans">
+                      <span className="text-sm text-slate-400 font-sans">·</span>
+                      <span className="text-sm text-slate-500 dark:text-slate-400 font-sans">
                         {item.domain}
                       </span>
                     </div>
 
                     {item.isPdf && (
-                      <span className="rounded bg-slate-100 border border-slate-200 px-1.5 py-0.5 text-[9px] font-sans font-bold text-slate-600 dark:bg-white/10 dark:border-white/10 dark:text-slate-300">
+                      <span className="rounded bg-slate-100 border border-slate-200 px-1.5 py-0.5 text-sm font-sans font-bold text-slate-600 dark:bg-white/10 dark:border-white/10 dark:text-slate-300">
                         PDF
                       </span>
                     )}
@@ -218,11 +218,11 @@ export default function CuratedLinksClient() {
                 <div className="p-5">
                   {/* Neutral Clean Category Pill (NO color) */}
                   <div className="flex items-center justify-between gap-2 mb-2.5">
-                    <span className="rounded-md bg-slate-100 border border-slate-200/80 px-2 py-0.5 text-[10px] font-sans font-medium text-slate-600 dark:bg-white/5 dark:border-white/10 dark:text-slate-400">
+                    <span className="rounded-md bg-slate-100 border border-slate-200/80 px-2 py-0.5 text-sm font-sans font-medium text-slate-600 dark:bg-white/5 dark:border-white/10 dark:text-slate-400">
                       {item.category}
                     </span>
 
-                    <span className="text-[11px] text-slate-500 dark:text-slate-400 font-sans">
+                    <span className="text-sm text-slate-500 dark:text-slate-400 font-sans">
                       {item.publishedDate}
                     </span>
                   </div>
@@ -233,14 +233,14 @@ export default function CuratedLinksClient() {
                   </h3>
 
                   {/* Excerpt */}
-                  <p className="font-sans text-xs text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-3">
+                  <p className="font-sans text-sm text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-3">
                     {item.excerpt}
                   </p>
                 </div>
               </div>
 
               {/* Bottom Footer */}
-              <div className="flex items-center justify-between px-5 py-3 border-t border-slate-100 dark:border-white/5 text-xs font-sans bg-slate-50/50 dark:bg-slate-900/30">
+              <div className="flex items-center justify-between px-5 py-3 border-t border-slate-100 dark:border-white/5 text-sm font-sans bg-slate-50/50 dark:bg-slate-900/30">
                 <div className="flex items-center gap-1.5 text-slate-500 dark:text-slate-400">
                   <span className="inline-flex items-center gap-1">
                     {Flag && <Flag className="w-3.5 h-2.5 rounded-2xs object-cover" />}
@@ -267,7 +267,7 @@ export default function CuratedLinksClient() {
           <h4 className="font-serif-editorial text-lg font-bold text-slate-900 dark:text-white mb-1">
             No curated links found
           </h4>
-          <p className="text-xs text-slate-500 font-sans max-w-sm mx-auto mb-4">
+          <p className="text-sm text-slate-500 font-sans max-w-sm mx-auto mb-4">
             Try adjusting your search keywords or clearing the category and region filters.
           </p>
           <button
@@ -276,7 +276,7 @@ export default function CuratedLinksClient() {
               setSelectedJurisdiction("ALL");
               setSearchQuery("");
             }}
-            className="rounded-lg bg-asean-yellow px-4 py-2 text-xs font-sans font-bold text-slate-950 shadow-xs hover:bg-asean-yellow-hover"
+            className="rounded-lg bg-asean-yellow px-4 py-2 text-sm font-sans font-bold text-slate-950 shadow-xs hover:bg-asean-yellow-hover"
           >
             Reset All Filters
           </button>

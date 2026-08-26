@@ -78,7 +78,7 @@ export default function CoreCapabilities() {
       
       {/* Section Headline */}
       <div className="text-center max-w-2xl mx-auto space-y-3">
-        <span className="inline-block rounded-full border border-slate-200 dark:border-white/15 px-3 py-1 font-sans text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+        <span className="inline-block rounded-full border border-slate-200 dark:border-white/15 px-3 py-1 font-sans text-sm font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
           Core Capabilities
         </span>
         <h2 className="font-serif-editorial text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">
@@ -106,10 +106,10 @@ export default function CoreCapabilities() {
                       <Icon className="h-6 w-6 text-slate-700 dark:text-slate-200 group-hover:text-asean-yellow transition-colors" />
                     </div>
                     <div>
-                      <span className="font-sans text-xs font-bold text-asean-yellow-dark dark:text-asean-yellow block">
+                      <span className="font-sans text-sm font-bold text-asean-yellow-dark dark:text-asean-yellow block">
                         MODULE {feat.number}
                       </span>
-                      <span className="font-sans text-xs text-slate-500 dark:text-slate-400">
+                      <span className="font-sans text-sm text-slate-500 dark:text-slate-400">
                         {feat.tagline}
                       </span>
                     </div>
@@ -119,7 +119,7 @@ export default function CoreCapabilities() {
                     <span className="font-sans text-base font-extrabold text-slate-900 dark:text-white block">
                       {feat.stat}
                     </span>
-                    <span className="text-[10px] text-slate-500 dark:text-slate-400 font-sans block font-medium">
+                    <span className="text-sm text-slate-500 dark:text-slate-400 font-sans block font-medium">
                       {feat.statLabel}
                     </span>
                   </div>
@@ -140,7 +140,7 @@ export default function CoreCapabilities() {
                   {feat.pills.map((pill) => (
                     <span
                       key={pill}
-                      className="rounded-lg bg-slate-50 dark:bg-white/5 border border-slate-200/60 dark:border-white/5 px-2.5 py-1 text-xs font-semibold text-slate-600 dark:text-slate-300"
+                      className="rounded-lg bg-slate-50 dark:bg-white/5 border border-slate-200/60 dark:border-white/5 px-2.5 py-1 text-sm font-semibold text-slate-600 dark:text-slate-300"
                     >
                       {pill}
                     </span>
@@ -149,7 +149,7 @@ export default function CoreCapabilities() {
 
                 <Link
                   href={feat.href}
-                  className="inline-flex items-center gap-2 rounded-xl bg-slate-900 px-5 py-2.5 font-sans text-xs sm:text-sm font-bold text-white shadow-xs transition-all group-hover:bg-asean-yellow group-hover:text-slate-950 dark:bg-white/10 dark:hover:bg-asean-yellow dark:hover:text-slate-950"
+                  className="inline-flex items-center gap-2 rounded-xl bg-slate-900 px-5 py-2.5 font-sans text-sm sm:text-sm font-bold text-white shadow-xs transition-all group-hover:bg-asean-yellow group-hover:text-slate-950 dark:bg-white/10 dark:hover:bg-asean-yellow dark:hover:text-slate-950"
                 >
                   <span>{feat.ctaText}</span>
                   <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />

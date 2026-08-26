@@ -39,7 +39,7 @@ export default function EncryptionEventList({ events }: Props) {
                 Encryption Regulation &amp; Interventions Timeline
               </h2>
             </div>
-            <p className="text-xs text-slate-600 dark:text-slate-400 font-sans max-w-3xl">
+            <p className="text-sm text-slate-600 dark:text-slate-400 font-sans max-w-3xl">
               Chronological vertical log of encryption policies, VPN restrictions, backdoor requirements, lawful intercept expansions, and cybersecurity capacity building across ASEAN.
             </p>
           </div>
@@ -48,12 +48,12 @@ export default function EncryptionEventList({ events }: Props) {
           <div className="space-y-3 pt-3 border-t border-slate-200/80 dark:border-slate-800/80">
             {/* Country Filters */}
             <div className="flex flex-wrap items-center gap-1.5">
-              <span className="text-xs font-bold text-slate-500 dark:text-slate-400 font-sans flex items-center gap-1 mr-1">
+              <span className="text-sm font-bold text-slate-500 dark:text-slate-400 font-sans flex items-center gap-1 mr-1">
                 <Filter className="h-3.5 w-3.5 text-asean-blue" /> Country:
               </span>
               <button
                 onClick={() => setSelectedCountry("ALL")}
-                className={`px-3 py-1 rounded-full text-[11px] font-sans font-bold transition-colors ${
+                className={`px-3 py-1 rounded-full text-sm font-sans font-bold transition-colors ${
                   selectedCountry === "ALL"
                     ? "bg-slate-900 dark:bg-white text-white dark:text-slate-900 shadow-xs"
                     : "bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-300 dark:hover:bg-slate-700"
@@ -67,7 +67,7 @@ export default function EncryptionEventList({ events }: Props) {
                   <button
                     key={code}
                     onClick={() => setSelectedCountry(code)}
-                    className={`px-3 py-1 rounded-full text-[11px] font-sans font-bold transition-colors flex items-center gap-1 ${
+                    className={`px-3 py-1 rounded-full text-sm font-sans font-bold transition-colors flex items-center gap-1 ${
                       selectedCountry === code
                         ? "bg-asean-blue text-white shadow-xs"
                         : "bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-300 dark:hover:bg-slate-700"
@@ -81,12 +81,12 @@ export default function EncryptionEventList({ events }: Props) {
 
             {/* Event Type Filters */}
             <div className="flex flex-wrap items-center gap-1.5">
-              <span className="text-xs font-bold text-slate-500 dark:text-slate-400 font-sans flex items-center gap-1 mr-1">
+              <span className="text-sm font-bold text-slate-500 dark:text-slate-400 font-sans flex items-center gap-1 mr-1">
                 Event Type:
               </span>
               <button
                 onClick={() => setSelectedType("ALL")}
-                className={`px-3 py-1 rounded-full text-[11px] font-sans font-bold transition-colors ${
+                className={`px-3 py-1 rounded-full text-sm font-sans font-bold transition-colors ${
                   selectedType === "ALL"
                     ? "bg-slate-800 dark:bg-white text-white dark:text-slate-900 shadow-xs"
                     : "bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-300 dark:hover:bg-slate-700"
@@ -98,7 +98,7 @@ export default function EncryptionEventList({ events }: Props) {
                 <button
                   key={key}
                   onClick={() => setSelectedType(key)}
-                  className={`px-3 py-1 rounded-full text-[11px] font-sans font-bold transition-colors ${
+                  className={`px-3 py-1 rounded-full text-sm font-sans font-bold transition-colors ${
                     selectedType === key
                       ? "bg-slate-800 dark:bg-white text-white dark:text-slate-900 shadow-xs"
                       : "bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-300 dark:hover:bg-slate-700"
@@ -158,11 +158,11 @@ export default function EncryptionEventList({ events }: Props) {
                   <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
                     <div className="flex items-center gap-2">
                       {FlagIcon && <FlagIcon className="w-4 h-3 rounded-xs shrink-0 shadow-xs" />}
-                      <span className="font-sans text-[11px] font-bold px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
+                      <span className="font-sans text-sm font-bold px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
                         {event.countryName} ({event.countryCode})
                       </span>
                       <span
-                        className={`text-[10px] px-2 py-0.5 rounded font-sans font-bold shadow-xs ${
+                        className={`text-sm px-2 py-0.5 rounded font-sans font-bold shadow-xs ${
                           event.eventType === "CAPACITY_BUILDING"
                             ? "bg-asean-sky/15 text-asean-sky border border-asean-sky/30"
                             : "bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700"
@@ -172,7 +172,7 @@ export default function EncryptionEventList({ events }: Props) {
                       </span>
                     </div>
 
-                    <span className="text-[11px] font-sans font-bold text-slate-400 dark:text-slate-500">
+                    <span className="text-sm font-sans font-bold text-slate-400 dark:text-slate-500">
                       {formattedDate}
                     </span>
                   </div>
@@ -180,14 +180,14 @@ export default function EncryptionEventList({ events }: Props) {
                   <h3 className="text-sm font-bold text-slate-900 dark:text-white leading-snug group-hover:text-asean-blue transition-colors">
                     {event.title}
                   </h3>
-                  <p className="text-xs text-slate-600 dark:text-slate-400 mt-1.5 font-sans leading-relaxed">
+                  <p className="text-sm text-slate-600 dark:text-slate-400 mt-1.5 font-sans leading-relaxed">
                     {event.summary}
                   </p>
 
-                  <div className="mt-3 pt-2.5 border-t border-slate-100 dark:border-slate-800/60 flex flex-wrap items-center justify-between gap-2 text-[11px] font-sans">
+                  <div className="mt-3 pt-2.5 border-t border-slate-100 dark:border-slate-800/60 flex flex-wrap items-center justify-between gap-2 text-sm font-sans">
                     {/* Visual Risk Meter */}
                     <div className="flex items-center gap-2">
-                      <span className="text-[10px] font-bold text-slate-500 dark:text-slate-400">Risk Meter</span>
+                      <span className="text-sm font-bold text-slate-500 dark:text-slate-400">Risk Meter</span>
                       <div className="w-24 sm:w-32 h-2 rounded-full bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700/60 overflow-hidden relative shrink-0">
                         <div
                           className="h-full rounded-full transition-all duration-500"
@@ -198,7 +198,7 @@ export default function EncryptionEventList({ events }: Props) {
                         />
                       </div>
                       <span
-                        className={`text-xs font-sans font-extrabold ${severityTextClass}`}
+                        className={`text-sm font-sans font-extrabold ${severityTextClass}`}
                       >
                         {event.severityScore}/100
                       </span>
@@ -209,7 +209,7 @@ export default function EncryptionEventList({ events }: Props) {
                         href={event.sourceUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-asean-blue dark:text-asean-sky hover:underline font-bold inline-flex items-center gap-1 text-[11px] ml-auto"
+                        className="text-asean-blue dark:text-asean-sky hover:underline font-bold inline-flex items-center gap-1 text-sm ml-auto"
                       >
                         Official Document <ExternalLink className="h-3 w-3" />
                       </a>
@@ -225,7 +225,7 @@ export default function EncryptionEventList({ events }: Props) {
               <p className="text-sm font-bold text-slate-700 dark:text-slate-300">
                 No encryption regulation events found matching this filter.
               </p>
-              <p className="text-xs text-slate-500 mt-1">
+              <p className="text-sm text-slate-500 mt-1">
                 Try selecting &quot;All Nations&quot; or &quot;All Types&quot; to view tracked events.
               </p>
             </div>

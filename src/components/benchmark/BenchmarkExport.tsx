@@ -57,18 +57,18 @@ export default function BenchmarkExport({ summaries }: Props) {
         <span className="text-sm font-sans font-bold text-slate-700 dark:text-slate-300">Export:</span>
         <button
           onClick={exportCSV}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-200 dark:bg-slate-800 text-xs font-sans font-bold text-slate-700 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-700 transition-colors"
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-200 dark:bg-slate-800 text-sm font-sans font-bold text-slate-700 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-700 transition-colors"
         >
           <Download className="h-3.5 w-3.5" /> CSV
         </button>
         <button
           onClick={exportJSON}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-200 dark:bg-slate-800 text-xs font-sans font-bold text-slate-700 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-700 transition-colors"
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-200 dark:bg-slate-800 text-sm font-sans font-bold text-slate-700 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-700 transition-colors"
         >
           <Download className="h-3.5 w-3.5" /> JSON
         </button>
         {downloaded && (
-          <span className="text-xs text-asean-emerald font-sans animate-pulse">Downloaded!</span>
+          <span className="text-sm text-asean-emerald font-sans animate-pulse">Downloaded!</span>
         )}
       </div>
     </section>

@@ -38,8 +38,8 @@ export default function DefaDataGovernanceView() {
           </>
         }
         rightSlot={
-          <div className="shrink-0 p-4 rounded-2xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 shadow-sm text-xs font-sans space-y-1">
-            <span className="block font-sans text-[10px] text-slate-400 uppercase font-bold">Data Regime Spectrum</span>
+          <div className="shrink-0 p-4 rounded-2xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 shadow-sm text-sm font-sans space-y-1">
+            <span className="block font-sans text-sm text-slate-400 uppercase font-bold">Data Regime Spectrum</span>
             <div className="font-bold text-slate-900 dark:text-white text-sm">3 Tiers Across 11 Nations</div>
             <span className="text-asean-emerald font-bold">3 Open</span> · <span className="text-asean-amber font-bold">4 Hybrid</span> · <span className="text-asean-red font-bold">4 Strict</span>
           </div>
@@ -65,11 +65,11 @@ export default function DefaDataGovernanceView() {
         <div className="flex flex-wrap items-center justify-between gap-4 p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
           <div className="flex items-center gap-2">
             <Layers className="w-4 h-4 text-asean-blue" />
-            <span className="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+            <span className="text-sm font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
               Filter Data Regimes ({filteredStates.length})
             </span>
           </div>
-          <div className="flex flex-wrap items-center gap-2 text-xs font-sans">
+          <div className="flex flex-wrap items-center gap-2 text-sm font-sans">
             <button
               type="button"
               onClick={() => setSelectedRegimeFilter("ALL")}
@@ -136,25 +136,25 @@ export default function DefaDataGovernanceView() {
                         {country?.name}
                       </h3>
                     </div>
-                    <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold border ${badge.className}`}>
+                    <span className={`px-2.5 py-0.5 rounded-full text-sm font-bold border ${badge.className}`}>
                       {badge.label}
                     </span>
                   </div>
 
-                  <div className="space-y-2 text-xs font-sans">
+                  <div className="space-y-2 text-sm font-sans">
                     <div>
-                      <span className="font-mono text-[10px] text-slate-400 uppercase font-bold block">Primary Privacy Law</span>
+                      <span className="font-mono text-sm text-slate-400 uppercase font-bold block">Primary Privacy Law</span>
                       <span className="font-semibold text-slate-800 dark:text-slate-200">{state.primaryDataLaw}</span>
                     </div>
 
                     <div>
-                      <span className="font-mono text-[10px] text-slate-400 uppercase font-bold block">Localization Mandate</span>
-                      <p className="text-slate-600 dark:text-slate-400 leading-relaxed text-[11px]">
+                      <span className="font-mono text-sm text-slate-400 uppercase font-bold block">Localization Mandate</span>
+                      <p className="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">
                         {state.dataLocalizationMandate}
                       </p>
                     </div>
 
-                    <div className="flex items-center justify-between pt-2 border-t border-slate-100 dark:border-slate-800 text-[11px]">
+                    <div className="flex items-center justify-between pt-2 border-t border-slate-100 dark:border-slate-800 text-sm">
                       <span className="text-slate-500">ASEAN MCCs Status:</span>
                       <span className="font-bold text-slate-900 dark:text-white">{state.mccAdoptionStatus}</span>
                     </div>
@@ -163,7 +163,7 @@ export default function DefaDataGovernanceView() {
 
                 {/* Legal Friction Meter */}
                 <div className="pt-3 border-t border-slate-100 dark:border-slate-800 space-y-1.5">
-                  <div className="flex items-center justify-between text-[11px] font-sans">
+                  <div className="flex items-center justify-between text-sm font-sans">
                     <span className="text-slate-500 font-semibold">Legal Data Friction Score</span>
                     <span className={`font-mono font-bold ${toneTextClass(riskTone(state.legalFrictionScore, 40, 70))}`}>
                       {state.legalFrictionScore} / 100

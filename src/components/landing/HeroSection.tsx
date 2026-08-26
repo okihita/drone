@@ -30,7 +30,7 @@ export default function HeroSection() {
         
         {/* TOP: Centered High-Impact SaaS Hero Heading */}
         <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12 space-y-4">
-          <div className="inline-flex items-center gap-2 rounded-full border border-asean-yellow/50 bg-asean-yellow/15 px-3.5 py-1 font-sans text-xs font-bold text-asean-yellow-dark dark:text-asean-yellow">
+          <div className="inline-flex items-center gap-2 rounded-full border border-asean-yellow/50 bg-asean-yellow/15 px-3.5 py-1 font-sans text-sm font-bold text-asean-yellow-dark dark:text-asean-yellow">
             <span className="h-2 w-2 rounded-full bg-asean-yellow animate-pulse" />
             11 Southeast Asian Member States Live
           </div>
@@ -47,7 +47,7 @@ export default function HeroSection() {
           <div className="flex flex-wrap items-center justify-center gap-3 pt-2 font-sans">
             <Link
               href="/observatory"
-              className="inline-flex items-center gap-2 rounded-xl bg-asean-yellow px-5 py-2.5 text-xs sm:text-sm font-bold text-slate-950 shadow-xs transition-all hover:bg-asean-yellow-hover"
+              className="inline-flex items-center gap-2 rounded-xl bg-asean-yellow px-5 py-2.5 text-sm sm:text-sm font-bold text-slate-950 shadow-xs transition-all hover:bg-asean-yellow-hover"
             >
               <Map className="h-4 w-4" />
               <span>Launch Observatory</span>
@@ -56,7 +56,7 @@ export default function HeroSection() {
 
             <Link
               href="/ledger"
-              className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-5 py-2.5 text-xs sm:text-sm font-semibold text-slate-800 transition-colors hover:bg-slate-100 dark:border-white/15 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800"
+              className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-5 py-2.5 text-sm sm:text-sm font-semibold text-slate-800 transition-colors hover:bg-slate-100 dark:border-white/15 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800"
             >
               <Search className="h-4 w-4 text-asean-red" />
               <span>Search 100+ Acts</span>
@@ -85,7 +85,7 @@ export default function HeroSection() {
                     <h3 className="font-serif-editorial text-xl font-bold text-slate-900 dark:text-white leading-none">
                       {selectedCountry.name}
                     </h3>
-                    <span className="text-[11px] font-sans text-slate-500">
+                    <span className="text-sm font-sans text-slate-500">
                       {selectedCountry.capital} · ISO {selectedCountry.code}
                     </span>
                   </div>
@@ -102,21 +102,21 @@ export default function HeroSection() {
               {/* Quick Metrics */}
               <div className="grid grid-cols-3 gap-2 font-sans mb-3">
                 <div className="rounded-lg border border-slate-200 bg-slate-50 p-2 dark:border-white/10 dark:bg-white/5 text-center">
-                  <span className="block text-[9px] uppercase font-bold text-slate-500">Threat</span>
-                  <span className="font-extrabold text-asean-yellow-dark dark:text-asean-yellow text-xs flex items-center justify-center gap-0.5">
+                  <span className="block text-sm uppercase font-bold text-slate-500">Threat</span>
+                  <span className="font-extrabold text-asean-yellow-dark dark:text-asean-yellow text-sm flex items-center justify-center gap-0.5">
                     <AlertTriangle className="h-3 w-3" />
                     {selectedCountry.threatScore}/5
                   </span>
                 </div>
                 <div className="rounded-lg border border-slate-200 bg-slate-50 p-2 dark:border-white/10 dark:bg-white/5 text-center">
-                  <span className="block text-[9px] uppercase font-bold text-slate-500">Regime</span>
-                  <span className="font-bold text-slate-800 dark:text-slate-200 text-[10px] truncate block">
+                  <span className="block text-sm uppercase font-bold text-slate-500">Regime</span>
+                  <span className="font-bold text-slate-800 dark:text-slate-200 text-sm truncate block">
                     {selectedCountry.regimeType.split(" ")[0]}
                   </span>
                 </div>
                 <div className="rounded-lg border border-slate-200 bg-slate-50 p-2 dark:border-white/10 dark:bg-white/5 text-center">
-                  <span className="block text-[9px] uppercase font-bold text-slate-500">Policies</span>
-                  <span className="font-extrabold text-slate-900 dark:text-white text-xs">
+                  <span className="block text-sm uppercase font-bold text-slate-500">Policies</span>
+                  <span className="font-extrabold text-slate-900 dark:text-white text-sm">
                     {selectedCountry.activePoliciesCount} Ingested
                   </span>
                 </div>
@@ -127,14 +127,14 @@ export default function HeroSection() {
                   href={selectedCountry.primaryLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-xs text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white font-medium"
+                  className="inline-flex items-center gap-1 text-sm text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white font-medium"
                 >
                   <span>Portal</span>
                   <ExternalLink className="h-3 w-3" />
                 </a>
                 <Link
                   href="/observatory"
-                  className="inline-flex items-center gap-1 rounded-lg bg-asean-yellow px-3 py-1 font-sans text-xs font-bold text-slate-950 shadow-xs transition-colors hover:bg-asean-yellow-hover"
+                  className="inline-flex items-center gap-1 rounded-lg bg-asean-yellow px-3 py-1 font-sans text-sm font-bold text-slate-950 shadow-xs transition-colors hover:bg-asean-yellow-hover"
                 >
                   <span>Full Profile</span>
                   <ChevronRight className="h-3.5 w-3.5" />

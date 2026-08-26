@@ -85,7 +85,7 @@ export default function JurisdictionsEditor() {
                           : ""
                       }
                     >
-                      <label className="text-xs font-medium mb-0.5 block capitalize">
+                      <label className="text-sm font-medium mb-0.5 block capitalize">
                         {k.replace(/_/g, " ")}
                       </label>
                       {k === "regime_type" ? (
@@ -117,7 +117,7 @@ export default function JurisdictionsEditor() {
                     </div>
                   ))}
                   <div className="col-span-2">
-                    <label className="text-xs font-medium mb-0.5 block">
+                    <label className="text-sm font-medium mb-0.5 block">
                       Description
                     </label>
                     <Textarea
@@ -147,13 +147,13 @@ export default function JurisdictionsEditor() {
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-1">
                     <span className="font-bold">{j.name}</span>
-                    <Badge variant="outline" className="text-xs">
+                    <Badge variant="outline" className="text-sm">
                       {j.code}
                     </Badge>
-                    <Badge variant="secondary" className="text-xs">
+                    <Badge variant="secondary" className="text-sm">
                       {j.regime_type}
                     </Badge>
-                    <span className={`text-xs font-bold ${threatColor(j.threat_score)}`}>
+                    <span className={`text-sm font-bold ${threatColor(j.threat_score)}`}>
                       Threat: {j.threat_score}/5
                     </span>
                   </div>

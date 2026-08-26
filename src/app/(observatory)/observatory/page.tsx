@@ -49,7 +49,7 @@ export default function ObservatoryPage() {
         {/* Threat Matrix Section */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 font-sans">
           <div className="border-b border-slate-200 dark:border-slate-800 pb-4 mb-8 font-sans">
-            <span className="text-xs font-sans text-asean-red font-bold uppercase tracking-wider">
+            <span className="text-sm font-sans text-asean-red font-bold uppercase tracking-wider">
               STRUCTURAL RISK DIMENSIONS
             </span>
             <h2 className="font-serif-editorial text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-1">
@@ -67,7 +67,7 @@ export default function ObservatoryPage() {
                   Data Free Flow with Trust (DFFT) vs. Privacy Sovereignty
                 </h3>
               </div>
-              <p className="text-slate-600 dark:text-slate-400 text-xs sm:text-sm leading-relaxed font-sans">
+              <p className="text-slate-600 dark:text-slate-400 text-sm sm:text-sm leading-relaxed font-sans">
                 Trade agreements enforcing mandatory cross-border data transfers without strong baseline privacy laws enable commercial data harvesting by global tech monopolies. Citizens in nations without robust personal data enforcement lose jurisdiction over their personal data once exported.
               </p>
             </div>
@@ -81,7 +81,7 @@ export default function ObservatoryPage() {
                   Bans on Mandatory Source Code Audits
                 </h3>
               </div>
-              <p className="text-slate-600 dark:text-slate-400 text-xs sm:text-sm leading-relaxed font-sans">
+              <p className="text-slate-600 dark:text-slate-400 text-sm sm:text-sm leading-relaxed font-sans">
                 Proposed digital trade clauses prohibiting governments from requiring source code disclosure shield high-risk automated decision systems from independent audit. This prevents civil society and regulators from evaluating AI models for gender, racial, or political bias.
               </p>
             </div>
@@ -95,7 +95,7 @@ export default function ObservatoryPage() {
                   Cybersecurity Weaponization &amp; Surveillance
                 </h3>
               </div>
-              <p className="text-slate-600 dark:text-slate-400 text-xs sm:text-sm leading-relaxed font-sans">
+              <p className="text-slate-600 dark:text-slate-400 text-sm sm:text-sm leading-relaxed font-sans">
                 Broad national security exceptions in cybersecurity decrees (e.g. Vietnam Decree 53, Indonesia MR5) are co-opted by authoritarian regimes to mandate local server access, conduct unconstrained surveillance, and force content take-downs within 24 hours.
               </p>
             </div>
@@ -109,7 +109,7 @@ export default function ObservatoryPage() {
                   Democratic Deficit in Closed-Door Trade Negotiations
                 </h3>
               </div>
-              <p className="text-slate-600 dark:text-slate-400 text-xs sm:text-sm leading-relaxed font-sans">
+              <p className="text-slate-600 dark:text-slate-400 text-sm sm:text-sm leading-relaxed font-sans">
                 Regional trade treaties negotiated behind closed doors by Senior Economic Officials Meetings (SEOM) bind national parliaments to deregulatory commitments without public consultation, parliamentary scrutiny, or human rights impact assessments.
               </p>
             </div>

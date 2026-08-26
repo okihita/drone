@@ -67,15 +67,15 @@ export default function DefaChapterHeatmap() {
           </>
         }
         rightSlot={
-          <div className="shrink-0 p-5 rounded-2xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 shadow-sm text-xs font-sans space-y-3 min-w-[280px]">
+          <div className="shrink-0 p-5 rounded-2xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 shadow-sm text-sm font-sans space-y-3 min-w-[280px]">
             <div className="flex items-center justify-between">
-              <span className="font-bold uppercase tracking-wider text-slate-500 text-[10px]">Legal Scrubbing Phase</span>
-              <span className="font-bold text-asean-blue font-mono text-xs">{avgProgress}% Complete</span>
+              <span className="font-bold uppercase tracking-wider text-slate-500 text-sm">Legal Scrubbing Phase</span>
+              <span className="font-bold text-asean-blue font-mono text-sm">{avgProgress}% Complete</span>
             </div>
             <div className="w-full h-2 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden">
               <div className="h-full bg-gradient-to-r from-asean-blue via-asean-emerald to-asean-yellow" style={{ width: `${avgProgress}%` }} />
             </div>
-            <div className="flex items-center justify-between text-[11px] text-slate-500 pt-1 border-t border-slate-200 dark:border-slate-700">
+            <div className="flex items-center justify-between text-sm text-slate-500 pt-1 border-t border-slate-200 dark:border-slate-700">
               <span>SEOM Manila: May 2026</span>
               <span className="font-bold text-slate-900 dark:text-white">Signing: Nov 2026</span>
             </div>
@@ -105,21 +105,21 @@ export default function DefaChapterHeatmap() {
         <div className="flex flex-wrap items-center justify-between gap-4 p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
           <div className="flex items-center gap-2">
             <FileText className="w-4 h-4 text-asean-blue" />
-            <span className="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+            <span className="text-sm font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
               Chapter Status Legend
             </span>
           </div>
-          <div className="flex flex-wrap items-center gap-3 text-xs font-sans">
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md border text-[11px] font-semibold bg-asean-emerald/15 text-asean-emerald border-asean-emerald/40">
+          <div className="flex flex-wrap items-center gap-3 text-sm font-sans">
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md border text-sm font-semibold bg-asean-emerald/15 text-asean-emerald border-asean-emerald/40">
               <CheckCircle2 className="w-3 h-3" /> Concluded (100%)
             </span>
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md border text-[11px] font-semibold bg-asean-blue/15 text-asean-blue border-asean-blue/40">
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md border text-sm font-semibold bg-asean-blue/15 text-asean-blue border-asean-blue/40">
               <Clock className="w-3 h-3" /> Legal Scrubbing (75-90%)
             </span>
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md border text-[11px] font-semibold bg-asean-amber/15 text-asean-amber border-asean-amber/40">
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md border text-sm font-semibold bg-asean-amber/15 text-asean-amber border-asean-amber/40">
               <AlertTriangle className="w-3 h-3" /> Provisional Reservation (60-70%)
             </span>
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md border text-[11px] font-semibold bg-asean-red/15 text-asean-red border-asean-red/40">
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md border text-sm font-semibold bg-asean-red/15 text-asean-red border-asean-red/40">
               <Lock className="w-3 h-3" /> Pending Consultation (&lt;50%)
             </span>
           </div>
@@ -127,7 +127,7 @@ export default function DefaChapterHeatmap() {
 
         {/* 11 Member State x 9 Chapter Heatmap Grid */}
         <div className="overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-md">
-          <table className="w-full border-collapse text-left text-xs font-sans min-w-[1050px]">
+          <table className="w-full border-collapse text-left text-sm font-sans min-w-[1050px]">
             <thead>
               <tr className="border-b border-slate-200 dark:border-slate-800 bg-slate-100/80 dark:bg-slate-950/80 text-slate-700 dark:text-slate-300 uppercase tracking-wider font-bold">
                 <th className="p-3.5 sticky top-0 left-0 z-30 bg-slate-100 dark:bg-slate-950 min-w-[160px] max-w-[180px] border-r border-slate-200 dark:border-slate-800 shadow-[2px_0_6px_rgba(0,0,0,0.04)]">
@@ -135,10 +135,10 @@ export default function DefaChapterHeatmap() {
                 </th>
                 {DEFA_CHAPTERS.map((ch) => (
                   <th key={ch.id} className="p-3 text-center min-w-[130px] sm:min-w-[145px] max-w-[160px] align-bottom sticky top-0 z-20 bg-slate-100 dark:bg-slate-950 shadow-[0_2px_4px_rgba(0,0,0,0.04)]">
-                    <span className="inline-block px-1.5 py-0.5 rounded bg-asean-blue/10 dark:bg-asean-blue/20 text-asean-blue dark:text-asean-yellow font-mono text-[9px] font-extrabold mb-1">
+                    <span className="inline-block px-1.5 py-0.5 rounded bg-asean-blue/10 dark:bg-asean-blue/20 text-asean-blue dark:text-asean-yellow font-mono text-sm font-extrabold mb-1">
                       {ch.code}
                     </span>
-                    <div className="text-[11px] font-bold leading-snug text-slate-800 dark:text-slate-200 whitespace-normal line-clamp-2 text-balance">
+                    <div className="text-sm font-bold leading-snug text-slate-800 dark:text-slate-200 whitespace-normal line-clamp-2 text-balance">
                       {ch.shortName}
                     </div>
                   </th>
@@ -169,7 +169,7 @@ export default function DefaChapterHeatmap() {
                           }`}
                         >
                           <badge.icon className="w-3.5 h-3.5" />
-                          <span className="font-mono text-[10px] font-extrabold mt-0.5">{st?.progressPercent}%</span>
+                          <span className="font-mono text-sm font-extrabold mt-0.5">{st?.progressPercent}%</span>
                         </button>
                       </td>
                     );
@@ -190,25 +190,25 @@ export default function DefaChapterHeatmap() {
                   {activeCountry.name} — {activeChapter.code}: {activeChapter.name}
                 </h3>
               </div>
-              <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold border ${getStatusBadge(activeStatus.status).className}`}>
+              <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-bold border ${getStatusBadge(activeStatus.status).className}`}>
                 {getStatusBadge(activeStatus.status).label} ({activeStatus.progressPercent}%)
               </span>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs font-sans">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm font-sans">
               <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 space-y-1">
-                <span className="font-mono text-[10px] uppercase font-bold text-slate-500">SEOM Chapter Objective</span>
+                <span className="font-mono text-sm uppercase font-bold text-slate-500">SEOM Chapter Objective</span>
                 <p className="text-slate-700 dark:text-slate-300 leading-relaxed">{activeChapter.description}</p>
               </div>
 
               <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 space-y-1">
-                <span className="font-mono text-[10px] uppercase font-bold text-asean-blue">TPP / International Trade Comparison</span>
+                <span className="font-mono text-sm uppercase font-bold text-asean-blue">TPP / International Trade Comparison</span>
                 <p className="text-slate-700 dark:text-slate-300 leading-relaxed">{activeChapter.tppComparison}</p>
               </div>
 
               <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 space-y-1">
-                <span className="font-mono text-[10px] uppercase font-bold text-asean-amber">Gazette Citation &amp; Status Note</span>
-                <p className="font-mono text-[11px] font-bold text-slate-900 dark:text-white">{activeStatus.gazetteCitation}</p>
+                <span className="font-mono text-sm uppercase font-bold text-asean-amber">Gazette Citation &amp; Status Note</span>
+                <p className="font-mono text-sm font-bold text-slate-900 dark:text-white">{activeStatus.gazetteCitation}</p>
                 <p className="text-slate-600 dark:text-slate-400 mt-1">{activeStatus.notes}</p>
               </div>
             </div>

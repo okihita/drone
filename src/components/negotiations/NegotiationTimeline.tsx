@@ -63,7 +63,7 @@ export default function NegotiationTimeline({ milestones }: Props) {
                 Digital Trade Negotiations &amp; Treaties Timeline
               </h2>
             </div>
-            <p className="text-xs text-slate-600 dark:text-slate-400 font-sans max-w-3xl">
+            <p className="text-sm text-slate-600 dark:text-slate-400 font-sans max-w-3xl">
               Chronological vertical log of ASEAN DEFA negotiations, CPTPP accessions, DEPA expansion, and bilateral digital economy agreements affecting Southeast Asia.
             </p>
           </div>
@@ -72,12 +72,12 @@ export default function NegotiationTimeline({ milestones }: Props) {
           <div className="space-y-3 pt-3 border-t border-slate-200/80 dark:border-slate-800/80">
             {/* Framework Filters */}
             <div className="flex flex-wrap items-center gap-1.5">
-              <span className="text-xs font-bold text-slate-500 dark:text-slate-400 font-sans flex items-center gap-1 mr-1">
+              <span className="text-sm font-bold text-slate-500 dark:text-slate-400 font-sans flex items-center gap-1 mr-1">
                 <Layers className="h-3.5 w-3.5 text-asean-blue" /> Framework:
               </span>
               <button
                 onClick={() => setSelectedFramework("ALL")}
-                className={`px-3 py-1 rounded-full text-[11px] font-sans font-bold transition-colors ${
+                className={`px-3 py-1 rounded-full text-sm font-sans font-bold transition-colors ${
                   selectedFramework === "ALL"
                     ? "bg-slate-900 dark:bg-white text-white dark:text-slate-900 shadow-xs"
                     : "bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-300 dark:hover:bg-slate-700"
@@ -91,7 +91,7 @@ export default function NegotiationTimeline({ milestones }: Props) {
                   <button
                     key={fw}
                     onClick={() => setSelectedFramework(fw)}
-                    className={`px-3 py-1 rounded-full text-[11px] font-sans font-bold transition-colors flex items-center gap-1 ${
+                    className={`px-3 py-1 rounded-full text-sm font-sans font-bold transition-colors flex items-center gap-1 ${
                       selectedFramework === fw
                         ? "bg-asean-blue text-white shadow-xs"
                         : "bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-300 dark:hover:bg-slate-700"
@@ -107,14 +107,14 @@ export default function NegotiationTimeline({ milestones }: Props) {
             <div className="flex flex-wrap items-center gap-4">
               {/* Status Filter */}
               <div className="flex flex-wrap items-center gap-1.5">
-                <span className="text-xs font-bold text-slate-500 dark:text-slate-400 font-sans flex items-center gap-1 mr-1">
+                <span className="text-sm font-bold text-slate-500 dark:text-slate-400 font-sans flex items-center gap-1 mr-1">
                   Status:
                 </span>
                 {["ALL", "COMPLETED", "IN_PROGRESS", "UPCOMING"].map((st) => (
                   <button
                     key={st}
                     onClick={() => setSelectedStatus(st)}
-                    className={`px-2.5 py-1 rounded-full text-[11px] font-sans font-bold transition-colors ${
+                    className={`px-2.5 py-1 rounded-full text-sm font-sans font-bold transition-colors ${
                       selectedStatus === st
                         ? "bg-slate-800 dark:bg-white text-white dark:text-slate-900 shadow-xs"
                         : "bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-300 dark:hover:bg-slate-700"
@@ -127,12 +127,12 @@ export default function NegotiationTimeline({ milestones }: Props) {
 
               {/* Country Filter */}
               <div className="flex flex-wrap items-center gap-1.5">
-                <span className="text-xs font-bold text-slate-500 dark:text-slate-400 font-sans flex items-center gap-1 mr-1">
+                <span className="text-sm font-bold text-slate-500 dark:text-slate-400 font-sans flex items-center gap-1 mr-1">
                   <Filter className="h-3.5 w-3.5 text-asean-blue" /> Country:
                 </span>
                 <button
                   onClick={() => setSelectedCountry("ALL")}
-                  className={`px-2.5 py-1 rounded-full text-[11px] font-sans font-bold transition-colors ${
+                  className={`px-2.5 py-1 rounded-full text-sm font-sans font-bold transition-colors ${
                     selectedCountry === "ALL"
                       ? "bg-slate-900 dark:bg-white text-white dark:text-slate-900 shadow-xs"
                       : "bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-300 dark:hover:bg-slate-700"
@@ -144,7 +144,7 @@ export default function NegotiationTimeline({ milestones }: Props) {
                   <button
                     key={code}
                     onClick={() => setSelectedCountry(code)}
-                    className={`px-2 py-1 rounded-full text-[11px] font-sans font-bold transition-colors ${
+                    className={`px-2 py-1 rounded-full text-sm font-sans font-bold transition-colors ${
                       selectedCountry === code
                         ? "bg-asean-blue text-white shadow-xs"
                         : "bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-300 dark:hover:bg-slate-700"
@@ -220,13 +220,13 @@ export default function NegotiationTimeline({ milestones }: Props) {
                       </div>
 
                       {/* Framework Badge */}
-                      <span className="font-sans text-[10px] font-bold px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
+                      <span className="font-sans text-sm font-bold px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
                         {FRAMEWORK_LABELS[m.framework]}
                       </span>
 
                       {/* Status Badge */}
                       <span
-                        className={`text-[10px] px-2 py-0.5 rounded font-sans font-bold shadow-xs flex items-center gap-1 ${
+                        className={`text-sm px-2 py-0.5 rounded font-sans font-bold shadow-xs flex items-center gap-1 ${
                           STATUS_BADGE_STYLES[m.status] ?? STATUS_BADGE_STYLES.UPCOMING
                         }`}
                       >
@@ -237,7 +237,7 @@ export default function NegotiationTimeline({ milestones }: Props) {
                       </span>
                     </div>
 
-                    <span className="text-[11px] font-sans font-bold text-slate-400 dark:text-slate-500">
+                    <span className="text-sm font-sans font-bold text-slate-400 dark:text-slate-500">
                       {formattedDate} {formattedEndDate ? `→ ${formattedEndDate}` : ""}
                     </span>
                   </div>
@@ -245,12 +245,12 @@ export default function NegotiationTimeline({ milestones }: Props) {
                   <h3 className="text-sm font-bold text-slate-900 dark:text-white leading-snug group-hover:text-asean-blue transition-colors">
                     {m.title}
                   </h3>
-                  <p className="text-xs text-slate-600 dark:text-slate-400 mt-1.5 font-sans leading-relaxed">
+                  <p className="text-sm text-slate-600 dark:text-slate-400 mt-1.5 font-sans leading-relaxed">
                     {m.description}
                   </p>
 
-                  <div className="mt-3 pt-2.5 border-t border-slate-100 dark:border-slate-800/60 flex items-center justify-between text-[11px] font-sans">
-                    <span className="text-[10px] text-slate-400">
+                  <div className="mt-3 pt-2.5 border-t border-slate-100 dark:border-slate-800/60 flex items-center justify-between text-sm font-sans">
+                    <span className="text-sm text-slate-400">
                       Signatories: <strong className="text-slate-600 dark:text-slate-300">{m.countries.join(", ")}</strong>
                     </span>
 
@@ -259,7 +259,7 @@ export default function NegotiationTimeline({ milestones }: Props) {
                         href={m.sourceUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-asean-blue dark:text-asean-sky hover:underline font-bold inline-flex items-center gap-1 text-[11px] ml-auto"
+                        className="text-asean-blue dark:text-asean-sky hover:underline font-bold inline-flex items-center gap-1 text-sm ml-auto"
                       >
                         Official Document <ExternalLink className="h-3 w-3" />
                       </a>
@@ -275,7 +275,7 @@ export default function NegotiationTimeline({ milestones }: Props) {
               <p className="text-sm font-bold text-slate-700 dark:text-slate-300">
                 No digital trade negotiation milestones found matching this filter.
               </p>
-              <p className="text-xs text-slate-500 mt-1">
+              <p className="text-sm text-slate-500 mt-1">
                 Try selecting &quot;All Frameworks&quot; or &quot;All Statuses&quot; to view tracked negotiation milestones.
               </p>
             </div>

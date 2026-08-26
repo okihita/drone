@@ -19,14 +19,14 @@ export default function EncryptionSummaryStats({ summary }: Props) {
               <div className="flex items-center justify-between mb-1">
                 <div className="flex items-center gap-1">
                   {(() => { const FlagIcon = FLAG_COMPONENTS[code]; return FlagIcon ? <FlagIcon className="w-4 h-3 rounded-xs" /> : null; })()}
-                  <span className="font-sans text-[10px] font-extrabold text-slate-400">{code}</span>
+                  <span className="font-sans text-sm font-extrabold text-slate-400">{code}</span>
                 </div>
                 <span className={`font-sans text-sm font-extrabold ${toneTextClass(tone)}`}>
                   {data.avgSeverity}
                 </span>
               </div>
-              <div className="text-xs font-bold text-slate-800 dark:text-slate-200 truncate">{data.countryName}</div>
-              <div className="text-[10px] text-slate-500 mt-1">{data.totalEvents} event{data.totalEvents !== 1 ? "s" : ""}</div>
+              <div className="text-sm font-bold text-slate-800 dark:text-slate-200 truncate">{data.countryName}</div>
+              <div className="text-sm text-slate-500 mt-1">{data.totalEvents} event{data.totalEvents !== 1 ? "s" : ""}</div>
               <div className="mt-2 h-1.5 w-full rounded-full bg-slate-200 dark:bg-slate-700">
                 <div className="h-full rounded-full" style={{ width: `${data.avgSeverity}%`, backgroundColor: toneHex(tone) }} />
               </div>

@@ -33,12 +33,12 @@ export default function IPMonitorClientShell({ profiles }: Props) {
     <div className="space-y-6">
       {/* Filter Bar */}
       <div className="flex flex-wrap items-center gap-1.5 pt-2 pb-4 border-b border-slate-200/80 dark:border-slate-800/80">
-        <span className="text-xs font-bold text-slate-500 dark:text-slate-400 font-sans flex items-center gap-1 mr-1">
+        <span className="text-sm font-bold text-slate-500 dark:text-slate-400 font-sans flex items-center gap-1 mr-1">
           <Filter className="h-3.5 w-3.5 text-asean-blue" /> Filter by Country:
         </span>
         <button
           onClick={() => setSelectedCountry("ALL")}
-          className={`px-3 py-1 rounded-full text-[11px] font-sans font-bold transition-colors ${
+          className={`px-3 py-1 rounded-full text-sm font-sans font-bold transition-colors ${
             selectedCountry === "ALL"
               ? "bg-slate-900 dark:bg-white text-white dark:text-slate-900 shadow-xs"
               : "bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-300 dark:hover:bg-slate-700"
@@ -52,7 +52,7 @@ export default function IPMonitorClientShell({ profiles }: Props) {
             <button
               key={code}
               onClick={() => setSelectedCountry(code)}
-              className={`px-3 py-1 rounded-full text-[11px] font-sans font-bold transition-colors flex items-center gap-1.5 ${
+              className={`px-3 py-1 rounded-full text-sm font-sans font-bold transition-colors flex items-center gap-1.5 ${
                 selectedCountry === code
                   ? "bg-asean-blue text-white shadow-xs"
                   : "bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-300 dark:hover:bg-slate-700"
@@ -76,7 +76,7 @@ export default function IPMonitorClientShell({ profiles }: Props) {
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-2">
                     {FlagIcon && <FlagIcon className="w-4 h-3 rounded-xs shrink-0 shadow-xs" />}
-                    <span className="font-sans text-[11px] font-bold px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
+                    <span className="font-sans text-sm font-bold px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
                       {profile.countryCode}
                     </span>
                     <span className="text-sm font-bold text-slate-900 dark:text-white">{profile.countryName}</span>
@@ -90,7 +90,7 @@ export default function IPMonitorClientShell({ profiles }: Props) {
                   <div className="h-full rounded-full transition-all duration-500" style={{ width: `${profile.compositeScore}%`, backgroundColor: toneHex(compositeTone) }} />
                 </div>
 
-                <div className="space-y-1.5 text-[11px] font-sans">
+                <div className="space-y-1.5 text-sm font-sans">
                   {DIMENSIONS.map((d) => {
                     const score = profile[d.key];
                     return (
@@ -106,13 +106,13 @@ export default function IPMonitorClientShell({ profiles }: Props) {
               </div>
 
               {profile.sourceUrl && (
-                <div className="mt-4 pt-2.5 border-t border-slate-100 dark:border-slate-800/60 flex items-center justify-between text-[11px] font-sans">
-                  <span className="text-[10px] text-slate-400">Statutory Framework</span>
+                <div className="mt-4 pt-2.5 border-t border-slate-100 dark:border-slate-800/60 flex items-center justify-between text-sm font-sans">
+                  <span className="text-sm text-slate-400">Statutory Framework</span>
                   <a
                     href={profile.sourceUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-asean-blue dark:text-asean-sky hover:underline font-bold inline-flex items-center gap-1 text-[11px]"
+                    className="text-asean-blue dark:text-asean-sky hover:underline font-bold inline-flex items-center gap-1 text-sm"
                   >
                     Official Document <ExternalLink className="h-3 w-3" />
                   </a>

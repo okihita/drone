@@ -96,7 +96,7 @@ export default function TechSovereigntyRadar({ summaries, principles }: Props) {
                       <text
                         x={cx + 8}
                         y={cy - ((i + 1) / levels) * radius + 3}
-                        className="fill-slate-400 dark:fill-slate-500 text-[8px] font-sans"
+                        className="fill-slate-400 dark:fill-slate-500 text-sm font-sans"
                       >
                         {(i + 1) * 20}
                       </text>
@@ -184,7 +184,7 @@ export default function TechSovereigntyRadar({ summaries, principles }: Props) {
             {selectedSummaries.map((s, i) => {
               const FlagIcon = FLAG_COMPONENTS[s.countryCode];
               return (
-                <div key={s.countryCode} className="flex items-center gap-1.5 text-[11px] font-sans">
+                <div key={s.countryCode} className="flex items-center gap-1.5 text-sm font-sans">
                   <span
                     className="w-3 h-3 rounded-full"
                     style={{ backgroundColor: COUNTRY_COLORS[i % COUNTRY_COLORS.length] }}
@@ -213,7 +213,7 @@ export default function TechSovereigntyRadar({ summaries, principles }: Props) {
                 <button
                   key={s.countryCode}
                   onClick={() => toggleCountry(s.countryCode)}
-                  className={`px-2.5 py-1.5 rounded-lg text-[11px] font-sans font-bold transition-all border flex items-center gap-1 ${
+                  className={`px-2.5 py-1.5 rounded-lg text-sm font-sans font-bold transition-all border flex items-center gap-1 ${
                     selected
                       ? "bg-slate-800 dark:bg-white text-white dark:text-slate-900 border-slate-800 dark:border-white"
                       : "bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:border-slate-400"
@@ -221,7 +221,7 @@ export default function TechSovereigntyRadar({ summaries, principles }: Props) {
                 >
                   {FlagIcon && <FlagIcon className="w-3.5 h-2.5 rounded-xs shrink-0 shadow-xs" />}
                   {s.countryCode}
-                  <span className={`text-[10px] ${
+                  <span className={`text-sm ${
                     avgTech >= 60 ? "text-asean-emerald"
                     : avgTech >= 35 ? "text-asean-amber"
                     : "text-asean-red"
@@ -242,12 +242,12 @@ export default function TechSovereigntyRadar({ summaries, principles }: Props) {
               return (
                 <div key={s.countryCode} className="p-2.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-2xs">
                   <div className="flex justify-between items-center mb-1.5 pb-1 border-b border-slate-100 dark:border-slate-800">
-                    <span className="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
+                    <span className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
                       {FlagIcon && <FlagIcon className="w-4 h-3 rounded-xs shrink-0 shadow-xs" />}
-                      <span className="font-sans text-[10px] font-bold px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">{s.countryCode}</span>
+                      <span className="font-sans text-sm font-bold px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">{s.countryCode}</span>
                       {s.countryName}
                     </span>
-                    <span className={`text-xs font-sans font-extrabold ${
+                    <span className={`text-sm font-sans font-extrabold ${
                       avgTech >= 60 ? "text-asean-emerald"
                       : avgTech >= 35 ? "text-asean-amber"
                       : "text-asean-red"
@@ -257,9 +257,9 @@ export default function TechSovereigntyRadar({ summaries, principles }: Props) {
                   </div>
                   <div className="space-y-1">
                     {techScores.sort((a, b) => a.principleId - b.principleId).map((sc) => (
-                      <div key={sc.principleId} className="flex items-center justify-between gap-2 text-[11px]">
+                      <div key={sc.principleId} className="flex items-center justify-between gap-2 text-sm">
                         <span className="text-slate-600 dark:text-slate-400 font-sans truncate">{AXIS_LABELS[sc.principleId] ?? `#${sc.principleId}`}</span>
-                        <span className={`font-sans font-bold shrink-0 text-[11px] ${
+                        <span className={`font-sans font-bold shrink-0 text-sm ${
                           sc.score >= 70 ? "text-asean-emerald" : sc.score >= 40 ? "text-asean-amber" : "text-asean-red"
                         }`}>{sc.score}</span>
                       </div>

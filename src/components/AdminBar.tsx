@@ -39,7 +39,7 @@ export default function AdminBar() {
     <div className="fixed top-0 left-0 right-0 z-[60] w-full bg-slate-900/95 dark:bg-black/95 backdrop-blur-sm border-b border-slate-700 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-10">
         <div className="flex items-center gap-3">
-          <div className="flex items-center gap-1.5 text-xs font-sans font-bold text-asean-yellow tracking-wide">
+          <div className="flex items-center gap-1.5 text-sm font-sans font-bold text-asean-yellow tracking-wide">
             <ShieldCheck className="w-3.5 h-3.5" />
             <span>DRONE Admin</span>
           </div>
@@ -47,7 +47,7 @@ export default function AdminBar() {
           {articleId && (
             <Link
               href={`/admin/news/${articleId}`}
-              className="flex items-center gap-1 text-xs font-sans font-medium text-slate-400 hover:text-asean-yellow transition-colors ml-2 pl-2 border-l border-slate-700"
+              className="flex items-center gap-1 text-sm font-sans font-medium text-slate-400 hover:text-asean-yellow transition-colors ml-2 pl-2 border-l border-slate-700"
             >
               <Pencil className="w-3 h-3" />
               <span>Edit Article</span>
@@ -55,7 +55,7 @@ export default function AdminBar() {
           )}
         </div>
 
-        <div className="flex items-center gap-5 text-xs font-sans font-medium text-slate-300">
+        <div className="flex items-center gap-5 text-sm font-sans font-medium text-slate-300">
           <Link
             href="/admin"
             className="flex items-center gap-1.5 hover:text-white transition-colors"

@@ -79,7 +79,7 @@ export default function D2DTimeline() {
             Evolution of Digital Trade Rules (2015 – 2026)
           </h3>
         </div>
-        <span className="hidden sm:inline-flex items-center gap-1 text-[11px] text-slate-400 font-sans">
+        <span className="hidden sm:inline-flex items-center gap-1 text-sm text-slate-400 font-sans">
           Timeline of TPP, CPTPP, DEPA &amp; DEFA <ChevronRight className="h-3 w-3" />
         </span>
       </div>
@@ -106,7 +106,7 @@ export default function D2DTimeline() {
                       }`}
                       style={{ backgroundColor: m.color }}
                     />
-                    <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${m.badgeClass}`}>
+                    <span className={`text-sm font-bold px-1.5 py-0.5 rounded ${m.badgeClass}`}>
                       {m.date}
                     </span>
                   </div>
@@ -114,13 +114,13 @@ export default function D2DTimeline() {
                 </div>
 
                 {/* Milestone details */}
-                <h4 className="text-xs font-bold text-slate-900 dark:text-white leading-snug group-hover:text-asean-blue transition-colors">
+                <h4 className="text-sm font-bold text-slate-900 dark:text-white leading-snug group-hover:text-asean-blue transition-colors">
                   {m.title}
                 </h4>
-                <div className="text-[10px] font-medium text-slate-400 dark:text-slate-500 mt-0.5 mb-1.5">
+                <div className="text-sm font-medium text-slate-400 dark:text-slate-500 mt-0.5 mb-1.5">
                   {m.subtitle}
                 </div>
-                <p className="text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed mt-auto">
+                <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mt-auto">
                   {m.description}
                 </p>
               </div>

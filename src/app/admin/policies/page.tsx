@@ -92,18 +92,18 @@ export default function PoliciesList() {
                       {p.jurisdiction}
                     </TableCell>
                     <TableCell>
-                      <Badge variant="outline" className="text-xs">
+                      <Badge variant="outline" className="text-sm">
                         {p.category}
                       </Badge>
                     </TableCell>
                     <TableCell>
                       <Badge
-                        className={`text-xs ${THREAT_BADGE_CLASSES[p.threat_level] ?? ""}`}
+                        className={`text-sm ${THREAT_BADGE_CLASSES[p.threat_level] ?? ""}`}
                       >
                         {p.threat_level}
                       </Badge>
                     </TableCell>
-                    <TableCell className="text-muted-foreground text-xs">
+                    <TableCell className="text-muted-foreground text-sm">
                       {p.date}
                     </TableCell>
                     <TableCell className="flex gap-1">

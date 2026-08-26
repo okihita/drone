@@ -18,14 +18,14 @@ export default function BenchmarkPreview() {
               <h2 className="font-serif-editorial text-xl font-extrabold text-slate-900 dark:text-white">
                 Digital 2 Dozen Benchmark
               </h2>
-              <p className="text-xs text-slate-500 dark:text-slate-400 font-sans mt-0.5">
+              <p className="text-sm text-slate-500 dark:text-slate-400 font-sans mt-0.5">
                 24 USTR digital trade principles × 11 ASEAN states
               </p>
             </div>
           </div>
           <Link
             href="/d2d/benchmark"
-            className="flex items-center gap-1 text-xs font-sans font-bold text-asean-blue hover:text-asean-blue/80 transition-colors"
+            className="flex items-center gap-1 text-sm font-sans font-bold text-asean-blue hover:text-asean-blue/80 transition-colors"
           >
             Full Benchmark <ArrowRight className="h-3.5 w-3.5" />
           </Link>
@@ -36,8 +36,8 @@ export default function BenchmarkPreview() {
             <div key={s.countryCode} className="p-3 rounded-lg border border-asean-emerald/30 dark:border-asean-emerald/40 bg-asean-emerald/10 dark:bg-asean-emerald/20">
               <div className="flex items-center justify-between">
                 <div>
-                  <span className="font-sans text-[10px] font-extrabold text-slate-400">#{i + 1}</span>
-                  <span className="ml-1.5 text-xs font-bold text-slate-800 dark:text-slate-200">{s.countryName}</span>
+                  <span className="font-sans text-sm font-extrabold text-slate-400">#{i + 1}</span>
+                  <span className="ml-1.5 text-sm font-bold text-slate-800 dark:text-slate-200">{s.countryName}</span>
                 </div>
                 <span className="font-sans text-sm font-extrabold text-asean-emerald">{s.overallScore}/100</span>
               </div>
@@ -53,8 +53,8 @@ export default function BenchmarkPreview() {
             <div key={s.countryCode} className="p-3 rounded-lg border border-asean-red/30 dark:border-asean-red/40 bg-asean-red/5 dark:bg-asean-red/10">
               <div className="flex items-center justify-between">
                 <div>
-                  <span className="font-sans text-[10px] font-extrabold text-slate-400">#{11 - i}</span>
-                  <span className="ml-1.5 text-xs font-bold text-slate-800 dark:text-slate-200">{s.countryName}</span>
+                  <span className="font-sans text-sm font-extrabold text-slate-400">#{11 - i}</span>
+                  <span className="ml-1.5 text-sm font-bold text-slate-800 dark:text-slate-200">{s.countryName}</span>
                 </div>
                 <span className="font-sans text-sm font-extrabold text-asean-red">{s.overallScore}/100</span>
               </div>

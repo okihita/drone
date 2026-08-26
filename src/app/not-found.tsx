@@ -15,7 +15,7 @@ export default function NotFound() {
           </div>
 
           {/* 404 heading */}
-          <span className="block text-xs font-bold uppercase tracking-[0.2em] text-asean-yellow mb-4">
+          <span className="block text-sm font-bold uppercase tracking-[0.2em] text-asean-yellow mb-4">
             Error 404
           </span>
 
@@ -46,7 +46,7 @@ export default function NotFound() {
           </div>
 
           {/* Secondary links */}
-          <div className="mt-12 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-slate-400 dark:text-slate-500">
+          <div className="mt-12 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-slate-400 dark:text-slate-500">
             <Link href="/ledger" className="hover:text-slate-600 dark:hover:text-slate-300 transition-colors">
               Policy Ledger
             </Link>

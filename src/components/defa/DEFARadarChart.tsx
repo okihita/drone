@@ -40,7 +40,7 @@ export default function DEFARadarChart() {
           <h3 className="font-serif-editorial text-lg font-bold text-slate-900 dark:text-white">
             11-Nation DEFA Readiness &amp; Inclusion Radar
           </h3>
-          <p className="text-xs text-slate-500 font-sans mt-0.5">
+          <p className="text-sm text-slate-500 font-sans mt-0.5">
             Evaluating digital divide, Big Tech influence, and SEOM negotiation transparency
           </p>
         </div>
@@ -55,7 +55,7 @@ export default function DEFARadarChart() {
                 type="button"
                 onClick={() => setSelectedCountry(c.code)}
                 aria-pressed={selectedCountry === c.code}
-                className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-mono font-bold transition-all focus-visible:ring-2 focus-visible:ring-asean-yellow/70 ${
+                className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md text-sm font-mono font-bold transition-all focus-visible:ring-2 focus-visible:ring-asean-yellow/70 ${
                   selectedCountry === c.code
                     ? "bg-asean-blue text-white shadow-xs"
                     : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200"
@@ -111,7 +111,7 @@ export default function DEFARadarChart() {
                     y={ly}
                     textAnchor={anchor}
                     dominantBaseline="middle"
-                    className="text-[9px] font-bold fill-slate-500 uppercase tracking-wider pointer-events-none select-none"
+                    className="text-sm font-bold fill-slate-500 uppercase tracking-wider pointer-events-none select-none"
                   >
                     {axis.label}
                   </text>
@@ -128,13 +128,13 @@ export default function DEFARadarChart() {
               className="transition-all duration-300"
             />
           </svg>
-          <p className="mt-2 text-[10px] text-slate-400 dark:text-slate-500 text-center max-w-[260px] font-sans">
+          <p className="mt-2 text-sm text-slate-400 dark:text-slate-500 text-center max-w-[260px] font-sans">
             Larger shaded area = stronger democratic inclusion and DEFA readiness (0–100 per axis).
           </p>
         </div>
 
         {/* Breakdown Stats for Selected Country */}
-        <div className="space-y-3 font-sans text-xs">
+        <div className="space-y-3 font-sans text-sm">
           <div className="flex items-center gap-2 border-b border-slate-100 dark:border-slate-800 pb-2">
             {activeCountry && <activeCountry.Flag className="w-5 h-3.5 object-cover rounded-[2px]" />}
             <span className="font-bold text-slate-900 dark:text-white text-sm">{activeCountry?.name} Radar Dossier</span>

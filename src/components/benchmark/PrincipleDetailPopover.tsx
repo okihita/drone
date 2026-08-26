@@ -50,7 +50,7 @@ export default function PrincipleDetailPopover({ principle, position, onClose }:
       >
         <div className="flex items-center justify-between mb-2">
           <div className="flex items-center gap-2">
-            <span className="font-sans text-[10px] px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-800 font-extrabold text-slate-700 dark:text-slate-300">
+            <span className="font-sans text-sm px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-800 font-extrabold text-slate-700 dark:text-slate-300">
               #{principle.id}
             </span>
             <span className="font-bold text-sm text-slate-900 dark:text-white">{principle.title}</span>
@@ -65,8 +65,8 @@ export default function PrincipleDetailPopover({ principle, position, onClose }:
             </button>
           )}
         </div>
-        <p className="text-xs text-slate-600 dark:text-slate-400 mb-2 leading-relaxed">{principle.description}</p>
-        <div className="border-t border-slate-100 dark:border-slate-800 pt-2 text-[10px]">
+        <p className="text-sm text-slate-600 dark:text-slate-400 mb-2 leading-relaxed">{principle.description}</p>
+        <div className="border-t border-slate-100 dark:border-slate-800 pt-2 text-sm">
           <span className="font-sans font-bold text-slate-400 dark:text-slate-500 uppercase">TPP Source: {principle.tppSource}</span>
           <p className="mt-1 text-slate-500 dark:text-slate-400 italic leading-relaxed">{principle.provisionText}</p>
         </div>
@@ -78,19 +78,19 @@ export default function PrincipleDetailPopover({ principle, position, onClose }:
     <div
       role="dialog"
       aria-label={`${principle.title} — principle details`}
-      className="fixed z-40 w-80 p-4 rounded-xl shadow-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs font-sans pointer-events-none animate-[fadeIn_0.15s_ease-out]"
+      className="fixed z-40 w-80 p-4 rounded-xl shadow-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-sm font-sans pointer-events-none animate-[fadeIn_0.15s_ease-out]"
       style={{ left: `${coords.left}px`, top: `${coords.top}px` }}
     >
       <div className="flex items-center gap-2 mb-2">
-        <span className="font-sans text-[10px] px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
+        <span className="font-sans text-sm px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
           #{principle.id}
         </span>
         <span className="font-bold text-slate-900 dark:text-white">{principle.title}</span>
       </div>
       <p className="text-slate-600 dark:text-slate-400 mb-2 leading-relaxed">{principle.description}</p>
       <div className="border-t border-slate-100 dark:border-slate-800 pt-2">
-        <span className="text-[10px] font-sans font-bold text-slate-400 dark:text-slate-500 uppercase">TPP Source: {principle.tppSource}</span>
-        <p className="mt-1 text-[10px] text-slate-500 dark:text-slate-400 italic leading-relaxed">{principle.provisionText}</p>
+        <span className="text-sm font-sans font-bold text-slate-400 dark:text-slate-500 uppercase">TPP Source: {principle.tppSource}</span>
+        <p className="mt-1 text-sm text-slate-500 dark:text-slate-400 italic leading-relaxed">{principle.provisionText}</p>
       </div>
     </div>
   );

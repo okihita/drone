@@ -26,8 +26,8 @@ export default function DefaPaymentsCyberView() {
           </>
         }
         rightSlot={
-          <div className="shrink-0 p-4 rounded-2xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 shadow-sm text-xs font-sans space-y-1">
-            <span className="block font-sans text-[10px] text-slate-400 uppercase font-bold">RPC Payment Connectivity</span>
+          <div className="shrink-0 p-4 rounded-2xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 shadow-sm text-sm font-sans space-y-1">
+            <span className="block font-sans text-sm text-slate-400 uppercase font-bold">RPC Payment Connectivity</span>
             <div className="font-bold text-slate-900 dark:text-white text-sm">Cross-Border QR Interoperability</div>
             <span className="text-asean-emerald font-bold">{activeCorridorCount} Active Corridors</span>
           </div>
@@ -66,33 +66,33 @@ export default function DefaPaymentsCyberView() {
                         {country?.name}
                       </h3>
                     </div>
-                    <span className="font-mono text-[11px] font-bold text-asean-amber bg-asean-amber/10 px-2.5 py-0.5 rounded-full border border-asean-amber/30">
+                    <span className="font-mono text-sm font-bold text-asean-amber bg-asean-amber/10 px-2.5 py-0.5 rounded-full border border-asean-amber/30">
                       {st.nationalQrStandard}
                     </span>
                   </div>
 
-                  <div className="space-y-2.5 text-xs font-sans">
+                  <div className="space-y-2.5 text-sm font-sans">
                     <div>
-                      <span className="font-mono text-[10px] text-slate-400 uppercase font-bold block">Active Cross-Border QR Corridors</span>
+                      <span className="font-mono text-sm text-slate-400 uppercase font-bold block">Active Cross-Border QR Corridors</span>
                       <div className="flex flex-wrap gap-1 mt-1">
                         {st.crossBorderRpcCorridors.length > 0 ? (
                           st.crossBorderRpcCorridors.map((target) => (
-                            <span key={target} className="px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 font-mono text-[10px] font-bold text-slate-700 dark:text-slate-300">
+                            <span key={target} className="px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 font-mono text-sm font-bold text-slate-700 dark:text-slate-300">
                               ⇄ {target}
                             </span>
                           ))
                         ) : (
-                          <span className="text-[11px] text-slate-400 italic">No active bilateral QR corridor</span>
+                          <span className="text-sm text-slate-400 italic">No active bilateral QR corridor</span>
                         )}
                       </div>
                     </div>
 
-                    <div className="flex items-center justify-between pt-2 border-t border-slate-100 dark:border-slate-800 text-[11px]">
+                    <div className="flex items-center justify-between pt-2 border-t border-slate-100 dark:border-slate-800 text-sm">
                       <span className="text-slate-500">E-Invoicing Standard:</span>
                       <span className="font-semibold text-slate-900 dark:text-white">{st.eInvoicingStandard}</span>
                     </div>
 
-                    <div className="flex items-center justify-between text-[11px]">
+                    <div className="flex items-center justify-between text-sm">
                       <span className="text-slate-500">CERT Incident Notification Window:</span>
                       <span className="font-mono font-bold text-asean-blue">{st.certBreachDisclosureHours} Hours</span>
                     </div>
@@ -101,7 +101,7 @@ export default function DefaPaymentsCyberView() {
 
                 {/* Financial Surveillance Score */}
                 <div className="pt-3 border-t border-slate-100 dark:border-slate-800 space-y-1.5">
-                  <div className="flex items-center justify-between text-[11px] font-sans">
+                  <div className="flex items-center justify-between text-sm font-sans">
                     <span className="text-slate-500 font-semibold">Financial Surveillance &amp; CBDC Risk</span>
                     <span className={`font-mono font-bold ${toneTextClass(riskTone(st.financialSurveillanceScore, 60, 60))}`}>
                       {st.financialSurveillanceScore} / 100

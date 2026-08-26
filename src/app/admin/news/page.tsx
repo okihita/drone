@@ -106,11 +106,11 @@ export default function NewsList() {
                       {n.jurisdiction}
                     </TableCell>
                     <TableCell>
-                      <Badge variant="outline" className="text-xs">
+                      <Badge variant="outline" className="text-sm">
                         {n.category}
                       </Badge>
                     </TableCell>
-                    <TableCell className="text-muted-foreground text-xs">
+                    <TableCell className="text-muted-foreground text-sm">
                       {n.published_date}
                     </TableCell>
                     <TableCell className="flex gap-1">

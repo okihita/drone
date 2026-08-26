@@ -138,12 +138,12 @@ export default function EditNewsItem() {
             <div>
               <label className="text-sm font-medium mb-1 block">Image</label>
               {form.image_url && (
-                <p className="text-xs text-muted-foreground mb-1 truncate">
+                <p className="text-sm text-muted-foreground mb-1 truncate">
                   {form.image_url}
                 </p>
               )}
               <Input type="file" accept="image/*" onChange={handleUpload} />
-              {uploading && <p className="text-xs text-muted-foreground mt-1">Uploading...</p>}
+              {uploading && <p className="text-sm text-muted-foreground mt-1">Uploading...</p>}
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div>

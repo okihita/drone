@@ -14,7 +14,7 @@ export default function HeroCountryDossier({ country }: HeroCountryDossierProps)
     <div className="space-y-4 animate-fadeIn">
       <div className="flex items-center justify-between">
         <div>
-          <div className="flex items-center gap-2 font-sans text-xs text-slate-500 dark:text-slate-400">
+          <div className="flex items-center gap-2 font-sans text-sm text-slate-500 dark:text-slate-400">
             <span className="font-sans text-asean-yellow font-bold">[{country.code}]</span>
             <span>Capital: <strong>{country.capital}</strong></span>
           </div>
@@ -23,7 +23,7 @@ export default function HeroCountryDossier({ country }: HeroCountryDossierProps)
           </h2>
         </div>
         <span
-          className={`rounded-lg px-3 py-1 font-sans text-xs font-bold ${
+          className={`rounded-lg px-3 py-1 font-sans text-sm font-bold ${
             country.regimeType === "Strict Localization"
               ? "bg-asean-red/20 text-asean-red border border-asean-red/40"
               : country.regimeType === "Hybrid"
@@ -36,22 +36,22 @@ export default function HeroCountryDossier({ country }: HeroCountryDossierProps)
       </div>
 
       {/* Mini Stats Bar */}
-      <div className="grid grid-cols-3 gap-2 font-sans text-xs">
+      <div className="grid grid-cols-3 gap-2 font-sans text-sm">
         <div className="rounded-lg border border-slate-200 bg-slate-100 p-2.5 dark:border-white/10 dark:bg-white/5">
-          <span className="block text-[10px] text-slate-500 dark:text-slate-400 uppercase">Threat Level</span>
+          <span className="block text-sm text-slate-500 dark:text-slate-400 uppercase">Threat Level</span>
           <span className="font-bold text-asean-yellow flex items-center gap-1">
             <AlertTriangle className="h-3 w-3" />
             {country.threatScore} / 5
           </span>
         </div>
         <div className="rounded-lg border border-slate-200 bg-slate-100 p-2.5 dark:border-white/10 dark:bg-white/5">
-          <span className="block text-[10px] text-slate-500 dark:text-slate-400 uppercase">Active Policies</span>
+          <span className="block text-sm text-slate-500 dark:text-slate-400 uppercase">Active Policies</span>
           <span className="font-bold text-slate-900 dark:text-white">
             {country.activePoliciesCount} Ingested
           </span>
         </div>
         <div className="rounded-lg border border-slate-200 bg-slate-100 p-2.5 dark:border-white/10 dark:bg-white/5">
-          <span className="block text-[10px] text-slate-500 dark:text-slate-400 uppercase">Activity</span>
+          <span className="block text-sm text-slate-500 dark:text-slate-400 uppercase">Activity</span>
           <span className="font-bold text-slate-800 dark:text-slate-200">
             {country.activityLevel}
           </span>
@@ -59,7 +59,7 @@ export default function HeroCountryDossier({ country }: HeroCountryDossierProps)
       </div>
 
       {/* Legislative breakdown */}
-      <div className="space-y-2 font-sans text-xs">
+      <div className="space-y-2 font-sans text-sm">
         <div className="rounded-lg border border-slate-200 bg-slate-50 p-3 dark:border-white/10 dark:bg-slate-900/60">
           <strong className="block text-asean-yellow mb-0.5">Key Legislation:</strong>
           <p className="font-semibold text-slate-800 dark:text-slate-200">{country.keyLegislation}</p>
@@ -77,14 +77,14 @@ export default function HeroCountryDossier({ country }: HeroCountryDossierProps)
           href={country.primaryLink}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 text-xs text-asean-yellow hover:underline font-semibold"
+          className="inline-flex items-center gap-1.5 text-sm text-asean-yellow hover:underline font-semibold"
         >
           <span>Official Portal</span>
           <ExternalLink className="h-3 w-3" />
         </a>
         <Link
           href="/observatory"
-          className="inline-flex items-center gap-1 rounded-lg bg-asean-yellow px-3 py-1.5 font-sans text-xs font-bold text-slate-950 shadow-xs transition-colors hover:bg-asean-yellow-hover"
+          className="inline-flex items-center gap-1 rounded-lg bg-asean-yellow px-3 py-1.5 font-sans text-sm font-bold text-slate-950 shadow-xs transition-colors hover:bg-asean-yellow-hover"
         >
           <span>Deep-Dive Profile</span>
           <ChevronRight className="h-3.5 w-3.5" />

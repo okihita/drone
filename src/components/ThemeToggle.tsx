@@ -69,7 +69,7 @@ export default function ThemeToggle() {
   }, []);
 
   return (
-    <div className="flex items-center bg-slate-200/80 dark:bg-slate-900/90 p-1 rounded-lg border border-slate-300 dark:border-slate-800 text-xs font-sans">
+    <div className="flex items-center bg-slate-200/80 dark:bg-slate-900/90 p-1 rounded-lg border border-slate-300 dark:border-slate-800 text-sm font-sans">
       <button
         onClick={() => handleThemeChange("light")}
         className={`p-1.5 rounded-md transition-all flex items-center gap-1 cursor-pointer ${

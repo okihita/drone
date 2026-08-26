@@ -23,11 +23,11 @@ export default function AdminLoginPage() {
     <div className="min-h-screen flex items-center justify-center bg-slate-100 dark:bg-slate-950 font-sans">
       <div className="w-full max-w-sm p-8 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
         <h1 className="font-serif-editorial text-2xl font-extrabold text-slate-900 dark:text-white mb-1">DRONE Admin</h1>
-        <p className="text-xs text-slate-500 dark:text-slate-400 mb-6">EngageMedia editorial dashboard</p>
+        <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">EngageMedia editorial dashboard</p>
 
         <form action={formAction} className="space-y-4">
           <div>
-            <label htmlFor="email" className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Email</label>
+            <label htmlFor="email" className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1">Email</label>
             <input
               id="email"
               name="email"
@@ -38,7 +38,7 @@ export default function AdminLoginPage() {
             />
           </div>
           <div>
-            <label htmlFor="password" className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Password</label>
+            <label htmlFor="password" className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1">Password</label>
             <input
               id="password"
               name="password"
@@ -49,7 +49,7 @@ export default function AdminLoginPage() {
             />
           </div>
 
-          {state.error && <p className="text-xs text-asean-red">{state.error}</p>}
+          {state.error && <p className="text-sm text-asean-red">{state.error}</p>}
 
           <button
             type="submit"

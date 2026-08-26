@@ -23,7 +23,7 @@ export default function Error({
           The page could not be loaded. This may be temporary.
         </p>
         {error.digest && (
-          <p className="text-xs text-slate-400 dark:text-slate-500 font-mono">
+          <p className="text-sm text-slate-400 dark:text-slate-500 font-mono">
             Error ID: {error.digest}
           </p>
         )}

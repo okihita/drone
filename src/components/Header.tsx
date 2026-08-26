@@ -174,7 +174,7 @@ export default function Header() {
             <span className={`font-serif-editorial font-extrabold tracking-tight text-slate-900 dark:text-white group-hover:text-asean-yellow transition-all leading-none select-none shrink-0 ${scrolled ? "text-2xl sm:text-3xl lg:text-4xl" : "text-3xl sm:text-4xl lg:text-5xl"}`}>
               DRONE
             </span>
-            <div className={`border-l border-slate-300 dark:border-slate-700 pl-3 sm:pl-4 text-left text-[10px] sm:text-xs font-sans text-slate-500 dark:text-slate-400 uppercase tracking-wider font-semibold leading-none space-y-1 min-w-0 transition-opacity duration-200 ${scrolled ? "hidden md:flex flex-col justify-center opacity-0" : "flex flex-col justify-center opacity-100"}`}>
+            <div className={`border-l border-slate-300 dark:border-slate-700 pl-3 sm:pl-4 text-left text-sm sm:text-sm font-sans text-slate-500 dark:text-slate-400 uppercase tracking-wider font-semibold leading-none space-y-1 min-w-0 transition-opacity duration-200 ${scrolled ? "hidden md:flex flex-col justify-center opacity-0" : "flex flex-col justify-center opacity-100"}`}>
               <span className="leading-none block truncate">Digital Rights Oversight</span>
               <span className="leading-none block truncate">&amp; Network Evaluator</span>
             </div>
@@ -206,7 +206,7 @@ export default function Header() {
 
       {/* Desktop Navigation */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 font-sans">
-        <nav className="hidden md:flex items-center justify-start lg:justify-center gap-1 py-3 text-xs font-sans overflow-x-auto no-scrollbar" ref={dropdownRef}>
+        <nav className="hidden md:flex items-center justify-start lg:justify-center gap-1 py-3 text-sm font-sans overflow-x-auto no-scrollbar" ref={dropdownRef}>
           {NAV_GROUPS.map((item) => {
             if (isNavGroup(item)) {
               const isOpen = openDropdown === item.href;
@@ -244,7 +244,7 @@ export default function Header() {
                             key={child.href}
                             href={child.href}
                             onClick={() => setOpenDropdown(null)}
-                            className={`flex items-center gap-3 px-4 py-2.5 text-xs font-semibold transition-colors ${
+                            className={`flex items-center gap-3 px-4 py-2.5 text-sm font-semibold transition-colors ${
                               active
                                 ? "bg-asean-yellow/10 text-asean-amber dark:text-asean-yellow"
                                 : "text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
@@ -341,7 +341,7 @@ export default function Header() {
                           href={child.href}
                           onClick={() => closeSheet()}
                           aria-current={active ? "page" : undefined}
-                          className={`flex items-center gap-2.5 pl-7 pr-3 py-2 rounded-lg font-medium transition-colors text-xs sm:text-sm ${
+                          className={`flex items-center gap-2.5 pl-7 pr-3 py-2 rounded-lg font-medium transition-colors text-sm sm:text-sm ${
                             active
                               ? "bg-asean-yellow/10 text-asean-amber dark:text-asean-yellow"
                               : "text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
