@@ -19,3 +19,9 @@ export type {
   NewsDispatchItem,
 } from "./news";
 
+export type {
+  CuratedLinkItem,
+  CuratedLinkCategory,
+  CuratedLinkJurisdiction,
+} from "./links";
+

@@ -1,5 +1,5 @@
 import { ASEAN_COLORS } from "./colors";
-import { BookOpen, Activity, Map, Database, Send, BarChart3, Cpu, Lock, Calendar, FileKey, ShieldCheck, FileText, Globe, CreditCard, Shield } from "lucide-react";
+import { BookOpen, Link2, Activity, Map, Database, Send, BarChart3, Cpu, Lock, Calendar, FileKey, ShieldCheck, FileText, Globe, CreditCard, Shield } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 // ── Policy Categories (single source of truth) ──────────────────────────────
@@ -116,6 +116,7 @@ export const OBSERVATORY_SUBMENU: NavLink[] = [
 
 export const NAV_GROUPS: (NavLink | NavGroup)[] = [
   { href: "/investigations", label: "Investigations", icon: BookOpen, iconColor: "text-asean-yellow" },
+  { href: "/links", label: "Links", icon: Link2, iconColor: "text-asean-yellow" },
   { href: "/d2d/benchmark", label: "Digital 2 Dozen", icon: BarChart3, iconColor: "text-asean-blue", children: D2D_SUBMENU },
   { href: "/defa/chapters", label: "DEFA", icon: Activity, iconColor: "text-asean-amber", children: DEFA_SUBMENU },
   { href: "/observatory", label: "Observatory", icon: Map, iconColor: "text-asean-blue", children: OBSERVATORY_SUBMENU },
@@ -124,6 +125,7 @@ export const NAV_GROUPS: (NavLink | NavGroup)[] = [
 /** Flat list for mobile drawer — all top-level links + sub-items. */
 export const NAV_LINKS: NavLink[] = [
   { href: "/investigations", label: "Investigations", icon: BookOpen, iconColor: "text-asean-yellow" },
+  { href: "/links", label: "Links", icon: Link2, iconColor: "text-asean-yellow" },
   ...D2D_SUBMENU,
   { href: "/defa/chapters", label: "DEFA", icon: Activity, iconColor: "text-asean-amber" },
   ...DEFA_SUBMENU,
