@@ -12,7 +12,7 @@ export const CURATED_LINKS: CuratedLinkItem[] = [
     jurisdiction: "ID",
     publishedDate: "2026-02",
     excerpt: "Analisis koalisi masyarakat sipil atas bahaya klausul cross-border data transfer dan kekebalan platform digital dalam perjanjian dagang bilateral Indonesia-AS.",
-    ogImage: "https://lbhpers.org/wp-content/uploads/2026/02/thumbnail-lbhpers-art.jpg",
+    ogImage: "https://lbhpers.org/wp-content/uploads/2026/02/Dok.-White-House.png",
   },
   {
     id: "celios-art-report",
@@ -36,7 +36,7 @@ export const CURATED_LINKS: CuratedLinkItem[] = [
     jurisdiction: "ID",
     publishedDate: "2026-02",
     excerpt: "Telaah hukum tata negara dan PDP Law 27/2022 atas komitmen transfer data sektor publik ke server asing tanpa pengawasan otoritas independen.",
-    ogImage: "https://images.theconversation.com/files/651042/original/file-20250224-17-7e6d0a.jpg?ixlib=rb-4.1.0&rect=0%2C0%2C5000%2C2500&q=45&auto=format&w=1200&h=675&fit=crop",
+    ogImage: "https://images.theconversation.com/files/720884/original/file-20260227-68-5bn80l.jpeg?ixlib=rb-4.1.1&rect=0%2C106%2C1280%2C640&q=45&auto=format&w=1356&h=668&fit=crop",
   },
   {
     id: "scotus-tariff-ruling",
@@ -60,7 +60,7 @@ export const CURATED_LINKS: CuratedLinkItem[] = [
     jurisdiction: "MY",
     publishedDate: "2026-03",
     excerpt: "Regional analysis on Malaysia's rejection of coercive digital trade conditions following US Supreme Court tariff invalidations.",
-    ogImage: "https://stratnewsglobal.com/wp-content/uploads/2025/11/malaysia-trade-us-banner.jpg",
+    ogImage: "https://stratnewsglobal.com/wp-content/uploads/2026/03/SNG-Story-PLAC-37.jpg",
   },
   {
     id: "isis-malaysia-trump-report",
@@ -84,7 +84,7 @@ export const CURATED_LINKS: CuratedLinkItem[] = [
     jurisdiction: "MY",
     publishedDate: "2025-11",
     excerpt: "Ministry statement emphasizing red lines around domestic cloud localization and green energy requirements during international trade negotiations.",
-    ogImage: "https://assets.nst.com.my/images/articles/gobind_ai_malaysia_1719041234.jpg",
+    ogImage: "https://storage.googleapis.com/origin-awsassets.nst.com.my/images/socialmedia/1A739867B221C8005300C53A8B497998_data.jpg",
   },
   {
     id: "manilatimes-defa-completion",
@@ -96,7 +96,7 @@ export const CURATED_LINKS: CuratedLinkItem[] = [
     jurisdiction: "ASEAN",
     publishedDate: "2026-03",
     excerpt: "57th ASEAN Senior Economic Officials Meeting (SEOM) advances DEFA chapters toward final legal scrubbing and ministerial adoption.",
-    ogImage: "https://www.manilatimes.net/manilatimes/uploads/images/2026/03/11/asean-defa-manila.jpg",
+    ogImage: "https://cdnx.premiumread.com/?url=https://www.manilatimes.net/theme_manilatimes/images/TMT_1920x1008.jpg&w=1920&q=100&f=webp&v=1",
   },
   {
     id: "citizen-repealed-tariffs",
@@ -108,7 +108,6 @@ export const CURATED_LINKS: CuratedLinkItem[] = [
     jurisdiction: "US",
     publishedDate: "2026-03",
     excerpt: "Legal advocacy critique demanding the repeal of digital concession clauses extracted from developing nations under invalid tariff threats.",
-    ogImage: "https://www.citizen.org/wp-content/uploads/public-citizen-digital-trade.jpg",
   },
   {
     id: "techpolicy-weaken-regulation",
@@ -120,7 +119,7 @@ export const CURATED_LINKS: CuratedLinkItem[] = [
     jurisdiction: "Global",
     publishedDate: "2026-02",
     excerpt: "Investigative report on how Big Tech lobbyists leveraged bilateral tariff negotiations to insert bans on source code disclosure and AI algorithmic audits.",
-    ogImage: "https://images.squarespace-cdn.com/content/v1/605a49c25983794e3344b58e/1708542100000-XYZ/tech-policy-press-og.jpg",
+    ogImage: "https://cdn.sanity.io/images/3tzzh18d/production/1bfb2828884f658864fa6eed14a17909c9eda2bf-1200x675.png",
   },
   {
     id: "gtwaction-big-tech-demands",
@@ -132,6 +131,7 @@ export const CURATED_LINKS: CuratedLinkItem[] = [
     jurisdiction: "US",
     publishedDate: "2026-02",
     excerpt: "Deconstruction of corporate lobbying memos aiming to block national digital privacy laws through bilateral trade chapters.",
+    ogImage: "https://gtwaction.org/wp-content/uploads/2022/11/Public_Citizen_logo.svg.png",
   },
   {
     id: "omong-omong-reject-pact",
@@ -154,7 +154,7 @@ export const CURATED_LINKS: CuratedLinkItem[] = [
     jurisdiction: "ID",
     publishedDate: "2026-02",
     excerpt: "Liputan investigasi Kompas atas klausul transfer data lintas batas dan dampaknya terhadap penegakan UU Perlindungan Data Pribadi (UU PDP).",
-    ogImage: "https://asset.kompas.id/crop/0x0:1000x667/750x500/data/photo/2026/02/kompas-data-transfer-ri-as.jpg",
+    ogImage: "https://asset.kgnewsroom.com/photo/pre/2024/09/19/21d71d98-6bf6-425e-af3e-8c00daaa8cd4_png.png",
   },
   {
     id: "rethinktrade-ustr-advisors",
@@ -166,7 +166,7 @@ export const CURATED_LINKS: CuratedLinkItem[] = [
     jurisdiction: "US",
     publishedDate: "2026",
     excerpt: "Database investigation revealing the overwhelming dominance of Big Tech executives on official international digital trade advisory boards.",
-    ogImage: "https://rethinktrade.org/wp-content/uploads/2023/10/RethinkTrade-OG-Default.png",
+    ogImage: "https://rethinktrade.org/wp-content/uploads/2023/08/Screenshot-2023-08-21-at-1.10.27-PM.png",
   },
   {
     id: "celios-lawsuit-court",
@@ -178,7 +178,6 @@ export const CURATED_LINKS: CuratedLinkItem[] = [
     jurisdiction: "ID",
     publishedDate: "2026-03",
     excerpt: "Legal filing documentation by civil society groups challenging the constitutionality of international trade commitments signed without parliamentary ratification.",
-    ogImage: "https://celios.co.id/wp-content/uploads/2026/03/celios-press-conference-lawsuit.jpg",
   },
   {
     id: "boell-big-tech-end-run",
@@ -190,7 +189,7 @@ export const CURATED_LINKS: CuratedLinkItem[] = [
     jurisdiction: "Global",
     publishedDate: "2021-05",
     excerpt: "Comprehensive policy dossier explaining how international trade treaties are used to preempt national algorithmic accountability and privacy laws.",
-    ogImage: "https://eu.boell.org/sites/default/files/styles/social_share/public/2021-05/digital_trade_rules_boell.jpg",
+    ogImage: "https://eu.boell.org/sites/default/files/styles/social_media/public/2021-05/shutterstock_1491441242%20%28Credit%20-%20Neeraz%20Chaturvedi%20-%20All%20Rights%20Reserved%29.png.jpeg?h=8f654fbd&itok=QI1G-EhF",
   },
   {
     id: "techpolicy-source-code-secrecy",
@@ -202,7 +201,7 @@ export const CURATED_LINKS: CuratedLinkItem[] = [
     jurisdiction: "Global",
     publishedDate: "2025-11",
     excerpt: "Legal argument demonstrating why banning source code inspections in trade treaties Cripples AI safety regulators and civil rights audits.",
-    ogImage: "https://images.squarespace-cdn.com/content/v1/605a49c25983794e3344b58e/1700100000000-ABC/source-code-algorithms-trade.jpg",
+    ogImage: "https://cdn.sanity.io/images/3tzzh18d/production/490cda084d17d4271b8b30f0f86c5cd81df186e5-1024x576.png",
   },
   {
     id: "bain-economy-sea",
@@ -214,7 +213,6 @@ export const CURATED_LINKS: CuratedLinkItem[] = [
     jurisdiction: "ASEAN",
     publishedDate: "2025",
     excerpt: "Macro-economic digital market data tracking cross-border e-commerce, cloud infrastructure investment, and digital payment corridors in ASEAN.",
-    ogImage: "https://www.bain.com/contentassets/e-conomy-sea-2025-hero-banner.jpg",
   },
   {
     id: "griffith-malaysia-us-rta",
@@ -226,6 +224,7 @@ export const CURATED_LINKS: CuratedLinkItem[] = [
     jurisdiction: "MY",
     publishedDate: "2026-03",
     excerpt: "Academic policy analysis examining Malaysia's strategic trade recalibration away from unilateral US concessions toward ASEAN multilateralism.",
+    ogImage: "https://blogs.griffith.edu.au/asiainsights/wp-content/uploads/sites/2/2026/05/Malaysia-US-trade-2.jpg",
   },
   {
     id: "malaymail-johari-art-void",
@@ -237,7 +236,7 @@ export const CURATED_LINKS: CuratedLinkItem[] = [
     jurisdiction: "MY",
     publishedDate: "2026-03-15",
     excerpt: "Plantation and Commodities Minister clarifies that bilateral trade commitments made under tariff threats have no ongoing legal force.",
-    ogImage: "https://media.malaymail.com/assets/uploads/articles/2026/03/15/johari_ghani_malaysia_us_trade.jpg",
+    ogImage: "https://www.malaymail.com/malaymail/uploads/images/2026/03/15/330473.JPG",
   },
   {
     id: "bilaterals-sovereignty-over-trade",
@@ -249,7 +248,6 @@ export const CURATED_LINKS: CuratedLinkItem[] = [
     jurisdiction: "ID",
     publishedDate: "2026-03",
     excerpt: "Joint statement signed by 40+ Indonesian and regional civil society organizations opposing digital deregulation clauses.",
-    ogImage: "https://bilaterals.org/local/cache-vignettes/L500xH262/siteon0-60b64.png",
   },
   {
     id: "asean-seom-conclusion",
@@ -261,7 +259,6 @@ export const CURATED_LINKS: CuratedLinkItem[] = [
     jurisdiction: "ASEAN",
     publishedDate: "2026-05",
     excerpt: "Official press statement announcing the substantive conclusion of ASEAN DEFA negotiations across all 9 negotiating chapters.",
-    ogImage: "https://asean.org/wp-content/uploads/2021/08/ASEAN-Emblem-Hero.jpg",
   },
   {
     id: "asean-defa-public-summary",
@@ -285,7 +282,7 @@ export const CURATED_LINKS: CuratedLinkItem[] = [
     jurisdiction: "ASEAN",
     publishedDate: "2026-06",
     excerpt: "Comprehensive intelligence roundup on ASEAN DEFA finalization, semiconductor supply chain security, and platform regulations.",
-    ogImage: "https://ttg-scan.ghost.io/content/images/2026/06/ttg-scan-4-banner.png",
+    ogImage: "https://storage.ghost.io/c/79/87/7987cab7-5645-4866-b316-bf0a94bd837f/content/images/size/w1200/2026/04/photo-1643580018337-5af73fe3c21a.jpeg",
   },
   {
     id: "statedept-digital-sovereignty-trap",
@@ -297,7 +294,6 @@ export const CURATED_LINKS: CuratedLinkItem[] = [
     jurisdiction: "Global",
     publishedDate: "2026",
     excerpt: "Strategic review comparing European data protection, US market-driven openness, and Southeast Asian hybrid localization strategies.",
-    ogImage: "https://substackcdn.com/image/fetch/w_1200,h_600,c_fill,f_jpg,q_auto:good,fl_progressive:steep,g_auto/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fdigital-sovereignty-trap.png",
   },
   {
     id: "us-state-pax-silica",
@@ -309,7 +305,6 @@ export const CURATED_LINKS: CuratedLinkItem[] = [
     jurisdiction: "Global",
     publishedDate: "2026",
     excerpt: "US diplomatic initiative on secure AI supply chains, subsea data cable resilience, and critical digital infrastructure.",
-    ogImage: "https://www.state.gov/wp-content/uploads/2024/05/Department-of-State-Seal-Blue.jpg",
   },
   {
     id: "thestar-malaysia-ai-bill",
@@ -321,7 +316,7 @@ export const CURATED_LINKS: CuratedLinkItem[] = [
     jurisdiction: "MY",
     publishedDate: "2026-06-22",
     excerpt: "Digital Minister outlines forthcoming Malaysian legislative framework targeting algorithmic transparency, watermarking, and accountability.",
-    ogImage: "https://apicms.thestar.com.my/uploads/images/2026/06/22/2761891.jpg",
+    ogImage: "https://apicms.thestar.com.my/uploads/images/2026/06/22/3970154.jpg",
   },
   {
     id: "uk-gov-cptpp-10th-commission",
@@ -333,7 +328,6 @@ export const CURATED_LINKS: CuratedLinkItem[] = [
     jurisdiction: "Global",
     publishedDate: "2026-06-26",
     excerpt: "Official trade statement covering e-commerce provisions, cross-border digital identity interoperability, and accession guidelines.",
-    ogImage: "https://assets.publishing.service.gov.uk/media/cptpp-trade-commission-uk.jpg",
   },
   {
     id: "ekon-indonesia-defa-nov",
@@ -345,7 +339,6 @@ export const CURATED_LINKS: CuratedLinkItem[] = [
     jurisdiction: "ID",
     publishedDate: "2026-07",
     excerpt: "Rilis resmi Kemenko Perekonomian mengenai finalisasi naskah perjanjian DEFA menuju penandatanganan kepala negara pada KTT ASEAN ke-49.",
-    ogImage: "https://www.ekon.go.id/images/logo-kemenko-ekon.png",
   },
   {
     id: "thestar-ai-accountability",
@@ -357,7 +350,7 @@ export const CURATED_LINKS: CuratedLinkItem[] = [
     jurisdiction: "MY",
     publishedDate: "2026-05-17",
     excerpt: "In-depth investigative feature assessing regional readiness for high-risk automated decision-making and biometric surveillance.",
-    ogImage: "https://apicms.thestar.com.my/uploads/images/2026/05/17/2701234.jpg",
+    ogImage: "https://apicms.thestar.com.my/uploads/images/2026/05/17/3911941.jpg",
   },
   {
     id: "techpolicy-asia-ai-workers",
@@ -369,7 +362,7 @@ export const CURATED_LINKS: CuratedLinkItem[] = [
     jurisdiction: "ASEAN",
     publishedDate: "2026-04",
     excerpt: "Field report on gig economy workers, content moderators, and tech labor unions demanding algorithmic transparency and collective bargaining rights.",
-    ogImage: "https://images.squarespace-cdn.com/content/v1/605a49c25983794e3344b58e/1712000000000-DEF/workers-asia-ai-protection.jpg",
+    ogImage: "https://cdn.sanity.io/images/3tzzh18d/production/1bfb2828884f658864fa6eed14a17909c9eda2bf-1200x675.png",
   },
   {
     id: "dta-nte-statement",
