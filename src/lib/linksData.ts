@@ -252,6 +252,7 @@ export const CURATED_LINKS: CuratedLinkItem[] = [
     jurisdiction: "ID",
     publishedDate: "2026-03",
     excerpt: "Joint statement signed by 40+ Indonesian and regional civil society organizations opposing digital deregulation clauses.",
+    isPdf: true,
   },
   {
     id: "asean-seom-conclusion",
@@ -263,6 +264,7 @@ export const CURATED_LINKS: CuratedLinkItem[] = [
     jurisdiction: "ASEAN",
     publishedDate: "2026-05",
     excerpt: "Official press statement announcing the substantive conclusion of ASEAN DEFA negotiations across all 9 negotiating chapters.",
+    isPdf: true,
   },
   {
     id: "asean-defa-public-summary",
@@ -346,6 +348,7 @@ export const CURATED_LINKS: CuratedLinkItem[] = [
     jurisdiction: "ID",
     publishedDate: "2026-07",
     excerpt: "Rilis resmi Kemenko Perekonomian mengenai finalisasi naskah perjanjian DEFA menuju penandatanganan kepala negara pada KTT ASEAN ke-49.",
+    ogImage: "https://ekon.go.id/image/publikasi/publikasi_1778136891_69fc373bbd41d.jpeg",
   },
   {
     id: "thestar-ai-accountability",

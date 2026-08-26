@@ -10,6 +10,7 @@
     "lint": "eslint",
     "lint:colors": "node scripts/check-colors.js",
     "lint:typography": "node scripts/check-typography.js",
+    "lint:links": "node scripts/check-links.js",
     "sync:links": "node scripts/sync-links-meta.js",
     "test": "vitest run",
     "test:watch": "vitest",
