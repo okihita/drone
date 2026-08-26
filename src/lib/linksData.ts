@@ -180,6 +180,7 @@ export const CURATED_LINKS: CuratedLinkItem[] = [
     jurisdiction: "ID",
     publishedDate: "2026-03",
     excerpt: "Legal filing documentation by civil society groups challenging the constitutionality of international trade commitments signed without parliamentary ratification.",
+    ogImage: "https://celios.co.id/wp-content/uploads/2026/03/100.png",
   },
   {
     id: "boell-big-tech-end-run",
@@ -297,6 +298,7 @@ export const CURATED_LINKS: CuratedLinkItem[] = [
     jurisdiction: "Global",
     publishedDate: "2026",
     excerpt: "Strategic review comparing European data protection, US market-driven openness, and Southeast Asian hybrid localization strategies.",
+    ogImage: "https://substackcdn.com/image/fetch/$s_!0R8m!,w_40,h_40,c_fill,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fff9d8bac-c4f8-4cd6-9b0f-e78293f3be80_1280x1280.png",
   },
   {
     id: "us-state-pax-silica",

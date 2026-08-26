@@ -118,8 +118,32 @@ function extractMeta(html, targetUrl) {
     html.match(/<meta\s+(?:property|name)=["'](?:og:description|description)["']\s+content=["']([^"']+)["']/i) ||
     html.match(/<meta\s+content=["']([^"']+)["']\s+(?:property|name)=["'](?:og:description|description)["']/i);
 
+  let ogImage = ogImageMatch ? cleanUrl(ogImageMatch[1]) : null;
+
+  // Heuristic Fallback (like Facebook): If no og:image tag, find first prominent content <img> in HTML
+  if (!ogImage) {
+    const imgRegex = /<img[^>]+src=["']([^"']+)["'][^>]*>/gi;
+    let imgMatch;
+    while ((imgMatch = imgRegex.exec(html)) !== null) {
+      const src = imgMatch[1];
+      const isNoise =
+        src.includes("logo") ||
+        src.includes("icon") ||
+        src.includes("avatar") ||
+        src.includes("tracking") ||
+        src.includes("pixel") ||
+        src.endsWith(".svg") ||
+        src.endsWith(".gif");
+
+      if (!isNoise && (src.includes(".jpg") || src.includes(".png") || src.includes(".webp") || src.includes(".jpeg"))) {
+        ogImage = cleanUrl(src);
+        break;
+      }
+    }
+  }
+
   return {
-    ogImage: ogImageMatch ? cleanUrl(ogImageMatch[1]) : null,
+    ogImage,
     title: ogTitleMatch ? ogTitleMatch[1].trim() : null,
     description: ogDescMatch ? ogDescMatch[1].trim() : null,
   };
