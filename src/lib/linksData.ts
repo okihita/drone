@@ -108,6 +108,7 @@ export const CURATED_LINKS: CuratedLinkItem[] = [
     jurisdiction: "US",
     publishedDate: "2026-03",
     excerpt: "Legal advocacy critique demanding the repeal of digital concession clauses extracted from developing nations under invalid tariff threats.",
+    ogImage: "https://www.citizen.org/wp-content/uploads/GTW-Statement-meta-pic-replacements-2-1-1024x576.png",
   },
   {
     id: "techpolicy-weaken-regulation",
