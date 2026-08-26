@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useMemo } from "react";
-import { Search, ExternalLink, FileText } from "lucide-react";
+import { Search, ExternalLink, FileText, Globe } from "lucide-react";
 import { CURATED_LINKS } from "@/lib/linksData";
 import type { CuratedLinkCategory, CuratedLinkJurisdiction } from "@/types/links";
 import { FLAG_COMPONENTS } from "@/lib/flags";
@@ -25,18 +25,15 @@ const JURISDICTIONS: ("ALL" | CuratedLinkJurisdiction)[] = [
   "Global",
 ];
 
-const CATEGORY_COLORS: Record<CuratedLinkCategory, string> = {
-  "Trade & Tariffs": "bg-asean-red/10 text-asean-red border-asean-red/30",
-  "DEFA & Treaties": "bg-asean-yellow/15 text-asean-yellow-dark dark:text-asean-yellow border-asean-yellow/40",
-  "Data Governance": "bg-asean-blue/10 text-asean-blue dark:text-asean-sky border-asean-blue/30",
-  "Tech Sovereignty": "bg-asean-amber/10 text-asean-amber border-asean-amber/30",
-  "AI & Labor": "bg-asean-emerald/10 text-asean-emerald border-asean-emerald/30",
-};
-
 export default function CuratedLinksClient() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<"ALL" | CuratedLinkCategory>("ALL");
   const [selectedJurisdiction, setSelectedJurisdiction] = useState<"ALL" | CuratedLinkJurisdiction>("ALL");
+  const [failedImages, setFailedImages] = useState<Record<string, boolean>>({});
+
+  const handleImageError = (id: string) => {
+    setFailedImages((prev) => ({ ...prev, [id]: true }));
+  };
 
   const filteredLinks = useMemo(() => {
     return CURATED_LINKS.filter((item) => {
@@ -153,11 +150,13 @@ export default function CuratedLinksClient() {
       </div>
 
       {/* Links Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         {filteredLinks.map((item) => {
           const Flag = item.jurisdiction !== "ASEAN" && item.jurisdiction !== "Global" && item.jurisdiction !== "US"
             ? FLAG_COMPONENTS[item.jurisdiction]
             : null;
+
+          const hasValidImage = item.ogImage && !failedImages[item.id];
 
           return (
             <a
@@ -165,63 +164,90 @@ export default function CuratedLinksClient() {
               href={item.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="group relative flex flex-col justify-between rounded-2xl border border-slate-200 bg-white p-5 shadow-xs transition-all duration-200 hover:-translate-y-1 hover:border-slate-300 hover:shadow-md dark:border-white/10 dark:bg-slate-950/70 dark:hover:border-white/20"
+              className="group relative flex flex-col justify-between rounded-2xl border border-slate-200 bg-white overflow-hidden shadow-xs transition-all duration-200 hover:-translate-y-1 hover:border-slate-300 hover:shadow-md dark:border-white/10 dark:bg-slate-950/70 dark:hover:border-white/20"
             >
               <div>
-                {/* Meta Top: Publisher + Category + Jurisdiction Badge */}
-                <div className="flex items-center justify-between gap-2 mb-3">
-                  <div className="flex items-center gap-2">
-                    <span className="font-sans text-xs font-bold text-slate-900 dark:text-white">
-                      {item.publisher}
-                    </span>
-                    <span className="text-[11px] text-slate-400 font-sans">·</span>
-                    <span className="text-[11px] text-slate-500 dark:text-slate-400 font-sans">
-                      {item.domain}
-                    </span>
+                {/* Optional OG Image Preview Banner */}
+                {hasValidImage ? (
+                  <div className="relative w-full h-40 sm:h-44 bg-slate-100 dark:bg-slate-900 border-b border-slate-100 dark:border-white/5 overflow-hidden">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={item.ogImage}
+                      alt={item.title}
+                      onError={() => handleImageError(item.id)}
+                      loading="lazy"
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-80" />
+                    
+                    <div className="absolute bottom-2.5 left-3 right-3 flex items-center justify-between">
+                      <span className="font-sans text-[11px] font-bold text-white drop-shadow-xs truncate max-w-[70%]">
+                        {item.publisher}
+                      </span>
+                      {item.isPdf && (
+                        <span className="rounded bg-black/70 border border-white/20 px-1.5 py-0.5 text-[9px] font-sans font-bold text-white backdrop-blur-xs">
+                          PDF
+                        </span>
+                      )}
+                    </div>
                   </div>
+                ) : (
+                  <div className="p-5 pb-0 flex items-center justify-between gap-2">
+                    <div className="flex items-center gap-2">
+                      <div className="p-1.5 rounded-lg bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-white/10 text-slate-500">
+                        {item.isPdf ? <FileText className="w-3.5 h-3.5" /> : <Globe className="w-3.5 h-3.5" />}
+                      </div>
+                      <span className="font-sans text-xs font-bold text-slate-900 dark:text-white">
+                        {item.publisher}
+                      </span>
+                      <span className="text-[11px] text-slate-400 font-sans">·</span>
+                      <span className="text-[11px] text-slate-500 dark:text-slate-400 font-sans">
+                        {item.domain}
+                      </span>
+                    </div>
 
-                  <div className="flex items-center gap-1.5">
                     {item.isPdf && (
-                      <span className="rounded bg-asean-red/10 border border-asean-red/30 px-1.5 py-0.5 text-[9px] font-sans font-bold text-asean-red">
+                      <span className="rounded bg-slate-100 border border-slate-200 px-1.5 py-0.5 text-[9px] font-sans font-bold text-slate-600 dark:bg-white/10 dark:border-white/10 dark:text-slate-300">
                         PDF
                       </span>
                     )}
-                    <span
-                      className={`rounded-full border px-2 py-0.5 text-[10px] font-sans font-bold ${
-                        CATEGORY_COLORS[item.category]
-                      }`}
-                    >
+                  </div>
+                )}
+
+                {/* Card Content Body */}
+                <div className="p-5">
+                  {/* Neutral Clean Category Pill (NO color) */}
+                  <div className="flex items-center justify-between gap-2 mb-2.5">
+                    <span className="rounded-md bg-slate-100 border border-slate-200/80 px-2 py-0.5 text-[10px] font-sans font-medium text-slate-600 dark:bg-white/5 dark:border-white/10 dark:text-slate-400">
                       {item.category}
                     </span>
+
+                    <span className="text-[11px] text-slate-500 dark:text-slate-400 font-sans">
+                      {item.publishedDate}
+                    </span>
                   </div>
+
+                  {/* Title */}
+                  <h3 className="font-serif-editorial text-lg font-bold text-slate-900 dark:text-white group-hover:text-asean-yellow transition-colors leading-snug mb-2">
+                    {item.title}
+                  </h3>
+
+                  {/* Excerpt */}
+                  <p className="font-sans text-xs text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-3">
+                    {item.excerpt}
+                  </p>
                 </div>
-
-                {/* Title */}
-                <h3 className="font-serif-editorial text-lg font-bold text-slate-900 dark:text-white group-hover:text-asean-yellow transition-colors leading-snug mb-2">
-                  {item.title}
-                </h3>
-
-                {/* Excerpt */}
-                <p className="font-sans text-xs text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-3 mb-4">
-                  {item.excerpt}
-                </p>
               </div>
 
               {/* Bottom Footer */}
-              <div className="flex items-center justify-between pt-3 border-t border-slate-100 dark:border-white/5 text-xs font-sans">
-                <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400">
+              <div className="flex items-center justify-between px-5 py-3 border-t border-slate-100 dark:border-white/5 text-xs font-sans bg-slate-50/50 dark:bg-slate-900/30">
+                <div className="flex items-center gap-1.5 text-slate-500 dark:text-slate-400">
                   <span className="inline-flex items-center gap-1">
                     {Flag && <Flag className="w-3.5 h-2.5 rounded-2xs object-cover" />}
                     <span className="font-bold text-slate-700 dark:text-slate-300">
                       {item.jurisdiction}
                     </span>
                   </span>
-                  {item.publishedDate && (
-                    <>
-                      <span>·</span>
-                      <span>{item.publishedDate}</span>
-                    </>
-                  )}
                 </div>
 
                 <div className="inline-flex items-center gap-1 font-bold text-slate-700 group-hover:text-asean-yellow dark:text-slate-300 transition-colors">

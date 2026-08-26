@@ -18,4 +18,5 @@ export interface CuratedLinkItem {
   publishedDate?: string;
   excerpt: string;
   isPdf?: boolean;
+  ogImage?: string;
 }
