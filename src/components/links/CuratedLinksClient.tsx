@@ -211,28 +211,6 @@ export default function CuratedLinksClient() {
                         loading="lazy"
                         className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/20 to-black/20" />
-                      
-                      <div className="absolute top-3 left-3 right-3 flex items-center justify-between">
-                        <div className="flex items-center gap-2 rounded-full bg-slate-950/70 border border-white/15 px-3 py-1 backdrop-blur-md">
-                          {/* eslint-disable-next-line @next/next/no-img-element */}
-                          <img
-                            src={`https://www.google.com/s2/favicons?domain=${item.domain}&sz=64`}
-                            alt={item.publisher}
-                            className="w-3.5 h-3.5 rounded-sm object-contain"
-                            loading="lazy"
-                          />
-                          <span className="font-sans text-sm font-bold text-white truncate max-w-[160px]">
-                            {item.publisher}
-                          </span>
-                        </div>
-
-                        {item.isPdf && (
-                          <span className="rounded-full bg-black/80 border border-white/20 px-2.5 py-0.5 text-sm font-sans font-bold text-white backdrop-blur-md">
-                            PDF
-                          </span>
-                        )}
-                      </div>
                     </div>
                   ) : (
                     <FallbackDossierBanner item={item} />
@@ -240,20 +218,38 @@ export default function CuratedLinksClient() {
 
                   {/* Card Content Body */}
                   <div className="p-6 space-y-3">
+                    {/* Publisher + Topic Category Row */}
                     <div className="flex items-center justify-between gap-2">
-                      <span className="rounded-md bg-slate-100 border border-slate-200/80 px-2.5 py-0.5 text-sm font-sans font-medium text-slate-600 dark:bg-white/5 dark:border-white/10 dark:text-slate-400">
-                        {item.category}
-                      </span>
+                      <div className="flex items-center gap-2 min-w-0">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={`https://www.google.com/s2/favicons?domain=${item.domain}&sz=64`}
+                          alt={item.publisher}
+                          className="w-4 h-4 rounded-xs object-contain bg-slate-100 p-0.5 dark:bg-slate-800 shrink-0"
+                          loading="lazy"
+                        />
+                        <span className="font-sans text-sm font-bold text-slate-800 dark:text-slate-200 truncate">
+                          {item.publisher}
+                        </span>
+                        <span className="text-slate-300 dark:text-slate-700">·</span>
+                        <span className="rounded-md bg-slate-100 border border-slate-200/80 px-2 py-0.5 text-sm font-sans font-medium text-slate-600 dark:bg-white/5 dark:border-white/10 dark:text-slate-400 shrink-0">
+                          {item.category}
+                        </span>
+                      </div>
 
-                      <span className="text-sm text-slate-500 dark:text-slate-400 font-sans">
-                        {item.publishedDate}
-                      </span>
+                      {item.isPdf && (
+                        <span className="rounded bg-slate-900 text-white px-2 py-0.5 text-sm font-sans font-bold dark:bg-white dark:text-slate-950 shrink-0">
+                          PDF
+                        </span>
+                      )}
                     </div>
 
+                    {/* Title */}
                     <h3 className="font-serif-editorial text-xl font-bold text-slate-900 dark:text-white group-hover:text-asean-yellow transition-colors leading-snug">
                       {item.title}
                     </h3>
 
+                    {/* Excerpt */}
                     <p className="font-sans text-sm text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-3">
                       {item.excerpt}
                     </p>

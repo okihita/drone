@@ -306,6 +306,7 @@ export const CURATED_LINKS: CuratedLinkItem[] = [
     jurisdiction: "Global",
     publishedDate: "2026",
     excerpt: "US diplomatic initiative on secure AI supply chains, subsea data cable resilience, and critical digital infrastructure.",
+    ogImage: "https://www.state.gov/wp-content/uploads/2025/01/Seal_only-1.png",
   },
   {
     id: "thestar-malaysia-ai-bill",
