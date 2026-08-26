@@ -202,16 +202,16 @@ export default function CuratedLinksClient() {
               >
                 <div>
                   {hasValidImage ? (
-                    <div className="relative w-full h-44 sm:h-48 bg-slate-100 dark:bg-slate-900 border-b border-slate-100 dark:border-white/5 overflow-hidden">
+                    <div className="relative w-full h-56 sm:h-64 md:h-72 bg-slate-100 dark:bg-slate-900 border-b border-slate-100 dark:border-white/5 overflow-hidden">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={item.ogImage}
                         alt={item.title}
                         onError={() => handleImageError(item.id)}
                         loading="lazy"
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-black/20" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/20 to-black/20" />
                       
                       <div className="absolute top-3 left-3 right-3 flex items-center justify-between">
                         <div className="flex items-center gap-2 rounded-full bg-slate-950/70 border border-white/15 px-3 py-1 backdrop-blur-md">

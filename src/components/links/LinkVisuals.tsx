@@ -23,7 +23,7 @@ export function CategoryIcon({ category }: { category: CuratedLinkCategory }) {
 
 export function FallbackDossierBanner({ item }: { item: CuratedLinkItem }) {
   return (
-    <div className="relative w-full h-40 sm:h-48 bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-900 dark:to-slate-950 border-b border-slate-200 dark:border-white/10 p-5 flex flex-col justify-between overflow-hidden">
+    <div className="relative w-full h-56 sm:h-64 md:h-72 bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-900 dark:to-slate-950 border-b border-slate-200 dark:border-white/10 p-6 flex flex-col justify-between overflow-hidden">
       {/* Blueprint Grid Overlay */}
       <div className="absolute inset-0 bg-hud-grid opacity-30 pointer-events-none" />
 
