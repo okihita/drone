@@ -208,7 +208,7 @@ export const CURATED_LINKS: CuratedLinkItem[] = [
   },
   {
     id: "bain-economy-sea",
-    url: "https://www.bain.com/about/media-center/press-releases/sea/e-conomy-sea-2025/",
+    url: "https://www.bain.com/insights/e-conomy-sea-2025/",
     title: "e-Conomy SEA Report: Navigating Southeast Asia's Digital Growth",
     publisher: "Google, Temasek & Bain",
     domain: "bain.com",
@@ -216,7 +216,7 @@ export const CURATED_LINKS: CuratedLinkItem[] = [
     jurisdiction: "ASEAN",
     publishedDate: "2025",
     excerpt: "Macro-economic digital market data tracking cross-border e-commerce, cloud infrastructure investment, and digital payment corridors in ASEAN.",
-    ogImage: "https://www.bain.com/contentassets/d867c2c6619346a0a7feae13f69f9367/media-center-2021-16_9.jpg",
+    ogImage: "https://www.bain.com/contentassets/6bb9dc8c2ec747e5b4a39c29a2042228/economysea2025-1440x810.jpg",
   },
   {
     id: "griffith-malaysia-us-rta",
