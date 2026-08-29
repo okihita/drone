@@ -2,14 +2,13 @@
 
 import React, { useState, useMemo } from "react";
 import { Search, ExternalLink, LayoutGrid, List } from "lucide-react";
-import type { CuratedLinkCategory, CuratedLinkJurisdiction, CuratedLinkItem } from "@/types/links";
+import type { CuratedLinkItem } from "@/types/links";
 import { FLAG_COMPONENTS } from "@/lib/flags";
 import { FallbackDossierBanner } from "./LinkVisuals";
 import { CompactLedgerList } from "./CompactLedgerList";
 import { CuratedLinksEmptyState } from "./CuratedLinksEmptyState";
 
-const CATEGORIES: ("ALL" | CuratedLinkCategory)[] = [
-  "ALL",
+const CANONICAL_CATEGORIES = [
   "Trade & Tariffs",
   "DEFA & Treaties",
   "Data Governance",
@@ -17,14 +16,8 @@ const CATEGORIES: ("ALL" | CuratedLinkCategory)[] = [
   "AI & Labor",
 ];
 
-const JURISDICTIONS: ("ALL" | CuratedLinkJurisdiction)[] = [
-  "ALL",
-  "ID",
-  "MY",
-  "PH",
-  "ASEAN",
-  "US",
-  "Global",
+const CANONICAL_JURISDICTIONS = [
+  "ID", "MY", "SG", "TH", "PH", "VN", "BN", "KH", "LA", "MM", "TL", "ASEAN", "US", "Global"
 ];
 
 interface CuratedLinksClientProps {
@@ -33,10 +26,36 @@ interface CuratedLinksClientProps {
 
 export default function CuratedLinksClient({ initialLinks = [] }: CuratedLinksClientProps) {
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState<"ALL" | CuratedLinkCategory>("ALL");
-  const [selectedJurisdiction, setSelectedJurisdiction] = useState<"ALL" | CuratedLinkJurisdiction>("ALL");
+  const [selectedCategory, setSelectedCategory] = useState<string>("ALL");
+  const [selectedJurisdiction, setSelectedJurisdiction] = useState<string>("ALL");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [failedImages, setFailedImages] = useState<Record<string, boolean>>({});
+
+  const categories = useMemo(() => {
+    const set = new Set<string>();
+    initialLinks.forEach((item) => {
+      if (item.category) set.add(item.category);
+    });
+    const existing = Array.from(set);
+    const sorted = [
+      ...CANONICAL_CATEGORIES.filter((c) => set.has(c)),
+      ...existing.filter((c) => !CANONICAL_CATEGORIES.includes(c)).sort(),
+    ];
+    return ["ALL", ...sorted];
+  }, [initialLinks]);
+
+  const jurisdictions = useMemo(() => {
+    const set = new Set<string>();
+    initialLinks.forEach((item) => {
+      if (item.jurisdiction) set.add(item.jurisdiction);
+    });
+    const existing = Array.from(set);
+    const sorted = [
+      ...CANONICAL_JURISDICTIONS.filter((j) => set.has(j)),
+      ...existing.filter((j) => !CANONICAL_JURISDICTIONS.includes(j)).sort(),
+    ];
+    return ["ALL", ...sorted];
+  }, [initialLinks]);
 
   const handleImageError = (id: string) => {
     setFailedImages((prev) => ({ ...prev, [id]: true }));
@@ -122,7 +141,7 @@ export default function CuratedLinksClient({ initialLinks = [] }: CuratedLinksCl
             <span className="text-sm font-sans font-bold uppercase tracking-wider text-slate-400 pr-1 shrink-0">
               Topic:
             </span>
-            {CATEGORIES.map((cat) => (
+            {categories.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setSelectedCategory(cat)}
@@ -142,7 +161,7 @@ export default function CuratedLinksClient({ initialLinks = [] }: CuratedLinksCl
             <span className="text-sm font-sans font-bold uppercase tracking-wider text-slate-400 pr-1 shrink-0">
               Region:
             </span>
-            {JURISDICTIONS.map((jur) => {
+            {jurisdictions.map((jur) => {
               const Flag = jur !== "ALL" && jur !== "ASEAN" && jur !== "Global" && jur !== "US"
                 ? FLAG_COMPONENTS[jur]
                 : null;

@@ -1,11 +1,21 @@
+import type { ASEANCountryCode } from "@/lib/countries";
+
+/** Extensible categories with autocomplete for canonical trade & policy domains */
 export type CuratedLinkCategory =
   | "Trade & Tariffs"
   | "DEFA & Treaties"
   | "Data Governance"
   | "AI & Labor"
-  | "Tech Sovereignty";
+  | "Tech Sovereignty"
+  | (string & {});
 
-export type CuratedLinkJurisdiction = "ID" | "MY" | "PH" | "ASEAN" | "US" | "Global";
+/** Extensible jurisdictions supporting all 11 ASEAN member states, regional bodies, and global */
+export type CuratedLinkJurisdiction =
+  | ASEANCountryCode
+  | "ASEAN"
+  | "US"
+  | "Global"
+  | (string & {});
 
 export interface CuratedLinkItem {
   id: string;

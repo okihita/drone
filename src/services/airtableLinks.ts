@@ -28,9 +28,9 @@ interface AirtableListResponse {
 }
 
 /**
- * Fetch Curated Links dynamically from Airtable Headless CMS.
- * Implements 60-second ISR caching in production with 'curated-links' tag,
- * and cache: 'no-store' in development for instantaneous live updates.
+ * Fetch Curated Links dynamically from Airtable Headless CMS with full offset pagination.
+ * Supports arbitrary record counts (>100 records), custom table name via env var,
+ * 60-second ISR caching in production, and cache: 'no-store' in development.
  */
 export async function getCuratedLinks(): Promise<CuratedLinkItem[]> {
   const pat = process.env.AIRTABLE_PAT;
@@ -42,32 +42,52 @@ export async function getCuratedLinks(): Promise<CuratedLinkItem[]> {
   }
 
   try {
-    const tableName = encodeURIComponent("Curated Links");
-    const url = `https://api.airtable.com/v0/${baseId}/${tableName}`;
+    const rawTableName = process.env.AIRTABLE_TABLE_NAME || "Curated Links";
+    const tableName = encodeURIComponent(rawTableName);
+    const baseUrl = `https://api.airtable.com/v0/${baseId}/${tableName}`;
 
     const isDev = process.env.NODE_ENV === "development";
 
-    const res = await fetch(url, {
-      headers: {
-        Authorization: `Bearer ${pat}`,
-      },
-      ...(isDev
-        ? { cache: "no-store" }
-        : { next: { revalidate: 60, tags: ["curated-links"] } }),
-    });
+    let allRecords: AirtableRecord[] = [];
+    let offset: string | undefined = undefined;
+    let pagesFetched = 0;
+    const MAX_PAGES = 10; // Safety guard: up to 1,000 records
 
-    if (!res.ok) {
-      console.warn(`Airtable fetch failed with status ${res.status}`);
+    do {
+      const pageUrl = new URL(baseUrl);
+      if (offset) {
+        pageUrl.searchParams.set("offset", offset);
+      }
+
+      const res = await fetch(pageUrl.toString(), {
+        headers: {
+          Authorization: `Bearer ${pat}`,
+        },
+        ...(isDev
+          ? { cache: "no-store" }
+          : { next: { revalidate: 60, tags: ["curated-links"] } }),
+      });
+
+      if (!res.ok) {
+        console.warn(`Airtable fetch failed with status ${res.status} on page ${pagesFetched + 1}`);
+        break;
+      }
+
+      const data: AirtableListResponse = await res.json();
+
+      if (data.records && Array.isArray(data.records)) {
+        allRecords = allRecords.concat(data.records);
+      }
+
+      offset = data.offset;
+      pagesFetched++;
+    } while (offset && pagesFetched < MAX_PAGES);
+
+    if (allRecords.length === 0) {
       return [];
     }
 
-    const data: AirtableListResponse = await res.json();
-
-    if (!data.records || !Array.isArray(data.records)) {
-      return [];
-    }
-
-    const items: CuratedLinkItem[] = data.records
+    const items: CuratedLinkItem[] = allRecords
       .filter((r) => r.fields.Status !== "Draft" && r.fields.Title && r.fields.URL)
       .map((r) => {
         const f = r.fields;
