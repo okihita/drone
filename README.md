@@ -2,7 +2,7 @@
 
 > **Client / Organization**: [EngageMedia](https://engagemedia.org)  
 > **Maintained By**: EngageMedia Research & Engineering Team  
-> **Tech Stack**: Next.js 16 (App Router & Turbopack), React 19, Tailwind CSS v4, Supabase (`pgvector`), Drizzle ORM, pnpm 11  
+> **Tech Stack**: Next.js 16 (App Router & Turbopack), React 19, Tailwind CSS v4, Airtable Headless CMS (60s Edge ISR), D3-Geo, pnpm 11  
 > **License**: Creative Commons Attribution 4.0 International (CC BY 4.0) / AGPL-3.0  
 
 ---
@@ -55,10 +55,11 @@ flowchart TD
 
 | If you want to change / update... | Location | Backing Technology |
 | :--- | :--- | :--- |
-| **Curated Links & Articles** | [Airtable CMS](https://airtable.com/appu4obXmSR8kzkYx) | Airtable API (Instant local dev / 1h ISR prod) |
-| **Policies & Threat Alerts** | `/admin/policies` or Supabase Dashboard | Supabase PostgreSQL (`policies` table) |
-| **Investigations & Dispatches** | `/admin/news` or Supabase Dashboard | Supabase PostgreSQL (`news` table) |
-| **Digital 2 Dozen Matrix** | `src/lib/digital2dozen.ts` & `benchmarkData.ts` | Static TypeScript research dataset |
+| **Curated Links & Articles** | [Airtable CMS](https://airtable.com/appu4obXmSR8kzkYx) | Airtable `Curated Links` (60s Edge ISR) |
+| **Policies & Threat Decrees** | [Airtable CMS](https://airtable.com/appu4obXmSR8kzkYx) | Airtable `Policies` (60s Edge ISR) |
+| **Investigations & Dispatches** | [Airtable CMS](https://airtable.com/appu4obXmSR8kzkYx) | Airtable `News` (60s Edge ISR) |
+| **Jurisdiction Profiles & Scores** | [Airtable CMS](https://airtable.com/appu4obXmSR8kzkYx) | Airtable `Jurisdictions` (60s Edge ISR) |
+| **Digital 2 Dozen Matrix** | `src/lib/benchmarkData.ts` | Static TypeScript research dataset |
 | **DEFA Chapter Telemetry** | `src/services/defa.ts` | Static treaty matrix & analysis |
 | **Cartography & Regional Map** | `src/components/observatory/AseanMap.tsx` | D3-Geo + Natural Earth GeoJSON (`public/data/`) |
 | **Branding Colors & Themes** | `src/lib/colors.ts` & `src/app/globals.css` | Official ASEAN Palette Tokens |

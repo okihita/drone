@@ -112,13 +112,15 @@ This version has breaking changes — APIs, conventions, and file structure may 
 ---
 
 ### 16. Multi-Page Architecture Rule
-The application maintains the following dedicated public and admin route groups:
+The application maintains the following dedicated public route groups:
 1. `src/app/(home)/page.tsx` — Our World in Data style hero + Editorial Atelier homepage.
 2. `src/app/investigations/` — Editorial long-reads & field reports index and slug pages.
 3. `src/app/(observatory)/observatory/page.tsx` — Cartographic Jurisdiction Observatory with real GeoJSON SVG map.
 4. `src/app/(observatory)/ledger/page.tsx` — Searchable Verified Regulatory Ledger database table.
 5. `src/app/(observatory)/intake/page.tsx` — Encrypted Defender Dossier Intake portal (`/submit-dossier`).
-6. `src/app/defa/` — 5-module ASEAN DEFA Telemetry & Observatory Suite.
-7. `src/app/d2d/` — Digital 2 Dozen Benchmark & compliance visualization suite.
-8. `src/app/admin/` — Authenticated Admin & Human-in-the-Loop staging queue.
+6. `src/app/links/` — Curated Digital Trade & Policy Links directory.
+7. `src/app/defa/` — 5-module ASEAN DEFA Telemetry & Observatory Suite.
+8. `src/app/d2d/` — Digital 2 Dozen Benchmark & compliance visualization suite.
+
+All content management (News, Policies, Jurisdictions, Curated Links) is managed via the **Airtable Headless CMS** with 60-second ISR edge caching. There is no internal `/admin` dashboard.
 

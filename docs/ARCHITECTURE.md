@@ -8,7 +8,7 @@
 
 ## 1. System Overview
 
-DRONE is a policy intelligence observatory and automated monitoring portal for Southeast Asian digital rights, digital trade frameworks (ASEAN DEFA), AI governance, and cybersecurity regulations.
+DRONE is a policy intelligence observatory and automated monitoring portal for Southeast Asian digital rights, digital trade frameworks (ASEAN DEFA), AI governance, and semiconductor supply chains (Pax Silica).
 
 ```mermaid
 flowchart TD
@@ -19,15 +19,15 @@ flowchart TD
     end
 
     subgraph Data & Server Layer
-        E[Next.js Server Actions & Route Handlers] --> F[Tier 1: Supabase PostgreSQL & Auth]
-        E --> G[Tier 2: Airtable Headless CMS]
-        E --> H[Tier 3: Static Benchmark Models]
+        E[Next.js Server Components & Route Handlers] --> F[Tier 1: Airtable Headless CMS]
+        E --> G[Tier 2: Static Benchmark & Treaty Datasets]
     end
 
     subgraph Automation & Ingestion
-        I[GitHub Actions Scheduled Cron] --> J[/api/cron/engagemedia-sync]
-        J --> K[WordPress REST API Source]
-        K --> L[Admin Staging Queue /admin/ingester]
+        H[GitHub Actions / Vercel Cron] --> I[/api/cron/engagemedia-sync]
+        I --> J[WordPress REST API Source]
+        J --> K[Gemini Flash LLM Classification]
+        K --> F
     end
 
     A <--> E
@@ -35,13 +35,12 @@ flowchart TD
 
 ---
 
-## 2. Three-Tier Data Architecture
+## 2. Two-Tier Data Architecture
 
 | Tier | Technology | Domain / Responsibilities | Caching / Performance |
 | :--- | :--- | :--- | :--- |
-| **Tier 1: Relational CMS & Auth** | **Supabase (PostgreSQL)** + `@supabase/ssr` | Policies, News items, Admin Auth, Ingestion staging queue | Server Actions, RLS, cookies |
-| **Tier 2: Headless Editorial CMS** | **Airtable REST API** | Curated policy links (`/links`), researcher intake | Next.js ISR (1h) in prod, `no-store` in dev |
-| **Tier 3: Intelligence Matrices** | **Static TypeScript Datasets** (`src/lib/*Data.ts`) | Digital 2 Dozen, DEFA chapters, Cartographic GeoJSON | Zero-latency, version-controlled in Git |
+| **Tier 1: Headless Editorial CMS** | **Airtable REST API** (`appu4obXmSR8kzkYx`) | Curated Links (`/links`), News & Investigations, Policies Ledger, Jurisdiction Profiles | Edge ISR (`revalidate: 60`, cache tags) in prod, `no-store` in dev |
+| **Tier 2: Intelligence Matrices** | **Static TypeScript Datasets** (`src/lib/*Data.ts`) | Digital 2 Dozen, DEFA chapters, Cartographic GeoJSON | Zero-latency, version-controlled in Git, 100% Edge static pre-rendering |
 
 ---
 
@@ -49,35 +48,35 @@ flowchart TD
 
 | Layer | Technology | Purpose |
 | :--- | :--- | :--- |
-| **Framework** | Next.js 16.3.x (App Router, Turbopack) | Server Components, Streaming Suspense, Route Handlers, Proxy |
-| **UI Library** | React 19 | Concurrency, Server Actions, hooks |
-| **Styling** | Tailwind CSS v4 + `@tailwindcss/postcss` | Utility classes, ASEAN design tokens |
-| **Database & Auth** | Supabase (PostgreSQL) + `@supabase/ssr` | Persistent storage, auth cookies, RLS |
-| **Editorial CMS** | Airtable API | Collaborative spreadsheet CMS for curated policy links |
-| **Data Fetching** | SWR (`swr`) | Client-side reactive data synchronization & caching |
+| **Framework** | Next.js 16.3.x (App Router, Turbopack) | Server Components, Streaming Suspense, Edge ISR, Route Handlers |
+| **UI Library** | React 19 | Concurrency, Server Components, client hooks |
+| **Styling** | Tailwind CSS v4 + `@tailwindcss/postcss` | Utility classes, custom ASEAN brand design tokens |
+| **Headless CMS** | Airtable REST API (`airtableClient.ts`) | Collaborative spreadsheet CMS for all editorial content |
+| **Data Fetching** | SWR (`swr`) | Client-side reactive table search and filtering |
 | **Package Manager** | `pnpm 11` | Fast, deterministic dependency management |
 | **Testing** | Vitest (`vitest`) + Testing Library | Fast unit and component testing |
 
 ---
 
-## 3. Directory Layout & Route Architecture
+## 4. Directory Layout & Route Architecture
 
 ```
 src/
 ├── app/
 │   ├── (home)/                 # Homepage route group
-│   │   └── page.tsx            # Hero carousel, map canvas, and editorial grid
+│   │   └── page.tsx            # Hero radar map, atelier editorial, and lead dispatches
 │   ├── (observatory)/          # Observatory route group with shared PageShell
 │   │   ├── observatory/        # Cartographic jurisdiction map & regime filters
 │   │   ├── ledger/             # Searchable verified regulatory ledger table
 │   │   └── intake/             # Encrypted civil society submission portal
+│   ├── links/                  # Curated trade & digital policy links directory
 │   ├── defa/                   # ASEAN DEFA 5-Module Telemetry Suite
-│   │   ├── chapters/           # 14 DEFA negotiation chapters tracker
+│   │   ├── chapters/           # 9 DEFA negotiation chapters tracker
 │   │   ├── data-governance/    # Cross-border data flows & localization regimes
 │   │   ├── civil-society/      # Digital rights impact & advocacy alerts
 │   │   ├── ai-ethics/          # National AI frameworks & MMAI oversight
 │   │   └── payments-cyber/     # E-payments & cybersecurity compliance
-│   ├── d2d/                    # USTR Digital 2 Dozen Compliance Suite
+│   ├── d2d/                    # Digital 2 Dozen Compliance Suite
 │   │   ├── benchmark/          # 24-Principle heatmap & compliance scores
 │   │   ├── consumer-protection/# Dark patterns & consumer digital safety
 │   │   ├── encryption/         # Lawful intercept, backdoor & VPN regulations
@@ -87,50 +86,40 @@ src/
 │   ├── investigations/         # Long-form investigative editorial reporting
 │   │   ├── page.tsx            # Article index
 │   │   └── [slug]/page.tsx     # Full editorial reading layout
-│   ├── admin/                  # Authenticated Admin Dashboard & HITL Queue
-│   │   ├── ingester/           # WordPress content ingestion review & triage
-│   │   ├── jurisdictions/      # Country regime & posture editor
-│   │   ├── news/               # Press and news post editor
-│   │   └── policies/           # Regulatory decree ledger CRUD
 │   └── api/                    # Serverless API routes
-│       ├── cron/engagemedia-sync # Authenticated content ingestion endpoint
+│       ├── cron/engagemedia-sync # Daily automated WordPress crawler
 │       ├── jurisdictions/[code]  # Country dossier metadata endpoint
-│       ├── policies/             # Regulatory ledger query endpoint
-│       └── revalidate/           # On-demand tag/path cache invalidation
+│       └── policies/             # Regulatory ledger query endpoint
 ├── components/                 # Reusable UI & Domain Components
 │   ├── benchmark/              # D2D heatmap, radar, and subnav components
 │   ├── defa/                   # DEFA suite interactive components
-│   ├── encryption/             # Encryption timeline & summary stats
-│   ├── landing/                # Hero section, carousel, map canvas, editorial grid
-│   ├── observatory/            # Jurisdiction cards, filter bar, search inputs
-│   ├── tech-sovereignty/       # Radar visualization & violation timeline
-│   ├── ui/                     # Base UI primitives (dialog, button, input, badge)
-│   ├── Header.tsx              # Site masthead with desktop dropdown & mobile drawer
-│   ├── Footer.tsx              # Server-rendered global footer
-│   ├── AseanMap.tsx            # Full interactive GeoJSON cartographic map
-│   └── PolicyLedgerTable.tsx   # Verified ledger data table
-├── db/                         # Drizzle schema definitions & client initialization
-├── lib/                        # Utilities, color definitions, constants, and server cache helpers
-├── services/                   # Business logic services (news, policies, jurisdictions)
+│   ├── landing/                # Hero section, map canvas, core capabilities
+│   ├── links/                  # Curated links grid, filter pills, empty state
+│   ├── observatory/            # Jurisdiction cards, filter bar, AseanMap
+│   ├── layout/                 # Header, Footer, PageShell, ThemeToggle, LanguageSwitcher
+│   └── ui/                     # Base UI primitives (dialog, button, input, badge)
+├── lib/                        # Utilities, color definitions, constants, and validation
+├── services/                   # Business logic services (airtableClient, news, policies, jurisdictions)
 └── types/                      # Shared TypeScript interface and type definitions
 ```
 
 ---
 
-## 4. Data Layer & Caching Strategy
+## 5. Data Layer & Edge Caching Strategy
 
-1. **Server-Side Caching (`unstable_cache`)**:
-   - Heavy database queries (e.g., all published news, jurisdiction profiles, regulatory policies) are wrapped in `unstable_cache` with tagged cache keys (e.g., `["news"]`, `["policies"]`, `["jurisdictions"]`).
-2. **On-Demand Cache Revalidation**:
-   - When admin mutations occur in `/admin/*`, `revalidateTag()` is invoked to purge cached representations immediately without rebuilding the whole app.
-3. **Client-Side SWR**:
-   - Client components interactively filter, paginate, and search via SWR keys, ensuring zero-latency transitions and automatic background re-validation.
+1. **Edge Incremental Static Regeneration (ISR)**:
+   - All public pages (`/`, `/links`, `/ledger`, `/observatory`, `/investigations`) are pre-rendered statically at build time.
+   - Live Airtable queries run with `{ next: { revalidate: 60, tags: [tableName] } }`. Content edits in Airtable automatically reflect globally within 60 seconds.
+2. **Zero Dynamic Cookie Blocking**:
+   - The root layout contains zero cookie reads, guaranteeing all routes achieve sub-20ms TTFB directly from Vercel's global Edge CDN.
+3. **Automated Content Ingestion Pipeline**:
+   - `/api/cron/engagemedia-sync` runs on schedule, fetches published WordPress articles from EngageMedia, uses Gemini 2.0 Flash to classify them by jurisdiction/category/threat level, and writes directly into Airtable's `News` table.
 
 ---
 
-## 5. Security & Authentication Guardrails
+## 6. Security Guardrails
 
-- **Authentication**: Supabase Auth sessions are validated through server middleware and Server Actions.
-- **Admin Isolation**: Public routes never expose Supabase Service Role keys. Admin operations are strictly server-side.
-- **Sanitization**: All user-submitted and TipTap HTML rich text content is sanitized with `dompurify` / `isomorphic-dompurify` prior to rendering.
-- **Cron Security**: Ingestion endpoint (`/api/cron/engagemedia-sync`) validates a bearer token against `CRON_SECRET`.
+- **Zero Admin Attack Surface**: No `/admin` endpoints, no authentication cookie sessions, and no user databases to compromise.
+- **Credential Protection**: Airtable PAT is server-side only (`process.env.AIRTABLE_PAT`) and never exposed in client bundles.
+- **Sanitization**: All user-submitted intake dossiers and editorial HTML are sanitized with `isomorphic-dompurify` prior to rendering.
+- **Cron Authentication**: Ingestion endpoint requires a valid `Bearer ${CRON_SECRET}` authorization header.
