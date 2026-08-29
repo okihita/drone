@@ -13,7 +13,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import RichTextEditor from "@/components/admin/RichTextEditor";
-import DOMPurify from "dompurify";
+import DOMPurify from "isomorphic-dompurify";
 import { calculateReadTime } from "@/lib/text";
 import type { NewsItem } from "@/types";
 

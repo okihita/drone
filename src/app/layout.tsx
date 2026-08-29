@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Newsreader, Geist } from "next/font/google";
 import { Suspense } from "react";
-import AdminBarLoader from "@/components/AdminBarLoader";
+import AdminBarLoader from "@/components/layout/AdminBarLoader";
 import "./globals.css";
 
 const newsreader = Newsreader({

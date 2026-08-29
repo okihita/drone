@@ -3,7 +3,7 @@
  * Strict Curated Links Quality & Image Auditor
  * 
  * Verifies that:
- * 1. Every curated link entry has all required fields (title, publisher, domain, category, etc.).
+ * 1. Every curated link entry in seed-links.json has all required fields (title, publisher, domain, category, etc.).
  * 2. Every article/portal link has a verified ogImage (or is marked as isPdf: true).
  * 3. Every ogImage URL is non-empty, uses https, and points to a valid image format.
  * 
@@ -14,17 +14,14 @@
 const fs = require("fs");
 const path = require("path");
 
-const DATA_FILE = path.join(__dirname, "../src/lib/linksData.ts");
+const DATA_FILE = path.join(__dirname, "migrations/seed-links.json");
 
 if (!fs.existsSync(DATA_FILE)) {
-  console.error("❌ Error: src/lib/linksData.ts does not exist!");
+  console.error("❌ Error: scripts/migrations/seed-links.json does not exist!");
   process.exit(1);
 }
 
-const content = fs.readFileSync(DATA_FILE, "utf8");
-
-// Parse linksData directly
-const { CURATED_LINKS } = require("../src/lib/linksData.ts");
+const CURATED_LINKS = JSON.parse(fs.readFileSync(DATA_FILE, "utf8"));
 
 console.log(`🔍 Auditing ${CURATED_LINKS.length} curated link records for complete OpenGraph & metadata integrity...`);
 
@@ -45,20 +42,17 @@ CURATED_LINKS.forEach((item, idx) => {
     errors++;
   }
 
-  // If ogImage is provided, validate format
   if (item.ogImage) {
-    if (!item.ogImage.startsWith("https://") && !item.ogImage.startsWith("http://")) {
-      console.error(`❌ ${indexStr} Invalid ogImage protocol: "${item.ogImage}"`);
+    if (!item.ogImage.startsWith("https://")) {
+      console.error(`❌ ${indexStr} ogImage must use HTTPS protocol: ${item.ogImage}`);
       errors++;
     }
   }
 });
 
 if (errors > 0) {
-  console.error(`\n❌ Failed: Found ${errors} curated link integrity error(s).`);
-  console.error(`👉 Every web page in src/lib/linksData.ts must have a valid ogImage! Run \`pnpm run sync:links\` or provide ogImage.\n`);
+  console.error(`\n🚨 Failed: Found ${errors} link metadata / ogImage violations in seed dataset.\n`);
   process.exit(1);
-} else {
-  console.log(`✅ Success: All ${CURATED_LINKS.length} curated links have verified 100% ogImage / dossier coverage!`);
-  process.exit(0);
 }
+
+console.log(`✅ Success: All ${CURATED_LINKS.length} curated links have verified 100% ogImage / dossier coverage!`);

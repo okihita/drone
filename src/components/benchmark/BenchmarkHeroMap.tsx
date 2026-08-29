@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from "react";
 import { getRealAseanCountries } from "@/lib/aseanGeo";
-import { listAllBenchmarks } from "@/services/benchmark";
+import { getAllBenchmarkSummaries as listAllBenchmarks } from "@/lib/benchmarkData";
 import type { BenchmarkCountrySummary } from "@/types/benchmark";
 import { ArrowRight, X } from "lucide-react";
 import Link from "next/link";

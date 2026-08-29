@@ -1,9 +1,8 @@
-name: EngageMedia Automated Content Sync
+name: EngageMedia Manual Content Sync (On-Demand)
 
+# NOTE: Primary automated synchronization runs daily via Vercel Cron (see vercel.json).
+# This workflow is strictly an on-demand fallback trigger from the GitHub Actions tab.
 on:
-  # schedule:
-  #   # Runs every 6 hours (at 00:00, 06:00, 12:00, 18:00 UTC)
-  #   - cron: '0 */6 * * *'
   workflow_dispatch:
     # Allows manual triggering from the GitHub Actions tab
 

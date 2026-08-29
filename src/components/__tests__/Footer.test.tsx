@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
-import Footer from "@/components/Footer";
+import Footer from "@/components/layout/Footer";
 
 // Mock next/link — renders as a plain <a> with href
 vi.mock("next/link", () => ({

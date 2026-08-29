@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import HeroBanner from "@/components/layout/HeroBanner";
-import { fetchConsumerProtectionPolicies } from "@/services/consumer_protection";
+import { getConsumerProtectionPolicies } from "@/lib/consumerData";
 import ConsumerProtectionClientShell from "@/components/consumer-protection/ConsumerProtectionClientShell";
 
 export const metadata: Metadata = {
@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 };
 
 export default function ConsumerProtectionPage() {
-  const policies = fetchConsumerProtectionPolicies();
+  const policies = getConsumerProtectionPolicies();
   const avgScore = Math.round(policies.reduce((s, p) => s + p.compositeScore, 0) / policies.length);
 
   return (

@@ -28,7 +28,7 @@ const eslintConfig = defineConfig([
       "src/lib/negotiationData.ts",
       "src/lib/digital2dozen.ts",
       "src/app/admin/ingester/page.tsx",
-      "src/components/Header.tsx",
+      "src/components/layout/Header.tsx",
     ],
     rules: {
       "max-lines": "off",

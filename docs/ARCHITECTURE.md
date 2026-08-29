@@ -1,4 +1,4 @@
-﻿# DRONE — Engineering Architecture & System Design
+# DRONE — Engineering Architecture & System Design
 
 > **Project**: DRONE (Digital Rights Oversight & Network Evaluator)  
 > **Maintainer**: EngageMedia Research & Engineering Team  
@@ -19,9 +19,9 @@ flowchart TD
     end
 
     subgraph Data & Server Layer
-        E[Next.js Server Actions & Route Handlers] --> F[Supabase PostgreSQL & pgvector]
-        E --> G[Drizzle ORM & Schema]
-        E --> H[unstable_cache & revalidateTag]
+        E[Next.js Server Actions & Route Handlers] --> F[Tier 1: Supabase PostgreSQL & Auth]
+        E --> G[Tier 2: Airtable Headless CMS]
+        E --> H[Tier 3: Static Benchmark Models]
     end
 
     subgraph Automation & Ingestion
@@ -35,17 +35,27 @@ flowchart TD
 
 ---
 
-## 2. Core Technology Stack
+## 2. Three-Tier Data Architecture
+
+| Tier | Technology | Domain / Responsibilities | Caching / Performance |
+| :--- | :--- | :--- | :--- |
+| **Tier 1: Relational CMS & Auth** | **Supabase (PostgreSQL)** + `@supabase/ssr` | Policies, News items, Admin Auth, Ingestion staging queue | Server Actions, RLS, cookies |
+| **Tier 2: Headless Editorial CMS** | **Airtable REST API** | Curated policy links (`/links`), researcher intake | Next.js ISR (1h) in prod, `no-store` in dev |
+| **Tier 3: Intelligence Matrices** | **Static TypeScript Datasets** (`src/lib/*Data.ts`) | Digital 2 Dozen, DEFA chapters, Cartographic GeoJSON | Zero-latency, version-controlled in Git |
+
+---
+
+## 3. Core Technology Stack
 
 | Layer | Technology | Purpose |
 | :--- | :--- | :--- |
-| **Framework** | Next.js 16.2.x (App Router, Turbopack) | Server Components, Streaming Suspense, Route Handlers |
+| **Framework** | Next.js 16.3.x (App Router, Turbopack) | Server Components, Streaming Suspense, Route Handlers, Proxy |
 | **UI Library** | React 19 | Concurrency, Server Actions, hooks |
 | **Styling** | Tailwind CSS v4 + `@tailwindcss/postcss` | Utility classes, ASEAN design tokens |
 | **Database & Auth** | Supabase (PostgreSQL) + `@supabase/ssr` | Persistent storage, auth cookies, RLS |
-| **ORM & Migrations** | Drizzle ORM + `drizzle-kit` | Type-safe queries, relational schema migrations |
+| **Editorial CMS** | Airtable API | Collaborative spreadsheet CMS for curated policy links |
 | **Data Fetching** | SWR (`swr`) | Client-side reactive data synchronization & caching |
-| **Package Manager** | `pnpm 11` (`11.22.0`) | Fast, secure, deterministic dependency management |
+| **Package Manager** | `pnpm 11` | Fast, deterministic dependency management |
 | **Testing** | Vitest (`vitest`) + Testing Library | Fast unit and component testing |
 
 ---

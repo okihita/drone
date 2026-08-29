@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import React from "react";
-import PolicyLedgerTable from "@/components/PolicyLedgerTable";
+import PolicyLedgerTable from "@/components/observatory/PolicyLedgerTable";
 
 export const metadata: Metadata = {
   title: "Policy Ledger — DRONE",

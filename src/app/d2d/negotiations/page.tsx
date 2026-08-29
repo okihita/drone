@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { fetchNegotiations } from "@/services/negotiation";
+import { getNegotiationMilestones } from "@/lib/negotiationData";
 import { CheckCircle, Clock } from "lucide-react";
 import NegotiationTimeline from "@/components/negotiations/NegotiationTimeline";
 import HeroBanner from "@/components/layout/HeroBanner";
@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 };
 
 export default function NegotiationsPage() {
-  const milestones = fetchNegotiations();
+  const milestones = getNegotiationMilestones();
 
   const completedCount = milestones.filter((m) => m.status === "COMPLETED").length;
   const inProgressCount = milestones.filter((m) => m.status === "IN_PROGRESS").length;

@@ -1,7 +1,14 @@
 import { ID, MY, SG, PH, TH, VN, KH, LA, MM, BN, TL } from "country-flag-icons/react/3x2";
-import type { ElementType } from "react";
+import type { ComponentType, ElementType } from "react";
 
 export type ASEANCountryCode = "BN" | "KH" | "ID" | "LA" | "MY" | "MM" | "PH" | "SG" | "TH" | "TL" | "VN";
+
+export type FlagIcon = ComponentType<{ className?: string }>;
+
+/** Map ISO 2-letter country code to official SVG flag component. */
+export const FLAG_COMPONENTS: Record<string, FlagIcon> = {
+  ID, MY, SG, PH, TH, VN, KH, LA, MM, BN, TL,
+};
 
 export interface ASEANCountry {
   code: ASEANCountryCode;

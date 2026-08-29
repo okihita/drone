@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import React from "react";
-import AseanMap from "@/components/AseanMap";
+import AseanMap from "@/components/observatory/AseanMap";
 import HeroBanner from "@/components/layout/HeroBanner";
 import { getRealAseanCountries } from "@/lib/aseanGeo";
 import { MapPin, ShieldAlert, Lock } from "lucide-react";

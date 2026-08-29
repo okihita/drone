@@ -51,15 +51,30 @@ flowchart TD
 
 ---
 
+## 🗺️ Developer Cheat Sheet: Where Does What Live?
+
+| If you want to change / update... | Location | Backing Technology |
+| :--- | :--- | :--- |
+| **Curated Links & Articles** | [Airtable CMS](https://airtable.com/appu4obXmSR8kzkYx) | Airtable API (Instant local dev / 1h ISR prod) |
+| **Policies & Threat Alerts** | `/admin/policies` or Supabase Dashboard | Supabase PostgreSQL (`policies` table) |
+| **Investigations & Dispatches** | `/admin/news` or Supabase Dashboard | Supabase PostgreSQL (`news` table) |
+| **Digital 2 Dozen Matrix** | `src/lib/digital2dozen.ts` & `benchmarkData.ts` | Static TypeScript research dataset |
+| **DEFA Chapter Telemetry** | `src/services/defa.ts` | Static treaty matrix & analysis |
+| **Cartography & Regional Map** | `src/components/observatory/AseanMap.tsx` | D3-Geo + Natural Earth GeoJSON (`public/data/`) |
+| **Branding Colors & Themes** | `src/lib/colors.ts` & `src/app/globals.css` | Official ASEAN Palette Tokens |
+| **All Domain Types** | `src/types` (e.g. `import type { ... } from "@/types"`) | Universal TypeScript Barrel |
+
+---
+
 ## 📁 Repository Documentation (`docs/`)
 
 The repository maintains an authoritative, living documentation suite:
 
-* 📄 **[`AGENTS.md`](file:///c:/Users/Okihita/WebstormProjects/drone/AGENTS.md)** — **Mandatory AI & Maintainer Guardrails (Branding, ASEAN color tokens, map rules, typography)**
-* 📄 **[`docs/ARCHITECTURE.md`](file:///c:/Users/Okihita/WebstormProjects/drone/docs/ARCHITECTURE.md)** — System architecture, Next.js App Router layout, database schema, and caching
-* 📄 **[`docs/BRAND_AND_DESIGN.md`](file:///c:/Users/Okihita/WebstormProjects/drone/docs/BRAND_AND_DESIGN.md)** — ASEAN logo palette tokens, typography rules, and editorial voice
-* 📄 **[`docs/MAINTAINER_GUIDE.md`](file:///c:/Users/Okihita/WebstormProjects/drone/docs/MAINTAINER_GUIDE.md)** — Maintainer hygiene standards & cognitive load reduction guide
-* 📂 **[`docs/specs/`](file:///c:/Users/Okihita/WebstormProjects/drone/docs/specs/)** — Active feature specifications (`defa-suite.md`, `digital-2-dozen.md`, `content-ingester.md`, `cartography.md`)
+* 📄 **[`AGENTS.md`](./AGENTS.md)** — **Mandatory AI & Maintainer Guardrails (Branding, ASEAN color tokens, map rules, typography)**
+* 📄 **[`docs/ARCHITECTURE.md`](./docs/ARCHITECTURE.md)** — Three-Tier Data Architecture, Next.js App Router layout, and caching
+* 📄 **[`docs/design/DESIGN_SYSTEM.md`](./docs/design/DESIGN_SYSTEM.md)** — ASEAN logo palette tokens, typography rules, contrast standards, and editorial voice
+* 📄 **[`docs/MAINTAINER_GUIDE.md`](./docs/MAINTAINER_GUIDE.md)** — Maintainer hygiene standards & cognitive load reduction guide
+* 📂 **[`docs/specs/`](./docs/specs/)** — Active feature specifications (`defa-suite.md`, `digital-2-dozen.md`, `content-ingester.md`, `cartography.md`)
 
 ---
 
@@ -67,7 +82,7 @@ The repository maintains an authoritative, living documentation suite:
 
 ### Prerequisites
 - **Node.js**: `v20+` (or `v24+`)
-- **Package Manager**: **`pnpm 11`** (`11.22.0`)
+- **Package Manager**: **`pnpm 11`**
 
 ```bash
 # Clone the repository
@@ -86,13 +101,13 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 ### Quality Assurance & Linting
 
 ```bash
-# Lint codebase
+# Full unified verification (Vitest + ESLint + Colors + Typography + Links)
+pnpm run check
+
+# Comprehensive linter suite
 pnpm run lint
 
-# Enforce strict ASEAN branding color guardrails
-pnpm run lint:colors
-
-# Run test suite (Vitest)
+# Run unit tests only
 pnpm test
 
 # Production build test

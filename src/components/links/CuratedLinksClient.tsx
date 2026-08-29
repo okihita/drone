@@ -1,12 +1,12 @@
 "use client";
 
 import React, { useState, useMemo } from "react";
-import { Search, ExternalLink, FileText, LayoutGrid, List } from "lucide-react";
-import { CURATED_LINKS } from "@/lib/linksData";
-import type { CuratedLinkCategory, CuratedLinkJurisdiction } from "@/types/links";
+import { Search, ExternalLink, LayoutGrid, List } from "lucide-react";
+import type { CuratedLinkCategory, CuratedLinkJurisdiction, CuratedLinkItem } from "@/types/links";
 import { FLAG_COMPONENTS } from "@/lib/flags";
 import { FallbackDossierBanner } from "./LinkVisuals";
 import { CompactLedgerList } from "./CompactLedgerList";
+import { CuratedLinksEmptyState } from "./CuratedLinksEmptyState";
 
 const CATEGORIES: ("ALL" | CuratedLinkCategory)[] = [
   "ALL",
@@ -27,7 +27,11 @@ const JURISDICTIONS: ("ALL" | CuratedLinkJurisdiction)[] = [
   "Global",
 ];
 
-export default function CuratedLinksClient() {
+interface CuratedLinksClientProps {
+  initialLinks?: CuratedLinkItem[];
+}
+
+export default function CuratedLinksClient({ initialLinks = [] }: CuratedLinksClientProps) {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<"ALL" | CuratedLinkCategory>("ALL");
   const [selectedJurisdiction, setSelectedJurisdiction] = useState<"ALL" | CuratedLinkJurisdiction>("ALL");
@@ -39,7 +43,7 @@ export default function CuratedLinksClient() {
   };
 
   const filteredLinks = useMemo(() => {
-    return CURATED_LINKS.filter((item) => {
+    return initialLinks.filter((item) => {
       const matchesSearch =
         searchQuery.trim() === "" ||
         item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -55,7 +59,7 @@ export default function CuratedLinksClient() {
 
       return matchesSearch && matchesCategory && matchesJurisdiction;
     });
-  }, [searchQuery, selectedCategory, selectedJurisdiction]);
+  }, [searchQuery, selectedCategory, selectedJurisdiction, initialLinks]);
 
   return (
     <div className="space-y-6">
@@ -284,25 +288,17 @@ export default function CuratedLinksClient() {
 
       {/* Empty State */}
       {filteredLinks.length === 0 && (
-        <div className="text-center py-16 rounded-3xl border border-dashed border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-900/30">
-          <FileText className="h-8 w-8 mx-auto text-slate-400 mb-2" />
-          <h4 className="font-serif-editorial text-lg font-bold text-slate-900 dark:text-white mb-1">
-            No curated links found
-          </h4>
-          <p className="text-sm text-slate-500 font-sans max-w-sm mx-auto mb-4">
-            Try adjusting your search keywords or clearing the category and region filters.
-          </p>
-          <button
-            onClick={() => {
-              setSelectedCategory("ALL");
-              setSelectedJurisdiction("ALL");
-              setSearchQuery("");
-            }}
-            className="rounded-xl bg-asean-yellow px-5 py-2.5 text-sm font-sans font-bold text-slate-950 shadow-xs hover:bg-asean-yellow-hover"
-          >
-            Reset All Filters
-          </button>
-        </div>
+        <CuratedLinksEmptyState
+          totalLinksCount={initialLinks.length}
+          searchQuery={searchQuery}
+          selectedCategory={selectedCategory}
+          selectedJurisdiction={selectedJurisdiction}
+          onResetFilters={() => {
+            setSelectedCategory("ALL");
+            setSelectedJurisdiction("ALL");
+            setSearchQuery("");
+          }}
+        />
       )}
     </div>
   );

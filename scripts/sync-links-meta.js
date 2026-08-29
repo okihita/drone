@@ -53,7 +53,7 @@ function fetchHtml(url, headers = BROWSER_HEADERS, maxRedirects = 4) {
             try {
               const u = new URL(url);
               redirectUrl = new URL(redirectUrl, u.origin).toString();
-            } catch (e) {
+            } catch {
               return resolve(null);
             }
           }
@@ -82,7 +82,7 @@ function fetchHtml(url, headers = BROWSER_HEADERS, maxRedirects = 4) {
         req.destroy();
         resolve(null);
       });
-    } catch (e) {
+    } catch {
       resolve(null);
     }
   });
@@ -101,7 +101,7 @@ function extractMeta(html, targetUrl) {
       try {
         const parsed = new URL(targetUrl);
         u = parsed.origin + u;
-      } catch (e) {}
+      } catch {}
     }
     return u;
   };

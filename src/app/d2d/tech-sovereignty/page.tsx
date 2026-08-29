@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import TechSovereigntyRadar from "@/components/tech-sovereignty/TechSovereigntyRadar";
 import ViolationTimeline from "@/components/tech-sovereignty/ViolationTimeline";
 import HeroBanner from "@/components/layout/HeroBanner";
-import { listAllBenchmarks } from "@/services/benchmark";
-import { fetchEncryptionEvents } from "@/services/encryption";
+import { getAllBenchmarkSummaries } from "@/lib/benchmarkData";
+import { getEncryptionEvents } from "@/lib/encryptionData";
 import { Lock, AlertTriangle } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -12,9 +12,9 @@ export const metadata: Metadata = {
 };
 
 export default function TechSovereigntyPage() {
-  const allSummaries = listAllBenchmarks();
+  const allSummaries = getAllBenchmarkSummaries();
   const techPrinciples = [6, 7, 8, 9, 12]; // Technology Sovereignty cluster
-  const encryptionEvents = fetchEncryptionEvents();
+  const encryptionEvents = getEncryptionEvents();
 
   // High-risk countries (avg tech sovereignty score below 40)
   const highRiskCount = allSummaries.filter((s) => {

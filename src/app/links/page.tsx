@@ -1,16 +1,19 @@
 import type { Metadata } from "next";
 import React from "react";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
 import PageShell from "@/components/layout/PageShell";
 import CuratedLinksClient from "@/components/links/CuratedLinksClient";
+import { getCuratedLinks } from "@/services/airtableLinks";
 
 export const metadata: Metadata = {
   title: "Links — DRONE",
   description: "Curated collection of primary legal sources, civil society trade analyses, official gazettes, and investigative dossiers across Southeast Asia.",
 };
 
-export default function LinksPage() {
+export default async function LinksPage() {
+  const links = await getCuratedLinks();
+
   return (
     <PageShell>
       <Header />
@@ -29,7 +32,7 @@ export default function LinksPage() {
           </p>
         </div>
 
-        <CuratedLinksClient />
+        <CuratedLinksClient initialLinks={links} />
       </main>
       <Footer />
     </PageShell>

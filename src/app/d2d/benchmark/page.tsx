@@ -3,7 +3,8 @@ import type { Metadata } from "next";
 import BenchmarkClientShell from "@/components/benchmark/BenchmarkClientShell";
 import D2DTimeline from "@/components/benchmark/D2DTimeline";
 import HeroBanner from "@/components/layout/HeroBanner";
-import { listAllBenchmarks, listPrinciples } from "@/services/benchmark";
+import { getAllBenchmarkSummaries } from "@/lib/benchmarkData";
+import { DIGITAL_2_DOZEN_PRINCIPLES } from "@/lib/digital2dozen";
 import { Globe, Shield } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -12,8 +13,8 @@ export const metadata: Metadata = {
 };
 
 export default function BenchmarkPage() {
-  const allSummaries = listAllBenchmarks();
-  const principles = listPrinciples();
+  const allSummaries = getAllBenchmarkSummaries();
+  const principles = DIGITAL_2_DOZEN_PRINCIPLES;
 
   const globalAverage = Math.round(
     allSummaries.reduce((sum, c) => sum + c.overallScore, 0) / allSummaries.length,

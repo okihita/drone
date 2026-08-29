@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import HeroBanner from "@/components/layout/HeroBanner";
-import { fetchEncryptionEvents, fetchEncryptionSummary } from "@/services/encryption";
+import { getEncryptionEvents, getEncryptionSummary } from "@/lib/encryptionData";
 import { AlertTriangle, ShieldCheck } from "lucide-react";
 import EncryptionEventList from "@/components/encryption/EncryptionEventList";
 import EncryptionSummaryStats from "@/components/encryption/EncryptionSummaryStats";
@@ -11,8 +11,8 @@ export const metadata: Metadata = {
 };
 
 export default function EncryptionPage() {
-  const events = fetchEncryptionEvents();
-  const summary = fetchEncryptionSummary();
+  const events = getEncryptionEvents();
+  const summary = getEncryptionSummary();
 
   const highSeverityCount = events.filter((e) => e.severityScore >= 70).length;
   const totalCountries = Object.keys(summary).length;

@@ -1,4 +1,4 @@
-import { listAllBenchmarks } from "@/services/benchmark";
+import { getAllBenchmarkSummaries as listAllBenchmarks } from "@/lib/benchmarkData";
 import { BarChart3, ArrowRight } from "lucide-react";
 import Link from "next/link";
 
