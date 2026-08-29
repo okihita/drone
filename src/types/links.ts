@@ -7,6 +7,7 @@ export type CuratedLinkCategory =
   | "Data Governance"
   | "AI & Labor"
   | "Tech Sovereignty"
+  | "Pax Silica & Compute"
   | (string & {});
 
 /** Extensible jurisdictions supporting all 11 ASEAN member states, regional bodies, and global */

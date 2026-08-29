@@ -26,4 +26,4 @@ export type PolicyRadarEntry = Pick<
 
 import type { POLICY_CATEGORIES, ThreatLevel } from "@/lib/constants";
 export type { ThreatLevel };
-export type PolicyCategory = (typeof POLICY_CATEGORIES)[number];
+export type PolicyCategory = (typeof POLICY_CATEGORIES)[number] | (string & {});

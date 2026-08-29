@@ -9,6 +9,7 @@ export const POLICY_CATEGORIES = [
   "Cross-Border Data",
   "AI Governance",
   "Cybersecurity",
+  "Pax Silica & Compute",
 ] as const;
 
 // ── Threat Levels ────────────────────────────────────────────────────────────
@@ -143,6 +144,8 @@ export const NEWS_CATEGORIES = [
   "DATA LOCALIZATION",
   "DEFA SPECIAL REPORT",
   "AI GOVERNANCE",
+  "PAX SILICA & COMPUTE",
+  "Pax Silica & Compute",
 ] as const;
 
 // ── Digital 2 Dozen: 5 Thematic Clusters ──────────────────────────────────

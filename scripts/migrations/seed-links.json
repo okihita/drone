@@ -382,5 +382,41 @@
     "publishedDate": "2026-04",
     "excerpt": "Civil society coalition response defending public-interest tech regulation against corporate claims of digital trade barriers.",
     "isPdf": true
+  },
+  {
+    "id": "ps-link-001",
+    "url": "https://www.state.gov/pax-silica-initiative-ai-semiconductors",
+    "title": "The Pax Silica Doctrine: Securing the Global AI and Semiconductor Compute Stack",
+    "publisher": "U.S. Department of State",
+    "domain": "state.gov",
+    "category": "Pax Silica & Compute",
+    "jurisdiction": "Global",
+    "publishedDate": "2025-12-12",
+    "excerpt": "Official U.S. State Department initiative establishing the international framework to secure semiconductor packaging, critical minerals, and AI compute infrastructure among trusted partners.",
+    "ogImage": "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1200&auto=format&fit=crop&q=80"
+  },
+  {
+    "id": "ps-link-002",
+    "url": "https://asiasociety.org/policy-institute/pax-silica-southeast-asia-semiconductor",
+    "title": "Pax Silica and the Geopolitics of Southeast Asia's Semiconductor Packaging Hubs",
+    "publisher": "Asia Society Policy Institute",
+    "domain": "asiasociety.org",
+    "category": "Pax Silica & Compute",
+    "jurisdiction": "ASEAN",
+    "publishedDate": "2026-03-18",
+    "excerpt": "Comprehensive policy evaluation of how the U.S. Pax Silica coalition impacts Malaysia's 13% global ATP share, Vietnam's rare earth reserves, and Singapore's wafer fabs.",
+    "ogImage": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=1200&auto=format&fit=crop&q=80"
+  },
+  {
+    "id": "ps-link-003",
+    "url": "https://www.csis.org/analysis/indonesia-critical-minerals-nickel-pax-silica",
+    "title": "Critical Minerals & AI Hardware: Indonesia's Nickel Strategy Under Western Supply Chain Pacts",
+    "publisher": "Center for Strategic and International Studies",
+    "domain": "csis.org",
+    "category": "Pax Silica & Compute",
+    "jurisdiction": "ID",
+    "publishedDate": "2026-05-10",
+    "excerpt": "Analysis of Indonesia's mineral sovereignty, downstreaming policies, and compliance negotiations within Western AI data center power supply networks.",
+    "ogImage": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1200&auto=format&fit=crop&q=80"
   }
 ]
