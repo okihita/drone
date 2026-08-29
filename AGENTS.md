@@ -124,3 +124,10 @@ The application maintains the following dedicated public route groups:
 
 All content management (News, Policies, Jurisdictions, Curated Links) is managed via the **Airtable Headless CMS** with 60-second ISR edge caching. There is no internal `/admin` dashboard.
 
+---
+
+### 17. Deployment Guardrail: NO Direct Vercel CLI Deployments
+* **STRICTLY FORBIDDEN**: Never execute `vercel`, `vercel --prod`, `npx vercel`, or any Vercel CLI deployment commands from the terminal.
+* **REQUIRED DEPLOYMENT WORKFLOW**: Deployments must happen exclusively via standard Git pushes to GitHub (`git push origin main`), which triggers Vercel's automated GitHub deployment pipeline. Direct CLI deployments from the local terminal are strictly prohibited.
+
+
