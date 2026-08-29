@@ -1,5 +1,6 @@
 import { geoMercator, geoPath } from "d3-geo";
 import geoData from "../../public/data/southeast-asia.json";
+import type { Jurisdiction } from "@/types";
 
 export interface GeoCountryData {
   id: string;
@@ -176,16 +177,15 @@ const COUNTRY_METADATA_LIST: Omit<GeoCountryData, "pathD" | "centerPos">[] = [
   },
 ];
 
-const BY_CODE = new Map(COUNTRY_METADATA_LIST.map((c) => [c.code, c]));
-const BY_NAME = new Map(COUNTRY_METADATA_LIST.map((c) => [c.name.toLowerCase(), c]));
 
 // Round projection coordinates to avoid server/client floating-point mismatch
 function r(v: number): number {
   return Math.round(v * 10000) / 10000;
 }
 
-// Generate high-precision SVG path strings using Mercator projection over 540x370 viewBox
-export function getRealAseanCountries(): GeoCountryData[] {
+// Generate high-precision SVG path strings using Mercator projection over 540x370 viewBox.
+// Merges live Airtable CMS jurisdictions metadata with GeoJSON vector geometries.
+export function getRealAseanCountries(liveJurisdictions?: Jurisdiction[]): GeoCountryData[] {
   const width = 540;
   const height = 370;
 
@@ -196,6 +196,39 @@ export function getRealAseanCountries(): GeoCountryData[] {
 
   const pathGenerator = geoPath().projection(projection).digits(4);
 
+  // Build dynamic lookup maps merging static baseline with live Airtable data if provided
+  const metaByCode = new Map<string, Omit<GeoCountryData, "pathD" | "centerPos">>();
+  for (const item of COUNTRY_METADATA_LIST) {
+    metaByCode.set(item.code.toUpperCase(), { ...item });
+  }
+
+  if (liveJurisdictions && Array.isArray(liveJurisdictions)) {
+    for (const j of liveJurisdictions) {
+      const code = j.code?.toUpperCase();
+      const existing = code ? metaByCode.get(code) : undefined;
+      if (existing) {
+        metaByCode.set(code, {
+          ...existing,
+          name: j.name || existing.name,
+          capital: j.capital || existing.capital,
+          regimeType: (j.regime_type as GeoCountryData["regimeType"]) || existing.regimeType,
+          activityLevel: (j.activity_level as GeoCountryData["activityLevel"]) || existing.activityLevel,
+          threatScore: typeof j.threat_score === "number" ? j.threat_score : existing.threatScore,
+          activePoliciesCount: typeof j.active_policies_count === "number" ? j.active_policies_count : existing.activePoliciesCount,
+          dataFlowPolicy: j.data_flow_policy || existing.dataFlowPolicy,
+          keyLegislation: j.key_legislation || existing.keyLegislation,
+          description: j.description || existing.description,
+          primaryLink: j.primary_link || existing.primaryLink,
+        });
+      }
+    }
+  }
+
+  const metaByName = new Map<string, Omit<GeoCountryData, "pathD" | "centerPos">>();
+  for (const meta of metaByCode.values()) {
+    metaByName.set(meta.name.toLowerCase(), meta);
+  }
+
   const result: GeoCountryData[] = [];
   const processedCodes = new Set<string>();
 
@@ -204,10 +237,10 @@ export function getRealAseanCountries(): GeoCountryData[] {
     GeoJSON.Geometry,
     { name?: string; code?: string; iso?: string }
   >[]) {
-    const code = feature.properties?.code || feature.properties?.iso;
+    const code = (feature.properties?.code || feature.properties?.iso || "").toUpperCase();
     const geoName = (feature.properties?.name || "").toLowerCase();
 
-    const meta = (code ? BY_CODE.get(code) : null) || BY_NAME.get(geoName);
+    const meta = (code ? metaByCode.get(code) : null) || metaByName.get(geoName);
 
     if (meta && !processedCodes.has(meta.code)) {
       processedCodes.add(meta.code);

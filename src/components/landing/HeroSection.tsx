@@ -14,7 +14,11 @@ import HeroMapCanvas, { type MapLayerMode } from "./HeroMapCanvas";
 import type { GeoCountryData } from "@/lib/aseanGeo";
 import { FLAG_COMPONENTS } from "@/lib/flags";
 
-export default function HeroSection() {
+export default function HeroSection({
+  initialCountries,
+}: {
+  initialCountries?: GeoCountryData[];
+} = {}) {
   const [selectedCountry, setSelectedCountry] = useState<GeoCountryData | null>(null);
   const [activeLayer, setActiveLayer] = useState<MapLayerMode>("arcs");
 
@@ -73,6 +77,7 @@ export default function HeroSection() {
             onSelectCountry={handleSelectCountry}
             activeLayer={activeLayer}
             onSelectLayer={setActiveLayer}
+            initialCountries={initialCountries}
           />
 
           {/* Floating Selected Country Dossier Card (Top-Left of Map) */}

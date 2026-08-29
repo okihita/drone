@@ -36,6 +36,7 @@ interface HeroMapCanvasProps {
   onSelectCountry: (country: GeoCountryData) => void;
   activeLayer: MapLayerMode;
   onSelectLayer?: (layer: MapLayerMode) => void;
+  initialCountries?: GeoCountryData[];
 }
 
 export default function HeroMapCanvas({
@@ -43,6 +44,7 @@ export default function HeroMapCanvas({
   onSelectCountry,
   activeLayer,
   onSelectLayer,
+  initialCountries,
 }: HeroMapCanvasProps) {
   const [isInView, setIsInView] = useState(true);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -58,7 +60,10 @@ export default function HeroMapCanvas({
     return () => observer.disconnect();
   }, []);
 
-  const countries = useMemo(() => getRealAseanCountries(), []);
+  const countries = useMemo(
+    () => initialCountries ?? getRealAseanCountries(),
+    [initialCountries],
+  );
   const byCode = useMemo(() => new Map(countries.map((c) => [c.code, c])), [countries]);
 
   const postureCounts = useMemo(

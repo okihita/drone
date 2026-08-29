@@ -3,6 +3,7 @@ import React from "react";
 import AseanMap from "@/components/observatory/AseanMap";
 import HeroBanner from "@/components/layout/HeroBanner";
 import { getRealAseanCountries } from "@/lib/aseanGeo";
+import { listJurisdictions } from "@/services/jurisdictions";
 import { MapPin, ShieldAlert, Lock } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -10,8 +11,9 @@ export const metadata: Metadata = {
   description: "Interactive SVG map documenting data localization mandates and cross-border data transfer regimes plus civil society digital rights threat assessment across 11 ASEAN nations.",
 };
 
-export default function ObservatoryPage() {
-  const countries = getRealAseanCountries();
+export default async function ObservatoryPage() {
+  const jurisdictions = await listJurisdictions();
+  const countries = getRealAseanCountries(jurisdictions);
   const strictCount = countries.filter((c) => c.regimeType === "Strict Localization").length;
   const avgThreat =
     Math.round((countries.reduce((sum, c) => sum + c.threatScore, 0) / Math.max(countries.length, 1)) * 10) / 10;
@@ -44,7 +46,7 @@ export default function ObservatoryPage() {
           }
         />
 
-        <AseanMap />
+        <AseanMap initialCountries={countries} />
 
         {/* Threat Matrix Section */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 font-sans">

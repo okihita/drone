@@ -155,8 +155,15 @@ function MapHoverCard() {
 
 // ── Main Map Component ───────────────────────────────────────────────────────
 
-export default function AseanMap() {
-  const countries = useMemo(() => getRealAseanCountries(), []);
+export default function AseanMap({
+  initialCountries,
+}: {
+  initialCountries?: GeoCountryData[];
+} = {}) {
+  const countries = useMemo(
+    () => initialCountries ?? getRealAseanCountries(),
+    [initialCountries],
+  );
   const [selectedCountry, setSelectedCountry] = useState<GeoCountryData | null>(
     null,
   );

@@ -3,6 +3,7 @@ import HeroSection from "@/components/landing/HeroSection";
 import CoreCapabilities from "@/components/landing/CoreCapabilities";
 import MissionCTA from "@/components/landing/MissionCTA";
 import { Skeleton } from "@/components/ui/skeleton";
+import type { GeoCountryData } from "@/lib/aseanGeo";
 
 function HeroSkeleton() {
   return (
@@ -23,11 +24,15 @@ function HeroSkeleton() {
   );
 }
 
-export default function HomeSections() {
+export default function HomeSections({
+  initialCountries,
+}: {
+  initialCountries?: GeoCountryData[];
+} = {}) {
   return (
     <>
       <Suspense fallback={<HeroSkeleton />}>
-        <HeroSection />
+        <HeroSection initialCountries={initialCountries} />
       </Suspense>
       <CoreCapabilities />
       <MissionCTA />
