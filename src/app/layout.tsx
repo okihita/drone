@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import { Newsreader, Geist } from "next/font/google";
-import { Suspense } from "react";
-import AdminBarLoader from "@/components/layout/AdminBarLoader";
 import "./globals.css";
 
 const newsreader = Newsreader({
@@ -91,10 +89,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="min-h-full flex flex-col font-sans transition-colors duration-200 pt-[var(--drone-admin-bar-h,0px)]">
-        <Suspense fallback={null}>
-          <AdminBarLoader />
-        </Suspense>
+      <body className="min-h-full flex flex-col font-sans transition-colors duration-200">
         {children}
       </body>
     </html>

@@ -1,119 +1,96 @@
-import { supabase, getServiceClient } from "@/lib/supabase";
-import type { SupabaseClient } from "@supabase/supabase-js";
-import type { Policy, PolicyListItem, PolicyRadarEntry } from "@/types";
+import { fetchAirtableTable } from "./airtableClient";
+import type { Policy, PolicyListItem, PolicyRadarEntry, PolicyCategory, ThreatLevel } from "@/types";
 
-// ── Queries ──────────────────────────────────────────────────────────────────
+interface PolicyFields {
+  "Title"?: string;
+  "Jurisdiction"?: string;
+  "Category"?: string;
+  "Threat Level"?: string;
+  "Date"?: string;
+  "Summary"?: string;
+  "Primary Source URL"?: string;
+  "Source Authority"?: string;
+  "Legacy ID"?: string;
+}
+
+function toPolicy(r: { id: string; fields: PolicyFields; createdTime?: string }): Policy {
+  const f = r.fields;
+  return {
+    id: f["Legacy ID"] || r.id,
+    title: f["Title"] || "",
+    jurisdiction: f["Jurisdiction"] || "",
+    category: (f["Category"] || "DEFA") as PolicyCategory,
+    threat_level: (f["Threat Level"] || "Medium Risk") as ThreatLevel,
+    date: f["Date"] || "",
+    summary: f["Summary"] || "",
+    primary_source_url: f["Primary Source URL"] || "",
+    source_authority: f["Source Authority"] || "",
+    created_at: r.createdTime,
+  };
+}
+
+async function getAllPolicies(): Promise<Policy[]> {
+  const tableName = process.env.AIRTABLE_POLICIES_TABLE || "Policies";
+  const records = await fetchAirtableTable<PolicyFields>(tableName, { tag: "policies" });
+  return records.map(toPolicy);
+}
 
 /**
  * Fetch all policies ordered by date descending.
- * Selects only listing-relevant columns for efficiency.
- * Used by admin dashboard and policy listing pages.
+ * Used by policy ledger and observatory pages.
  */
 export async function listPolicies(): Promise<PolicyListItem[]> {
-  const { data, error } = await supabase
-    .from("policies")
-    .select("id,title,jurisdiction,category,threat_level,date")
-    .order("date", { ascending: false });
-
-  if (error) throw new Error(error.message);
-  return (data as PolicyListItem[]) ?? [];
+  const policies = await getAllPolicies();
+  return policies.map((p) => ({
+    id: p.id,
+    title: p.title,
+    jurisdiction: p.jurisdiction,
+    category: p.category,
+    threat_level: p.threat_level,
+    date: p.date,
+  }));
 }
 
-/** Fetch full policy by ID. */
+/** Fetch full policy by ID (matches legacy UUID or Airtable record ID). */
 export async function getPolicyById(id: string): Promise<Policy | null> {
-  const { data, error } = await supabase
-    .from("policies")
-    .select("*")
-    .eq("id", id)
-    .single();
-
-  if (error) {
-    if ((error as { code?: string }).code === "PGRST116") return null;
-    throw new Error(error.message);
-  }
-  return (data as Policy) ?? null;
+  const policies = await getAllPolicies();
+  return policies.find((p) => p.id === id) ?? null;
 }
 
-/** Fetch policy radar entries for the editorial grid (top 3 by date). */
+/** Fetch policy radar entries for the editorial grid (top N by date). */
 export async function listPolicyRadar(limit = 3): Promise<PolicyRadarEntry[]> {
-  const { data, error } = await supabase
-    .from("policies")
-    .select("id,jurisdiction,title,threat_level,date")
-    .order("date", { ascending: false })
-    .limit(limit);
-
-  if (error) throw new Error(error.message);
-  return (data as PolicyRadarEntry[]) ?? [];
+  const policies = await getAllPolicies();
+  return policies.slice(0, limit).map((p) => ({
+    id: p.id,
+    jurisdiction: p.jurisdiction,
+    title: p.title,
+    threat_level: p.threat_level,
+    date: p.date,
+  }));
 }
 
 /**
- * Server-side policy search with sanitized input.
- * Escapes PostgREST filter special characters to prevent injection.
- * Supports free-text search across title, summary, and jurisdiction,
- * plus optional category filter. Uses service-role client for RLS bypass.
+ * Search policies with query string and optional category filter.
  */
 export async function searchPoliciesServer(params: {
   q?: string;
   category?: string;
 }): Promise<Policy[]> {
-  const client = getServiceClient();
-  let query = client
-    .from("policies")
-    .select("*")
-    .order("date", { ascending: false });
+  let policies = await getAllPolicies();
 
-  if (params.q) {
-    // Escape PostgREST special characters to prevent filter injection
-    const sanitized = params.q.replace(/[%_,()]/g, "\\$&");
-    query = query.or(
-      `title.ilike.*${sanitized}*,summary.ilike.*${sanitized}*,jurisdiction.ilike.*${sanitized}*`,
+  if (params.category && params.category !== "ALL") {
+    policies = policies.filter((p) => p.category === params.category);
+  }
+
+  if (params.q && params.q.trim() !== "") {
+    const q = params.q.toLowerCase().trim();
+    policies = policies.filter(
+      (p) =>
+        p.title.toLowerCase().includes(q) ||
+        p.summary.toLowerCase().includes(q) ||
+        p.jurisdiction.toLowerCase().includes(q),
     );
   }
-  if (params.category && params.category !== "ALL") {
-    query = query.eq("category", params.category);
-  }
 
-  const { data, error } = await query;
-
-  if (error) throw new Error(error.message);
-  return (data as Policy[]) ?? [];
+  return policies;
 }
-
-// ── Mutations (pass an authenticated client from admin pages) ───────────────
-
-export async function createPolicy(
-  input: Omit<Policy, "id" | "created_at">,
-  client: SupabaseClient = supabase,
-): Promise<Policy> {
-  const { data, error } = await client
-    .from("policies")
-    .insert(input)
-    .select()
-    .single();
-
-  if (error) throw new Error(error.message);
-  return data as Policy;
-}
-
-export async function updatePolicy(
-  id: string,
-  patch: Partial<Omit<Policy, "id" | "created_at">>,
-  client: SupabaseClient = supabase,
-): Promise<void> {
-  const { error } = await client
-    .from("policies")
-    .update(patch)
-    .eq("id", id);
-
-  if (error) throw new Error(error.message);
-}
-
-export async function deletePolicy(
-  id: string,
-  client: SupabaseClient = supabase,
-): Promise<void> {
-  const { error } = await client.from("policies").delete().eq("id", id);
-  if (error) throw new Error(error.message);
-}
-
-

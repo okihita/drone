@@ -1,0 +1,74 @@
+[
+  {
+    "id": "65d45da7-35ed-4232-af77-bfae525f1ff7",
+    "title": "ASEAN Digital Economy Framework Agreement (DEFA) Chapter 5 Legal Scrubbing",
+    "jurisdiction": "ASEAN Regional",
+    "category": "DEFA",
+    "threat_level": "High Alert",
+    "date": "July 15, 2026",
+    "summary": "Senior Economic Officials Meeting (SEOM 57) in Manila finalized draft text on Data Free Flow with Trust (DFFT).",
+    "primary_source_url": "https://asean.org/our-work/digital-economy/",
+    "source_authority": "ASEAN Secretariat & SEOM 57 Manila Gazette",
+    "created_at": "2026-07-27T22:45:32.901355+00:00"
+  },
+  {
+    "id": "26c09ddc-d940-4d59-a0ce-5d12b707dd73",
+    "title": "Indonesia Personal Data Protection (PDP Law) Public Sector Localization Decree",
+    "jurisdiction": "Indonesia (ID)",
+    "category": "Cross-Border Data",
+    "threat_level": "High Alert",
+    "date": "July 08, 2026",
+    "summary": "Kominfo Ministerial Regulation enforcing mandatory local server storage for public electronic system operators.",
+    "primary_source_url": "https://kominfo.go.id",
+    "source_authority": "Ministry of Communication & Informatics (Kominfo RI)",
+    "created_at": "2026-07-27T22:45:33.026566+00:00"
+  },
+  {
+    "id": "23e617d3-cd1c-4eb4-bca5-ea2a6cc9dee0",
+    "title": "Vietnam Decree 53 Implementation Notice on Foreign Cloud Infrastructure",
+    "jurisdiction": "Vietnam (VN)",
+    "category": "Cybersecurity",
+    "threat_level": "High Alert",
+    "date": "June 30, 2026",
+    "summary": "Ministry of Information & Communications notice requiring foreign cloud providers to store local user data in Hanoi.",
+    "primary_source_url": "https://mic.gov.vn",
+    "source_authority": "MIC Vietnam & Department of Cybersecurity (A05)",
+    "created_at": "2026-07-27T22:45:33.132008+00:00"
+  },
+  {
+    "id": "f987a69d-c38c-4609-a9e5-392470736b1a",
+    "title": "Singapore IMDA Model Governance Framework & ASEAN Cross-Border Model Clauses",
+    "jurisdiction": "Singapore (SG)",
+    "category": "AI Governance",
+    "threat_level": "Rights Verified",
+    "date": "June 28, 2026",
+    "summary": "Updated guidelines for ASEAN Model Contractual Clauses (MCCs) for cross-border data transfers.",
+    "primary_source_url": "https://imda.gov.sg",
+    "source_authority": "Info-communications Media Development Authority (IMDA)",
+    "created_at": "2026-07-27T22:45:33.230478+00:00"
+  },
+  {
+    "id": "613760cf-3b16-4147-8216-443218752d28",
+    "title": "Philippines NPC Advisory on APEC Cross-Border Privacy Rules (CBPR) Interoperability",
+    "jurisdiction": "Philippines (PH)",
+    "category": "Cross-Border Data",
+    "threat_level": "Rights Verified",
+    "date": "June 14, 2026",
+    "summary": "National Privacy Commission circular clarifying data controller liability during international transfers.",
+    "primary_source_url": "https://privacy.gov.ph",
+    "source_authority": "National Privacy Commission (NPC Philippines)",
+    "created_at": "2026-07-27T22:45:33.320116+00:00"
+  },
+  {
+    "id": "84037127-8335-49f8-acd6-ab56b9142ec8",
+    "title": "Thailand PDPA Royal Gazette Announcement on Cross-Border Adequacy Standards",
+    "jurisdiction": "Thailand (TH)",
+    "category": "Cross-Border Data",
+    "threat_level": "Medium Risk",
+    "date": "May 20, 2026",
+    "summary": "PDPC announcement establishing criteria for approving destination countries with adequate data protection.",
+    "primary_source_url": "https://etda.or.th",
+    "source_authority": "Electronic Transactions Development Agency (ETDA Thailand)",
+    "created_at": "2026-07-27T22:45:33.41133+00:00"
+  }
+]

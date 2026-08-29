@@ -1,103 +1,79 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 
-vi.mock("@/lib/supabase", () => {
-  const from = vi.fn();
-  return {
-    supabase: { from },
-    getServiceClient: vi.fn(() => ({ from })),
-    getBrowserClient: vi.fn(() => ({ from })),
-  };
-});
+const mockFetchAirtableTable = vi.fn();
 
-const { supabase } = await import("@/lib/supabase");
-const { listPolicies, getPolicyById } = await import("@/services/policies");
+vi.mock("../airtableClient", () => ({
+  fetchAirtableTable: (...args: unknown[]) => mockFetchAirtableTable(...args),
+}));
 
-describe("listPolicies", () => {
+const { listPolicies, getPolicyById, listPolicyRadar } = await import("@/services/policies");
+
+describe("policies service (Airtable-backed)", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
 
-  it("returns all policies ordered by date", async () => {
-    const mockData = [
-      { id: "1", title: "Policy A", jurisdiction: "ID", category: "DEFA", threat_level: "Medium Risk", date: "2026-07-01" },
-      { id: "2", title: "Policy B", jurisdiction: "SG", category: "Cross-Border Data", threat_level: "High Alert", date: "2026-06-15" },
-    ];
+  const mockRecords = [
+    {
+      id: "rec1",
+      fields: {
+        "Title": "DEFA Chapter 5 Finalization",
+        "Jurisdiction": "ASEAN Regional",
+        "Category": "DEFA",
+        "Threat Level": "High Alert",
+        "Date": "July 15, 2026",
+        "Summary": "Draft text finalized on DFFT.",
+        "Primary Source URL": "https://asean.org",
+        "Source Authority": "ASEAN Secretariat",
+        "Legacy ID": "pol-1",
+      },
+    },
+    {
+      id: "rec2",
+      fields: {
+        "Title": "Vietnam Decree 53",
+        "Jurisdiction": "Vietnam (VN)",
+        "Category": "Data Privacy",
+        "Threat Level": "Critical Alert",
+        "Date": "June 30, 2026",
+        "Summary": "Local data storage mandate.",
+        "Legacy ID": "pol-2",
+      },
+    },
+  ];
 
-    const chain = {
-      select: vi.fn().mockReturnThis(),
-      order: vi.fn().mockResolvedValue({ data: mockData, error: null }),
-    };
-
-    (supabase.from as ReturnType<typeof vi.fn>).mockReturnValue(chain);
+  it("listPolicies returns all policies mapped correctly", async () => {
+    mockFetchAirtableTable.mockResolvedValue(mockRecords);
 
     const result = await listPolicies();
     expect(result).toHaveLength(2);
-    expect(result[0].title).toBe("Policy A");
-    expect(chain.order).toHaveBeenCalledWith("date", { ascending: false });
+    expect(result[0].id).toBe("pol-1");
+    expect(result[0].title).toBe("DEFA Chapter 5 Finalization");
+    expect(result[1].id).toBe("pol-2");
+    expect(result[1].threat_level).toBe("Critical Alert");
   });
 
-  it("throws on database error", async () => {
-    const chain = {
-      select: vi.fn().mockReturnThis(),
-      order: vi.fn().mockResolvedValue({ data: null, error: { message: "Connection lost" } }),
-    };
+  it("getPolicyById finds record by legacy ID", async () => {
+    mockFetchAirtableTable.mockResolvedValue(mockRecords);
 
-    (supabase.from as ReturnType<typeof vi.fn>).mockReturnValue(chain);
-
-    await expect(listPolicies()).rejects.toThrow("Connection lost");
-  });
-});
-
-describe("getPolicyById", () => {
-  it("returns null for not found (PGRST116)", async () => {
-    const chain = {
-      select: vi.fn().mockReturnThis(),
-      eq: vi.fn().mockReturnThis(),
-      single: vi.fn().mockResolvedValue({ data: null, error: { code: "PGRST116" } }),
-    };
-
-    (supabase.from as ReturnType<typeof vi.fn>).mockReturnValue(chain);
-
-    const result = await getPolicyById("nonexistent");
-    expect(result).toBeNull();
+    const policy = await getPolicyById("pol-1");
+    expect(policy).not.toBeNull();
+    expect(policy?.title).toBe("DEFA Chapter 5 Finalization");
+    expect(policy?.source_authority).toBe("ASEAN Secretariat");
   });
 
-  it("returns a Policy for a found record", async () => {
-    const mockRow = {
-      id: "pol-1",
-      title: "Data Localization Decree",
-      jurisdiction: "Vietnam (VN)",
-      category: "Cross-Border Data",
-      threat_level: "High Alert",
-      date: "2026-05-20",
-      summary: "New requirements",
-      primary_source_url: "https://gov.vn",
-      source_authority: "MIC",
-    };
+  it("getPolicyById returns null if not found", async () => {
+    mockFetchAirtableTable.mockResolvedValue(mockRecords);
 
-    const chain = {
-      select: vi.fn().mockReturnThis(),
-      eq: vi.fn().mockReturnThis(),
-      single: vi.fn().mockResolvedValue({ data: mockRow, error: null }),
-    };
-
-    (supabase.from as ReturnType<typeof vi.fn>).mockReturnValue(chain);
-
-    const result = await getPolicyById("pol-1");
-    expect(result).not.toBeNull();
-    expect(result?.title).toBe("Data Localization Decree");
-    expect(result?.threat_level).toBe("High Alert");
+    const policy = await getPolicyById("nonexistent");
+    expect(policy).toBeNull();
   });
 
-  it("throws on non-PGRST116 errors", async () => {
-    const chain = {
-      select: vi.fn().mockReturnThis(),
-      eq: vi.fn().mockReturnThis(),
-      single: vi.fn().mockResolvedValue({ data: null, error: { code: "42P01", message: "Table missing" } }),
-    };
+  it("listPolicyRadar returns top N policies", async () => {
+    mockFetchAirtableTable.mockResolvedValue(mockRecords);
 
-    (supabase.from as ReturnType<typeof vi.fn>).mockReturnValue(chain);
-
-    await expect(getPolicyById("any")).rejects.toThrow("Table missing");
+    const radar = await listPolicyRadar(1);
+    expect(radar).toHaveLength(1);
+    expect(radar[0].id).toBe("pol-1");
   });
 });

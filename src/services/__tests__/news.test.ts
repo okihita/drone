@@ -1,139 +1,83 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 
-// Mock the supabase module before importing the service
-vi.mock("@/lib/supabase", () => {
-  const from = vi.fn();
-  return {
-    supabase: { from },
-    getServiceClient: vi.fn(() => ({ from })),
-    getBrowserClient: vi.fn(() => ({ from })),
-  };
-});
+const mockFetchAirtableTable = vi.fn();
 
-const { supabase } = await import("@/lib/supabase");
-const { listNews, getNewsById, getNewsBySlug } = await import("@/services/news");
+vi.mock("../airtableClient", () => ({
+  fetchAirtableTable: (...args: unknown[]) => mockFetchAirtableTable(...args),
+}));
 
-describe("listNews", () => {
+const { listNews, getNewsById, getNewsBySlug, listStories, listDispatches } = await import("@/services/news");
+
+describe("news service (Airtable-backed)", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
 
-  it("returns published news items", async () => {
-    const mockData = [
-      {
-        id: "1",
-        title: "ASEAN DEFA Update",
-        slug: "asean-defa-update",
-        jurisdiction: "Indonesia (ID)",
-        category: "DEFA",
-        image_url: null,
-        published_date: "2026-07-01",
-        status: "published",
+  const mockRecords = [
+    {
+      id: "rec-news-1",
+      fields: {
+        "Title": "Vietnam Decree 53 Analysis",
+        "Slug": "vietnam-decree-53-analysis",
+        "Jurisdiction": "Vietnam (VN)",
+        "Category": "DATA LOCALIZATION",
+        "Summary": "Severe compliance pressure on international civil society.",
+        "Published Date": "2026-06-30",
+        "Status": "published",
+        "Author": "EngageMedia Research Team",
+        "Legacy ID": "news-1",
       },
-    ];
+    },
+    {
+      id: "rec-news-2",
+      fields: {
+        "Title": "Draft Dispatch Under Review",
+        "Slug": "draft-dispatch",
+        "Status": "draft",
+        "Legacy ID": "news-2",
+      },
+    },
+  ];
 
-    const chain = {
-      select: vi.fn().mockReturnThis(),
-      eq: vi.fn().mockReturnThis(),
-      order: vi.fn().mockResolvedValue({ data: mockData, error: null }),
-    };
-
-    (supabase.from as ReturnType<typeof vi.fn>).mockReturnValue(chain);
+  it("listNews returns only published news items", async () => {
+    mockFetchAirtableTable.mockResolvedValue(mockRecords);
 
     const result = await listNews();
     expect(result).toHaveLength(1);
-    expect(result[0].title).toBe("ASEAN DEFA Update");
-    expect(chain.eq).toHaveBeenCalledWith("status", "published");
+    expect(result[0].id).toBe("news-1");
+    expect(result[0].title).toBe("Vietnam Decree 53 Analysis");
   });
 
-  it("throws on database error", async () => {
-    const chain = {
-      select: vi.fn().mockReturnThis(),
-      eq: vi.fn().mockReturnThis(),
-      order: vi.fn().mockResolvedValue({ data: null, error: { message: "DB error" } }),
-    };
+  it("getNewsById finds news by legacy ID", async () => {
+    mockFetchAirtableTable.mockResolvedValue(mockRecords);
 
-    (supabase.from as ReturnType<typeof vi.fn>).mockReturnValue(chain);
-
-    await expect(listNews()).rejects.toThrow("DB error");
-  });
-});
-
-describe("getNewsById", () => {
-  it("returns null for not found (PGRST116)", async () => {
-    const chain = {
-      select: vi.fn().mockReturnThis(),
-      eq: vi.fn().mockReturnThis(),
-      single: vi.fn().mockResolvedValue({
-        data: null,
-        error: { code: "PGRST116", message: "No rows" },
-      }),
-    };
-
-    (supabase.from as ReturnType<typeof vi.fn>).mockReturnValue(chain);
-
-    const result = await getNewsById("nonexistent");
-    expect(result).toBeNull();
+    const item = await getNewsById("news-1");
+    expect(item).not.toBeNull();
+    expect(item?.title).toBe("Vietnam Decree 53 Analysis");
   });
 
-  it("returns a NewsItem for a found record", async () => {
-    const mockRow = {
-      id: "2",
-      title: "Test Article",
-      slug: "test-article",
-      jurisdiction: "SG",
-      category: "Cybersecurity",
-      image_url: null,
-      published_date: "2026-06-01",
-      read_time: null,
-      summary: "Summary text",
-      author: null,
-      source_url: "https://example.com",
-      source_name: "Example",
-      status: "published",
-      wp_post_id: null,
-      content: null,
-      created_at: "2026-01-01",
-    };
+  it("getNewsBySlug finds news by slug", async () => {
+    mockFetchAirtableTable.mockResolvedValue(mockRecords);
 
-    const chain = {
-      select: vi.fn().mockReturnThis(),
-      eq: vi.fn().mockReturnThis(),
-      single: vi.fn().mockResolvedValue({ data: mockRow, error: null }),
-    };
-
-    (supabase.from as ReturnType<typeof vi.fn>).mockReturnValue(chain);
-
-    const result = await getNewsById("2");
-    expect(result).not.toBeNull();
-    expect(result?.title).toBe("Test Article");
-    expect(result?.id).toBe("2");
-  });
-});
-
-describe("getNewsBySlug", () => {
-  it("returns null when slug column does not exist (42703)", async () => {
-    const chain = {
-      select: vi.fn().mockReturnThis(),
-      eq: vi.fn().mockReturnThis(),
-      single: vi.fn().mockRejectedValue({ code: "42703", message: "column does not exist" }),
-    };
-
-    (supabase.from as ReturnType<typeof vi.fn>).mockReturnValue(chain);
-
-    const result = await getNewsBySlug("any-slug");
-    expect(result).toBeNull();
+    const item = await getNewsBySlug("vietnam-decree-53-analysis");
+    expect(item).not.toBeNull();
+    expect(item?.id).toBe("news-1");
   });
 
-  it("re-throws unexpected errors", async () => {
-    const chain = {
-      select: vi.fn().mockReturnThis(),
-      eq: vi.fn().mockReturnThis(),
-      single: vi.fn().mockRejectedValue(new Error("Unexpected failure")),
-    };
+  it("getNewsBySlug returns null for nonexistent slug", async () => {
+    mockFetchAirtableTable.mockResolvedValue(mockRecords);
 
-    (supabase.from as ReturnType<typeof vi.fn>).mockReturnValue(chain);
+    const item = await getNewsBySlug("nonexistent");
+    expect(item).toBeNull();
+  });
 
-    await expect(getNewsBySlug("any-slug")).rejects.toThrow("Unexpected failure");
+  it("listStories and listDispatches return expected slices", async () => {
+    mockFetchAirtableTable.mockResolvedValue(mockRecords);
+
+    const stories = await listStories(1);
+    expect(stories).toHaveLength(1);
+
+    const dispatches = await listDispatches(1);
+    expect(dispatches).toHaveLength(1);
   });
 });
