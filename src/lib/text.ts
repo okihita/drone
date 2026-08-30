@@ -67,17 +67,3 @@ export function getExcerpt(html: string | null | undefined, maxLength = 180): st
   if (plainText.length <= maxLength) return plainText;
   return plainText.substring(0, maxLength).trim() + "…";
 }
-
-/**
- * Calculate estimated read time from HTML content.
- * Strips tags, counts words, divides by average reading speed (225 wpm).
- * Returns formatted string like "4 min read" or "1 min read".
- * Never returns "0 min read" — floors at 1.
- */
-export function calculateReadTime(html: string): string {
-  const text = stripHtml(html);
-  if (!text) return "1 min read";
-  const words = text.split(/\s+/).filter(Boolean).length;
-  const minutes = Math.max(1, Math.round(words / 225));
-  return `${minutes} min read`;
-}

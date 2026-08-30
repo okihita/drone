@@ -27,7 +27,6 @@ const eslintConfig = defineConfig([
       "src/lib/consumerData.ts",
       "src/lib/negotiationData.ts",
       "src/lib/digital2dozen.ts",
-      "src/app/admin/ingester/page.tsx",
       "src/components/layout/Header.tsx",
     ],
     rules: {

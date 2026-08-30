@@ -51,6 +51,9 @@
     "typescript": "^5.9.3",
     "vitest": "^4.1.11"
   },
+  "pnpm": {
+    "onlyBuiltDependencies": ["esbuild", "sharp", "unrs-resolver"]
+  },
   "overrides": {
     "@exodus/bytes": "1.14.1"
   }

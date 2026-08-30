@@ -1,4 +1,4 @@
-/** Canonical policy shape matching the Supabase `policies` table. */
+/** Canonical policy shape. */
 export interface Policy {
   id: string;
   title: string;

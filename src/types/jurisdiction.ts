@@ -2,7 +2,7 @@ import type { REGIME_TYPES } from "@/lib/constants";
 
 export type RegimeType = (typeof REGIME_TYPES)[number];
 
-/** Canonical jurisdiction shape matching the Supabase `jurisdictions` table. */
+/** Canonical jurisdiction shape. */
 export interface Jurisdiction {
   id: string;
   code: string;

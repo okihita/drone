@@ -2,7 +2,7 @@ import type { NEWS_CATEGORIES } from "@/lib/constants";
 
 export type NewsCategory = (typeof NEWS_CATEGORIES)[number] | (string & {});
 
-/** Canonical news-item shape matching the Supabase `news_items` table. */
+/** Canonical news-item shape. */
 export interface NewsItem {
   id: string;
   wp_post_id?: number | null;

@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { generateSlug, getExcerpt, decodeHtmlEntities, calculateReadTime } from "@/lib/text";
+import { generateSlug, getExcerpt, decodeHtmlEntities } from "@/lib/text";
 
 describe("generateSlug", () => {
   it("converts a title to a URL-safe slug", () => {
@@ -42,21 +42,5 @@ describe("decodeHtmlEntities", () => {
 
   it("returns plain text unchanged", () => {
     expect(decodeHtmlEntities("Plain text")).toBe("Plain text");
-  });
-});
-
-describe("calculateReadTime", () => {
-  it("calculates read time for short text", () => {
-    const text = "word ".repeat(50); // 50 words
-    expect(calculateReadTime(text)).toBe("1 min read");
-  });
-
-  it("returns minimal time for very short text", () => {
-    expect(calculateReadTime("five words here now")).toBe("1 min read");
-  });
-
-  it("handles HTML content", () => {
-    const html = "<p>" + "word ".repeat(300) + "</p>";
-    expect(calculateReadTime(html)).toMatch(/\d+ min read/);
   });
 });
