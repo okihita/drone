@@ -28,7 +28,8 @@ drone/
 │
 └── docs/
     ├── ARCHITECTURE.md        # Tier 1: Technical Stack, Routing & Data Flow
-    ├── BRAND_AND_DESIGN.md    # Tier 1: Design Tokens, ASEAN Colors & Typography
+    ├── design/
+    │   └── DESIGN_SYSTEM.md # Tier 1: Design Tokens, ASEAN Colors & Typography
     ├── MAINTAINER_GUIDE.md    # Tier 1: Maintenance Workflows & Cognitive Hygiene
     │
     └── specs/                 # Tier 2: Living Feature Specifications
@@ -64,7 +65,6 @@ Never rely on mental checklists when a CLI tool can enforce the rule automatical
 ## 3. 📦 Deterministic Package Management with `pnpm 11`
 
 * **Enforced Version**: The project is pinned to **`pnpm 11`** via `"packageManager": "pnpm@11.22.0"` in `package.json`.
-* **Build Script Security**: Allowed native build scripts (`esbuild`, `sharp`, `unrs-resolver`) are explicitly declared in `pnpm-workspace.yaml`.
 * **Deterministic Installs**: Always use `pnpm install --frozen-lockfile` in CI / production environments to guarantee reproducibility.
 
 ---
@@ -78,7 +78,6 @@ Maintainers can navigate any part of the application by remembering these core c
 * **`(observatory)`**: Cartographic Observatory (`/observatory`), Verified Ledger (`/ledger`), and Defender Dossier Intake (`/intake`).
 * **`defa/`**: 5-module ASEAN DEFA treaty monitoring suite.
 * **`d2d/`**: 24-principle Digital 2 Dozen benchmarking suite.
-* **`admin/`**: Authenticated content moderation and ingestion staging queue.
 * **`api/`**: Serverless API routes and cron endpoints (`/api/cron/engagemedia-sync`).
 
 ### Data Layer Rules
