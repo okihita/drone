@@ -1,9 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import type { BenchmarkCountrySummary, BenchmarkPrinciple } from "@/types/benchmark";
+import type { BenchmarkCountrySummary, BenchmarkPrinciple, BenchmarkScore } from "@/types/benchmark";
 import { BENCHMARK_CLUSTERS } from "@/lib/constants";
 import PrincipleDetailPopover from "./PrincipleDetailPopover";
+import BenchmarkCellCitationModal from "./BenchmarkCellCitationModal";
 import { FLAG_COMPONENTS } from "@/lib/flags";
 import { heatmapCellClass } from "@/lib/colors";
 
@@ -25,6 +26,12 @@ const CLUSTER_CHIP_CLASSES: Record<string, string> = {
 export default function BenchmarkHeatmap({ summaries, principles, selectedCountry, onSelectCountry }: Props) {
   const [hoveredPrinciple, setHoveredPrinciple] = useState<BenchmarkPrinciple | null>(null);
   const [popoverPos, setPopoverPos] = useState<{ x: number; y: number } | null>(null);
+  const [inspectedCell, setInspectedCell] = useState<{
+    countryName: string;
+    countryCode: string;
+    principle: BenchmarkPrinciple;
+    score: BenchmarkScore;
+  } | null>(null);
 
   const headerBg = "sticky top-0 z-10 bg-slate-100 dark:bg-slate-800 font-sans text-sm font-bold text-slate-700 dark:text-slate-300";
 
@@ -65,6 +72,7 @@ export default function BenchmarkHeatmap({ summaries, principles, selectedCountr
               {l.range}
             </span>
           ))}
+          <span className="hidden sm:inline text-slate-400 dark:text-slate-500">&bull; Click any score cell for statutory citations</span>
         </div>
 
         {/* Centered table inside card container */}
@@ -156,8 +164,20 @@ export default function BenchmarkHeatmap({ summaries, principles, selectedCountr
                       </span>
                     </td>
                     {summaries.map((s) => {
-                      const score = s.scores.find((sc) => sc.principleId === principle.id)?.score ?? 0;
+                      const scoreObj = s.scores.find((sc) => sc.principleId === principle.id);
+                      const score = scoreObj?.score ?? 0;
                       const isSelected = selectedCountry === s.countryCode;
+                      const inspectCell = () => {
+                        if (scoreObj) {
+                          setInspectedCell({
+                            countryName: s.countryName,
+                            countryCode: s.countryCode,
+                            principle,
+                            score: scoreObj,
+                          });
+                        }
+                      };
+
                       return (
                         <td
                           key={s.countryCode}
@@ -166,19 +186,19 @@ export default function BenchmarkHeatmap({ summaries, principles, selectedCountr
                           }`}
                           tabIndex={0}
                           role="button"
-                          aria-label={`${s.countryName}: ${score}/100 — ${principle.shortTitle}`}
+                          aria-label={`${s.countryName}: ${score}/100 — ${principle.shortTitle}. Click to inspect statutory evidence.`}
                           aria-pressed={isSelected}
-                          onClick={() => onSelectCountry(selectedCountry === s.countryCode ? null : s.countryCode)}
+                          onClick={inspectCell}
                           onKeyDown={(e) => {
                             if (e.key === "Enter" || e.key === " ") {
                               e.preventDefault();
-                              onSelectCountry(selectedCountry === s.countryCode ? null : s.countryCode);
+                              inspectCell();
                             }
                           }}
                         >
                           <span
-                            className={`inline-flex items-center justify-center w-10 h-7 rounded-md font-sans text-sm font-bold ${heatmapCellClass(score)} text-white`}
-                            title={`${s.countryName}: ${score}/100 — ${principle.shortTitle}`}
+                            className={`inline-flex items-center justify-center w-10 h-7 rounded-md font-sans text-sm font-bold ${heatmapCellClass(score)} text-white hover:scale-105 transition-transform`}
+                            title={`${s.countryName}: ${score}/100 — ${principle.shortTitle}. Click to inspect statutory evidence.`}
                           >
                             {score}
                           </span>
@@ -195,6 +215,16 @@ export default function BenchmarkHeatmap({ summaries, principles, selectedCountr
 
       {hoveredPrinciple && popoverPos && (
         <PrincipleDetailPopover principle={hoveredPrinciple} position={popoverPos} onClose={() => setHoveredPrinciple(null)} />
+      )}
+
+      {inspectedCell && (
+        <BenchmarkCellCitationModal
+          countryName={inspectedCell.countryName}
+          countryCode={inspectedCell.countryCode}
+          principle={inspectedCell.principle}
+          score={inspectedCell.score}
+          onClose={() => setInspectedCell(null)}
+        />
       )}
     </section>
   );

@@ -2,16 +2,13 @@
 
 import { useState } from "react";
 import type { ConsumerProtectionPolicy } from "@/types/consumer_protection";
-import { scoreTone, toneHex, toneTextClass } from "@/lib/colors";
 import { FLAG_COMPONENTS } from "@/lib/flags";
-import { ExternalLink, Filter } from "lucide-react";
+import { Filter } from "lucide-react";
+import ConsumerProtectionCard from "./ConsumerProtectionCard";
 
 interface Props {
   policies: ConsumerProtectionPolicy[];
 }
-
-const GOOD_SCORE = 60;
-const BAD_SCORE = 35;
 
 export default function ConsumerProtectionClientShell({ policies }: Props) {
   const [selectedCountry, setSelectedCountry] = useState<string>("ALL");
@@ -60,63 +57,9 @@ export default function ConsumerProtectionClientShell({ policies }: Props) {
 
       {/* Grid of Profile Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {filtered.map((policy) => {
-          const FlagIcon = FLAG_COMPONENTS[policy.countryCode];
-          const compositeTone = scoreTone(policy.compositeScore, GOOD_SCORE, BAD_SCORE);
-          return (
-            <div key={policy.id} className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-xs flex flex-col justify-between hover:border-slate-300 dark:hover:border-slate-700 transition-all">
-              <div>
-                <div className="flex items-center justify-between mb-2">
-                  <div className="flex items-center gap-2">
-                    {FlagIcon && <FlagIcon className="w-4 h-3 rounded-xs shrink-0 shadow-xs" />}
-                    <span className="font-sans text-sm font-bold px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
-                      {policy.countryCode}
-                    </span>
-                    <span className="text-sm font-bold text-slate-900 dark:text-white">{policy.countryName}</span>
-                  </div>
-                  <span className={`text-sm font-sans font-extrabold ${toneTextClass(compositeTone)}`}>
-                    {policy.compositeScore}/100
-                  </span>
-                </div>
-
-                <div className="h-2 w-full rounded-full bg-slate-100 dark:bg-slate-800 border border-slate-200/60 dark:border-slate-700/60 mb-3 overflow-hidden">
-                  <div className="h-full rounded-full transition-all duration-500" style={{ width: `${policy.compositeScore}%`, backgroundColor: toneHex(compositeTone) }} />
-                </div>
-
-                <div className="space-y-1.5 text-sm font-sans">
-                  {[
-                    { label: "Intermediary Liability", score: policy.intermediaryLiabilityScore },
-                    { label: "Algorithmic Audits", score: policy.algorithmicAuditScore },
-                    { label: "Breach Notification", score: policy.breachNotificationScore },
-                    { label: "Spam Regulation", score: policy.spamRegulationScore },
-                    { label: "Dark Pattern Restrictions", score: policy.darkPatternScore },
-                  ].map((d) => (
-                    <div key={d.label} className="flex items-center justify-between">
-                      <span className="text-slate-600 dark:text-slate-400">{d.label}</span>
-                      <span className={`font-sans font-bold ${toneTextClass(scoreTone(d.score, GOOD_SCORE, BAD_SCORE))}`}>
-                        {d.score}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {policy.sourceUrl && (
-                <div className="mt-4 pt-2.5 border-t border-slate-100 dark:border-slate-800/60 flex items-center justify-between text-sm font-sans">
-                  <span className="text-sm text-slate-400">Statutory Framework</span>
-                  <a
-                    href={policy.sourceUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-asean-blue dark:text-asean-sky hover:underline font-bold inline-flex items-center gap-1 text-sm"
-                  >
-                    Official Document <ExternalLink className="h-3 w-3" />
-                  </a>
-                </div>
-              )}
-            </div>
-          );
-        })}
+        {filtered.map((policy) => (
+          <ConsumerProtectionCard key={policy.id} policy={policy} />
+        ))}
       </div>
     </div>
   );

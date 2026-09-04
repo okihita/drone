@@ -28,6 +28,18 @@ export default function DefaDataGovernanceView() {
     }
   };
 
+  const getSurveillanceBadge = (risk: "High" | "Medium" | "Low") => {
+    switch (risk) {
+      case "High":
+        return { label: "High Surveillance Risk", className: "bg-asean-red/15 text-asean-red border-asean-red/40" };
+      case "Medium":
+        return { label: "Medium Surveillance Risk", className: "bg-asean-amber/15 text-asean-amber border-asean-amber/40" };
+      case "Low":
+      default:
+        return { label: "Low Surveillance Risk", className: "bg-asean-emerald/15 text-asean-emerald border-asean-emerald/40" };
+    }
+  };
+
   return (
     <>
       <HeroBanner
@@ -122,6 +134,7 @@ export default function DefaDataGovernanceView() {
           {filteredStates.map((state) => {
             const country = ASEAN_MEMBER_STATES.find((m) => m.code === state.countryCode);
             const badge = getTierBadge(state.regimeTier);
+            const survBadge = getSurveillanceBadge(state.surveillanceRisk);
 
             return (
               <div
@@ -129,26 +142,31 @@ export default function DefaDataGovernanceView() {
                 className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-all space-y-4 flex flex-col justify-between"
               >
                 <div className="space-y-3">
-                  <div className="flex items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-800 pb-3">
+                  <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-800 pb-3">
                     <div className="flex items-center gap-2.5">
                       {country && <country.Flag className="w-5 h-3.5 object-cover rounded-[2px]" />}
                       <h3 className="font-serif-editorial text-lg font-bold text-slate-900 dark:text-white">
                         {country?.name}
                       </h3>
                     </div>
-                    <span className={`px-2.5 py-0.5 rounded-full text-sm font-bold border ${badge.className}`}>
-                      {badge.label}
-                    </span>
+                    <div className="flex flex-wrap items-center gap-1.5">
+                      <span className={`px-2.5 py-0.5 rounded-full text-sm font-bold border ${badge.className}`}>
+                        {badge.label}
+                      </span>
+                      <span className={`px-2 py-0.5 rounded-full text-sm font-bold border ${survBadge.className}`}>
+                        {survBadge.label}
+                      </span>
+                    </div>
                   </div>
 
                   <div className="space-y-2 text-sm font-sans">
                     <div>
-                      <span className="font-mono text-sm text-slate-400 uppercase font-bold block">Primary Privacy Law</span>
+                      <span className="font-sans text-sm text-slate-400 uppercase font-bold block">Primary Privacy Law</span>
                       <span className="font-semibold text-slate-800 dark:text-slate-200">{state.primaryDataLaw}</span>
                     </div>
 
                     <div>
-                      <span className="font-mono text-sm text-slate-400 uppercase font-bold block">Localization Mandate</span>
+                      <span className="font-sans text-sm text-slate-400 uppercase font-bold block">Localization Mandate</span>
                       <p className="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">
                         {state.dataLocalizationMandate}
                       </p>
@@ -165,7 +183,7 @@ export default function DefaDataGovernanceView() {
                 <div className="pt-3 border-t border-slate-100 dark:border-slate-800 space-y-1.5">
                   <div className="flex items-center justify-between text-sm font-sans">
                     <span className="text-slate-500 font-semibold">Legal Data Friction Score</span>
-                    <span className={`font-mono font-bold ${toneTextClass(riskTone(state.legalFrictionScore, 40, 70))}`}>
+                    <span className={`font-sans font-bold ${toneTextClass(riskTone(state.legalFrictionScore, 40, 70))}`}>
                       {state.legalFrictionScore} / 100
                     </span>
                   </div>
