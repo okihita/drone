@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
+import { useLanguage, type SupportedLanguage } from "@/lib/i18n";
 
 interface Language {
-  code: string;
+  code: SupportedLanguage;
   name: string;
   native: string;
   flag: string;
@@ -15,7 +16,7 @@ const LANGUAGES: Language[] = [
 ];
 
 export default function LanguageSwitcher() {
-  const [selectedLang, setSelectedLang] = useState<string>("en");
+  const { lang: selectedLang, setLang } = useLanguage();
 
   return (
     <div className="flex items-center bg-slate-200/80 dark:bg-slate-900/90 p-1 rounded-lg border border-slate-300 dark:border-slate-800 text-sm font-sans">
@@ -23,7 +24,7 @@ export default function LanguageSwitcher() {
         <button
           key={lang.code}
           id={`lang-select-${lang.code}`}
-          onClick={() => setSelectedLang(lang.code)}
+          onClick={() => setLang(lang.code)}
           className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md text-sm font-sans font-semibold transition-all ${
             selectedLang === lang.code
               ? "bg-white dark:bg-slate-800 text-slate-900 dark:text-white shadow-xs"

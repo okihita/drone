@@ -17,7 +17,7 @@ const ALLOWED_FILES = [
 ];
 
 // Regex matching text-xs or custom sub-14px font sizes
-const FORBIDDEN_TEXT_SIZE_REGEX = /\btext-(?:xs|\[\s*(?:[0-9]|1[0-2])(?:\.[0-9]+)?px\s*\])/g;
+const FORBIDDEN_TEXT_SIZE_REGEX = /\btext-(?:xs|\[\s*(?:[0-9]|1[0-3])(?:\.[0-9]+)?px\s*\])/g;
 
 let violationsCount = 0;
 
@@ -60,7 +60,7 @@ function checkFileForTextSizeViolations(filePath) {
   });
 }
 
-console.log("🔍 Scanning D.R.O.N.E. codebase for forbidden text-xs and sub-13px font sizes...");
+console.log("🔍 Scanning D.R.O.N.E. codebase for forbidden text-xs and sub-14px font sizes...");
 scanDirectory(SRC_DIR);
 
 if (violationsCount > 0) {

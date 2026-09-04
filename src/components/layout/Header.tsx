@@ -9,11 +9,12 @@ import ThemeToggle from "./ThemeToggle";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { NAV_GROUPS } from "@/lib/constants";
 import type { NavGroup, NavLink } from "@/lib/constants";
+import { useLanguage } from "@/lib/i18n";
 
 // ── Shared style tokens ────────────────────────────────────────────────────
 
 const LINK_BASE =
-  "relative flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[13px] font-semibold transition-all hover:-translate-y-0.5 " +
+  "relative flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-semibold transition-all hover:-translate-y-0.5 " +
   "after:absolute after:left-0 after:-bottom-0.5 after:h-0.5 after:w-full after:rounded-full after:origin-left " +
   "after:scale-x-0 after:bg-asean-yellow after:transition-transform after:duration-200 after:ease-out";
 
@@ -39,6 +40,7 @@ export default function Header() {
   const hamburgerRef = useRef<HTMLButtonElement>(null);
   const touchStartX = useRef(0);
   const pathname = usePathname();
+  const { t } = useLanguage();
 
   // ── Compress the masthead once the page is scrolled ─────────────────────
   useEffect(() => {
@@ -223,7 +225,7 @@ export default function Header() {
                       className={`${LINK_BASE} ${active || isOpen ? LINK_ACTIVE : LINK_IDLE}`}
                     >
                       <item.icon className={`w-3.5 h-3.5 ${item.iconColor}`} />
-                      <span>{item.label}</span>
+                      <span>{t(item.label)}</span>
                     </Link>
                     <button
                       type="button"
@@ -258,7 +260,7 @@ export default function Header() {
                             }`}
                           >
                             <child.icon className={`w-3.5 h-3.5 ${child.iconColor}`} />
-                            <span>{child.label}</span>
+                            <span>{t(child.label)}</span>
                             {active && <span className="ml-auto w-1.5 h-1.5 rounded-full bg-asean-yellow" />}
                           </Link>
                         );
@@ -277,7 +279,7 @@ export default function Header() {
                 className={`${LINK_BASE} ${active ? LINK_ACTIVE : LINK_IDLE}`}
               >
                 <item.icon className={`w-3.5 h-3.5 ${item.iconColor}`} />
-                <span>{item.label}</span>
+                <span>{t(item.label)}</span>
               </Link>
             );
           })}
@@ -321,12 +323,17 @@ export default function Header() {
           </div>
 
           {/* Nav items */}
-          <nav className="px-3 py-3 space-y-1 text-sm font-sans">
-            {NAV_GROUPS.map((item) => {
+          <nav className="px-3 py-3 space-y-2 text-sm font-sans">
+            {NAV_GROUPS.map((item, groupIdx) => {
               if (isNavGroup(item)) {
                 const groupActive = isSubmenuActive(item);
                 return (
-                  <div key={item.href} className="space-y-0.5">
+                  <div
+                    key={item.href}
+                    className={`space-y-0.5 ${
+                      groupIdx > 0 ? "pt-2 border-t border-slate-200/60 dark:border-slate-800/60" : ""
+                    }`}
+                  >
                     <Link
                       href={item.href}
                       onClick={() => closeSheet()}
@@ -338,46 +345,52 @@ export default function Header() {
                       }`}
                     >
                       <item.icon className={`w-4 h-4 ${item.iconColor}`} />
-                      {item.label}
+                      {t(item.label)}
                     </Link>
-                    {item.children.map((child) => {
-                      const active = isActive(child.href);
-                      return (
-                        <Link
-                          key={child.href}
-                          href={child.href}
-                          onClick={() => closeSheet()}
-                          aria-current={active ? "page" : undefined}
-                          className={`flex items-center gap-2.5 pl-7 pr-3 py-2 rounded-lg font-medium transition-colors text-sm sm:text-sm ${
-                            active
-                              ? "bg-asean-yellow/10 text-asean-amber dark:text-asean-yellow"
-                              : "text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
-                          }`}
-                        >
-                          <child.icon className={`w-3.5 h-3.5 shrink-0 ${child.iconColor}`} />
-                          <span className="truncate">{child.label}</span>
-                        </Link>
-                      );
-                    })}
+                    <div className="space-y-0.5 pl-2 border-l-2 border-slate-200/60 dark:border-slate-800/70 ml-4 my-1">
+                      {item.children.map((child) => {
+                        const active = isActive(child.href);
+                        return (
+                          <Link
+                            key={child.href}
+                            href={child.href}
+                            onClick={() => closeSheet()}
+                            aria-current={active ? "page" : undefined}
+                            className={`flex items-center gap-2.5 px-3 py-2 rounded-lg font-medium transition-colors text-sm ${
+                              active
+                                ? "bg-asean-yellow/10 text-asean-amber dark:text-asean-yellow font-semibold"
+                                : "text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
+                            }`}
+                          >
+                            <child.icon className={`w-3.5 h-3.5 shrink-0 ${child.iconColor}`} />
+                            <span className="truncate">{t(child.label)}</span>
+                          </Link>
+                        );
+                      })}
+                    </div>
                   </div>
                 );
               }
               const active = isActive(item.href);
               return (
-                <Link
+                <div
                   key={item.href}
-                  href={item.href}
-                  onClick={() => closeSheet()}
-                  aria-current={active ? "page" : undefined}
-                  className={`flex items-center gap-3 px-3 py-2.5 rounded-lg font-bold transition-colors ${
-                    active
-                      ? "bg-asean-yellow/10 text-asean-amber dark:text-asean-yellow"
-                      : "text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800"
-                  }`}
+                  className={groupIdx > 0 ? "pt-2 border-t border-slate-200/60 dark:border-slate-800/60" : ""}
                 >
-                  <item.icon className={`w-4 h-4 ${item.iconColor}`} />
-                  {item.label}
-                </Link>
+                  <Link
+                    href={item.href}
+                    onClick={() => closeSheet()}
+                    aria-current={active ? "page" : undefined}
+                    className={`flex items-center gap-3 px-3 py-2.5 rounded-lg font-bold transition-colors ${
+                      active
+                        ? "bg-asean-yellow/10 text-asean-amber dark:text-asean-yellow"
+                        : "text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800"
+                    }`}
+                  >
+                    <item.icon className={`w-4 h-4 ${item.iconColor}`} />
+                    {t(item.label)}
+                  </Link>
+                </div>
               );
             })}
           </nav>
