@@ -21,7 +21,7 @@ describe("Footer", () => {
   it("renders the EngageMedia branding", () => {
     render(<Footer />);
     expect(screen.getByAltText("EngageMedia")).toBeInTheDocument();
-    expect(screen.getByText(/D\.R\.O\.N\.E\./)).toBeInTheDocument();
+    expect(screen.getByText(/DRONE — Digital Rights Oversight/)).toBeInTheDocument();
   });
 
   it("renders Research Modules section with links", () => {

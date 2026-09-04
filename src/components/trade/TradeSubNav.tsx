@@ -3,7 +3,14 @@
 import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { LayoutGrid } from "lucide-react";
 import { TRADE_SUBMENU } from "@/lib/constants";
+import type { NavLink } from "@/lib/constants";
+
+const TRADE_SUBNAV_LINKS: NavLink[] = [
+  { href: "/trade", label: "Overview", icon: LayoutGrid, iconColor: "text-asean-yellow" },
+  ...TRADE_SUBMENU,
+];
 
 export default function TradeSubNav() {
   const pathname = usePathname();
@@ -14,8 +21,11 @@ export default function TradeSubNav() {
     >
       <div className="w-full overflow-x-auto no-scrollbar">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-w-max flex items-center justify-start xl:justify-center gap-1.5 py-2">
-          {TRADE_SUBMENU.map((item) => {
-            const active = pathname === item.href || pathname.startsWith(item.href + "/");
+          {TRADE_SUBNAV_LINKS.map((item) => {
+            const active =
+              item.href === "/trade"
+                ? pathname === "/trade"
+                : pathname === item.href || pathname.startsWith(item.href + "/");
             return (
               <Link
                 key={item.href}

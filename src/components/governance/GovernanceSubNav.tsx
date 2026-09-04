@@ -3,7 +3,14 @@
 import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { LayoutGrid } from "lucide-react";
 import { GOVERNANCE_SUBMENU } from "@/lib/constants";
+import type { NavLink } from "@/lib/constants";
+
+const GOVERNANCE_SUBNAV_LINKS: NavLink[] = [
+  { href: "/governance", label: "Overview", icon: LayoutGrid, iconColor: "text-asean-emerald" },
+  ...GOVERNANCE_SUBMENU,
+];
 
 export default function GovernanceSubNav() {
   const pathname = usePathname();
@@ -14,8 +21,11 @@ export default function GovernanceSubNav() {
     >
       <div className="w-full overflow-x-auto no-scrollbar">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-w-max flex items-center justify-start xl:justify-center gap-1.5 py-2">
-          {GOVERNANCE_SUBMENU.map((item) => {
-            const active = pathname === item.href || pathname.startsWith(item.href + "/");
+          {GOVERNANCE_SUBNAV_LINKS.map((item) => {
+            const active =
+              item.href === "/governance"
+                ? pathname === "/governance"
+                : pathname === item.href || pathname.startsWith(item.href + "/");
             return (
               <Link
                 key={item.href}

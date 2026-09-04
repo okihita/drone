@@ -34,7 +34,7 @@ export default function DefaAiEthicsView() {
           { title: "AI Copyright Exemption", desc: "Statutory exceptions allowing text and data mining (TDM) for AI model training." },
           { title: "Risk Classification", desc: "Categorizing high-risk AI deployments in healthcare, finance, and law enforcement." },
           { title: "State Audit Rights", desc: "Regulating government access to inspect proprietary AI algorithms and training datasets." },
-          { title: "Harm Telemetry", desc: "Connecting reported algorithmic discrimination incidents from D.R.O.N.E. Media AI." },
+          { title: "Harm Telemetry", desc: "Connecting reported algorithmic discrimination incidents from DRONE Media AI." },
         ]}
         howToRead={
           <>

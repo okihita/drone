@@ -167,7 +167,7 @@ export default function Header() {
           <Link href="/" className="group flex items-center gap-3 sm:gap-4 min-w-0">
             <Image
               src="/images/Logomark_Red_800px.png"
-              alt="EngageMedia D.R.O.N.E."
+              alt="EngageMedia DRONE"
               width={800}
               height={800}
               priority
