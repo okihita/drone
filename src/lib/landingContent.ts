@@ -35,6 +35,6 @@ export const EXECUTIVE_INSIGHTS: ExecutiveInsightsData = {
     },
   ],
   ctaLabel: "Read Complete Investigation Suite",
-  ctaHref: "/investigations",
+  ctaHref: "/accountability/investigations",
 };
 

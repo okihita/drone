@@ -35,11 +35,11 @@ export default function MissionCTA() {
             </Link>
 
             <Link
-              href="/intake"
+              href="/leaks"
               className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-slate-50 px-6 py-3 text-sm sm:text-sm font-semibold text-slate-800 transition-colors hover:bg-slate-100 dark:border-white/15 dark:bg-slate-800/80 dark:text-slate-200 dark:hover:bg-slate-800"
             >
               <Database className="h-4 w-4 text-asean-red" />
-              <span>Submit Leaked Dossier</span>
+              <span>Submit Leak / Dossier</span>
             </Link>
           </div>
         </div>

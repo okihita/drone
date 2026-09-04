@@ -27,8 +27,8 @@ describe("Footer", () => {
   it("renders Research Modules section with links", () => {
     render(<Footer />);
     expect(screen.getByText("Research Modules")).toBeInTheDocument();
-    expect(screen.getByText("Featured DEFA Investigation")).toBeInTheDocument();
-    expect(screen.getByText("ASEAN Jurisdiction Map & Dossiers")).toBeInTheDocument();
+    expect(screen.getByText("Data & AI Governance")).toBeInTheDocument();
+    expect(screen.getByText("Platform Accountability")).toBeInTheDocument();
   });
 
   it("renders EngageMedia Network section with external links", () => {
@@ -52,10 +52,10 @@ describe("Footer", () => {
 
   it("has correct internal links", () => {
     render(<Footer />);
-    const ledgerLink = screen.getByText("Verified Policy Ledger & Table");
+    const ledgerLink = screen.getByText("Verified Policy Ledger");
     expect(ledgerLink.closest("a")).toHaveAttribute("href", "/ledger");
 
-    const intakeLink = screen.getByText("Encrypted Dossier Intake");
-    expect(intakeLink.closest("a")).toHaveAttribute("href", "/intake");
+    const leaksLink = screen.getByText("Encrypted Leaks Portal");
+    expect(leaksLink.closest("a")).toHaveAttribute("href", "/leaks");
   });
 });

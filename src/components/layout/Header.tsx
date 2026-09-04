@@ -51,7 +51,9 @@ export default function Header() {
   const isActive = (path: string) => pathname === path;
 
   const isSubmenuActive = (group: NavGroup) =>
-    group.children.some((child) => isActive(child.href));
+    pathname === group.href ||
+    pathname.startsWith(group.href + "/") ||
+    group.children.some((child) => isActive(child.href) || pathname.startsWith(child.href));
 
   // ── Measure header height dynamically ──────────────────────────────────
   useEffect(() => {

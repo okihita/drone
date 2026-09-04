@@ -92,45 +92,54 @@ export interface NavGroup {
   children: NavLink[];
 }
 
-export const D2D_SUBMENU: NavLink[] = [
-  { href: "/d2d/benchmark", label: "Compliance Heatmap", icon: BarChart3, iconColor: "text-asean-blue" },
-  { href: "/d2d/tech-sovereignty", label: "Tech Sovereignty", icon: Cpu, iconColor: "text-asean-amber" },
-  { href: "/d2d/encryption", label: "Encryption", icon: Lock, iconColor: "text-asean-red" },
-  { href: "/d2d/consumer-protection", label: "Consumer Rights", icon: ShieldCheck, iconColor: "text-asean-emerald" },
-  { href: "/d2d/negotiations", label: "Trade Deals", icon: Calendar, iconColor: "text-asean-sky" },
-  { href: "/d2d/ip-monitor", label: "IP & Trade Secrets", icon: FileKey, iconColor: "text-asean-sky" },
+export const GOVERNANCE_SUBMENU: NavLink[] = [
+  { href: "/governance/ai-ethics", label: "AI Ethics & Accountability", icon: Cpu, iconColor: "text-asean-emerald" },
+  { href: "/governance/data-flows", label: "Cross-Border Data Flows", icon: Globe, iconColor: "text-asean-blue" },
+  { href: "/governance/encryption", label: "Encryption & Privacy", icon: Lock, iconColor: "text-asean-red" },
+  { href: "/governance/tech-sovereignty", label: "Tech Sovereignty & Compute", icon: Cpu, iconColor: "text-asean-amber" },
 ];
 
-export const DEFA_SUBMENU: NavLink[] = [
-  { href: "/defa/chapters", label: "Ratification Tracker", icon: FileText, iconColor: "text-asean-yellow" },
-  { href: "/defa/data-governance", label: "Data Flows", icon: Globe, iconColor: "text-asean-blue" },
-  { href: "/defa/ai-ethics", label: "AI Ethics", icon: Cpu, iconColor: "text-asean-emerald" },
-  { href: "/defa/payments-cyber", label: "Payments & Cyber", icon: CreditCard, iconColor: "text-asean-amber" },
-  { href: "/defa/civil-society", label: "Threat Matrix", icon: Shield, iconColor: "text-asean-red" },
+export const TRADE_SUBMENU: NavLink[] = [
+  { href: "/trade/defa", label: "ASEAN DEFA Tracker", icon: FileText, iconColor: "text-asean-yellow" },
+  { href: "/trade/negotiations", label: "Trade Deals & Treaties", icon: Calendar, iconColor: "text-asean-sky" },
+  { href: "/trade/ip-monitor", label: "IP & Trade Secrets", icon: FileKey, iconColor: "text-asean-sky" },
+  { href: "/trade/payments-cyber", label: "Payments & Cyber Clauses", icon: CreditCard, iconColor: "text-asean-amber" },
+];
+
+export const ACCOUNTABILITY_SUBMENU: NavLink[] = [
+  { href: "/accountability/benchmark", label: "Platform AI & Rights Benchmark", icon: BarChart3, iconColor: "text-asean-blue" },
+  { href: "/accountability/consumer-protection", label: "Consumer Redress & Deceptive AI", icon: ShieldCheck, iconColor: "text-asean-emerald" },
+  { href: "/accountability/civil-society", label: "Digital Labor & Watchdog", icon: Shield, iconColor: "text-asean-red" },
+  { href: "/accountability/investigations", label: "Platform Investigations", icon: BookOpen, iconColor: "text-asean-yellow" },
 ];
 
 export const OBSERVATORY_SUBMENU: NavLink[] = [
   { href: "/observatory", label: "Regional Map & Threats", icon: Map, iconColor: "text-asean-blue" },
   { href: "/ledger", label: "Policy & Case Ledger", icon: Database, iconColor: "text-asean-amber" },
-  { href: "/intake", label: "Submit Dossier", icon: Send, iconColor: "text-asean-red" },
+  { href: "/links", label: "Curated Knowledge Hub", icon: Link2, iconColor: "text-asean-yellow" },
+  { href: "/leaks", label: "Leaks (Secure Intake)", icon: Send, iconColor: "text-asean-red" },
 ];
 
+// Deprecated aliases for backwards compatibility
+export const D2D_SUBMENU = ACCOUNTABILITY_SUBMENU;
+export const DEFA_SUBMENU = TRADE_SUBMENU;
+
 export const NAV_GROUPS: (NavLink | NavGroup)[] = [
-  { href: "/investigations", label: "Investigations", icon: BookOpen, iconColor: "text-asean-yellow" },
-  { href: "/links", label: "Links", icon: Link2, iconColor: "text-asean-yellow" },
-  { href: "/d2d/benchmark", label: "Digital 2 Dozen", icon: BarChart3, iconColor: "text-asean-blue", children: D2D_SUBMENU },
-  { href: "/defa/chapters", label: "DEFA", icon: Activity, iconColor: "text-asean-amber", children: DEFA_SUBMENU },
-  { href: "/observatory", label: "Observatory", icon: Map, iconColor: "text-asean-blue", children: OBSERVATORY_SUBMENU },
+  { href: "/governance", label: "Data & AI Governance", icon: Cpu, iconColor: "text-asean-emerald", children: GOVERNANCE_SUBMENU },
+  { href: "/trade", label: "Digital Trade Agreements", icon: Activity, iconColor: "text-asean-yellow", children: TRADE_SUBMENU },
+  { href: "/accountability", label: "Platform Accountability", icon: ShieldCheck, iconColor: "text-asean-blue", children: ACCOUNTABILITY_SUBMENU },
+  { href: "/observatory", label: "Observatory", icon: Map, iconColor: "text-asean-amber", children: OBSERVATORY_SUBMENU },
 ];
 
 /** Flat list for mobile drawer — all top-level links + sub-items. */
 export const NAV_LINKS: NavLink[] = [
-  { href: "/investigations", label: "Investigations", icon: BookOpen, iconColor: "text-asean-yellow" },
-  { href: "/links", label: "Links", icon: Link2, iconColor: "text-asean-yellow" },
-  ...D2D_SUBMENU,
-  { href: "/defa/chapters", label: "DEFA", icon: Activity, iconColor: "text-asean-amber" },
-  ...DEFA_SUBMENU,
-  { href: "/observatory", label: "Observatory", icon: Map, iconColor: "text-asean-blue" },
+  { href: "/governance", label: "Data & AI Governance", icon: Cpu, iconColor: "text-asean-emerald" },
+  ...GOVERNANCE_SUBMENU,
+  { href: "/trade", label: "Digital Trade Agreements", icon: Activity, iconColor: "text-asean-yellow" },
+  ...TRADE_SUBMENU,
+  { href: "/accountability", label: "Platform Accountability", icon: ShieldCheck, iconColor: "text-asean-blue" },
+  ...ACCOUNTABILITY_SUBMENU,
+  { href: "/observatory", label: "Observatory", icon: Map, iconColor: "text-asean-amber" },
   ...OBSERVATORY_SUBMENU,
 ];
 

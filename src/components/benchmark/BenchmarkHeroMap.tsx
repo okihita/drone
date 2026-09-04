@@ -224,7 +224,7 @@ export default function BenchmarkHeroMap({ selectedCountryCode, onSelectCountry 
               </div>
 
               <Link
-                href={`/d2d/benchmark#compliance-heatmap`}
+                href={`/accountability/benchmark#compliance-heatmap`}
                 className="flex items-center justify-center gap-1 w-full py-1.5 rounded-lg bg-asean-blue text-white text-sm font-sans font-bold hover:bg-asean-blue/90 transition-colors"
               >
                 View in Heatmap <ArrowRight className="h-3 w-3" />
