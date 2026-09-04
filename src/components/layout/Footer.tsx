@@ -50,6 +50,7 @@ export default function Footer() {
             <li><Link href="/accountability" className="hover:text-asean-yellow transition-colors">Platform Accountability</Link></li>
             <li><Link href="/observatory" className="hover:text-asean-yellow transition-colors">Jurisdiction Observatory</Link></li>
             <li><Link href="/ledger" className="hover:text-asean-yellow transition-colors">Verified Policy Ledger</Link></li>
+            <li><Link href="/links" className="hover:text-asean-yellow transition-colors">Curated Knowledge Hub</Link></li>
             <li><Link href="/leaks" className="hover:text-asean-yellow transition-colors">Encrypted Leaks Portal</Link></li>
           </ul>
         </div>

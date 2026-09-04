@@ -113,12 +113,12 @@ export default function PolicyLedgerTable() {
       className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto font-sans scroll-mt-[calc(var(--drone-admin-bar-h,0px)_+_var(--drone-header-h,135px)_+_52px)] space-y-6 sm:space-y-8"
     >
       <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 p-4 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/70 dark:border-slate-800/80 shadow-xs max-w-full">
-        <div className="relative flex-1 sm:w-72 shrink-0">
+        <div className="relative flex-1 sm:max-w-md shrink-0">
           <Input
             type="text"
             value={searchTerm}
             onChange={(e) => { setSearchTerm(e.target.value); setExpandedId(null); }}
-            placeholder="Search by keyword, country..."
+            placeholder='Try "DEFA Chapter 5", "Vietnam Decree 53", "Indonesia PDP Law"'
             className="pl-9 pr-4 py-2.5 bg-slate-50 dark:bg-slate-950 border-slate-200/70 dark:border-slate-800/80 rounded-xl text-sm font-sans"
             aria-label="Search the policy ledger"
           />

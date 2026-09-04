@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import HeroSection from "@/components/landing/HeroSection";
+import ExecutiveInsightsCard from "@/components/landing/ExecutiveInsightsCard";
 import CoreCapabilities from "@/components/landing/CoreCapabilities";
 import MissionCTA from "@/components/landing/MissionCTA";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -34,6 +35,7 @@ export default function HomeSections({
       <Suspense fallback={<HeroSkeleton />}>
         <HeroSection initialCountries={initialCountries} />
       </Suspense>
+      <ExecutiveInsightsCard />
       <CoreCapabilities />
       <MissionCTA />
     </>

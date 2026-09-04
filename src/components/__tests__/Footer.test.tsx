@@ -55,6 +55,9 @@ describe("Footer", () => {
     const ledgerLink = screen.getByText("Verified Policy Ledger");
     expect(ledgerLink.closest("a")).toHaveAttribute("href", "/ledger");
 
+    const linksLink = screen.getByText("Curated Knowledge Hub");
+    expect(linksLink.closest("a")).toHaveAttribute("href", "/links");
+
     const leaksLink = screen.getByText("Encrypted Leaks Portal");
     expect(leaksLink.closest("a")).toHaveAttribute("href", "/leaks");
   });
