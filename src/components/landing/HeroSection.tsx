@@ -29,12 +29,12 @@ export default function HeroSection({
   const FlagIcon = selectedCountry ? FLAG_COMPONENTS[selectedCountry.code] : null;
 
   return (
-    <section className="relative w-full border-b border-slate-200 bg-slate-50 text-slate-900 dark:border-slate-800 dark:bg-slate-950 dark:text-white pt-12 pb-14 sm:pt-16 sm:pb-20">
+    <section className="relative w-full border-b border-slate-200/70 bg-slate-50 text-slate-900 dark:border-slate-800/80 dark:bg-slate-950 dark:text-white py-14 sm:py-18 lg:py-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* TOP: Centered High-Impact SaaS Hero Heading */}
-        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12 space-y-4">
-          <div className="inline-flex items-center gap-2 rounded-full border border-asean-yellow/50 bg-asean-yellow/15 px-3.5 py-1 font-sans text-sm font-bold text-asean-yellow-dark dark:text-asean-yellow">
+        <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16 space-y-4">
+          <div className="inline-flex items-center gap-2 rounded-full border border-asean-yellow/50 bg-asean-yellow/15 px-4 py-1 font-sans text-sm font-bold text-asean-yellow-dark dark:text-asean-yellow">
             <span className="h-2 w-2 rounded-full bg-asean-yellow animate-pulse" />
             11 Southeast Asian Member States Live
           </div>
@@ -48,10 +48,10 @@ export default function HeroSection({
           </p>
 
           {/* Quick CTA Buttons */}
-          <div className="flex flex-wrap items-center justify-center gap-3 pt-2 font-sans">
+          <div className="flex flex-wrap items-center justify-center gap-4 pt-3 font-sans">
             <Link
               href="/observatory"
-              className="inline-flex items-center gap-2 rounded-xl bg-asean-yellow px-5 py-2.5 text-sm sm:text-sm font-bold text-slate-950 shadow-xs transition-all hover:bg-asean-yellow-hover"
+              className="inline-flex items-center gap-2 rounded-xl bg-asean-yellow px-6 py-3 text-sm sm:text-base font-bold text-slate-950 shadow-xs transition-all hover:bg-asean-yellow-hover"
             >
               <Map className="h-4 w-4" />
               <span>Launch Observatory</span>
@@ -60,7 +60,7 @@ export default function HeroSection({
 
             <Link
               href="/ledger"
-              className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-5 py-2.5 text-sm sm:text-sm font-semibold text-slate-800 transition-colors hover:bg-slate-100 dark:border-white/15 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800"
+              className="inline-flex items-center gap-2 rounded-xl border border-slate-200/70 bg-white px-6 py-3 text-sm sm:text-base font-semibold text-slate-800 transition-colors hover:bg-slate-100 dark:border-slate-800/80 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800"
             >
               <Search className="h-4 w-4 text-asean-red" />
               <span>Search 100+ Acts</span>
@@ -69,7 +69,7 @@ export default function HeroSection({
         </div>
 
         {/* BOTTOM: Large Central Interactive Radar Map & Live Dossier Floating Bar */}
-        <div className="relative w-full rounded-2xl sm:rounded-3xl border border-slate-200 bg-white/80 shadow-md dark:border-white/15 dark:bg-slate-950/80 overflow-hidden min-h-[480px] sm:min-h-[620px] lg:min-h-[700px]">
+        <div className="relative w-full rounded-2xl sm:rounded-3xl border border-slate-200/70 bg-white/80 shadow-md dark:border-slate-800/80 dark:bg-slate-950/80 overflow-hidden min-h-[480px] sm:min-h-[620px] lg:min-h-[700px]">
           
           {/* Real Interactive Map Canvas */}
           <HeroMapCanvas
@@ -82,8 +82,8 @@ export default function HeroSection({
 
           {/* Floating Selected Country Dossier Card (Top-Left of Map) */}
           {selectedCountry && (
-            <div className="absolute top-4 left-4 z-40 w-full max-w-sm rounded-2xl border border-slate-200 bg-white/95 p-4 sm:p-5 shadow-xl backdrop-blur-md dark:border-white/20 dark:bg-slate-950/90 animate-fadeIn">
-              <div className="flex items-center justify-between border-b border-slate-100 dark:border-white/10 pb-3 mb-3">
+            <div className="absolute top-6 left-6 z-40 w-full max-w-sm rounded-3xl border border-slate-200/70 bg-white/95 p-6 sm:p-7 shadow-2xl backdrop-blur-md dark:border-slate-800/80 dark:bg-slate-950/90 animate-fadeIn space-y-4">
+              <div className="flex items-center justify-between border-b border-slate-200/70 dark:border-slate-800/80 pb-3.5">
                 <div className="flex items-center gap-2.5">
                   {FlagIcon && <FlagIcon className="w-6 h-4.5 rounded-xs object-cover shadow-xs" />}
                   <div>
@@ -105,21 +105,21 @@ export default function HeroSection({
               </div>
 
               {/* Quick Metrics */}
-              <div className="grid grid-cols-3 gap-2 font-sans mb-3">
-                <div className="rounded-lg border border-slate-200 bg-slate-50 p-2 dark:border-white/10 dark:bg-white/5 text-center">
+              <div className="grid grid-cols-3 gap-3 font-sans">
+                <div className="rounded-xl border border-slate-200/70 bg-slate-50 p-2.5 dark:border-slate-800/80 dark:bg-white/5 text-center space-y-0.5">
                   <span className="block text-sm uppercase font-bold text-slate-500">Threat</span>
                   <span className="font-extrabold text-asean-yellow-dark dark:text-asean-yellow text-sm flex items-center justify-center gap-0.5">
                     <AlertTriangle className="h-3 w-3" />
                     {selectedCountry.threatScore}/5
                   </span>
                 </div>
-                <div className="rounded-lg border border-slate-200 bg-slate-50 p-2 dark:border-white/10 dark:bg-white/5 text-center">
+                <div className="rounded-xl border border-slate-200/70 bg-slate-50 p-2.5 dark:border-slate-800/80 dark:bg-white/5 text-center space-y-0.5">
                   <span className="block text-sm uppercase font-bold text-slate-500">Regime</span>
                   <span className="font-bold text-slate-800 dark:text-slate-200 text-sm truncate block">
                     {selectedCountry.regimeType.split(" ")[0]}
                   </span>
                 </div>
-                <div className="rounded-lg border border-slate-200 bg-slate-50 p-2 dark:border-white/10 dark:bg-white/5 text-center">
+                <div className="rounded-xl border border-slate-200/70 bg-slate-50 p-2.5 dark:border-slate-800/80 dark:bg-white/5 text-center space-y-0.5">
                   <span className="block text-sm uppercase font-bold text-slate-500">Policies</span>
                   <span className="font-extrabold text-slate-900 dark:text-white text-sm">
                     {selectedCountry.activePoliciesCount} Ingested
@@ -132,17 +132,17 @@ export default function HeroSection({
                   href={selectedCountry.primaryLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-sm text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white font-medium"
+                  className="inline-flex items-center gap-1.5 text-sm text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white font-bold"
                 >
                   <span>Portal</span>
-                  <ExternalLink className="h-3 w-3" />
+                  <ExternalLink className="h-3.5 w-3.5" />
                 </a>
                 <Link
                   href="/observatory"
-                  className="inline-flex items-center gap-1 rounded-lg bg-asean-yellow px-3 py-1 font-sans text-sm font-bold text-slate-950 shadow-xs transition-colors hover:bg-asean-yellow-hover"
+                  className="inline-flex items-center gap-1.5 rounded-xl bg-asean-yellow px-3.5 py-1.5 font-sans text-sm font-bold text-slate-950 shadow-xs transition-colors hover:bg-asean-yellow-hover"
                 >
                   <span>Full Profile</span>
-                  <ChevronRight className="h-3.5 w-3.5" />
+                  <ChevronRight className="h-4 w-4" />
                 </Link>
               </div>
             </div>

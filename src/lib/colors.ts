@@ -1,5 +1,5 @@
 /**
- * Official ASEAN Logo Color Palette & D.R.O.N.E. Design System Tokens
+ * Official ASEAN Logo Color Palette & DRONE Design System Tokens
  * 
  * Official ASEAN Colors:
  * - ASEAN Blue (Peace & Stability): #003399

@@ -51,7 +51,9 @@ export default function Header() {
   const isActive = (path: string) => pathname === path;
 
   const isSubmenuActive = (group: NavGroup) =>
-    group.children.some((child) => isActive(child.href));
+    pathname === group.href ||
+    pathname.startsWith(group.href + "/") ||
+    group.children.some((child) => isActive(child.href) || pathname.startsWith(child.href));
 
   // ── Measure header height dynamically ──────────────────────────────────
   useEffect(() => {
@@ -165,7 +167,7 @@ export default function Header() {
           <Link href="/" className="group flex items-center gap-3 sm:gap-4 min-w-0">
             <Image
               src="/images/Logomark_Red_800px.png"
-              alt="EngageMedia D.R.O.N.E."
+              alt="EngageMedia DRONE"
               width={800}
               height={800}
               priority
@@ -206,7 +208,7 @@ export default function Header() {
 
       {/* Desktop Navigation */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 font-sans">
-        <nav className="hidden md:flex items-center justify-start lg:justify-center gap-1 py-3 text-sm font-sans overflow-x-auto no-scrollbar" ref={dropdownRef}>
+        <nav className="hidden md:flex items-center justify-start lg:justify-center gap-1 py-3 text-sm font-sans" ref={dropdownRef}>
           {NAV_GROUPS.map((item) => {
             if (isNavGroup(item)) {
               const isOpen = openDropdown === item.href;
@@ -224,12 +226,17 @@ export default function Header() {
                       <span>{item.label}</span>
                     </Link>
                     <button
-                      onClick={(e) => { e.preventDefault(); setOpenDropdown(isOpen ? null : item.href); }}
-                      className="ml-0.5 p-0.5 rounded hover:bg-slate-200 dark:hover:bg-slate-800 cursor-pointer"
+                      type="button"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        setOpenDropdown(isOpen ? null : item.href);
+                      }}
+                      className="ml-0.5 p-1 rounded-md hover:bg-slate-200/80 dark:hover:bg-slate-800/80 transition-colors cursor-pointer flex items-center justify-center"
                       aria-expanded={isOpen}
                       aria-label={isOpen ? "Close submenu" : "Open submenu"}
                     >
-                      <ChevronDown className={`w-3 h-3 transition-transform ${isOpen ? "rotate-180" : ""} ${
+                      <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${isOpen ? "rotate-180" : ""} ${
                         active || isOpen ? "text-asean-amber dark:text-asean-yellow" : "text-slate-400 dark:text-slate-500"
                       }`} />
                     </button>

@@ -114,13 +114,14 @@ This version has breaking changes — APIs, conventions, and file structure may 
 ### 16. Multi-Page Architecture Rule
 The application maintains the following dedicated public route groups:
 1. `src/app/(home)/page.tsx` — Our World in Data style hero + Editorial Atelier homepage.
-2. `src/app/investigations/` — Editorial long-reads & field reports index and slug pages.
-3. `src/app/(observatory)/observatory/page.tsx` — Cartographic Jurisdiction Observatory with real GeoJSON SVG map.
-4. `src/app/(observatory)/ledger/page.tsx` — Searchable Verified Regulatory Ledger database table.
-5. `src/app/(observatory)/intake/page.tsx` — Encrypted Defender Dossier Intake portal (`/submit-dossier`).
-6. `src/app/links/` — Curated Digital Trade & Policy Links directory.
-7. `src/app/defa/` — 5-module ASEAN DEFA Telemetry & Observatory Suite.
-8. `src/app/d2d/` — Digital 2 Dozen Benchmark & compliance visualization suite.
+2. `src/app/governance/` — Data & AI Governance pillar hub and 4 specialized telemetry modules (`/governance`, `/governance/ai-ethics`, `/governance/data-flows`, `/governance/encryption`, `/governance/tech-sovereignty`).
+3. `src/app/trade/` — Digital Trade Agreements pillar hub and 4 treaty modules (`/trade`, `/trade/defa`, `/trade/negotiations`, `/trade/ip-monitor`, `/trade/payments-cyber`).
+4. `src/app/accountability/` — Platform Accountability pillar hub (Gojek, Grab, Tokopedia, Blibli, Sea oversight), benchmark, consumer protection, gig worker watchdog, and investigative exposés (`/accountability`, `/accountability/benchmark`, `/accountability/consumer-protection`, `/accountability/civil-society`, `/accountability/investigations`).
+5. `src/app/(observatory)/` — Empirical observatory and evidence hub:
+   - `observatory/page.tsx` — Cartographic Jurisdiction Observatory with real GeoJSON SVG map.
+   - `ledger/page.tsx` — Searchable Verified Regulatory Ledger database table.
+   - `links/page.tsx` — Curated Digital Trade & Policy Links directory.
+   - `leaks/page.tsx` — Encrypted Whistleblower & Defender Leaks Portal (`/leaks`, legacy `/intake`).
 
 All content management (News, Policies, Jurisdictions, Curated Links) is managed via the **Airtable Headless CMS** with 60-second ISR edge caching. There is no internal `/admin` dashboard.
 
