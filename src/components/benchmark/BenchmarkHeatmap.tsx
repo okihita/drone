@@ -33,7 +33,7 @@ export default function BenchmarkHeatmap({ summaries, principles, selectedCountr
     score: BenchmarkScore;
   } | null>(null);
 
-  const headerBg = "sticky top-0 z-10 bg-slate-100 dark:bg-slate-800 font-sans text-sm font-bold text-slate-700 dark:text-slate-300";
+  const headerBg = "sticky top-0 z-10 bg-slate-100/90 dark:bg-slate-800/90 backdrop-blur-sm font-sans text-sm font-bold text-slate-700 dark:text-slate-300";
 
   const showPrinciple = (principle: BenchmarkPrinciple, x: number, y: number) => {
     setHoveredPrinciple(principle);
@@ -51,15 +51,20 @@ export default function BenchmarkHeatmap({ summaries, principles, selectedCountr
   };
 
   return (
-    <section id="compliance-heatmap" className="px-4 sm:px-6 lg:px-8 py-6 max-w-full scroll-mt-[calc(var(--drone-admin-bar-h,0px)_+_var(--drone-header-h,135px)_+_52px)]">
-      <div className="max-w-7xl mx-auto">
-        <h2 className="font-serif-editorial text-xl font-bold text-slate-900 dark:text-white mb-4">
-          Compliance Heatmap
-        </h2>
+    <section id="compliance-heatmap" className="px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20 max-w-full scroll-mt-[calc(var(--drone-admin-bar-h,0px)_+_var(--drone-header-h,135px)_+_52px)]">
+      <div className="max-w-7xl mx-auto space-y-6 sm:space-y-8">
+        <div>
+          <h2 className="font-serif-editorial text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white">
+            Compliance Heatmap
+          </h2>
+          <p className="text-sm text-slate-500 dark:text-slate-400 font-sans mt-1">
+            Granular statutory and enforcement scores across all 24 USTR Digital 2 Dozen principles.
+          </p>
+        </div>
 
         {/* Legend */}
-        <div className="flex flex-wrap items-center gap-3 mb-4 text-sm font-sans text-slate-500 dark:text-slate-400">
-          <span>Score:</span>
+        <div className="flex flex-wrap items-center gap-3.5 text-sm font-sans text-slate-500 dark:text-slate-400">
+          <span className="font-semibold text-slate-700 dark:text-slate-300">Score Bands:</span>
           {[
             { range: "81–100", color: "bg-asean-emerald" },
             { range: "61–80", color: "bg-asean-emerald/80" },
@@ -67,8 +72,8 @@ export default function BenchmarkHeatmap({ summaries, principles, selectedCountr
             { range: "21–40", color: "bg-asean-red/80" },
             { range: "0–20", color: "bg-asean-red" },
           ].map((l) => (
-            <span key={l.range} className="flex items-center gap-1">
-              <span className={`inline-block w-3 h-3 rounded-sm ${l.color}`} />
+            <span key={l.range} className="flex items-center gap-1.5">
+              <span className={`inline-block w-3.5 h-3.5 rounded-sm ${l.color}`} />
               {l.range}
             </span>
           ))}
@@ -76,22 +81,22 @@ export default function BenchmarkHeatmap({ summaries, principles, selectedCountr
         </div>
 
         {/* Centered table inside card container */}
-        <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm overflow-x-auto">
+        <div className="rounded-2xl border border-slate-200/70 dark:border-slate-800/80 bg-white dark:bg-slate-900 shadow-sm overflow-x-auto">
           <table className="w-full border-collapse text-sm font-sans">
             <caption className="sr-only">
               Digital 2 Dozen Compliance Heatmap — principle scores across 11 ASEAN countries
             </caption>
             <thead>
               <tr>
-                <th scope="col" className={`${headerBg} p-2 text-left rounded-tl-xl sticky left-0 z-20 shadow-[1px_0_0_0_rgba(226,232,240,1)] dark:shadow-[1px_0_0_0_rgba(30,41,59,1)]`}>Principle</th>
-                <th scope="col" className={`${headerBg} p-2 text-left`}>Cluster</th>
+                <th scope="col" className={`${headerBg} p-3 text-left rounded-tl-2xl sticky left-0 z-20 shadow-[1px_0_0_0_rgba(226,232,240,0.7)] dark:shadow-[1px_0_0_0_rgba(30,41,59,0.8)]`}>Principle</th>
+                <th scope="col" className={`${headerBg} p-3 text-left`}>Cluster</th>
                 {summaries.map((s) => {
                   const FlagIcon = FLAG_COMPONENTS[s.countryCode];
                   return (
                     <th
                       key={s.countryCode}
                       scope="col"
-                      className={`${headerBg} px-1 py-2 text-center cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors focus-visible:ring-2 focus-visible:ring-asean-yellow/80 ${
+                      className={`${headerBg} px-1.5 py-3 text-center cursor-pointer hover:bg-slate-200/80 dark:hover:bg-slate-700/80 transition-colors focus-visible:ring-2 focus-visible:ring-asean-yellow/80 ${
                         selectedCountry === s.countryCode ? "bg-asean-yellow/20 dark:bg-asean-yellow/10" : ""
                       }`}
                       tabIndex={0}
@@ -107,9 +112,9 @@ export default function BenchmarkHeatmap({ summaries, principles, selectedCountr
                       }}
                       title={`${s.countryName} (${s.countryCode})`}
                     >
-                      <div className="flex flex-col items-center gap-0.5">
+                      <div className="flex flex-col items-center gap-1">
                         {FlagIcon ? (
-                          <FlagIcon className="w-5 h-3.5 rounded-xs" />
+                          <FlagIcon className="w-5 h-3.5 rounded-xs shadow-2xs" />
                         ) : (
                           <span className="font-sans text-sm font-extrabold">{s.countryCode}</span>
                         )}
@@ -128,12 +133,12 @@ export default function BenchmarkHeatmap({ summaries, principles, selectedCountr
                 return (
                   <tr
                     key={principle.id}
-                    className={`border-t border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors ${
-                      isFirstOfCluster ? "border-t-2 border-t-slate-300 dark:border-t-slate-600" : ""
+                    className={`border-t border-slate-200/70 dark:border-slate-800/80 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors ${
+                      isFirstOfCluster ? "border-t-2 border-t-slate-300/80 dark:border-t-slate-600/80" : ""
                     }`}
                   >
                     <td
-                      className="p-2 align-middle cursor-pointer sticky left-0 z-10 bg-white dark:bg-slate-900 shadow-[1px_0_0_0_rgba(226,232,240,1)] dark:shadow-[1px_0_0_0_rgba(30,41,59,1)] min-w-[130px] focus-visible:ring-2 focus-visible:ring-asean-yellow/80"
+                      className="p-3 align-middle cursor-pointer sticky left-0 z-10 bg-white dark:bg-slate-900 shadow-[1px_0_0_0_rgba(226,232,240,0.7)] dark:shadow-[1px_0_0_0_rgba(30,41,59,0.8)] min-w-[140px] focus-visible:ring-2 focus-visible:ring-asean-yellow/80"
                       tabIndex={0}
                       role="button"
                       aria-haspopup="dialog"
@@ -156,9 +161,9 @@ export default function BenchmarkHeatmap({ summaries, principles, selectedCountr
                         {principle.shortTitle}
                       </span>
                     </td>
-                    <td className="p-2 align-middle">
+                    <td className="p-3 align-middle">
                       <span
-                        className={`inline-block px-1.5 py-0.5 rounded text-sm font-bold text-white ${CLUSTER_CHIP_CLASSES[clusterInfo?.color ?? ""] ?? "bg-slate-500"}`}
+                        className={`inline-block px-2 py-0.5 rounded-md text-sm font-bold text-white ${CLUSTER_CHIP_CLASSES[clusterInfo?.color ?? ""] ?? "bg-slate-500"}`}
                       >
                         {clusterInfo?.label ?? principle.cluster}
                       </span>
@@ -181,7 +186,7 @@ export default function BenchmarkHeatmap({ summaries, principles, selectedCountr
                       return (
                         <td
                           key={s.countryCode}
-                          className={`px-0.5 py-1 text-center align-middle cursor-pointer transition-all focus-visible:ring-2 focus-visible:ring-asean-yellow/80 ${
+                          className={`px-1 py-1.5 text-center align-middle cursor-pointer transition-all focus-visible:ring-2 focus-visible:ring-asean-yellow/80 ${
                             isSelected ? "ring-2 ring-asean-yellow ring-inset" : ""
                           }`}
                           tabIndex={0}
@@ -197,7 +202,7 @@ export default function BenchmarkHeatmap({ summaries, principles, selectedCountr
                           }}
                         >
                           <span
-                            className={`inline-flex items-center justify-center w-10 h-7 rounded-md font-sans text-sm font-bold ${heatmapCellClass(score)} text-white hover:scale-105 transition-transform`}
+                            className={`inline-flex items-center justify-center w-11 h-7.5 rounded-md font-sans text-sm font-bold ${heatmapCellClass(score)} text-white hover:scale-105 transition-transform shadow-2xs`}
                             title={`${s.countryName}: ${score}/100 — ${principle.shortTitle}. Click to inspect statutory evidence.`}
                           >
                             {score}

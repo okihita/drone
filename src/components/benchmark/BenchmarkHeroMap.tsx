@@ -50,24 +50,24 @@ export default function BenchmarkHeroMap({ selectedCountryCode, onSelectCountry 
   const selectedSummary = selectedCountryCode ? scoreMap.get(selectedCountryCode) ?? null : null;
 
   return (
-    <section className="relative border-b border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-950 overflow-hidden px-4 sm:px-6 lg:px-8 py-6">
+    <section className="relative border-b border-slate-200/70 dark:border-slate-800/80 bg-slate-100 dark:bg-slate-950 overflow-hidden px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
       <div className="absolute inset-0 bg-hud-grid pointer-events-none opacity-[0.03] dark:opacity-[0.06]" />
 
-      <div className="relative max-w-7xl mx-auto">
+      <div className="relative max-w-7xl mx-auto space-y-8">
         {/* Header + Legend */}
-        <div className="flex items-center justify-between mb-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <h2 className="font-serif-editorial text-xl font-extrabold text-slate-900 dark:text-white">
+            <h2 className="font-serif-editorial text-2xl font-extrabold text-slate-900 dark:text-white">
               Geographic Compliance Overview
             </h2>
-            <p className="text-sm text-slate-500 dark:text-slate-400 font-sans mt-0.5">
+            <p className="text-sm text-slate-500 dark:text-slate-400 font-sans mt-1">
               Countries colored by overall Digital 2 Dozen compliance score. Click a flag or country to inspect.
             </p>
           </div>
-          <div className="hidden sm:flex items-center gap-2 text-sm font-sans text-slate-500 dark:text-slate-400">
+          <div className="flex flex-wrap items-center gap-2.5 text-sm font-sans text-slate-500 dark:text-slate-400">
             {SCORE_LEGEND.map((val) => (
-              <span key={val.range} className="flex items-center gap-1">
-                <span className="w-3 h-3 rounded-sm" style={{ backgroundColor: val.color }} />
+              <span key={val.range} className="flex items-center gap-1.5">
+                <span className="w-3.5 h-3.5 rounded-sm" style={{ backgroundColor: val.color }} />
                 {val.range}
               </span>
             ))}
@@ -75,9 +75,9 @@ export default function BenchmarkHeroMap({ selectedCountryCode, onSelectCountry 
         </div>
 
         {/* Map + Side panel row */}
-        <div className="flex flex-col lg:flex-row gap-4">
+        <div className="flex flex-col lg:flex-row gap-6 sm:gap-8 items-start">
           {/* Map */}
-          <div className="flex-1 min-w-0">
+          <div className="flex-1 min-w-0 w-full">
             <div className="relative w-full aspect-[16/9] max-h-[460px]">
               <svg
                 viewBox="0 0 570 450"
@@ -144,8 +144,8 @@ export default function BenchmarkHeroMap({ selectedCountryCode, onSelectCountry 
             </div>
 
             {/* Flag dock bar — below map, no overlap */}
-            <div className="flex items-center justify-center mt-3">
-              <div className="flex items-center gap-1 sm:gap-1.5 overflow-x-auto no-scrollbar rounded-xl border border-slate-200 bg-white/90 p-1.5 shadow-xs backdrop-blur-md max-w-full dark:border-white/20 dark:bg-slate-950/85">
+            <div className="flex items-center justify-center mt-4">
+              <div className="flex items-center gap-1 sm:gap-1.5 overflow-x-auto no-scrollbar rounded-2xl border border-slate-200/70 bg-white/90 p-2 shadow-xs backdrop-blur-md max-w-full dark:border-white/20 dark:bg-slate-950/85">
                 {countries.map((c) => {
                   const isSelected = selectedCountryCode === c.code;
                   const FlagIcon = FLAG_COMPONENTS[c.code];
@@ -154,10 +154,10 @@ export default function BenchmarkHeroMap({ selectedCountryCode, onSelectCountry 
                       key={c.code}
                       onClick={() => onSelectCountry(selectedCountryCode === c.code ? null : c.code)}
                       title={`${c.name} — ${c.regimeType}`}
-                      className={`flex shrink-0 items-center gap-1.5 rounded-lg border px-2 py-1 text-sm font-bold transition-all ${
+                      className={`flex shrink-0 items-center gap-1.5 rounded-xl border px-2.5 py-1.5 text-sm font-bold transition-all ${
                         isSelected
                           ? "border-asean-yellow bg-asean-yellow/25 text-asean-yellow shadow-xs"
-                          : "border-slate-200 bg-slate-100/80 text-slate-700 hover:border-slate-300 hover:bg-slate-200 hover:text-slate-900 dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-300 dark:hover:border-white/25 dark:hover:bg-white/15 dark:hover:text-white"
+                          : "border-slate-200/80 bg-slate-100/80 text-slate-700 hover:border-slate-300 hover:bg-slate-200 hover:text-slate-900 dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-300 dark:hover:border-white/25 dark:hover:bg-white/15 dark:hover:text-white"
                       }`}
                     >
                       {FlagIcon ? <FlagIcon className="w-4 h-3 rounded-xs object-cover shadow-xs" /> : <span className="font-sans text-sm">[{c.code}]</span>}
@@ -172,32 +172,32 @@ export default function BenchmarkHeroMap({ selectedCountryCode, onSelectCountry 
 
           {/* Selected country D2D data card — slides in from right */}
           {selectedSummary && (
-            <div className="lg:w-60 shrink-0 p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm animate-[slideInRight_0.2s_ease-out]">
-              <div className="flex items-center justify-between mb-3">
+            <div className="lg:w-72 shrink-0 p-6 sm:p-7 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/70 dark:border-slate-800/80 shadow-md animate-[slideInRight_0.2s_ease-out] space-y-5">
+              <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <span className="font-sans text-lg font-extrabold text-slate-900 dark:text-white">{selectedSummary.countryCode}</span>
+                  <span className="font-sans text-xl font-extrabold text-slate-900 dark:text-white">{selectedSummary.countryCode}</span>
                   <span className="text-sm font-bold text-slate-700 dark:text-slate-300">{selectedSummary.countryName}</span>
                 </div>
-                <button onClick={() => onSelectCountry(null)} className="p-0.5 rounded hover:bg-slate-100 dark:hover:bg-slate-800">
-                  <X className="h-3.5 w-3.5 text-slate-400" />
+                <button onClick={() => onSelectCountry(null)} className="p-1 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">
+                  <X className="h-4 w-4 text-slate-400" />
                 </button>
               </div>
 
               {/* Overall score */}
-              <div className="mb-3">
-                <div className="flex items-center justify-between text-sm mb-1">
-                  <span className="text-slate-500">Overall</span>
+              <div className="space-y-1.5">
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-slate-500">Overall Score</span>
                   <span className={`font-sans font-extrabold ${scoreBadge(selectedSummary.overallScore)}`}>
                     {selectedSummary.overallScore}/100
                   </span>
                 </div>
-                <div className="h-1.5 w-full rounded-full bg-slate-200 dark:bg-slate-700">
+                <div className="h-2 w-full rounded-full bg-slate-200 dark:bg-slate-700">
                   <div className="h-full rounded-full" style={{ width: `${selectedSummary.overallScore}%`, backgroundColor: selectedSummary.overallScore >= 65 ? ASEAN_COLORS.emerald : selectedSummary.overallScore >= 40 ? ASEAN_COLORS.amber : ASEAN_COLORS.red }} />
                 </div>
               </div>
 
               {/* Best & Worst clusters */}
-              <div className="space-y-2 mb-3 text-sm">
+              <div className="space-y-3 text-sm">
                 {(() => {
                   const sorted = [...selectedSummary.clusters].sort((a, b) => b.averageScore - a.averageScore);
                   const best = sorted[0];
@@ -205,16 +205,16 @@ export default function BenchmarkHeroMap({ selectedCountryCode, onSelectCountry 
                   return (
                     <>
                       <div>
-                        <span className="text-slate-500">Best</span>
-                        <div className="flex items-center justify-between mt-0.5">
-                          <span className="font-bold text-slate-800 dark:text-slate-200 truncate mr-1">{best.clusterLabel}</span>
+                        <span className="text-slate-500 block">Best Cluster</span>
+                        <div className="flex items-center justify-between mt-1">
+                          <span className="font-bold text-slate-800 dark:text-slate-200 truncate mr-2">{best.clusterLabel}</span>
                           <span className="font-sans font-bold text-asean-emerald shrink-0">{best.averageScore}</span>
                         </div>
                       </div>
                       <div>
-                        <span className="text-slate-500">Worst</span>
-                        <div className="flex items-center justify-between mt-0.5">
-                          <span className="font-bold text-slate-800 dark:text-slate-200 truncate mr-1">{worst.clusterLabel}</span>
+                        <span className="text-slate-500 block">Worst Cluster</span>
+                        <div className="flex items-center justify-between mt-1">
+                          <span className="font-bold text-slate-800 dark:text-slate-200 truncate mr-2">{worst.clusterLabel}</span>
                           <span className="font-sans font-bold text-asean-red shrink-0">{worst.averageScore}</span>
                         </div>
                       </div>
@@ -225,9 +225,9 @@ export default function BenchmarkHeroMap({ selectedCountryCode, onSelectCountry 
 
               <Link
                 href={`/accountability/benchmark#compliance-heatmap`}
-                className="flex items-center justify-center gap-1 w-full py-1.5 rounded-lg bg-asean-blue text-white text-sm font-sans font-bold hover:bg-asean-blue/90 transition-colors"
+                className="flex items-center justify-center gap-1.5 w-full py-2.5 rounded-xl bg-asean-blue text-white text-sm font-sans font-bold hover:bg-asean-blue/90 transition-colors shadow-xs"
               >
-                View in Heatmap <ArrowRight className="h-3 w-3" />
+                View in Heatmap <ArrowRight className="h-3.5 w-3.5" />
               </Link>
             </div>
           )}

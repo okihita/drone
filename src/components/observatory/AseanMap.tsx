@@ -13,11 +13,11 @@ import CountryDossierModal from "./CountryDossierModal";
 
 function MapFilterControls({ filterRegime, onChange }: { filterRegime: MapFilterMode; onChange: (_mode: MapFilterMode) => void }) {
   return (
-    <div className="flex items-center gap-2 bg-white dark:bg-slate-900 p-1.5 rounded-lg border border-slate-300 dark:border-slate-800 text-sm">
-      <Filter className="w-3.5 h-3.5 text-slate-500 dark:text-slate-400 ml-2" />
+    <div className="flex items-center gap-2 bg-white dark:bg-slate-900 p-2 sm:p-2.5 rounded-xl border border-slate-200/70 dark:border-slate-800/80 text-sm shadow-xs">
+      <Filter className="w-4 h-4 text-slate-500 dark:text-slate-400 ml-2" />
       <span className="text-slate-600 dark:text-slate-400 font-sans text-sm">Filter:</span>
       {MAP_FILTER_MODES.map((mode) => (
-        <button key={mode} onClick={() => onChange(mode)} className={`px-2.5 py-1 rounded text-sm font-sans font-semibold transition-colors ${filterRegime === mode ? "bg-slate-800 text-white dark:bg-slate-700" : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800"}`}>
+        <button key={mode} onClick={() => onChange(mode)} className={`px-3 py-1.5 rounded-lg text-sm font-sans font-semibold transition-colors ${filterRegime === mode ? "bg-slate-800 text-white dark:bg-slate-700" : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800"}`}>
           {mode}
         </button>
       ))}
@@ -37,16 +37,16 @@ function MapHoverCard({ country }: { country: GeoCountryData }) {
       : "bg-asean-red/15 text-asean-red border-asean-red/40";
 
   return (
-    <div className="absolute bottom-4 left-4 p-3.5 rounded-xl bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border border-slate-300 dark:border-slate-700 shadow-lg max-w-xs text-sm pointer-events-none font-sans transition-all space-y-2 animate-[fadeIn_0.15s_ease-out]">
-      <div className="flex items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-800 pb-2">
-        <div className="flex items-center gap-2">
+    <div className="absolute bottom-6 left-6 p-5 rounded-2xl bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border border-slate-200/70 dark:border-slate-800/80 shadow-xl max-w-sm text-sm pointer-events-none font-sans transition-all space-y-3 animate-[fadeIn_0.15s_ease-out]">
+      <div className="flex items-center justify-between gap-3 border-b border-slate-200/70 dark:border-slate-800/80 pb-2.5">
+        <div className="flex items-center gap-2.5">
           {FlagIcon && <FlagIcon className="w-5 h-3.5 rounded-xs shrink-0 shadow-xs" />}
           <span className="font-serif-editorial text-base font-bold text-slate-900 dark:text-white">
             {country.name}
           </span>
           <span className="text-sm font-bold text-slate-400">({country.code})</span>
         </div>
-        <span className={`px-2 py-0.5 rounded-full text-sm font-bold border ${regimeColor}`}>
+        <span className={`px-2.5 py-0.5 rounded-full text-sm font-bold border ${regimeColor}`}>
           {country.regimeType}
         </span>
       </div>
@@ -61,7 +61,7 @@ function MapHoverCard({ country }: { country: GeoCountryData }) {
         <span className="font-bold text-slate-800 dark:text-slate-200">{country.activePoliciesCount} Acts</span>
       </div>
 
-      <div className="pt-1.5 border-t border-slate-100 dark:border-slate-800/80 text-sm font-bold text-asean-blue dark:text-asean-yellow flex items-center justify-between">
+      <div className="pt-2 border-t border-slate-200/70 dark:border-slate-800/80 text-sm font-bold text-asean-blue dark:text-asean-yellow flex items-center justify-between">
         <span>Click for full dossier</span>
         <span>&rarr;</span>
       </div>
@@ -88,8 +88,6 @@ export default function AseanMap({
   );
   const [filterRegime, setFilterRegime] = useState<MapFilterMode>("ALL");
 
-
-
   const ambientGlowColor = useMemo(() => {
     if (!hoveredCountry) return null;
     return REGIME_FILL_COLORS[hoveredCountry.regimeType]?.glow ?? null;
@@ -98,9 +96,9 @@ export default function AseanMap({
   return (
     <section
       id="asean-map"
-      className="py-4 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto font-sans scroll-mt-[calc(var(--drone-admin-bar-h,0px)_+_var(--drone-header-h,135px)_+_52px)]"
+      className="py-8 sm:py-12 lg:py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto font-sans scroll-mt-[calc(var(--drone-admin-bar-h,0px)_+_var(--drone-header-h,135px)_+_52px)] space-y-6 sm:space-y-8"
     >
-      <div className="flex items-center justify-end mb-4">
+      <div className="flex items-center justify-end">
         <MapFilterControls
           filterRegime={filterRegime}
           onChange={setFilterRegime}
@@ -108,7 +106,7 @@ export default function AseanMap({
       </div>
 
       {/* Map Container */}
-      <div className="rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 shadow-sm relative overflow-hidden transition-colors cursor-crosshair">
+      <div className="rounded-2xl sm:rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/70 dark:border-slate-800/80 p-6 sm:p-8 lg:p-10 shadow-xs relative overflow-hidden transition-colors cursor-crosshair">
         {ambientGlowColor && (
           <div
             className="absolute inset-0 pointer-events-none transition-opacity duration-500 blur-3xl opacity-80"
@@ -119,8 +117,8 @@ export default function AseanMap({
         )}
 
         {/* Map Legend */}
-        <div className="flex flex-wrap items-center gap-6 mb-6 text-sm border-b border-slate-200 dark:border-slate-800 pb-4 font-sans relative z-10">
-          <span className="font-sans text-slate-500 dark:text-slate-400 text-sm uppercase">
+        <div className="flex flex-wrap items-center gap-6 sm:gap-8 mb-8 text-sm border-b border-slate-200/70 dark:border-slate-800/80 pb-5 font-sans relative z-10">
+          <span className="font-sans text-slate-500 dark:text-slate-400 text-sm uppercase font-bold tracking-wider">
             Classification:
           </span>
           {REGIME_TYPES.map((rt) => {

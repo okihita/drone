@@ -7,7 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 const FIELD_CLASS =
-  "bg-slate-50 dark:bg-slate-900 border-slate-300 dark:border-slate-800 text-sm font-sans focus-visible:ring-asean-red/30 focus-visible:border-asean-red";
+  "bg-slate-50 dark:bg-slate-950 border-slate-200/70 dark:border-slate-800/80 text-sm font-sans focus-visible:ring-asean-red/30 focus-visible:border-asean-red py-3 rounded-xl";
 
 export default function LeaksPage() {
   const [submitted, setSubmitted] = useState(false);
@@ -24,37 +24,37 @@ export default function LeaksPage() {
   };
 
   return (
-    <main className="flex-1 py-8 font-sans">
+    <main className="flex-1 py-12 sm:py-16 lg:py-20 font-sans space-y-10 sm:space-y-12 lg:space-y-14">
       {/* Main Header Banner */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6">
-        <div className="border-b border-slate-200 dark:border-slate-800 pb-4 font-sans">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="border-b border-slate-200/70 dark:border-slate-800/80 pb-6 sm:pb-8 font-sans space-y-2">
           <span className="text-sm font-sans text-asean-red font-bold uppercase tracking-wider">
             ENCRYPTED LEAKS &amp; DEFENDER INTAKE
           </span>
-          <h1 className="font-serif-editorial text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white mt-1">
+          <h1 className="font-serif-editorial text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 dark:text-white mt-2">
             Secure Leaks &amp; Policy Dossier Portal
           </h1>
-          <p className="text-slate-600 dark:text-slate-400 text-sm sm:text-sm mt-1.5 max-w-3xl font-sans leading-relaxed">
+          <p className="text-slate-600 dark:text-slate-400 text-sm sm:text-base mt-2 max-w-3xl font-sans leading-relaxed">
             EngageMedia invites regional researchers, activists, whistleblowers, and human rights defenders across Southeast Asia to securely submit leaked draft legislative texts, policy notices, or proprietary platform documents for independent verification.
           </p>
         </div>
       </div>
 
       {/* 4 Security Assurance Cards */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 font-sans">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2.5">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 font-sans">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
           {[
             { icon: Lock, title: "256-Bit PGP Encryption", desc: "Submissions are end-to-end encrypted and stored in air-gapped vaults." },
             { icon: EyeOff, title: "Source Anonymity Protection", desc: "Zero IP logging. Metadata stripped prior to senior editorial review." },
             { icon: FileText, title: "Statutory Cross-Verification", desc: "Ingested documents cross-verified against official parliamentary records." },
             { icon: Shield, title: "Co-Branded Defender Credit", desc: "Option to accredit regional partner organizations or publish anonymously." },
           ].map((card) => (
-            <div key={card.title} className="p-2.5 rounded-lg bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/80 text-sm text-slate-600 dark:text-slate-400 leading-snug">
-              <div className="flex items-center gap-1.5 mb-1 text-slate-900 dark:text-white font-bold">
-                <card.icon className="w-3.5 h-3.5 text-asean-red shrink-0" />
+            <div key={card.title} className="p-6 sm:p-7 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/70 dark:border-slate-800/80 text-sm shadow-xs transition-colors space-y-3">
+              <div className="flex items-center gap-2.5 text-slate-900 dark:text-white font-bold text-sm sm:text-base">
+                <card.icon className="w-5 h-5 text-asean-red shrink-0" />
                 <span>{card.title}</span>
               </div>
-              <p className="text-slate-600 dark:text-slate-400 leading-snug">{card.desc}</p>
+              <p className="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">{card.desc}</p>
             </div>
           ))}
         </div>
@@ -63,24 +63,24 @@ export default function LeaksPage() {
       {/* Form Container */}
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 font-sans">
         {submitted ? (
-          <div className="rounded-xl bg-white dark:bg-slate-900 border border-asean-emerald/40 p-8 text-center space-y-4 font-sans shadow-sm">
-            <CheckCircle2 className="w-12 h-12 text-asean-emerald mx-auto" />
-            <h2 className="font-serif-editorial text-2xl font-bold text-slate-900 dark:text-white">
+          <div className="rounded-2xl sm:rounded-3xl bg-white dark:bg-slate-900 border border-asean-emerald/40 p-10 sm:p-14 text-center space-y-5 font-sans shadow-sm">
+            <CheckCircle2 className="w-14 h-14 text-asean-emerald mx-auto" />
+            <h2 className="font-serif-editorial text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white">
               Leak / Dossier Received Securely
             </h2>
-            <p className="text-sm sm:text-sm text-slate-600 dark:text-slate-400 max-w-md mx-auto font-sans leading-relaxed">
+            <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-md mx-auto font-sans leading-relaxed">
               Your submission has been safely encrypted and routed to EngageMedia’s senior policy editorial team for confidential source-verification.
             </p>
             <button
               onClick={() => { setSubmitted(false); setFileName(null); }}
-              className="px-4 py-2 rounded-lg bg-slate-900 dark:bg-slate-800 text-white font-sans text-sm font-semibold hover:bg-slate-800 focus-visible:ring-2 focus-visible:ring-asean-yellow transition-colors"
+              className="mt-2 px-6 py-3 rounded-xl bg-slate-900 dark:bg-slate-800 text-white font-sans text-sm font-semibold hover:bg-slate-800 focus-visible:ring-2 focus-visible:ring-asean-yellow transition-colors"
             >
               Submit Another Leak
             </button>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 sm:p-8 space-y-6 shadow-sm dark:shadow-none font-sans">
-            <div className="space-y-1.5 font-sans">
+          <form onSubmit={handleSubmit} className="rounded-2xl sm:rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/70 dark:border-slate-800/80 p-8 sm:p-10 lg:p-12 space-y-8 shadow-xs dark:shadow-none font-sans">
+            <div className="space-y-2 font-sans">
               <label className="block text-sm font-sans font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
                 Document / Leak Title *
               </label>
@@ -92,8 +92,8 @@ export default function LeaksPage() {
               />
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 font-sans">
-              <div className="space-y-1.5 font-sans">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 font-sans">
+              <div className="space-y-2 font-sans">
                 <label className="block text-sm font-sans font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
                   Target Jurisdiction *
                 </label>
@@ -118,7 +118,7 @@ export default function LeaksPage() {
                 </Select>
               </div>
 
-              <div className="space-y-1.5 font-sans">
+              <div className="space-y-2 font-sans">
                 <label className="block text-sm font-sans font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
                   Attribution Preference *
                 </label>
@@ -135,7 +135,7 @@ export default function LeaksPage() {
               </div>
             </div>
 
-            <div className="space-y-1.5 font-sans">
+            <div className="space-y-2 font-sans">
               <label className="block text-sm font-sans font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
                 Summary &amp; Human Rights Context *
               </label>
@@ -147,15 +147,15 @@ export default function LeaksPage() {
               />
             </div>
 
-            <div className="space-y-1.5 font-sans">
+            <div className="space-y-2 font-sans">
               <label className="block text-sm font-sans font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
                 Attach File (PDF, DOCX, Leaked Text)
               </label>
-              <label className="flex flex-col items-center justify-center border-2 border-dashed border-slate-300 dark:border-slate-800 rounded-lg p-6 text-center bg-slate-50 dark:bg-slate-900/50 hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-colors cursor-pointer focus-within:ring-2 focus-within:ring-asean-red/30 focus-within:border-asean-red/50"
+              <label className="flex flex-col items-center justify-center border-2 border-dashed border-slate-200/70 dark:border-slate-800/80 rounded-2xl p-8 sm:p-10 text-center bg-slate-50/60 dark:bg-slate-950/60 hover:bg-slate-100/70 dark:hover:bg-slate-800/50 transition-colors cursor-pointer focus-within:ring-2 focus-within:ring-asean-red/30 focus-within:border-asean-red/50"
                 onDragOver={(e) => e.preventDefault()}
                 onDrop={handleFileDrop}
               >
-                <Upload className="w-6 h-6 text-slate-400 mb-2" />
+                <Upload className="w-7 h-7 text-slate-400 mb-2.5" />
                 <input
                   type="file"
                   accept=".pdf,.doc,.docx,.txt"
@@ -172,7 +172,7 @@ export default function LeaksPage() {
 
             <button
               type="submit"
-              className="w-full py-3 rounded-lg bg-asean-red hover:bg-asean-red/90 text-white font-sans font-bold text-sm transition-colors flex items-center justify-center gap-2 shadow-xs focus-visible:ring-2 focus-visible:ring-asean-red/50 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-slate-900"
+              className="w-full py-4 rounded-xl bg-asean-red hover:bg-asean-red/90 text-white font-sans font-bold text-base transition-colors flex items-center justify-center gap-2.5 shadow-sm focus-visible:ring-2 focus-visible:ring-asean-red/50 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-slate-900"
             >
               <Send className="w-4 h-4" />
               <span>Submit Encrypted Leak</span>

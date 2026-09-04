@@ -17,16 +17,16 @@ export default function InvestigationsList() {
   });
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12 font-sans">
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 mb-12 font-sans">
       {isLoading
         ? Array.from({ length: 3 }).map((_, i) => (
             <div
               key={i}
-              className="rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-hidden"
+              className="rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/70 dark:border-slate-800/80 overflow-hidden"
               aria-hidden="true"
             >
               <Skeleton className="aspect-[16/9] w-full rounded-none" />
-              <div className="p-6 space-y-3">
+              <div className="p-6 sm:p-7 space-y-3">
                 <Skeleton className="h-3 w-1/3" />
                 <Skeleton className="h-5 w-full" />
                 <Skeleton className="h-4 w-2/3" />
@@ -38,7 +38,7 @@ export default function InvestigationsList() {
             <Link
               href={article.slug ? `/accountability/investigations/${article.slug}` : `/accountability/investigations/id/${article.id}`}
               key={article.id}
-              className="rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-hidden flex flex-col shadow-sm dark:shadow-none hover:border-slate-400 dark:hover:border-slate-700 transition-all group font-sans"
+              className="rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/70 dark:border-slate-800/80 overflow-hidden flex flex-col shadow-sm dark:shadow-none hover:border-slate-300 dark:hover:border-slate-700 hover:shadow-md transition-all group font-sans"
             >
               <div className="relative aspect-[16/9] w-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
                 {article.image_url && article.image_url.trim() ? (
@@ -56,7 +56,7 @@ export default function InvestigationsList() {
                   </div>
                 )}
               </div>
-              <div className="p-6 flex-1 flex flex-col justify-between space-y-4 font-sans">
+              <div className="p-6 sm:p-7 flex-1 flex flex-col justify-between space-y-4 font-sans">
                 <div className="space-y-2">
                   <div className="flex items-center justify-between text-sm font-sans">
                     <span className="text-asean-yellow font-bold uppercase">
@@ -73,7 +73,7 @@ export default function InvestigationsList() {
                     {getExcerpt(article.summary, 180)}
                   </p>
                 </div>
-                <div className="pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-sm font-sans text-slate-500">
+                <div className="pt-4 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between text-sm font-sans text-slate-500">
                   <span>By {article.author}</span>
                   <span className="text-asean-yellow font-bold group-hover:translate-x-1 transition-transform flex items-center gap-1 font-sans">
                     Read Report &rarr;

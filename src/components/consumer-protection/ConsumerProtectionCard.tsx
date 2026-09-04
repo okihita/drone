@@ -60,24 +60,24 @@ export default function ConsumerProtectionCard({ policy }: Props) {
   ];
 
   return (
-    <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-xs flex flex-col justify-between hover:border-slate-300 dark:hover:border-slate-700 transition-all font-sans">
+    <div className="p-6 sm:p-7 rounded-3xl border border-slate-200/70 dark:border-slate-800/80 bg-white dark:bg-slate-900 shadow-sm flex flex-col justify-between hover:border-slate-300 dark:hover:border-slate-700 hover:shadow-md transition-all font-sans">
       <div>
         {/* Card Header */}
-        <div className="flex items-center justify-between mb-2">
-          <div className="flex items-center gap-2">
-            {FlagIcon && <FlagIcon className="w-4 h-3 rounded-xs shrink-0 shadow-xs" />}
-            <span className="font-sans text-sm font-bold px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
+        <div className="flex items-center justify-between mb-3">
+          <div className="flex items-center gap-2.5">
+            {FlagIcon && <FlagIcon className="w-4 h-3 rounded-xs shrink-0 shadow-2xs" />}
+            <span className="font-sans text-sm font-bold px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
               {policy.countryCode}
             </span>
-            <span className="text-sm font-bold text-slate-900 dark:text-white">{policy.countryName}</span>
+            <span className="text-base font-bold text-slate-900 dark:text-white">{policy.countryName}</span>
           </div>
-          <span className={`text-sm font-sans font-extrabold ${toneTextClass(compositeTone)}`}>
+          <span className={`text-base font-sans font-extrabold ${toneTextClass(compositeTone)}`}>
             {policy.compositeScore}/100
           </span>
         </div>
 
         {/* Score Progress Bar */}
-        <div className="h-2 w-full rounded-full bg-slate-100 dark:bg-slate-800 border border-slate-200/60 dark:border-slate-700/60 mb-3 overflow-hidden">
+        <div className="h-2.5 w-full rounded-full bg-slate-100 dark:bg-slate-800 border border-slate-200/60 dark:border-slate-700/60 mb-5 overflow-hidden">
           <div
             className="h-full rounded-full transition-all duration-500"
             style={{ width: `${policy.compositeScore}%`, backgroundColor: toneHex(compositeTone) }}
@@ -85,7 +85,7 @@ export default function ConsumerProtectionCard({ policy }: Props) {
         </div>
 
         {/* 5 Dimension Scores */}
-        <div className="space-y-1.5 text-sm font-sans">
+        <div className="space-y-2.5 text-sm font-sans">
           {dimensions.map((d) => (
             <div key={d.label} className="flex items-center justify-between">
               <span className="text-slate-600 dark:text-slate-400">{d.label}</span>
@@ -100,11 +100,11 @@ export default function ConsumerProtectionCard({ policy }: Props) {
         <button
           type="button"
           onClick={() => setIsExpanded(!isExpanded)}
-          className="mt-3.5 w-full flex items-center justify-between px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-800/60 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 text-sm font-bold text-slate-700 dark:text-slate-300 transition-colors"
+          className="mt-5 w-full flex items-center justify-between px-4 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200/70 dark:border-slate-700/80 text-sm font-bold text-slate-700 dark:text-slate-300 transition-colors"
           aria-expanded={isExpanded}
         >
-          <span className="flex items-center gap-1.5">
-            <ShieldAlert className="w-3.5 h-3.5 text-asean-blue" />
+          <span className="flex items-center gap-2">
+            <ShieldAlert className="w-4 h-4 text-asean-blue" />
             <span>{isExpanded ? "Hide Legal Findings" : "Inspect Statutory Findings"}</span>
           </span>
           {isExpanded ? <ChevronUp className="w-4 h-4 text-slate-400" /> : <ChevronDown className="w-4 h-4 text-slate-400" />}
@@ -112,15 +112,15 @@ export default function ConsumerProtectionCard({ policy }: Props) {
 
         {/* Expandable Section with 5 Qualitative Assessments */}
         {isExpanded && (
-          <div className="mt-3 space-y-3 pt-3 border-t border-slate-100 dark:border-slate-800 text-sm animate-[fadeIn_0.15s_ease-out]">
+          <div className="mt-4 space-y-3.5 pt-4 border-t border-slate-100 dark:border-slate-800 text-sm animate-[fadeIn_0.15s_ease-out]">
             {assessments.map((a) => {
               const tone = scoreTone(a.score, GOOD_SCORE, BAD_SCORE);
               const Icon = a.icon;
               return (
-                <div key={a.title} className="p-2.5 rounded-lg bg-slate-50/70 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800 space-y-1">
+                <div key={a.title} className="p-3.5 sm:p-4 rounded-2xl bg-slate-50/70 dark:bg-slate-800/40 border border-slate-200/70 dark:border-slate-800/80 space-y-1.5">
                   <div className="flex items-center justify-between gap-2">
-                    <div className="flex items-center gap-1.5">
-                      <Icon className="w-3.5 h-3.5 text-asean-blue shrink-0" />
+                    <div className="flex items-center gap-2">
+                      <Icon className="w-4 h-4 text-asean-blue shrink-0" />
                       <span className="font-bold text-slate-800 dark:text-slate-200 text-sm leading-tight">
                         {a.title}
                       </span>
@@ -141,15 +141,15 @@ export default function ConsumerProtectionCard({ policy }: Props) {
 
       {/* Card Footer: Source Link */}
       {policy.sourceUrl && (
-        <div className="mt-4 pt-2.5 border-t border-slate-100 dark:border-slate-800/60 flex items-center justify-between text-sm font-sans">
+        <div className="mt-6 pt-4 border-t border-slate-100 dark:border-slate-800/60 flex items-center justify-between text-sm font-sans">
           <span className="text-sm text-slate-400">Statutory Framework</span>
           <a
             href={policy.sourceUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-asean-blue dark:text-asean-sky hover:underline font-bold inline-flex items-center gap-1 text-sm"
+            className="text-asean-blue dark:text-asean-sky hover:underline font-bold inline-flex items-center gap-1.5 text-sm"
           >
-            Official Document <ExternalLink className="h-3 w-3" />
+            Official Document <ExternalLink className="h-3.5 w-3.5" />
           </a>
         </div>
       )}

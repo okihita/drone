@@ -41,9 +41,9 @@ export default function ConsumerProtectionPage() {
         }
       />
 
-      <main className="flex-1 px-4 sm:px-6 lg:px-8 py-6">
-        <div className="max-w-7xl mx-auto space-y-6">
-          <h2 className="font-serif-editorial text-xl font-bold text-slate-900 dark:text-white">Country Consumer Protection Profiles</h2>
+      <main className="flex-1 px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
+        <div className="max-w-7xl mx-auto space-y-10 sm:space-y-12">
+          <h2 className="font-serif-editorial text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white">Country Consumer Protection Profiles</h2>
           <ConsumerProtectionClientShell policies={policies} />
         </div>
       </main>

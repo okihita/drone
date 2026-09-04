@@ -58,13 +58,13 @@ export default function PlatformLaborWatchdogView() {
         }
       />
 
-      <main className="flex-1 px-4 sm:px-6 lg:px-8 py-8 font-sans">
-        <div className="max-w-7xl mx-auto space-y-10">
+      <main className="flex-1 px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20 font-sans">
+        <div className="max-w-7xl mx-auto space-y-12 sm:space-y-16">
 
           {/* Critical Labor Rights Callout */}
-          <div className="p-5 rounded-2xl bg-asean-red/10 border border-asean-red/30 text-slate-900 dark:text-white flex items-start gap-4 text-sm font-sans">
+          <div className="p-6 sm:p-8 rounded-3xl bg-asean-red/10 border border-asean-red/30 text-slate-900 dark:text-white flex items-start gap-4 text-sm font-sans">
             <ShieldAlert className="w-6 h-6 text-asean-red shrink-0 mt-0.5" />
-            <div className="space-y-1">
+            <div className="space-y-1.5">
               <h4 className="font-bold text-sm text-asean-red uppercase tracking-wider">
                 Systemic Regulatory Gap: The &quot;Partner&quot; Misclassification Loophole
               </h4>
@@ -75,7 +75,7 @@ export default function PlatformLaborWatchdogView() {
           </div>
 
           {/* Platform Scorecard Workspace */}
-          <section className="space-y-6">
+          <section className="space-y-8 sm:space-y-10">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div>
                 <h3 className="font-serif-editorial text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white">
@@ -91,7 +91,7 @@ export default function PlatformLaborWatchdogView() {
             </div>
 
             {/* Platform Selector Buttons */}
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-3 sm:gap-4">
               {PLATFORM_PROFILES.map((p) => {
                 const isSelected = p.id === selectedPlatformId;
                 return (
@@ -99,7 +99,7 @@ export default function PlatformLaborWatchdogView() {
                     key={p.id}
                     type="button"
                     onClick={() => setSelectedPlatformId(p.id)}
-                    className={`flex items-center gap-2.5 px-4 py-2.5 rounded-xl font-bold text-sm transition-all cursor-pointer ${
+                    className={`flex items-center gap-2.5 px-4.5 py-3 rounded-2xl font-bold text-sm transition-all cursor-pointer ${
                       isSelected
                         ? "bg-slate-900 dark:bg-white text-white dark:text-slate-900 shadow-md scale-[1.02]"
                         : "bg-slate-100 dark:bg-slate-800/80 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700"
@@ -107,7 +107,7 @@ export default function PlatformLaborWatchdogView() {
                   >
                     <span>{p.name}</span>
                     <span
-                      className={`text-sm px-2 py-0.5 rounded-md font-extrabold ${
+                      className={`text-sm px-2.5 py-0.5 rounded-md font-extrabold ${
                         p.fairworkScore >= 3
                           ? "bg-asean-yellow/20 text-asean-amber dark:text-asean-yellow"
                           : "bg-asean-red/20 text-asean-red"
@@ -125,7 +125,7 @@ export default function PlatformLaborWatchdogView() {
           </section>
 
           {/* Deep-Dive: 3 Core Algorithmic Dispatch Mechanics */}
-          <section className="space-y-6">
+          <section className="space-y-8 sm:space-y-10">
             <div>
               <h3 className="font-serif-editorial text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white">
                 Mechanisms of Algorithmic Exploitation
@@ -135,15 +135,15 @@ export default function PlatformLaborWatchdogView() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
               {DISPATCH_EXPLAINERS.map((card, idx) => {
                 const IconComponent = DISPATCH_ICONS[idx] ?? DollarSign;
                 return (
                   <div
                     key={card.title}
-                    className={`p-6 rounded-2xl border ${card.borderColor} ${card.bgClass} space-y-3 font-sans`}
+                    className={`p-8 sm:p-9 rounded-3xl border border-slate-200/70 dark:border-slate-800/80 ${card.borderColor} ${card.bgClass} space-y-4 font-sans`}
                   >
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-3.5">
                       <IconComponent className={`w-6 h-6 ${card.color} shrink-0`} />
                       <div>
                         <h4 className="font-bold text-base text-slate-900 dark:text-white leading-snug">
@@ -164,8 +164,8 @@ export default function PlatformLaborWatchdogView() {
           </section>
 
           {/* Whistleblower & Gig Worker Evidence Intake Banner */}
-          <div className="p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-slate-900 to-slate-950 text-white border border-slate-800 shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-6">
-            <div className="space-y-2 max-w-2xl">
+          <div className="p-8 sm:p-12 rounded-3xl bg-gradient-to-br from-slate-900 to-slate-950 text-white border border-slate-800/80 shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-8">
+            <div className="space-y-3 max-w-2xl">
               <div className="flex items-center gap-2 text-asean-yellow font-bold text-sm uppercase tracking-wider">
                 <Send className="w-4 h-4" /> DRONE Whistleblower &amp; Worker Evidence Hotline
               </div>
@@ -178,7 +178,7 @@ export default function PlatformLaborWatchdogView() {
             </div>
             <Link
               href="/leaks"
-              className="shrink-0 inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-asean-red hover:bg-asean-red/90 text-white font-bold text-sm transition-all hover:scale-105 shadow-lg shadow-asean-red/20"
+              className="shrink-0 inline-flex items-center gap-2 px-6 py-4 rounded-2xl bg-asean-red hover:bg-asean-red/90 text-white font-bold text-sm transition-all hover:scale-105 shadow-lg shadow-asean-red/20"
             >
               <span>Submit Worker Evidence (Leaks)</span>
               <ChevronRight className="w-4 h-4" />
@@ -186,28 +186,28 @@ export default function PlatformLaborWatchdogView() {
           </div>
 
           {/* Grassroots Worker Solidarity Directory */}
-          <section className="space-y-4">
+          <section className="space-y-8 sm:space-y-10">
             <div className="flex items-center justify-between">
-              <h3 className="font-serif-editorial text-2xl font-bold text-slate-900 dark:text-white">
+              <h3 className="font-serif-editorial text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white">
                 Regional Worker Alliances &amp; Watchdog Networks
               </h3>
               <span className="text-sm text-slate-500">Civil Society Partners</span>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
               {ADVOCACY_ORGANIZATIONS.map((org) => (
                 <div
                   key={org.name}
-                  className="p-4 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-2"
+                  className="p-6 sm:p-7 rounded-3xl bg-slate-50/70 dark:bg-slate-900 border border-slate-200/70 dark:border-slate-800/80 space-y-3"
                 >
                   <div className="flex items-center justify-between">
                     <span className="font-bold text-sm text-slate-900 dark:text-white">{org.name}</span>
-                    <span className="text-sm px-2 py-0.5 rounded bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-semibold">
+                    <span className="text-sm px-2.5 py-0.5 rounded-md bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-semibold">
                       {org.region}
                     </span>
                   </div>
                   <span className="block text-sm text-asean-blue font-bold">{org.focus}</span>
-                  <p className="text-sm text-slate-600 dark:text-slate-400 leading-snug">
+                  <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
                     {org.action}
                   </p>
                 </div>
