@@ -8,7 +8,7 @@ import type { GeoCountryData } from "@/lib/aseanGeo";
 function HeroSkeleton() {
   return (
     <section
-      className="relative flex w-full flex-col overflow-hidden border-b border-slate-200 bg-slate-50 dark:border-slate-800 dark:bg-slate-950 py-16"
+      className="relative flex w-full flex-col overflow-hidden border-b border-slate-200/70 bg-slate-50 dark:border-slate-800/80 dark:bg-slate-950 py-16 sm:py-20 lg:py-24"
       aria-busy="true"
       aria-label="Loading observatory"
     >

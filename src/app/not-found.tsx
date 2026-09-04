@@ -38,7 +38,7 @@ export default function NotFound() {
               <ArrowRight className="w-4 h-4" />
             </Link>
             <Link
-              href="/investigations"
+              href="/accountability/investigations"
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors"
             >
               Browse Investigations
@@ -47,17 +47,23 @@ export default function NotFound() {
 
           {/* Secondary links */}
           <div className="mt-12 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-slate-400 dark:text-slate-500">
-            <Link href="/ledger" className="hover:text-slate-600 dark:hover:text-slate-300 transition-colors">
-              Policy Ledger
+            <Link href="/governance" className="hover:text-slate-600 dark:hover:text-slate-300 transition-colors">
+              Data &amp; AI Governance
+            </Link>
+            <Link href="/trade" className="hover:text-slate-600 dark:hover:text-slate-300 transition-colors">
+              Digital Trade
+            </Link>
+            <Link href="/accountability" className="hover:text-slate-600 dark:hover:text-slate-300 transition-colors">
+              Platform Accountability
             </Link>
             <Link href="/observatory" className="hover:text-slate-600 dark:hover:text-slate-300 transition-colors">
               Observatory
             </Link>
-            <Link href="/defa/chapters" className="hover:text-slate-600 dark:hover:text-slate-300 transition-colors">
-              DEFA
+            <Link href="/ledger" className="hover:text-slate-600 dark:hover:text-slate-300 transition-colors">
+              Policy Ledger
             </Link>
-            <Link href="/d2d/benchmark" className="hover:text-slate-600 dark:hover:text-slate-300 transition-colors">
-              Digital 2 Dozen
+            <Link href="/leaks" className="hover:text-slate-600 dark:hover:text-slate-300 transition-colors">
+              Leaks
             </Link>
           </div>
         </div>

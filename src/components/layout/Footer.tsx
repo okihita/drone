@@ -31,7 +31,7 @@ export default function Footer() {
           </Link>
 
           <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed max-w-lg font-sans">
-            <strong>D.R.O.N.E. — Digital Rights Oversight &amp; Network Evaluator</strong> is an independent policy intelligence platform developed by <strong>EngageMedia</strong>. It monitors ASEAN digital trade frameworks, legal scrubbing, cross-border data transfer laws, and algorithmic governance threats.
+            <strong>DRONE — Digital Rights Oversight &amp; Network Evaluator</strong> is an independent policy intelligence platform developed by <strong>EngageMedia</strong>. It monitors ASEAN digital trade frameworks, legal scrubbing, cross-border data transfer laws, and algorithmic governance threats.
           </p>
 
           <div className="flex items-center gap-3 text-sm text-slate-500 dark:text-slate-400 font-sans">
@@ -45,10 +45,12 @@ export default function Footer() {
             Research Modules
           </h4>
           <ul className="space-y-2 text-sm text-slate-600 dark:text-slate-400 font-sans">
-            <li><Link href="/investigations" className="hover:text-asean-yellow transition-colors">Featured DEFA Investigation</Link></li>
-            <li><Link href="/observatory" className="hover:text-asean-yellow transition-colors">ASEAN Jurisdiction Map &amp; Dossiers</Link></li>
-            <li><Link href="/ledger" className="hover:text-asean-yellow transition-colors">Verified Policy Ledger &amp; Table</Link></li>
-            <li><Link href="/intake" className="hover:text-asean-yellow transition-colors">Encrypted Dossier Intake</Link></li>
+            <li><Link href="/governance" className="hover:text-asean-yellow transition-colors">Data &amp; AI Governance</Link></li>
+            <li><Link href="/trade" className="hover:text-asean-yellow transition-colors">Digital Trade Agreements</Link></li>
+            <li><Link href="/accountability" className="hover:text-asean-yellow transition-colors">Platform Accountability</Link></li>
+            <li><Link href="/observatory" className="hover:text-asean-yellow transition-colors">Jurisdiction Observatory</Link></li>
+            <li><Link href="/ledger" className="hover:text-asean-yellow transition-colors">Verified Policy Ledger</Link></li>
+            <li><Link href="/leaks" className="hover:text-asean-yellow transition-colors">Encrypted Leaks Portal</Link></li>
           </ul>
         </div>
 
